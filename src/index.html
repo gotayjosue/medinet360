@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+  </style>
   <title>Inicio | Medinet360</title>
   <link rel="stylesheet" href="/css/index.css">
   <script src="/js/index.js" defer></script>
@@ -21,36 +24,36 @@
     <button id="menuButton"></button>
     <button id="signInButton">Sign In</button>
   </header>
-  <img class="homeHero" src="" alt="Home Hero Page">
+  <img class="homeHero" src="/images/hero.png" alt="Home Hero Page">
   <h1>Welcome to Medinet360</h1>
   <p>Your one-stop solution for all your medical needs.</p>
   <a class="startedButton" href="#"><button>Get Started</button></a>
   <main>
     <div class="patientsFeatures">
-      <img src="" alt="Add, update, and delete patient records">
+      <img src="/images/functions.png" alt="Add, update, and delete patient records">
       <h2>Add. Update. Delete</h2>
       <p></p>
       <a class="startedButton" href="#"><button>Get Started</button></a>
     </div>
 
     <div class="appointmentsFeatures">
-      <img src="" alt="Schedule and manage appointments">
       <h2>Schedule. Manage.</h2>
       <p></p>
+      <img src="/images/appointments.png" alt="Schedule and manage appointments">
       <a class="startedButton" href="#"><button>Get Started</button></a>
     </div>
 
     <div class="reportFeatures">
-      <img src="" alt="Generate and view medical reports">
+      <img src="/images/reports.png" alt="Generate and view medical reports">
       <h2>Generate. View.</h2>
       <p></p>
       <a class="startedButton" href="#"><button>Get Started</button></a>
     </div>
 
     <div class="customFieldsFeatures">
-      <img src="" alt="Custom fields for patient records">
       <h2>Custom Fields</h2>
       <p>Add custom fields to patient records for more detailed information.</p>
+      <img src="/images/custom-fields.png" alt="Custom fields for patient records">
       <a class="startedButton" href="#"><button>Get Started</button></a>
     </div>
 
@@ -62,8 +65,8 @@
   </main>
 
   <footer>
-    <img src="/img/logo.png" alt="Footer Logo" class="footerLogo">
-    <p>&copy; 2024 Medinet360. All rights reserved.</p>
+    <img src="/images/logo.png" alt="Footer Logo" class="footerLogo">
+    <p>&copy; <span id="currentYear"></span> Medinet360. All rights reserved.</p>
     <p>Privacy Policy</p>
     <p>Terms of Service</p>
     <div class="socialMedia">
