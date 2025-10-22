@@ -340,6 +340,12 @@ footer{
         width: 90%;
     }
 
+    .patientsFeatures,
+    .appointmentsFeatures,
+    .reportFeatures,
+    .customFieldsFeatures{
+        grid-template-rows: 200px 100px 250px;
+    }
     .pricingFeatures h2{
         font-size: 35px;
         line-height: 50px;
