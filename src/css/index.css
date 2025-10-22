@@ -88,6 +88,11 @@ nav.open{
     margin-top: 10px;
 }
 
+#signInButton:hover{
+    transition: 0.2s ease;
+    background-color: var(--secondary-color);
+}
+
 .homeHeroDiv{
     width: 100%;
 }
@@ -350,6 +355,18 @@ footer{
         justify-content: space-between;
         align-items: center;
         padding: 10px 20px;
+    }
+
+    .currentElement{
+        text-decoration: underline;
+    }
+
+    nav a:hover{
+        transition: 0.2s ease;
+        padding: 10px 15px;
+        background-color: var(--secondary-color);
+        color: white;
+        border-radius: 5px;
     }
 
     @keyframes upAndDown{
