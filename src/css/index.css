@@ -55,6 +55,10 @@ nav.open{
     opacity: 1; /* Totalmente visible */
 }
 
+.currentElement{
+        text-decoration: underline;
+}
+
 #menuButton {
     position: absolute;
     top: 0;
@@ -355,10 +359,6 @@ footer{
         justify-content: space-between;
         align-items: center;
         padding: 10px 20px;
-    }
-
-    .currentElement{
-        text-decoration: underline;
     }
 
     nav a:hover{
