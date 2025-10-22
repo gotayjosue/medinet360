@@ -6,6 +6,9 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
   </style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+  </style>
   <title>Inicio | Medinet360</title>
   <link rel="stylesheet" href="/css/index.css">
   <script src="/js/index.js" defer></script>
@@ -14,16 +17,26 @@
   <header>
     <img src="/images/logo.png" alt="Medinet360 logo" class="logo">
     <nav id="navigation">
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#services">Dashboard</a></li>
-        <li><a href="#about">Pricing</a></li>
-        <li><a href="#contact">FAQ</a></li>
-      </ul>
-      <button id="signInButton">Sign In</button>
+      <div class="ulContainer">
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Dashboard</a></li>
+          <li><a href="#about">Pricing</a></li>
+          <li><a href="#contact">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="signInContainer">
+        <button id="signInButton">Sign In</button>
+      </div>
     </nav>
     <button id="menuButton"></button>
   </header>
+    <div class="heroText">
+      <h1>Manage patient records effortlessly.</h1>
+      <p>Medinet360 helps healthcare professionals organize, track, and access patient data — all in one secure platform.</p>
+      <a class="startedButton" href="#"><button>Get Started</button></a>
+    </div>
+
   <div class="homeHeroDiv">
     <picture>
       <source media="(min-width: 1000px)" srcset="/images/hero-image-wide.png">
@@ -31,11 +44,7 @@
       <img src="/images/hero-image-small.png" alt="Medinet360 Hero image" width="500" height="667">
       </picture>
   </div>
-  <div class="heroText">
-    <h1>Welcome to Medinet360</h1>
-    <p>Your one-stop solution for all your medical needs.</p>
-    <a class="startedButton" href="#"><button>Get Started</button></a>
-  </div>
+
   <main>
     <div class="patientsFeatures">
       <img src="/images/functions.png" alt="Add, update, and delete patient records">
@@ -68,7 +77,7 @@
     <div class="pricingFeatures">
       <h2>Pricing plans</h2>
       <p>Choose a plan that fits your needs.</p>
-      <a class="startedButton" href="#"><button>Get Started</button></a>
+      <a class="startedButton" href="#"><button>See Plans</button></a>
     </div>
   </main>
 
