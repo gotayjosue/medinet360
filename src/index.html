@@ -20,25 +20,33 @@
         <li><a href="#about">Pricing</a></li>
         <li><a href="#contact">FAQ</a></li>
       </ul>
+      <button id="signInButton">Sign In</button>
     </nav>
     <button id="menuButton"></button>
-    <button id="signInButton">Sign In</button>
   </header>
-  <img class="homeHero" src="/images/hero.png" alt="Home Hero Page">
-  <h1>Welcome to Medinet360</h1>
-  <p>Your one-stop solution for all your medical needs.</p>
-  <a class="startedButton" href="#"><button>Get Started</button></a>
+  <div class="homeHeroDiv">
+    <picture>
+      <source media="(min-width: 1000px)" srcset="/images/hero-image-wide.png">
+      <source media="(min-width: 550px)" srcset="/images/hero-image-medium.png">
+      <img src="/images/hero-image-small.png" alt="Medinet360 Hero image" width="500" height="667">
+      </picture>
+  </div>
+  <div class="heroText">
+    <h1>Welcome to Medinet360</h1>
+    <p>Your one-stop solution for all your medical needs.</p>
+    <a class="startedButton" href="#"><button>Get Started</button></a>
+  </div>
   <main>
     <div class="patientsFeatures">
       <img src="/images/functions.png" alt="Add, update, and delete patient records">
       <h2>Add. Update. Delete</h2>
-      <p></p>
+      <p>Keep your patients’ information organized and always up to date. Easily add, update, or delete records while maintaining accurate medical histories. Streamline your workflow and focus on what truly matters — providing quality care to your patients.</p>
       <a class="startedButton" href="#"><button>Get Started</button></a>
     </div>
 
     <div class="appointmentsFeatures">
       <h2>Schedule. Manage.</h2>
-      <p></p>
+      <p>Schedule, view, and manage appointments in just a few clicks. With Medinet360’s calendar system, you can coordinate schedules, receive automated reminders, and prevent booking conflicts, ensuring a smooth and efficient patient experience.</p>
       <img src="/images/appointments.png" alt="Schedule and manage appointments">
       <a class="startedButton" href="#"><button>Get Started</button></a>
     </div>
@@ -46,13 +54,13 @@
     <div class="reportFeatures">
       <img src="/images/reports.png" alt="Generate and view medical reports">
       <h2>Generate. View.</h2>
-      <p></p>
+      <p>Gain clear insights into your clinic’s performance. Generate detailed reports on appointments, patients, and overall activity. Make informed decisions with easy-to-understand analytics and visual summaries.</p>
       <a class="startedButton" href="#"><button>Get Started</button></a>
     </div>
 
     <div class="customFieldsFeatures">
       <h2>Custom Fields</h2>
-      <p>Add custom fields to patient records for more detailed information.</p>
+      <p>Tailor the platform to fit your clinic’s specific needs. Create custom fields to record unique patient information and enhance your data management with details that truly support better medical care.</p>
       <img src="/images/custom-fields.png" alt="Custom fields for patient records">
       <a class="startedButton" href="#"><button>Get Started</button></a>
     </div>
@@ -66,13 +74,10 @@
 
   <footer>
     <img src="/images/logo.png" alt="Footer Logo" class="footerLogo">
-    <p>&copy; <span id="currentYear"></span> Medinet360. All rights reserved.</p>
-    <p>Privacy Policy</p>
-    <p>Terms of Service</p>
+    <p class="copyright">&copy; <span id="currentYear"></span> Medinet360. All rights reserved.</p>
     <div class="socialMedia">
-      <a href="#"><img src="/images/facebook-icon.png" alt="Facebook"></a>
-      <a href="#"><img src="/images/twitter-icon.png" alt="Twitter"></a>
-      <a href="#"><img src="/images/instagram-icon.png" alt="Instagram"></a>
+      <a href="#"><img src="/images/facebook-icon.webp" alt="Facebook"></a>
+      <a href="#"><img src="/images/instagram-icon.webp" alt="Instagram"></a>
     </div>
   </footer>
 </body>
