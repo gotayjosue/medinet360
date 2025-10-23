@@ -8,7 +8,9 @@ export default defineConfig({
     outDir: "../dist",
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "src/index.html")
+        main: resolve(__dirname, "src/index.html"),
+        faq: resolve(__dirname, "src/faq.html"),
+        pricing: resolve(__dirname, "src/pricing.html"),
       },
     },
   },
