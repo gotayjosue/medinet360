@@ -236,7 +236,6 @@ picture img{
     margin-top: 100px;
     text-align: center;
     padding-bottom: 100px;
-    border-bottom: solid 1px #ccc;
 }
 
 .customFieldsFeatures h2{
@@ -255,6 +254,36 @@ picture img{
 .customFieldsFeatures img{
     width: 400px;
     height: auto;
+    margin-top: 20px;
+}
+
+.assistantFeatures{
+    width: 100%;
+    text-align: center;
+    padding: 100px 0;
+    background-color: #cccccc1a;
+}
+
+.assistantFeatures h2{
+    color: var(--text-color);
+}
+
+.assistantFeatures p{
+    color: var(--text-color);
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 20px;
+    line-height: 30px;
+}
+
+.assistantFeatures img{
+    width: 400px;
+    height: auto;
+    margin-top: 20px;
+}
+
+.assistantFeatures button{
     margin-top: 20px;
 }
 
@@ -345,6 +374,10 @@ footer{
     .reportFeatures,
     .customFieldsFeatures{
         grid-template-rows: 200px 100px 250px;
+    }
+
+    .assistantFeatures{
+        grid-template-rows: 200px 200px 250px;
     }
     .pricingFeatures h2{
         font-size: 35px;
@@ -520,6 +553,37 @@ footer{
         grid-column: 1;
         font-size: 18px;
         line-height: 40px;
+    }
+
+    .assistantFeatures{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 50px;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .assistantFeatures img{
+        grid-column: 1;
+        grid-row: 1/4;
+        width: 100%;
+        animation: upAndDown 3s ease-in-out infinite;
+    }
+
+    .assistantFeatures h2{
+        grid-column: 2;
+        font-size: 35px;
+    }
+
+    .assistantFeatures p{
+        grid-column: 2;
+        font-size: 18px;
+        line-height: 40px;
+        
+    }
+
+    .assistantFeatures a{
+        grid-column: 2;
     }
 
     .pricingFeatures{
