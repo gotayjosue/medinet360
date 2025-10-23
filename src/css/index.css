@@ -369,6 +369,7 @@ footer{
         width: 90%;
     }
 
+    /*Features rows normalization*/
     .patientsFeatures,
     .appointmentsFeatures,
     .reportFeatures,
@@ -376,9 +377,11 @@ footer{
         grid-template-rows: 200px 100px 250px;
     }
 
+    /*Assistant Features rows normalization - for the image, it needed more customization*/
     .assistantFeatures{
         grid-template-rows: 200px 200px 250px;
     }
+
     .pricingFeatures h2{
         font-size: 35px;
         line-height: 50px;
