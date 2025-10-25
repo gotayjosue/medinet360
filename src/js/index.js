@@ -18,3 +18,19 @@ menuButton.addEventListener('click', () => {
     navMenu.classList.toggle('open');
     menuButton.classList.toggle('open');
 });
+
+//Sign In button function
+const signInButton = document.getElementById('signInButton');
+
+signInButton.addEventListener('click', () =>{
+    window.location.href = 'signIn.html';
+})
+
+//Sign Up button function
+const signUpButtons = document.querySelectorAll('.startedButton button');
+
+signUpButtons.forEach(button => {
+    button.addEventListener('click', () =>{
+        window.location.href = 'signUp.html';
+    });
+});
