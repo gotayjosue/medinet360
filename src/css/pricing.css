@@ -132,7 +132,6 @@ main{
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-
 .price {
     font-size: 32px;
     font-weight: bold;
