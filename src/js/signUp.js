@@ -5,6 +5,13 @@ const clinicName = document.getElementById('clinicName')
 const clinicId = document.getElementById('clinicId')
 const togglePassword = document.getElementById('togglePassword')
 const passwordInput = document.getElementById('password')
+const logo = document.querySelector('.logo');
+logo.style.cursor = 'pointer';
+
+// Redirect to homepage on logo click
+logo.addEventListener('click', () => {
+    window.location.href = 'index.html';
+});
 
 // Show/hide fields based on role selection
 roleSelect.addEventListener('change', (e) => {
