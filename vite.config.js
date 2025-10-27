@@ -18,6 +18,7 @@ export default defineConfig({
         dashboardPatients: resolve(__dirname, "src/dashboard/patients.html"),
         dashboardAppointments: resolve(__dirname, "src/dashboard/appointments.html"),
         dashboardAccount: resolve(__dirname, "src/dashboard/account.html"),
+        dashboardReports: resolve(__dirname, "src/dashboard/reports.html"),
       },
     },
   },
