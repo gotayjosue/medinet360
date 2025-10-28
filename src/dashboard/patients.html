@@ -19,7 +19,7 @@
     <link rel="manifest" href="/images/site.webmanifest">
     <link rel="stylesheet" href="../css/dashboardPatients.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module" src="../js/dashboardPatients.js"></script>
+    <script type="module" src="../js/dashboardPatients.js" defer></script>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -172,7 +172,7 @@
 
       <!-- Botón flotante con tooltip -->
   <div class="fixed bottom-6 right-6 group">
-    <button class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg transition-all duration-200 relative">
+    <button id="addPatientButton" class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg transition-all duration-200 relative">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -184,6 +184,70 @@
       Add Patient
     </span>
   </div>
+
+  <!--Formulario tipo modal-->
+<dialog id="patientFormModal" class="rounded-lg shadow-xl p-6 w-full max-w-md relative">
+  <!-- Close button -->
+  <button id="closeModalButton" type="button" class="absolute top-2 right-2 text-gray-400 hover:text-gray-500">
+    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  <form id="patientForm" action="" class="space-y-6">
+    <div class="space-y-2">
+      <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+      <input 
+        type="text" 
+        name="name" 
+        id="name" 
+        required
+        class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+      >
+    </div>
+
+    <div class="space-y-2">
+      <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+      <input 
+        type="email" 
+        name="email" 
+        id="email" 
+        required
+        class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+      >
+    </div>
+
+    <div class="space-y-2">
+      <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+      <input 
+        type="text" 
+        name="phone" 
+        id="phone" 
+        required
+        class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+      >
+    </div>
+
+    <div class="flex gap-4 pt-4">
+      <button 
+        id="addFieldsButton"
+        type="button" 
+        class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      >
+        Add Custom Fields 
+        <span class="ml-2">+</span>
+      </button>
+
+      <button 
+        id="createPatientButton"
+        type="submit" 
+        class="flex-1 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      >
+        Create Patient
+      </button>
+    </div>
+  </form>
+</dialog>
 
 </body>
 </html>

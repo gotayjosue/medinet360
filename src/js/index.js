@@ -1,3 +1,10 @@
+// Verifying the user sesion status
+import { checkAuth } from './utils.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+    checkAuth();
+});
+
 // Set the current year in the footer
 const currentYear = new Date().getFullYear();
 document.getElementById('currentYear').textContent = currentYear;
@@ -41,3 +48,5 @@ signUpButtons.forEach(button => {
         window.location.href = 'signUp.html';
     });
 });
+
+

@@ -1,3 +1,10 @@
+// Verifying the user sesion status
+import { checkAuth } from './utils.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+    checkAuth();
+});
+
 import { expandDetails } from './utils.js';
 // Set the current year in the footer
 const currentYear = new Date().getFullYear();
