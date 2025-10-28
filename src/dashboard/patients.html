@@ -107,51 +107,7 @@
       </div>
 
       <!-- Tarjetas -->
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- Tarjeta de paciente -->
-        <div class="bg-white rounded-2xl shadow p-4">
-          <div class="bg-gray-800 text-white p-4 rounded-t-xl flex items-center gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none"
-              viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 12c2.28 0 4-1.72 4-4s-1.72-4-4-4-4 1.72-4 4 1.72 4 4 4zM4 20v-1a4 4 0 014-4h8a4 4 0 014 4v1" />
-            </svg>
-            <div>
-              <p class="font-semibold">Sarah Johnson</p>
-              <p class="text-sm">40 years old</p>
-            </div>
-          </div>
-
-          <div class="p-4 space-y-2 text-sm">
-            <div class="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2v-7H3v7a2 2 0 002 2z" />
-              </svg>
-              <span><strong>Date of birth:</strong> 14/6/1985</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M3 5h2l3.6 7.59-1.35 2.45A1 1 0 008 17h8a1 1 0 00.89-.55l3-6A1 1 0 0019 9H5.21" />
-              </svg>
-              <span><strong>Phone:</strong> 3305-9315</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M16 12H8m0 0l-4-4m4 4l-4 4" />
-              </svg>
-              <span><strong>Email:</strong> sarah.johnson@email.com</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
+        <div id="patients-container" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
 
   <!-- Script para el menú móvil -->
   <script>
@@ -194,59 +150,81 @@
     </svg>
   </button>
 
-  <form id="patientForm" action="" class="space-y-6">
-    <div class="space-y-2">
-      <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-      <input 
-        type="text" 
-        name="name" 
-        id="name" 
-        required
-        class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-      >
-    </div>
+  <form id="patientForm" class="space-y-6">
+  <!-- Name -->
+  <div class="space-y-2">
+    <label for="name"
+           class="block text-sm font-medium text-gray-700">Name</label>
+    <input type="text"
+           name="name"
+           id="name"
+           required
+           class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+  </div>
 
-    <div class="space-y-2">
-      <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-      <input 
-        type="email" 
-        name="email" 
-        id="email" 
-        required
-        class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-      >
-    </div>
+  <!-- Last Name -->
+  <div class="space-y-2">
+    <label for="lastName"
+           class="block text-sm font-medium text-gray-700">Last Name</label>
+    <input type="text"
+           name="lastName"
+           id="lastName"
+           required
+           class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+  </div>
 
-    <div class="space-y-2">
-      <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
-      <input 
-        type="text" 
-        name="phone" 
-        id="phone" 
-        required
-        class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-      >
-    </div>
+  <!-- Birthday (date of birth) -->
+  <div class="space-y-2">
+    <label for="birthday"
+           class="block text-sm font-medium text-gray-700">Birthday</label>
+    <input type="date"
+           name="birthday"
+           id="birthday"
+           required
+           class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+  </div>
 
-    <div class="flex gap-4 pt-4">
-      <button 
-        id="addFieldsButton"
-        type="button" 
-        class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      >
-        Add Custom Fields 
-        <span class="ml-2">+</span>
-      </button>
+  <!-- Email -->
+  <div class="space-y-2">
+    <label for="email"
+           class="block text-sm font-medium text-gray-700">Email</label>
+    <input type="email"
+           name="email"
+           id="email"
+           required
+           class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+  </div>
 
-      <button 
-        id="createPatientButton"
-        type="submit" 
-        class="flex-1 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      >
-        Create Patient
-      </button>
-    </div>
-  </form>
+  <!-- Phone -->
+  <div class="space-y-2">
+    <label for="phone"
+           class="block text-sm font-medium text-gray-700">Phone</label>
+    <input type="text"
+           name="phone"
+           id="phone"
+           required
+           class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+  </div>
+
+  <!-- Custom fields -->
+  <div id="customFieldsContainer" class="space-y-4 pt-2"></div>
+
+  <!-- Buttons -->
+  <div class="flex gap-4 pt-4">
+    <button id="addFieldsButton"
+            type="button"
+            class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      Add Custom Fields <span class="ml-2">+</span>
+    </button>
+
+    <button id="createPatientButton"
+            type="submit"
+            class="flex-1 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      Create Patient
+    </button>
+  </div>
+</form>
+
 </dialog>
 
 </body>
