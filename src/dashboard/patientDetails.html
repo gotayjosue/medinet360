@@ -19,7 +19,7 @@
     <link rel="manifest" href="/images/site.webmanifest">
     <link rel="stylesheet" href="../css/dashboardPatients.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module" src="../js/dashboardPatients.js" defer></script>
+    <script type="module" src="../js/patientDetails.js" defer></script>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -32,7 +32,7 @@
           d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
-    <h1 class="font-semibold text-lg">Patients</h1>
+    <h1 class="font-semibold text-lg">Patient Details</h1>
   </header>
 
   <!-- Contenedor principal -->
@@ -107,7 +107,11 @@
       </div>
 
       <!-- Tarjetas -->
-        <div id="patients-container" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+        <h1 id="patientName"></h1>
+        <p id="patientEmail"></p>
+        <p id="patientPhone"></p>
+        <p id="patientBirthday"></p>
+        <div id="patientCustomFields"></div>
 
   <!-- Script para el menú móvil -->
   <script>
@@ -204,20 +208,6 @@
            id="phone"
            required
            class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-  </div>
-
-  <!-- Gender -->
-  <div class="space-y-2">
-    <label for="birthday"
-           class="block text-sm font-medium text-gray-700">Gender</label>
-    <select name="gender" 
-            id="gender"
-            required
-            class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-            <option value="" selected disabled hidden>Select a gender</option>
-            <option value="female">Female</option>
-            <option value="male">Male</option>
-    </select>
   </div>
 
   <!-- Custom fields -->

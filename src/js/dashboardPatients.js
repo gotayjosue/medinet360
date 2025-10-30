@@ -88,7 +88,6 @@ patientForm.addEventListener('submit', async (e) => {
 
   /* 1️⃣ Validar token en storage */
   const token = localStorage.getItem('authToken');
-  console.log('[frontend] authToken from localStorage:', token);
   if (!token) {
     alert('Authentication required. Please sign in again.');
     window.location.href = '../signIn.html';
@@ -102,8 +101,46 @@ patientForm.addEventListener('submit', async (e) => {
     email: document.getElementById('email').value.trim(),
     phone: document.getElementById('phone').value.trim(),
     birthday: document.getElementById('birthday').value.trim(),
+    gender: document.getElementById('gender').value.trim(),
     customFields: []
   };
+
+    /* --- Validar custom fields --- */
+  let hasError = false;
+  document.querySelectorAll('.custom-field-group').forEach(group => {
+    const fieldNameInput = group.querySelector('.custom-field-name');
+    const valueInput = group.querySelector('.custom-field-value');
+
+    const fieldName = fieldNameInput?.value.trim();
+    const value = valueInput?.value.trim();
+
+    // Si hay valor pero no nombre → error
+    if (value && !fieldName) {
+      hasError = true;
+      // marcar visualmente
+      fieldNameInput.classList.add('border-red-500', 'ring-1', 'ring-red-400');
+      // mensaje inline
+      if (!group.querySelector('.field-error')) {
+        const err = document.createElement('p');
+        err.className = 'field-error text-sm text-red-600 mt-1';
+        err.textContent = "The field's name is required when the input is filled";
+        group.appendChild(err);
+      }
+    }
+
+    // Si ambos están completos, guardarlos
+    if (fieldName && value) {
+      formData.customFields.push({ fieldName, value });
+    }
+  });
+
+  if (hasError) {
+    showToast('Complete the marked custom fields.', 'error');
+    // Enfocar el primer input con error
+    const firstError = document.querySelector('.custom-field-name.border-red-500');
+    if (firstError) firstError.focus();
+    return; // detiene el envío
+  }
 
   /* Añadir campos personalizados */
   document.querySelectorAll('.custom-field-group').forEach(group => {
@@ -129,24 +166,23 @@ patientForm.addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (!response.ok) {
-      // Si el backend devuelve { error: "..."} → usar ese mensaje
-      console.error('[API error]', data);
-      throw new Error(data.error || data.message || 'Failed to create patient');
+      // Si el backend devuelve { errors: [...] }
+      if (data.errors && Array.isArray(data.errors)) {
+        const msgs = data.errors.map(e => e.msg).join('<br>');
+        showToast(msgs, 'error');   // showToast debe aceptar HTML
+      } else {
+        throw new Error(data.error || data.message || 'Failed to create patient');
+      }
+    } else {
+      showToast('Patient created successfully!', 'success');
+      patientForm.reset();
+      patientModal.close();
     }
-
-    console.log('✅ Success:', data);
-
-    /* Limpiar formulario y UI */
-    patientForm.reset();
-    if (typeof patientModal !== 'undefined') patientModal.close();
-    showToast('Patient created successfully!', 'success');
-
-  } catch (error) {
-    console.error('❌ Error:', error);
-    showToast(error.message || 'Error creating patient', 'error');
+  } catch (err) {
+    console.error('❌ Error:', err);
+    showToast(err.message || 'Error creating patient', 'error');
   }
 });
-
 
 
 /* ------------- 1️⃣  Función que carga pacientes ------------- */
@@ -175,7 +211,7 @@ async function loadPatients() {
     const data = await res.json();          // <-- [{...},{...}]
     // Si tu API envía { patients: [...] } cambia a data.patients
     const patientsArray = Array.isArray(data) ? data : data.patients;
-
+    console.log(data)
     renderPatients(patientsArray);
   } catch (err) {
     console.error('🔥Error al cargar pacientes:', err);
@@ -214,14 +250,29 @@ function renderPatients(patients) {
     const age = p.age ?? getAgeFromDOB(p.dateOfBirth ?? p.dob ?? '');
     const dobFormatted = formatDate(p.birthday ?? p.dob ?? '');
 
+    // SVGs for gender
+    const maleSvg = `
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none"
+        viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M12 12c2.28 0 4-1.72 4-4s-1.72-4-4-4-4 1.72-4 4 1.72 4 4 4zM4 20v-1a4 4 0 014-4h8a4 4 0 014 4v1" />
+      </svg>`;
+
+    const femaleSvg = `
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none"
+        viewBox="0 0 24 24" stroke="currentColor">
+        <circle cx="12" cy="7" r="3" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M7 20l5-8 5 8" />
+      </svg>`;
+
+    const genderIcon = (p.gender && p.gender.toLowerCase() === 'female') ? femaleSvg : maleSvg;
+
+
     return `
-      <div class="bg-white rounded-2xl shadow p-4">
+      <div class="patient-card bg-white rounded-2xl shadow p-4" data-id="${p._id}">
         <div class="bg-gray-800 text-white p-4 rounded-t-xl flex items-center gap-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 12c2.28 0 4-1.72 4-4s-1.72-4-4-4-4 1.72-4 4 1.72 4 4 4zM4 20v-1a4 4 0 014-4h8a4 4 0 014 4v1" />
-          </svg>
+          ${genderIcon}
           <div>
             <p class="font-semibold">${p.name ?? 'Name Undefined'} ${p.lastName}</p>
             <p class="text-sm">${age} años</p>
@@ -259,10 +310,25 @@ function renderPatients(patients) {
   }).join('');
 
   container.innerHTML = cardsHTML;
+
+  const patientCards = container.querySelectorAll('.patient-card')
+  
+  patientCards.forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => {
+      const id = card.dataset.id;
+      window.location.href = `patientDetails.html?id=${id}`;
+    })
+  })
+
+  
 }
 
 /* ------------- 3️⃣  Ejecutar cuando el DOM esté listo ------------- */
 document.addEventListener('DOMContentLoaded', () => {
   loadPatients();
 });
+
+
+
 
