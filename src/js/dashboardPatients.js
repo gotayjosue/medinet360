@@ -4,11 +4,6 @@ import { checkAuth, requireAuth } from './utils.js';
 //Importing the alert container function from utils.js
 import { showToast } from './utils.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    checkAuth();
-    requireAuth();
-});
-
 //Logo redirection function
 const logo = document.querySelector('.logo');
 logo.style.cursor = 'pointer'
@@ -38,6 +33,10 @@ const patientForm = document.getElementById('patientForm');
 
 // Counter para generar IDs únicos
 let customFieldCount = 0;
+
+//Lista de pacientes del backend
+
+let allPatients = []
 
 // -------------------------------
 // ADD CUSTOM FIELDS
@@ -210,9 +209,9 @@ async function loadPatients() {
     // 2. La API devuelve un array de pacientes
     const data = await res.json();          // <-- [{...},{...}]
     // Si tu API envía { patients: [...] } cambia a data.patients
-    const patientsArray = Array.isArray(data) ? data : data.patients;
+    allPatients = Array.isArray(data) ? data : data.patients;
     console.log(data)
-    renderPatients(patientsArray);
+    renderPatients(allPatients);
   } catch (err) {
     console.error('🔥Error al cargar pacientes:', err);
   }
@@ -324,10 +323,38 @@ function renderPatients(patients) {
   
 }
 
-/* ------------- 3️⃣  Ejecutar cuando el DOM esté listo ------------- */
+// Search patients functions
+function searchPatients(query){
+      if(query === ''){
+          renderPatients(allPatients)
+          return
+      }
+      const q = query.trim().toLowerCase();
+
+      const filteredPatients = allPatients.filter(p => {
+          const fullName = `${p.name ?? ''} ${p.lastName ?? ''}`.toLowerCase();
+          return fullName.includes(q);
+      });
+
+      renderPatients(filteredPatients)
+    }
+
+    const searchBar = document.getElementById('searchBar')
+
+    searchBar.addEventListener('input', () => {
+      const searchTerm = searchBar.value.trim();
+      searchPatients(searchTerm)
+    })
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
-  loadPatients();
+    checkAuth();
+    requireAuth();
+    loadPatients();
 });
+
 
 
 

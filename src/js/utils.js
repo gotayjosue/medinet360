@@ -61,13 +61,12 @@ export async function handleLogout() {
     try {
         localStorage.removeItem('authToken');
         localStorage.removeItem('currentUser');
-        window.location.href = 'index.html';
+        window.location.href = 'index.html';  
+        showToast("Logout successfuly", "success", 4000)
     } catch (error) {
         console.error('Error during logout:', error);
         localStorage.clear();
-        showToast("Logout successfuly")
         window.location.href = 'index.html';
-        
     }
 }
 
@@ -75,8 +74,11 @@ export async function handleLogout() {
 export function requireAuth() {
     const token = localStorage.getItem('authToken');
     if (!token) {
-        showToast("You must be logged in")
-        window.location.href = '/signIn.html';
+        showToast("You must be logged in", "error")
+        setTimeout(() => {
+          window.location.href = '/signIn.html';
+        }, 900);
+        
     }
 }
 
