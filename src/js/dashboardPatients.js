@@ -101,6 +101,7 @@ patientForm.addEventListener('submit', async (e) => {
     phone: document.getElementById('phone').value.trim(),
     birthday: document.getElementById('birthday').value.trim(),
     gender: document.getElementById('gender').value.trim(),
+    notes: document.getElementById('notes').value.trim(),
     customFields: []
   };
 
@@ -140,15 +141,6 @@ patientForm.addEventListener('submit', async (e) => {
     if (firstError) firstError.focus();
     return; // detiene el envío
   }
-
-  /* Añadir campos personalizados */
-  document.querySelectorAll('.custom-field-group').forEach(group => {
-    const fieldName = group.querySelector('.custom-field-name')?.value.trim();
-    const value = group.querySelector('.custom-field-value')?.value.trim();
-    if (fieldName && value) {
-      formData.customFields.push({ fieldName, value });
-    }
-  });
 
   /* 3️⃣ Enviar POST con JWT */
   try {

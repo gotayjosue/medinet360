@@ -17,7 +17,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="manifest" href="/images/site.webmanifest">
-    <link rel="stylesheet" href="../css/dashboardPatients.css">
+    <link rel="stylesheet" href="../css/patientDetails.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" src="../js/patientDetails.js" defer></script>
 </head>
@@ -106,12 +106,36 @@
         </div>
       </div>
 
-      <!-- Tarjetas -->
-        <h1 id="patientName"></h1>
-        <p id="patientEmail"></p>
-        <p id="patientPhone"></p>
-        <p id="patientBirthday"></p>
-        <div id="patientCustomFields"></div>
+
+        <div id="patientDetails">      
+
+          <div id="patientImage"></div>
+
+          <h1 id="patientName"></h1>
+
+          <p id="patientNotes"></p>
+
+          <p class="patientEmail"><strong>Patient Email:</strong></p>
+          <p id="patientEmail"></p>
+          <hr>
+
+          <p class="patientPhone"><strong>Patient Phone:</strong></p>
+          <p id="patientPhone"></p>
+          <hr>
+
+          <p class="patientAge"><strong>Patient Age:</strong></p>
+          <p id="patientAge"></p>
+          <hr>
+
+          <p class="patientBirthday"><strong>Patient Birthday:</strong></p>
+          <p id="patientBirthday"></p>
+          <hr>
+
+          <p class="patientGender"><strong>Patient Gender:</strong></p>
+          <p id="patientGender"></p>
+          <hr>
+          <div id="patientCustomFields"></div>
+        </div>
 
   <!-- Script para el menú móvil -->
   <script>
