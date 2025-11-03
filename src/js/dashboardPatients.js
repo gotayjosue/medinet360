@@ -1,5 +1,5 @@
 // Verifying the user sesion status
-import { checkAuth, requireAuth } from './utils.js';
+import { checkAuth, requireAuth, formatDate, getAgeFromDOB } from './utils.js';
 
 //Importing the alert container function from utils.js
 import { showToast } from './utils.js';
@@ -219,27 +219,11 @@ function renderPatients(patients) {
     return;
   }
 
-  // Función auxiliar para calcular edad a partir de la fecha de nacimiento
-  const getAgeFromDOB = (dobStr) => {
-    const birth = new Date(dobStr);
-    const ageDifMs = Date.now() - birth.getTime();
-    const ageDate = new Date(ageDifMs); // milisegundos desde epoch
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
-  };
-
-  // Función auxiliar para formatear la fecha (dd/mm/yyyy)
-  const formatDate = (dateStr) => {
-    const d = new Date(dateStr);
-    const dd = String(d.getDate()).padStart(2, '0');
-    const mm = String(d.getMonth() + 1).padStart(2, '0');
-    const yyyy = d.getFullYear();
-    return `${dd}/${mm}/${yyyy}`;
-  };
 
   const cardsHTML = patients.map(p => {
 
-    const age = p.age ?? getAgeFromDOB(p.dateOfBirth ?? p.dob ?? '');
-    const dobFormatted = formatDate(p.birthday ?? p.dob ?? '');
+    const age = getAgeFromDOB(p.birthday ?? 'Null');
+    const dobFormatted = formatDate(p.birthday ?? 'Null');
 
     // SVGs for gender
     const maleSvg = `

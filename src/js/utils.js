@@ -142,3 +142,78 @@ export function showToast(message, type = 'info', duration = 4000) {
   }, duration);
   return toast;
 }
+
+// ...existing code...
+export function formatDateForInput(dateStr) {
+  // Normaliza nulos
+  if (!dateStr) return '';
+
+  // Si es un objeto Date
+  if (dateStr instanceof Date) {
+    if (isNaN(dateStr.getTime())) return '';
+    return dateStr.toISOString().split('T')[0];
+  }
+
+  // Si es string, intentar parsear con Date y devolver YYYY-MM-DD
+  try {
+    // Maneja ISO, "Wed Nov 18 1998 ..." y otros formatos
+    const parsed = new Date(dateStr);
+    if (isNaN(parsed.getTime())) return '';
+    return parsed.toISOString().split('T')[0];
+  } catch (err) {
+    return '';
+  }
+}
+
+
+// Función auxiliar para formatear la fecha (dd/mm/yyyy) SIN offset
+export function formatDate(dateStr) {
+  if (!dateStr) return 'N/D';
+  
+  // Si ya es string YYYY-MM-DD, parsear directamente
+  if (typeof dateStr === 'string' && dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
+    const [year, month, day] = dateStr.split('-');
+    return `${day}/${month}/${year}`; // "17/11/1998"
+  }
+  
+  // Fallback para otros formatos (Date objects, ISO strings, etc.)
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return 'N/D';
+  
+  const dd = String(d.getDate()).padStart(2, '0');
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const yyyy = d.getFullYear();
+  return `${dd}/${mm}/${yyyy}`;
+};
+
+//Function to calculate the age
+
+export function getAgeFromDOB (dobStr) {
+  if (!dobStr) return null;
+  
+  // Si es string YYYY-MM-DD, calcular edad sin offset
+  if (typeof dobStr === 'string' && dobStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
+    const [year, month, day] = dobStr.split('-').map(Number);
+    const today = new Date();
+    let age = today.getFullYear() - year;
+    const m = today.getMonth() + 1 - month;
+    
+    if (m < 0 || (m === 0 && today.getDate() < day)) {
+      age--;
+    }
+    return age;
+  }
+  
+  // Fallback para otros formatos
+  const birth = new Date(dobStr);
+  if (isNaN(birth.getTime())) return null;
+  
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  const m = today.getMonth() - birth.getMonth();
+  
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+    age--;
+  }
+  return age;
+};
