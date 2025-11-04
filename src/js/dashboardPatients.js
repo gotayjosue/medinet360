@@ -144,7 +144,7 @@ patientForm.addEventListener('submit', async (e) => {
 
   /* 3️⃣ Enviar POST con JWT */
   try {
-    const response = await fetch('https://medinet360-api.onrender.com/api/patients', {
+    const response = await fetch('https://medinet360api.vercel.app/api/patients', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -186,7 +186,7 @@ async function loadPatients() {
   }
 
   try {
-    const res = await fetch('https://medinet360-api.onrender.com/api/patients', {
+    const res = await fetch('https://medinet360api.vercel.app/api/patients', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -202,7 +202,6 @@ async function loadPatients() {
     const data = await res.json();          // <-- [{...},{...}]
     // Si tu API envía { patients: [...] } cambia a data.patients
     allPatients = Array.isArray(data) ? data : data.patients;
-    console.log(data)
     renderPatients(allPatients);
   } catch (err) {
     console.error('🔥Error al cargar pacientes:', err);

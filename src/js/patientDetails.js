@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    const res = await fetch(`https://medinet360-api.onrender.com/api/patients/${id}`, {
+    const res = await fetch(`https://medinet360api.vercel.app/api/patients/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
@@ -285,7 +285,7 @@ updatePatientForm.addEventListener('submit', async (e) => {
   }
 
   try {
-    const response = await fetch(`https://medinet360-api.onrender.com/api/patients/${currentPatientId}`, {
+    const response = await fetch(`https://medinet360api.vercel.app/api/patients/${currentPatientId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -325,7 +325,7 @@ deleteButton.addEventListener('click', async () => {
   }
 
   try {
-    const response = await fetch(`https://medinet360-api.onrender.com/api/patients/${currentPatientId}`, {
+    const response = await fetch(`https://medinet360api.vercel.app/api/patients/${currentPatientId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
