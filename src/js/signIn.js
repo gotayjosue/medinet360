@@ -10,6 +10,8 @@ logo.addEventListener('click', () => {
 
 const form = document.querySelector('.signInForm');
 const submitBtn = form.querySelector('.submitButton');
+const togglePassword = document.getElementById('togglePassword')
+const passwordInput = document.getElementById('password')
 
 
 
@@ -73,4 +75,10 @@ export function authFetch(url, options = {}) {
   if (token) headers.Authorization = `Bearer ${token}`;
   return fetch(url, { ...options, headers });
 }
-// ...existing code...
+
+// Toggle password visibility
+togglePassword.addEventListener('click', () => {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password'
+    passwordInput.setAttribute('type', type)
+    togglePassword.src = type === 'password' ? '/images/eye-closed.png' : '/images/eye-open.png'
+})
