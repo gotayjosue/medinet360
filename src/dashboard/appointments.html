@@ -153,21 +153,67 @@
 
     <!-- Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <!-- Left side -->
+            <!-- Left side -->
       <div class="lg:col-span-2 space-y-6">
-        <div class="bg-white rounded-lg p-4 border">
-          <h2 class="text-lg font-semibold mb-2">Citas de Hoy</h2>
-          <p class="text-gray-500 text-sm">No hay citas para hoy</p>
+        <!-- Citas de Hoy -->
+        <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+          <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+            <h2 class="text-lg font-semibold text-gray-900">Citas de Hoy</h2>
+          </div>
+          
+          <div id="todayAppointmentsContainer" class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b border-gray-200 bg-gray-50">
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Paciente</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Hora</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Duración</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Estado</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="todayAppointmentsBody" class="divide-y divide-gray-200">
+                <tr>
+                  <td colspan="5" class="px-6 py-8 text-center text-gray-500 text-sm">
+                    No hay citas para hoy
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        <div class="bg-white rounded-lg p-4 border">
-          <h2 class="text-lg font-semibold mb-2">Próximas Citas</h2>
-          <p class="text-gray-500 text-sm">No hay citas próximas</p>
+        <!-- Próximas Citas -->
+        <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+          <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+            <h2 class="text-lg font-semibold text-gray-900">Próximas Citas</h2>
+          </div>
+          
+          <div id="upcomingAppointmentsContainer" class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b border-gray-200 bg-gray-50">
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Paciente</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Fecha</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Hora</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Estado</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="upcomingAppointmentsBody" class="divide-y divide-gray-200">
+                <tr>
+                  <td colspan="5" class="px-6 py-8 text-center text-gray-500 text-sm">
+                    No hay citas próximas
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <!-- Right side -->
-      <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+      <div id="rightSide" class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-blue-600 mx-auto mb-3"
           fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round"
@@ -190,43 +236,44 @@
             </button>
         </div>
 
+        <!-- Appointment form -->
+
         <form id="appointmentForm" action="#" method="POST">
             <div class="grid grid-cols-2 gap-6">
 
                 <div class="col-span-2">
-                    <label for="patientSelect" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="patientId" class="block text-sm font-medium text-gray-700 mb-1">
                         Paciente <span class="text-red-500">*</span>
                     </label>
-                    <select id="patientSelect" name="paciente" placeholder="Selecciona un paciente...">
-
+                    <select id="patientSelect" name="patientId" placeholder="Selecciona un paciente...">
                     </select>
                 </div>
 
                 <div class="col-span-1">
-                    <label for="fecha" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="date" class="block text-sm font-medium text-gray-700 mb-1">
                         Fecha <span class="text-red-500">*</span>
                     </label>
                     <div class="relative">
-                        <input type="date" id="fecha" name="fecha" placeholder="mm/dd/yyyy" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400">
+                        <input type="date" id="date" name="fecha" placeholder="mm/dd/yyyy" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400">
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                         </div>
                     </div>
                 </div>
 
                 <div class="col-span-1">
-                    <label for="hora" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="hour" class="block text-sm font-medium text-gray-700 mb-1">
                         Hora <span class="text-red-500">*</span>
                     </label>
                     <div class="relative">
-                        <input type="time" id="hora" name="hora" placeholder="--:-- --" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400">
+                        <input type="time" id="hour" name="hora" placeholder="--:-- --" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400">
                     </div>
                 </div>
 
                 <div class="col-span-2">
-                    <label for="duracion" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="duration" class="block text-sm font-medium text-gray-700 mb-1">
                         Duración (minutos)
                     </label>
-                    <select id="duracion" name="duracion" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    <select id="duration" name="duracion" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                         <option value="30">30 minutos</option>
                         <option value="45">45 minutos</option>
                         <option value="60">60 minutos</option>
@@ -234,19 +281,30 @@
                 </div>
 
                 <div class="col-span-2">
-                    <label for="notas" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-1">
+                        Status
+                    </label>
+                    <select id="status" name="status" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        <option value="scheduled">Agendada</option>
+                        <option value="pending">Pendiente</option>
+                        <option value="completed">Completada</option>
+                    </select>
+                </div>
+
+                <div class="col-span-2">
+                    <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">
                         Notas (opcional)
                     </label>
-                    <textarea id="notas" name="notas" rows="4" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400" placeholder="Agrega notas adicionales sobre la cita..."></textarea>
+                    <textarea id="notes" name="notas" rows="4" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400" placeholder="Agrega notas adicionales sobre la cita..."></textarea>
                 </div>
 
             </div>
 
             <div class="mt-8 flex justify-end space-x-4">
-                <button type="button" class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                <button type="button" id="cancelButton" class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                     Cancelar
                 </button>
-                <button type="submit" class="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <button type="submit" id="createAppointment" class="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     Crear Cita
                 </button>
             </div>
