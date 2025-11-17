@@ -16,6 +16,7 @@ logo.addEventListener('click', () =>{
 const patientModal = document.getElementById('patientFormModal')
 const addPatientButton = document.getElementById('addPatientButton')
 const closeButton = document.getElementById('closeModalButton')
+const cancelButton = document.getElementById('cancelButton')
 
 //Add button event to open the modal when it is clicked
 addPatientButton.addEventListener('click', () => {
@@ -24,6 +25,11 @@ addPatientButton.addEventListener('click', () => {
 
 //Close button event to close the modal form when it is clicked
 closeButton.addEventListener('click', () => {
+    patientModal.close()
+})
+
+//Cancel button event to close the modal form when it is clicked
+cancelButton.addEventListener('click', () => {
     patientModal.close()
 })
 
@@ -168,6 +174,7 @@ patientForm.addEventListener('submit', async (e) => {
       showToast('Patient created successfully!', 'success');
       patientForm.reset();
       patientModal.close();
+      window.location.reload();  // Recargar para ver el nuevo paciente
     }
   } catch (err) {
     console.error('❌ Error:', err);

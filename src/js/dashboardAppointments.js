@@ -171,6 +171,7 @@ allAppointmentsButton?.addEventListener('click', () => {
 scheduleAppointmentsButton?.addEventListener('click', () => {
   const filtered = appointmentsList.filter(apt => apt.status === 'scheduled');
   renderAppointments(filtered);
+  classList.toggle("px-3 py-1 rounded-full bg-blue-600 text-white text-sm font-medium")
 });
 
 completedAppointmentsButton?.addEventListener('click', () => {
@@ -208,7 +209,6 @@ async function loadAppointments() {
     }
 
     const data = await res.json();
-    console.log(data);
     appointmentsList = Array.isArray(data) ? data : data.appointments || [];
     renderAppointments(appointmentsList);
   } catch (err) {
