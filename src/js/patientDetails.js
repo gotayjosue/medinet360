@@ -161,6 +161,7 @@ const updateButton = document.getElementById('updatePatientButton');
 const deleteButton = document.getElementById('deletePatientButton');
 const closeButton = document.getElementById('closeModalButton');
 const updateForm = document.getElementById('updatePatientForm');
+const cancelButton = document.getElementById('cancelButton');
 
 // Abrir modal y cargar datos
 updateButton.addEventListener('click', () => {
@@ -168,6 +169,10 @@ updateButton.addEventListener('click', () => {
 });
 
 closeButton.addEventListener('click', () => {
+  updateModal.close();
+});
+
+cancelButton.addEventListener('click', () => {
   updateModal.close();
 });
 

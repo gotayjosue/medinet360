@@ -1,4 +1,4 @@
-import { checkAuth, requireAuth, showToast } from './utils.js';
+import { checkAuth, requireAuth, showToast, fixDateForUTC } from './utils.js';
 
 const logo = document.querySelector('.logo');
 logo.style.cursor = 'pointer'
@@ -163,6 +163,27 @@ const scheduleAppointmentsButton = document.getElementById('scheduleAppointments
 const completedAppointmentsButton = document.getElementById('completedAppointments');
 const canceledAppointmentsButton = document.getElementById('canceledAppointments')
 
+//Event listeners for filter buttons
+allAppointmentsButton?.addEventListener('click', () => {
+  renderAppointments(appointmentsList);
+});
+
+scheduleAppointmentsButton?.addEventListener('click', () => {
+  const filtered = appointmentsList.filter(apt => apt.status === 'scheduled');
+  renderAppointments(filtered);
+});
+
+completedAppointmentsButton?.addEventListener('click', () => {
+  const filtered = appointmentsList.filter(apt => apt.status === 'completed');
+  renderAppointments(filtered);
+});
+
+canceledAppointmentsButton?.addEventListener('click', () => {
+  const filtered = appointmentsList.filter(apt => apt.status === 'canceled');
+  renderAppointments(filtered);
+});
+
+
 let appointmentsList = [];
 
 // Función para cargar citas del servidor
@@ -200,7 +221,7 @@ function renderAppointments(appointments) {
   const today = new Date().toISOString().split('T')[0];
   
   const todayAppts = appointments.filter(apt => {
-    const aptDate = new Date(apt.date).toISOString().split('T')[0];
+    const aptDate = apt.date;
     return aptDate === today;
   });
 
@@ -293,10 +314,7 @@ function renderUpcomingAppointments(appointments) {
 
 // Funciones auxiliares
 function formatDate(dateStr) {
-  const d = new Date(dateStr);
-  const dd = String(d.getDate()).padStart(2, '0');
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
-  const yyyy = d.getFullYear();
+  const [yyyy, mm, dd] = dateStr.split("-");
   return `${dd}/${mm}/${yyyy}`;
 }
 

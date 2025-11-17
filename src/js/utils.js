@@ -143,7 +143,7 @@ export function showToast(message, type = 'info', duration = 4000) {
   return toast;
 }
 
-// ...existing code...
+
 export function formatDateForInput(dateStr) {
   // Normaliza nulos
   if (!dateStr) return '';
@@ -217,3 +217,9 @@ export function getAgeFromDOB (dobStr) {
   }
   return age;
 };
+
+export function fixDateForUTC(dateInput) {
+  const d = new Date(dateInput);
+  d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+  return d.toISOString().split('T')[0];
+}

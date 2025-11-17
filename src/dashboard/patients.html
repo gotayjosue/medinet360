@@ -140,114 +140,113 @@
   </div>
 
   <!--Formulario tipo modal-->
-<dialog id="patientFormModal" class="rounded-lg shadow-xl p-6 w-full max-w-md relative">
-  <!-- Close button -->
-  <button id="closeModalButton" type="button" class="absolute top-2 right-2 text-gray-400 hover:text-gray-500">
-    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  </button>
+<dialog id="patientFormModal" class="rounded-lg shadow-xl p-6 w-full max-w-2xl">
+  <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg">
+        
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-bold text-gray-900">Crear Paciente</h2>
+      <button id="closeModalButton" class="text-gray-500 hover:text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
 
-  <form id="patientForm" class="space-y-6">
-  <!-- Name -->
-  <div class="space-y-2">
-    <label for="name"
-           class="block text-sm font-medium text-gray-700">Name</label>
-    <input type="text"
-           name="name"
-           id="name"
-           required
-           class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-  </div>
+    <form id="patientForm" class="space-y-6">
+      <div class="grid grid-cols-2 gap-6">
 
-  <!-- Last Name -->
-  <div class="space-y-2">
-    <label for="lastName"
-           class="block text-sm font-medium text-gray-700">Last Name</label>
-    <input type="text"
-           name="lastName"
-           id="lastName"
-           required
-           class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-  </div>
+        <!-- Name -->
+        <div class="col-span-1">
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+            Name <span class="text-red-500">*</span>
+          </label>
+          <input type="text" id="name" name="name" required
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        </div>
 
-  <!-- Birthday (date of birth) -->
-  <div class="space-y-2">
-    <label for="birthday"
-           class="block text-sm font-medium text-gray-700">Birthday</label>
-    <input type="date"
-           name="birthday"
-           id="birthday"
-           required
-           class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-  </div>
+        <!-- Last Name -->
+        <div class="col-span-1">
+          <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">
+            Last Name <span class="text-red-500">*</span>
+          </label>
+          <input type="text" id="lastName" name="lastName" required
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        </div>
 
-  <!-- Email -->
-  <div class="space-y-2">
-    <label for="email"
-           class="block text-sm font-medium text-gray-700">Email</label>
-    <input type="email"
-           name="email"
-           id="email"
-           required
-           class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-  </div>
+        <!-- Birthday -->
+        <div class="col-span-1">
+          <label for="birthday" class="block text-sm font-medium text-gray-700 mb-1">
+            Birthday <span class="text-red-500">*</span>
+          </label>
+          <input type="date" id="birthday" name="birthday" required
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        </div>
 
-  <!-- Phone -->
-  <div class="space-y-2">
-    <label for="phone"
-           class="block text-sm font-medium text-gray-700">Phone</label>
-    <input type="text"
-           name="phone"
-           id="phone"
-           required
-           class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-  </div>
-
-  <!-- Gender -->
-  <div class="space-y-2">
-    <label for="gender"
-           class="block text-sm font-medium text-gray-700">Gender</label>
-    <select name="gender" 
-            id="gender"
-            required
-            class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+        <!-- Gender -->
+        <div class="col-span-1">
+          <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">
+            Gender <span class="text-red-500">*</span>
+          </label>
+          <select id="gender" name="gender" required
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             <option value="" selected disabled hidden>Select a gender</option>
             <option value="female">Female</option>
             <option value="male">Male</option>
-    </select>
+          </select>
+        </div>
+
+        <!-- Email -->
+        <div class="col-span-1">
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+            Email <span class="text-red-500">*</span>
+          </label>
+          <input type="email" id="email" name="email" required
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        </div>
+
+        <!-- Phone -->
+        <div class="col-span-1">
+          <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
+            Phone <span class="text-red-500">*</span>
+          </label>
+          <input type="text" id="phone" name="phone" required
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        </div>
+
+        <!-- Notes -->
+        <div class="col-span-2">
+          <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">
+            Notes (optional)
+          </label>
+          <textarea id="notes" name="notes" rows="3"
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder-gray-400"
+            placeholder="Add additional notes about the patient..."></textarea>
+        </div>
+
+        <!-- Custom Fields Container -->
+        <div id="customFieldsContainer" class="col-span-2 space-y-4"></div>
+
+      </div>
+
+      <!-- Buttons -->
+      <div class="mt-8 flex justify-between space-x-4">
+        <button type="button" id="addFieldsButton"
+          class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          + Add Custom Fields
+        </button>
+        <div class="flex gap-4">
+          <button type="button" id="cancelButton"
+            class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+            Cancel
+          </button>
+          <button type="submit" id="createPatientButton"
+            class="px-4 py-2 bg-indigo-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Create Patient
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
-
-  <!-- Notes -->
-  <div class="space-y-2">
-    <label for="notes"
-           class="block text-sm font-medium text-gray-700">Notes</label>
-    <textarea 
-    name="notes" 
-    id="notes"
-    class="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-    </textarea>
-  </div>
-
-  <!-- Custom fields -->
-  <div id="customFieldsContainer" class="space-y-4 pt-2"></div>
-
-  <!-- Buttons -->
-  <div class="flex gap-4 pt-4">
-    <button id="addFieldsButton"
-            type="button"
-            class="flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-      Add Custom Fields <span class="ml-2">+</span>
-    </button>
-
-    <button id="createPatientButton"
-            type="submit"
-            class="flex-1 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-      Create Patient
-    </button>
-  </div>
-</form>
-
 </dialog>
 
 </body>
