@@ -166,22 +166,37 @@ const canceledAppointmentsButton = document.getElementById('canceledAppointments
 //Event listeners for filter buttons
 allAppointmentsButton?.addEventListener('click', () => {
   renderAppointments(appointmentsList);
+  allAppointmentsButton.classList.add("active");
+  scheduleAppointmentsButton.classList.remove("active");
+  completedAppointmentsButton.classList.remove("active");
+  canceledAppointmentsButton.classList.remove("active");
 });
 
 scheduleAppointmentsButton?.addEventListener('click', () => {
   const filtered = appointmentsList.filter(apt => apt.status === 'scheduled');
   renderAppointments(filtered);
-  classList.toggle("px-3 py-1 rounded-full bg-blue-600 text-white text-sm font-medium")
+  scheduleAppointmentsButton.classList.add("active");
+  allAppointmentsButton.classList.remove("active");
+  completedAppointmentsButton.classList.remove("active");
+  canceledAppointmentsButton.classList.remove("active");
 });
 
 completedAppointmentsButton?.addEventListener('click', () => {
   const filtered = appointmentsList.filter(apt => apt.status === 'completed');
   renderAppointments(filtered);
+  completedAppointmentsButton.classList.add("active");
+  allAppointmentsButton.classList.remove("active");
+  scheduleAppointmentsButton.classList.remove("active");
+  canceledAppointmentsButton.classList.remove("active");
 });
 
 canceledAppointmentsButton?.addEventListener('click', () => {
   const filtered = appointmentsList.filter(apt => apt.status === 'canceled');
   renderAppointments(filtered);
+  canceledAppointmentsButton.classList.add("active");
+  allAppointmentsButton.classList.remove("active");
+  scheduleAppointmentsButton.classList.remove("active");
+  completedAppointmentsButton.classList.remove("active");
 });
 
 
