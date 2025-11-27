@@ -86,15 +86,12 @@
     letter-spacing: 1px;
 }
 
-.calendar-wrapper {
-    overflow-x: auto;
-}
-
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 0.5rem;
     grid-column: 1 / -1;
+    overflow-x: auto;
 }
 
 .calendar-day {
