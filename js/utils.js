@@ -95,7 +95,7 @@ function ensureToastContainer() {
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
-    zIndex: 9999,
+    zIndex: '999999',
     alignItems: 'flex-end'
   });
   document.body.appendChild(container);
@@ -125,7 +125,7 @@ export function showToast(message, type = 'info', duration = 4000) {
     display: 'flex',
     alignItems: 'center',
     gap: '6px',
-    zIndex: '10000',
+    zIndex: '999999',
   });
 
   container.appendChild(toast);
