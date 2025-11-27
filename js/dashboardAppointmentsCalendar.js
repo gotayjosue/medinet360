@@ -399,16 +399,27 @@ closeDayAppointmentsBtn.addEventListener('click', () => {
 function openDayAppointmentsModal(appointments) {
     dayAppointmentsContent.innerHTML = ''; // limpia contenido previo
 
+    if (appointments.length === 0) {
+        dayAppointmentsContent.innerHTML = '<p class="text-gray-500">No hay citas para este día.</p>';
+        dayAppointmentsModal.showModal();
+        return;
+    }
+
     appointments.forEach(apt => {
-        const patient = patientsList.find(p => p._id === apt.patientId);
+        // patientId ya es un objeto con los datos del paciente
+        const patient = apt.patientId;
+        const patientName = patient 
+            ? `${patient.name} ${patient.lastName}` 
+            : 'Paciente desconocido';
 
         const div = document.createElement('div');
         div.className = "day-appointment-item";
 
         div.innerHTML = `
-            <p><strong>${patient ? patient.name + " " + patient.lastName : "Paciente desconocido"}</strong></p>
+            <p><strong>${patientName}</strong></p>
             <p>Hora: ${apt.hour}</p>
             <p>Duración: ${apt.duration} minutos</p>
+            <p>Estado: ${getStatusLabel(apt.status)}</p>
             <hr>
         `;
 

@@ -64,6 +64,7 @@
 }
 
 /* Calendar Grid */
+
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -74,6 +75,7 @@
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 1;
+    overflow-x: auto;
 }
 
 .calendar-day-header {
@@ -91,7 +93,6 @@
     grid-template-columns: repeat(7, 1fr);
     gap: 0.5rem;
     grid-column: 1 / -1;
-    overflow-x: auto;
 }
 
 .calendar-day {
