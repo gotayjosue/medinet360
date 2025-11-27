@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Medinet360 - Manage patient records effortlessly">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://res.cloudinary.com/dhu9pmzqp/image/upload/v1761155608/medinet360_yvb9ob.webp">
+    <meta property="og:url" content="https://medinet360.netlify.app/">
+    <meta name="author" content="Josué H. Gotay">
+    <meta name="description" content="Medinet360 helps healthcare professionals organize, track, and access patient data — all in one secure platform.">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    </style>
+    <title>Dashboard • Medinet360</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/images/site.webmanifest">
+    <link rel="stylesheet" href="../css/patientDetails.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="../js/patientDetails.js" defer></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar superior -->
+  <header class="flex items-center justify-between bg-white border-b border-gray-200 px-4 py-3 md:hidden">
+    <button id="menu-btn" class="text-gray-700 focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+        viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+    <h1 class="font-semibold text-lg">Patient Details</h1>
+  </header>
+
+  <!-- Contenedor principal -->
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+      class="w-64 bg-white border-r border-gray-200 p-5 flex flex-col fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out z-50">
+
+      <div class="flex items-center mb-10">
+        <img class="logo" src="/images/logo.png" alt="Medinet360 logo">
+      </div>
+
+      <nav class="flex-1 space-y-4">
+        <a href="patients.html" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          Patients
+          <span class="ml-auto w-2 h-2 bg-red-500 rounded-full"></span>
+        </a>
+
+        <a href="appointments.html" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+          </svg>
+          Appointments
+        </a>
+
+        <a href="reports.html" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 17v-6h2v6H9zm4 0v-4h2v4h-2zM5 21h14a2 2 0 002-2V7l-6-4H5a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+          Reports
+        </a>
+      </nav>
+
+      <div class="mt-auto">
+        <a href="account" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M5.121 17.804A4 4 0 118 4a4 4 0 013.879 13.804A8 8 0 015.12 17.804z" />
+          </svg>
+          Account
+        </a>
+      </div>
+    </aside>
+
+    <!-- Overlay móvil -->
+    <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"></div>
+
+    <!-- Contenido principal -->
+    <main class="flex-1 md:ml-64 p-6">
+      <div class="flex justify-between items-center mb-8">
+        <h1 class="text-2xl font-semibold">Dashboard</h1>
+        <div class="relative">
+          <input type="text" placeholder="Search..." class="border border-gray-300 rounded-lg pl-8 pr-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none w-48 md:w-80">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 absolute left-2 top-2.5 text-gray-500" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+          </svg>
+        </div>
+      </div>
+
+
+        <div id="patientDetails">      
+
+          <div id="patientImage"></div>
+
+          <h1 id="patientName"></h1>
+
+          <p id="patientNotes"></p>
+
+          <p class="patientEmail"><strong>Patient Email:</strong></p>
+          <p id="patientEmail"></p>
+          <hr>
+
+          <p class="patientPhone"><strong>Patient Phone:</strong></p>
+          <p id="patientPhone"></p>
+          <hr>
+
+          <p class="patientAge"><strong>Patient Age:</strong></p>
+          <p id="patientAge"></p>
+          <hr>
+
+          <p class="patientBirthday"><strong>Patient Birthday:</strong></p>
+          <p id="patientBirthday"></p>
+          <hr>
+
+          <p class="patientGender"><strong>Patient Gender:</strong></p>
+          <p id="patientGender"></p>
+          <hr>
+          <div id="patientCustomFields"></div>
+        </div>
+
+  <!-- Script para el menú móvil -->
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('-translate-x-full');
+      overlay.classList.toggle('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    });
+  </script>
+
+  <!-- Botón flotante de Actualizar -->
+<div class="fixed bottom-32 right-6 group">
+  <button id="updatePatientButton" class="bg-green-600 hover:bg-green-700 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg transition-all duration-200 relative">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+    </svg>
+  </button>
+
+  <!-- Tooltip -->
+  <span class="absolute right-16 bottom-1/2 translate-y-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+    Update Patient
+  </span>
+</div>
+
+<!-- Botón flotante de Borrar -->
+<div class="fixed bottom-6 right-6 group">
+  <button id="deletePatientButton" class="bg-red-600 hover:bg-red-700 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg transition-all duration-200 relative">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+    </svg>
+  </button>
+
+  <!-- Tooltip -->
+  <span class="absolute right-16 bottom-1/2 translate-y-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+    Delete Patient
+  </span>
+</div>
+
+  
+
+  <!--Formulario tipo modal-->
+<dialog id="patientFormModal" class="rounded-lg shadow-xl p-6 w-full max-w-2xl">
+  <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg">
+        
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-bold text-gray-900">Actualizar Paciente</h2>
+      <button id="closeModalButton" class="text-gray-500 hover:text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <form id="updatePatientForm" class="space-y-6">
+      <div class="grid grid-cols-2 gap-6">
+
+        <!-- Name -->
+        <div class="col-span-1">
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+            Name <span class="text-red-500">*</span>
+          </label>
+          <input type="text" id="name" name="name" required
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        </div>
+
+        <!-- Last Name -->
+        <div class="col-span-1">
+          <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">
+            Last Name <span class="text-red-500">*</span>
+          </label>
+          <input type="text" id="lastName" name="lastName" required
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        </div>
+
+        <!-- Birthday -->
+        <div class="col-span-1">
+          <label for="birthday" class="block text-sm font-medium text-gray-700 mb-1">
+            Birthday <span class="text-red-500">*</span>
+          </label>
+          <input type="date" id="birthday" name="birthday" required
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        </div>
+
+        <!-- Gender -->
+        <div class="col-span-1">
+          <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">
+            Gender <span class="text-red-500">*</span>
+          </label>
+          <select id="gender" name="gender" required
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <option value="" selected disabled hidden>Select a gender</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
+        </div>
+
+        <!-- Email -->
+        <div class="col-span-1">
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+            Email <span class="text-red-500">*</span>
+          </label>
+          <input type="email" id="email" name="email" required
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        </div>
+
+        <!-- Phone -->
+        <div class="col-span-1">
+          <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
+            Phone <span class="text-red-500">*</span>
+          </label>
+          <input type="text" id="phone" name="phone" required
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        </div>
+
+        <!-- Notes -->
+        <div class="col-span-2">
+          <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">
+            Notes (optional)
+          </label>
+          <textarea id="notes" name="notes" rows="3"
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder-gray-400"
+            placeholder="Add additional notes about the patient..."></textarea>
+        </div>
+
+        <!-- Custom Fields Container -->
+        <div id="customFieldsContainer" class="col-span-2 space-y-4"></div>
+
+      </div>
+
+      <!-- Buttons -->
+      <div class="mt-8 flex justify-between space-x-4">
+        <button type="button" id="addFieldsButton"
+          class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          + Add Custom Fields
+        </button>
+        <div class="flex gap-4">
+          <button type="button" id="cancelButton"
+            class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+            Cancel
+          </button>
+          <button type="submit" id="updatePatientButton"
+            class="px-4 py-2 bg-indigo-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Update Patient
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+</body>
+</html>

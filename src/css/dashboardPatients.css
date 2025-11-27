@@ -1,0 +1,12 @@
+.logo{
+    width: 50px;
+}
+
+#patientForm{
+    display: flex;
+    flex-direction: column;
+}
+
+#emptyPatient{
+    margin-top: 100px;
+}

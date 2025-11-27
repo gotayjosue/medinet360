@@ -1,0 +1,21 @@
+.logo{
+    width: 50px;
+}
+
+#rightSide{
+    align-content: center;
+}
+
+.allAppointments, .scheduleAppointments, .completedAppointments, .canceledAppointments {
+    font-size: 15px;
+    background-color: rgba(185, 185, 185, 0.356);
+    padding: 8px 16px;
+     border-radius: 25px;
+}
+
+.allAppointments.active, .scheduleAppointments.active, .completedAppointments.active, .canceledAppointments.active {
+    background-color: #2563EB;
+    color: white;
+}
+
+
