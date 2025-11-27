@@ -124,7 +124,8 @@ export function showToast(message, type = 'info', duration = 4000) {
     fontSize: '14px',
     display: 'flex',
     alignItems: 'center',
-    gap: '6px'
+    gap: '6px',
+    zIndex: '10000',
   });
 
   container.appendChild(toast);
@@ -226,3 +227,9 @@ export function fixDateForUTC(dateInput) {
 
 // Sleep function
 export const sleep = (ms) => new Promise(res => setTimeout(res, ms));
+
+// Convertir hora a minutos
+export function toMinutes(hhmm) {
+  const [h, m] = hhmm.split(':').map(Number);
+  return h * 60 + m;
+}

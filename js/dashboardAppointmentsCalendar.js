@@ -1,4 +1,7 @@
-import { checkAuth, requireAuth, showToast } from './utils.js';
+import { checkAuth, requireAuth, showToast, toMinutes } from './utils.js';
+import { isEditMode, currentEditId } from './appoinmentsState.js';
+
+// Logo click to go to home
 
 const logo = document.querySelector('.logo');
 
@@ -126,11 +129,6 @@ appointmentForm.addEventListener('submit', async (e) => {
     const newStart = formData.hour;     // "15:30"
     const newDuration = parseInt(formData.duration, 10);
 
-    // Convertir hora a minutos
-    function toMinutes(hhmm) {
-      const [h, m] = hhmm.split(':').map(Number);
-      return h * 60 + m;
-    }
 
     // Calcular rango de la nueva cita
     const newStartMin = toMinutes(newStart);
@@ -153,10 +151,16 @@ appointmentForm.addEventListener('submit', async (e) => {
 
     if (conflictingApt) {
       const name = `${conflictingApt.patientId?.name || 'Paciente'} ${conflictingApt.patientId?.lastName || ''}`;
+
+      // Calcular hora de fin correctamente
+      const aptStartMin = toMinutes(conflictingApt.hour);
+      const aptEndMin = aptStartMin + parseInt(conflictingApt.duration, 10);
+      const endHour = Math.floor(aptEndMin / 60).toString().padStart(2, '0');
+      const endMinute = (aptEndMin % 60).toString().padStart(2, '0');
       const msg = `
         ⚠️ La cita se traslapa con otra ya programada.<br>
         <strong>Paciente:</strong> ${name}<br>
-        <strong>Hora:</strong> ${conflictingApt.hour} (${conflictingApt.duration} min)
+        <strong>Hora:</strong> ${conflictingApt.hour} - ${endHour}:${endMinute} (${conflictingApt.duration} min)
       `;
 
       showToast(msg, 'error');
@@ -389,6 +393,7 @@ function getStatusLabel(status) {
 const dayAppointmentsModal = document.getElementById('dayAppointmentsModal');
 const dayAppointmentsContent = document.getElementById('dayAppointmentsContent');
 const closeDayAppointmentsBtn = document.getElementById('closeDayAppointmentsBtn');
+const dayAppointmentsHeader = document.getElementById('dayAppointmentsHeader');
 
 // Cerrar modal
 closeDayAppointmentsBtn.addEventListener('click', () => {
@@ -406,6 +411,7 @@ function openDayAppointmentsModal(appointments) {
     }
 
     appointments.forEach(apt => {
+        dayAppointmentsHeader.textContent = `Citas para el día ${formatDate(apt.date)}:`;
         // patientId ya es un objeto con los datos del paciente
         const patient = apt.patientId;
         const patientName = patient 
@@ -415,9 +421,15 @@ function openDayAppointmentsModal(appointments) {
         const div = document.createElement('div');
         div.className = "day-appointment-item";
 
+        // Calcular hora de fin correctamente
+        const aptStartMin = toMinutes(apt.hour);
+        const aptEndMin = aptStartMin + parseInt(apt.duration, 10);
+        const endHour = Math.floor(aptEndMin / 60).toString().padStart(2, '0');
+        const endMinute = (aptEndMin % 60).toString().padStart(2, '0');
+
         div.innerHTML = `
             <p><strong>${patientName}</strong></p>
-            <p>Hora: ${apt.hour}</p>
+            <p>Hora: ${apt.hour} - ${endHour}:${endMinute}</p>
             <p>Duración: ${apt.duration} minutos</p>
             <p>Estado: ${getStatusLabel(apt.status)}</p>
             <hr>

@@ -147,8 +147,9 @@
     <div class="flex flex-wrap gap-2 mb-6 items-center">
       <span class="text-gray-700 font-medium mr-2">Estado:</span>
       <button id="allAppointments" class="allAppointments active">Todas</button>
-      <button id="scheduleAppointments" class="scheduleAppointments">Programadas</button>
+      <button id="scheduleAppointments" class="scheduleAppointments">Agendadas</button>
       <button id="completedAppointments" class="completedAppointments">Completadas</button>
+      <button id="pendingAppointments" class="pendingAppointments">Pendientes</button>
       <button id="canceledAppointments" class="canceledAppointments">Canceladas</button>
     </div>
 
@@ -167,10 +168,10 @@
               <thead>
                 <tr class="border-b border-gray-200 bg-gray-50">
                   <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Paciente</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Hora</th>
+                  <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Hora</th>
                   <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Duración</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Estado</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Acciones</th>
+                  <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Estado</th>
+                  <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Acciones</th>
                 </tr>
               </thead>
               <tbody id="todayAppointmentsBody" class="divide-y divide-gray-200">
@@ -289,6 +290,7 @@
                         <option value="scheduled">Agendada</option>
                         <option value="pending">Pendiente</option>
                         <option value="completed">Completada</option>
+                        <option value="canceled">Cancelada</option>
                     </select>
                 </div>
 

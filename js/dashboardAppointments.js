@@ -1,4 +1,4 @@
-import { checkAuth, requireAuth, showToast, sleep, fixDateForUTC } from './utils.js';
+import { checkAuth, requireAuth, showToast, sleep, toMinutes } from './utils.js';
 import { 
   viewAppointmentDetailsModal, 
   editAppointment, 
@@ -244,6 +244,7 @@ document.getElementById('cancelButton')?.addEventListener('click', () => {
 const allAppointmentsButton = document.getElementById('allAppointments');
 const scheduleAppointmentsButton = document.getElementById('scheduleAppointments');
 const completedAppointmentsButton = document.getElementById('completedAppointments');
+const pendingAppointmentsButton = document.getElementById('pendingAppointments');
 const canceledAppointmentsButton = document.getElementById('canceledAppointments')
 
 //Event listeners for filter buttons
@@ -252,6 +253,7 @@ allAppointmentsButton?.addEventListener('click', () => {
   allAppointmentsButton.classList.add("active");
   scheduleAppointmentsButton.classList.remove("active");
   completedAppointmentsButton.classList.remove("active");
+  pendingAppointmentsButton.classList.remove("active");
   canceledAppointmentsButton.classList.remove("active");
 });
 
@@ -261,6 +263,7 @@ scheduleAppointmentsButton?.addEventListener('click', () => {
   scheduleAppointmentsButton.classList.add("active");
   allAppointmentsButton.classList.remove("active");
   completedAppointmentsButton.classList.remove("active");
+  pendingAppointmentsButton.classList.remove("active");
   canceledAppointmentsButton.classList.remove("active");
 });
 
@@ -270,6 +273,17 @@ completedAppointmentsButton?.addEventListener('click', () => {
   completedAppointmentsButton.classList.add("active");
   allAppointmentsButton.classList.remove("active");
   scheduleAppointmentsButton.classList.remove("active");
+  pendingAppointmentsButton.classList.remove("active");
+  canceledAppointmentsButton.classList.remove("active");
+});
+
+pendingAppointmentsButton?.addEventListener('click', () => {
+  const filtered = appointmentsList.filter(apt => apt.status === 'pending');
+  renderAppointments(filtered);
+  pendingAppointmentsButton.classList.add("active");
+  allAppointmentsButton.classList.remove("active");
+  scheduleAppointmentsButton.classList.remove("active");
+  completedAppointmentsButton.classList.remove("active");
   canceledAppointmentsButton.classList.remove("active");
 });
 
@@ -280,10 +294,20 @@ canceledAppointmentsButton?.addEventListener('click', () => {
   allAppointmentsButton.classList.remove("active");
   scheduleAppointmentsButton.classList.remove("active");
   completedAppointmentsButton.classList.remove("active");
+  pendingAppointmentsButton.classList.remove("active");
 });
 
 
 let appointmentsList = [];
+
+// Función auxiliar para calcular hora final
+function calculateEndTime(hour, duration) {
+  const aptStartMin = toMinutes(hour);
+  const aptEndMin = aptStartMin + parseInt(duration, 10);
+  const endHour = Math.floor(aptEndMin / 60).toString().padStart(2, '0');
+  const endMinute = (aptEndMin % 60).toString().padStart(2, '0');
+  return `${endHour}:${endMinute}`;
+}
 
 // Función para cargar citas del servidor
 async function loadAppointments() {
@@ -346,14 +370,19 @@ function renderTodayAppointments(appointments) {
     `;
     return;
   }
+  
 
-  tbody.innerHTML = appointments.map(apt => `
+  tbody.innerHTML = appointments.map(apt => {
+    
+    const endTime = calculateEndTime(apt.hour, apt.duration);
+    
+    return`
     <tr class="hover:bg-gray-50 transition-colors">
       <td class="px-6 py-4 text-sm font-medium text-gray-900">
         ${apt.patientId?.name || 'Paciente'} ${apt.patientId?.lastName || ''}
       </td>
       <td class="px-6 py-4 text-sm text-gray-700">
-        ${apt.hour}
+        ${apt.hour} - ${endTime}
       </td>
       <td class="px-6 py-4 text-sm text-gray-700">
         ${apt.duration} min
@@ -392,7 +421,7 @@ function renderTodayAppointments(appointments) {
         </div>
       </td>
     </tr>
-  `).join('');
+  `}).join('');
 
     tbody.querySelectorAll(".btn-detalles").forEach(btn => {
         btn.addEventListener("click", () => viewAppointmentDetailsModal(btn.dataset.id));
@@ -422,7 +451,9 @@ function renderUpcomingAppointments(appointments) {
     return;
   }
 
-  tbody.innerHTML = appointments.map(apt => `
+  tbody.innerHTML = appointments.map(apt => {
+    const endTime = calculateEndTime(apt.hour, apt.duration);
+    return `
     <tr class="hover:bg-gray-50 transition-colors">
       <td class="px-6 py-4 text-sm font-medium text-gray-900">
         ${apt.patientId?.name || 'Paciente'} ${apt.patientId?.lastName || ''}
@@ -431,7 +462,7 @@ function renderUpcomingAppointments(appointments) {
         ${formatDate(apt.date)}
       </td>
       <td class="px-6 py-4 text-sm text-gray-700">
-        ${apt.hour}
+        ${apt.hour} - ${endTime}
       </td>
       <td class="px-6 py-4 text-sm">
         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getStatusBadge(apt.status)}">
@@ -467,7 +498,7 @@ function renderUpcomingAppointments(appointments) {
         </div>
       </td>
     </tr>
-  `).join('');
+  `}).join('');
 
     tbody.querySelectorAll(".btn-detalles").forEach(btn => {
         btn.addEventListener("click", () => viewAppointmentDetailsModal(btn.dataset.id));
