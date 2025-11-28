@@ -325,6 +325,7 @@ updatePatientForm.addEventListener('submit', async (e) => {
 // Crear modal de confirmación
 const confirmModal = document.createElement('dialog');
 confirmModal.className = 'rounded-lg shadow-2xl max-w-md w-full backdrop:bg-black backdrop:bg-opacity-50';
+confirmModal.id = 'confirmDeleteModal';
 confirmModal.innerHTML = `
 <div class="bg-white p-6 rounded-lg">
   <div class="flex items-center gap-4 mb-4">
