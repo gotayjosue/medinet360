@@ -1,10 +1,11 @@
-import { 
-  checkAuth, 
-  requireAuth, 
-  showToast, 
-  formatDateForInput, 
+import {
+  checkAuth,
+  requireAuth,
+  showToast,
+  formatDateForInput,
   formatDate,
-  getAgeFromDOB} from "./utils";
+  getAgeFromDOB
+} from "./utils";
 
 let currentPatientId = null; // Guardar el ID del paciente actual
 
@@ -163,6 +164,8 @@ const closeButton = document.getElementById('closeModalButton');
 const updateForm = document.getElementById('updatePatientForm');
 const cancelButton = document.getElementById('cancelButton');
 
+
+
 // Abrir modal y cargar datos
 updateButton.addEventListener('click', () => {
   updateModal.showModal();
@@ -182,7 +185,7 @@ cancelButton.addEventListener('click', () => {
 document.getElementById('addFieldsButton').addEventListener('click', () => {
   customFieldCount++
   const customFieldsContainer = document.getElementById('customFieldsContainer');
-  
+
   const fieldGroup = document.createElement('div');
   fieldGroup.className = 'custom-field-group space-y-2 mt-4';
 
@@ -226,7 +229,7 @@ updatePatientForm.addEventListener('submit', async (e) => {
   }
 
   const birthdayValue = document.getElementById('birthday').value; // "1998-11-17"
-  
+
   // Convertir a ISO string explícitamente
   const birthdayISO = new Date(birthdayValue + 'T00:00:00Z').toISOString();
 
@@ -246,7 +249,7 @@ updatePatientForm.addEventListener('submit', async (e) => {
   document.querySelectorAll('#updateCustomFieldsContainer .custom-field-group').forEach(group => {
     const fieldName = group.querySelector('.custom-field-name')?.value.trim();
     const value = group.querySelector('.custom-field-value')?.value.trim();
-    
+
     if (fieldName && value) {
       formData.customFields.push({ fieldName, value });
     }
@@ -307,10 +310,10 @@ updatePatientForm.addEventListener('submit', async (e) => {
 
     showToast('Patient updated successfully!', 'success');
     updateModal.close();
-    
+
     // Recargar los datos del paciente
     window.location.reload();
-    
+
   } catch (error) {
     console.error('Error updating patient:', error);
     showToast(error.message || 'Error updating patient', 'error');
@@ -318,39 +321,83 @@ updatePatientForm.addEventListener('submit', async (e) => {
 });
 
 // Función para eliminar paciente
-deleteButton.addEventListener('click', async () => {
-  if (!confirm('¿Estás seguro de que quieres eliminar este paciente? Esta acción no se puede deshacer.')) {
-    return;
-  }
 
-  const token = localStorage.getItem('authToken');
-  if (!token || !currentPatientId) {
-    showToast('Authentication required', 'error');
-    return;
-  }
+// Crear modal de confirmación
+const confirmModal = document.createElement('dialog');
+confirmModal.className = 'rounded-lg shadow-2xl max-w-md w-full backdrop:bg-black backdrop:bg-opacity-50';
+confirmModal.innerHTML = `
+<div class="bg-white p-6 rounded-lg">
+  <div class="flex items-center gap-4 mb-4">
+    <div class="bg-red-100 p-3 rounded-full">
+      <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+      </svg>
+    </div>
+    <div>
+      <h3 class="text-lg font-semibold text-gray-900">Eliminar Paciente</h3>
+      <p class="text-sm text-gray-600">Esta acción no se puede deshacer</p>
+    </div>
+  </div>
+  <p class="text-gray-700 mb-6">¿Estás seguro de que deseas eliminar este paciente?</p>
+  <div class="flex gap-3">
+    <button id="cancelDelete" class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+      Cancelar
+    </button>
+    <button id="confirmDelete" class="flex-1 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition">
+      Eliminar
+    </button>
+  </div>
+</div>
+`;
 
-  try {
-    const response = await fetch(`https://medinet360api.vercel.app/api/patients/${currentPatientId}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
+document.body.appendChild(confirmModal);
 
-    const data = await response.json();
+const cancelDeleteBtn = confirmModal.querySelector('#cancelDelete');
+const confirmDeleteBtn = confirmModal.querySelector('#confirmDelete');
 
-    if (!response.ok) {
-      throw new Error(data.error || data.message || 'Failed to delete patient');
+if (cancelDeleteBtn) {
+  cancelDeleteBtn.addEventListener('click', () => {
+    confirmModal.close();
+  });
+}
+
+if (confirmDeleteBtn) {
+  confirmDeleteBtn.addEventListener('click', async () => {
+    confirmModal.close();
+
+    const token = localStorage.getItem('authToken');
+    if (!token || !currentPatientId) {
+      showToast('Authentication required', 'error');
+      return;
     }
 
-    showToast('Patient deleted successfully!', 'success');
-    // Redirigir a la lista de pacientes después de 1 segundo
-    setTimeout(() => {
-      window.location.href = 'patients.html';
-    }, 1000);
-    
-  } catch (error) {
-    console.error('Error deleting patient:', error);
-    showToast(error.message || 'Error deleting patient', 'error');
-  }
+    try {
+      const response = await fetch(`https://medinet360api.vercel.app/api/patients/${currentPatientId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || data.message || 'Failed to delete patient');
+      }
+
+      showToast('Patient deleted successfully!', 'success');
+      // Redirigir a la lista de pacientes después de 1 segundo
+      setTimeout(() => {
+        window.location.href = 'patients.html';
+      }, 1000);
+
+    } catch (error) {
+      console.error('Error deleting patient:', error);
+      showToast(error.message || 'Error deleting patient', 'error');
+    }
+  });
+}
+
+deleteButton.addEventListener('click', () => {
+  confirmModal.showModal();
 });
