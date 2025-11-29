@@ -131,6 +131,7 @@ appointmentForm.addEventListener('submit', async (e) => {
     duration: document.getElementById('duration').value.trim(),
     status: document.getElementById('status').value.trim(),
     description: document.getElementById('notes').value.trim(),
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // 🌍 Enviar zona horaria del usuario
   };
 
     // ------------------------------------------
