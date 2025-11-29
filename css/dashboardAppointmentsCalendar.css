@@ -190,7 +190,44 @@
     font-weight: 600;
 }
 
-.calendar-day:hover .appointment-count {
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+}
+
+#appointmentModal, #dayAppointmentsModal {
+    transition: display 0.3s allow-discrete,
+    overlay 0.2s allow-discrete;
+    
+    animation: slideDown 0.3s forwards;
+    &[open] {
+        animation: slideUp 0.3s forwards;
+    }
+}
+
+
+.calendar-day:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.appointment-count:hover {
     background: rgba(255, 255, 255, 0.3);
 }
 
@@ -207,6 +244,8 @@
         transform: scale(1.1);
     }
 }
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

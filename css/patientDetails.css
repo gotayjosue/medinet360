@@ -118,13 +118,27 @@
   }
 }
 
-#confirmDeleteModal {
-    animation: slideUp 0.3s ease-in-out;   
+@keyframes slideDown {
+    from {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(40px);
+        opacity: 0;
+    }
 }
 
-#patientFormModal {
-    animation: slideUp 0.3s ease-in-out;   
+#confirmDeleteModal, #patientFormModal {
+    transition: display 0.3s allow-discrete,
+    overlay 0.2s allow-discrete;
+    
+    animation: slideDown 0.3s forwards;
+    &[open] {
+        animation: slideUp 0.3s forwards;
+    }   
 }
+
 
 @media screen and (min-width: 1000px) {
 
