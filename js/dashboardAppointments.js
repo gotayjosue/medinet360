@@ -340,7 +340,12 @@ async function loadAppointments() {
 
 // Función para renderizar las citas
 function renderAppointments(appointments) {
-  const today = new Date().toISOString().split('T')[0];
+  // Fix: Use local time instead of UTC to avoid date skipping after 6 PM (CST)
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const today = `${year}-${month}-${day}`;
   
   const todayAppts = appointments.filter(apt => {
     const aptDate = apt.date;
