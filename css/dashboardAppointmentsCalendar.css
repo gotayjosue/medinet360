@@ -112,7 +112,6 @@
 
 .calendar-day:hover {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
 }
@@ -129,6 +128,12 @@
     color: white;
     font-weight: 700;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.calendar-day.today:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
 }
 
 .calendar-day.other-month {

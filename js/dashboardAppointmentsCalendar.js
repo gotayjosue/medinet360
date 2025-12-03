@@ -1,5 +1,6 @@
 import { checkAuth, requireAuth, showToast, toMinutes } from './utils.js';
 import { isEditMode, currentEditId } from './appoinmentsState.js';
+import { NotificationService } from './notificationService.js';
 
 // Logo click to go to home
 
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     requireAuth();
     loadPatients();
     initializeCalendar();
-    
+
 });
 
 
@@ -120,6 +121,7 @@ appointmentForm.addEventListener('submit', async (e) => {
         duration: document.getElementById('duration').value.trim(),
         status: document.getElementById('status').value.trim(),
         description: document.getElementById('notes').value.trim(),
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // 🌍 Enviar zona horaria del usuario
     };
 
     // ------------------------------------------
@@ -136,35 +138,35 @@ appointmentForm.addEventListener('submit', async (e) => {
 
     // Filtrar citas del mismo día
     const sameDayAppointments = appointmentsList.filter(apt => {
-      if (isEditMode && currentEditId === apt._id) return false; // Ignorar la cita que estamos editando
-      return apt.date === formData.date;
+        if (isEditMode && currentEditId === apt._id) return false; // Ignorar la cita que estamos editando
+        return apt.date === formData.date;
     });
 
     // Buscar cita que genera conflicto
     const conflictingApt = sameDayAppointments.find(apt => {
-      const aptStartMin = toMinutes(apt.hour);
-      const aptEndMin = aptStartMin + parseInt(apt.duration, 10);
+        const aptStartMin = toMinutes(apt.hour);
+        const aptEndMin = aptStartMin + parseInt(apt.duration, 10);
 
-      // Rango se traslapa si:
-      return newStartMin < aptEndMin && newEndMin > aptStartMin;
+        // Rango se traslapa si:
+        return newStartMin < aptEndMin && newEndMin > aptStartMin;
     });
 
     if (conflictingApt) {
-      const name = `${conflictingApt.patientId?.name || 'Paciente'} ${conflictingApt.patientId?.lastName || ''}`;
+        const name = `${conflictingApt.patientId?.name || 'Paciente'} ${conflictingApt.patientId?.lastName || ''}`;
 
-      // Calcular hora de fin correctamente
-      const aptStartMin = toMinutes(conflictingApt.hour);
-      const aptEndMin = aptStartMin + parseInt(conflictingApt.duration, 10);
-      const endHour = Math.floor(aptEndMin / 60).toString().padStart(2, '0');
-      const endMinute = (aptEndMin % 60).toString().padStart(2, '0');
-      const msg = `
+        // Calcular hora de fin correctamente
+        const aptStartMin = toMinutes(conflictingApt.hour);
+        const aptEndMin = aptStartMin + parseInt(conflictingApt.duration, 10);
+        const endHour = Math.floor(aptEndMin / 60).toString().padStart(2, '0');
+        const endMinute = (aptEndMin % 60).toString().padStart(2, '0');
+        const msg = `
         ⚠️ La cita se traslapa con otra ya programada.<br>
         <strong>Paciente:</strong> ${name}<br>
         <strong>Hora:</strong> ${conflictingApt.hour} - ${endHour}:${endMinute} (${conflictingApt.duration} min)
       `;
 
-      showToast(msg, 'error');
-      return; // Bloquear submit
+        showToast(msg, 'error');
+        return; // Bloquear submit
     }
 
     try {
@@ -253,6 +255,10 @@ async function loadAppointments() {
 
         const data = await res.json();
         appointmentsList = Array.isArray(data) ? data : data.appointments || [];
+
+        // Initialize/Update Notification Service
+        NotificationService.init(appointmentsList);
+
         renderCalendar();
     } catch (err) {
         console.error('🔥 Error al cargar citas:', err);
@@ -414,8 +420,8 @@ function openDayAppointmentsModal(appointments) {
         dayAppointmentsHeader.textContent = `Citas para el día ${formatDate(apt.date)}:`;
         // patientId ya es un objeto con los datos del paciente
         const patient = apt.patientId;
-        const patientName = patient 
-            ? `${patient.name} ${patient.lastName}` 
+        const patientName = patient
+            ? `${patient.name} ${patient.lastName}`
             : 'Paciente desconocido';
 
         const div = document.createElement('div');

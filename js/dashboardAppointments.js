@@ -5,6 +5,7 @@ import {
   deleteAppointment } 
   from './appointmentsHelper.js';
 import { isEditMode, currentEditId, resetEditMode } from './appoinmentsState.js';
+import { NotificationService } from './notificationService.js';
 
 
 
@@ -333,6 +334,10 @@ async function loadAppointments() {
 
     const data = await res.json();
     appointmentsList = Array.isArray(data) ? data : data.appointments || [];
+    
+    // Initialize/Update Notification Service
+    NotificationService.init(appointmentsList);
+    
     renderAppointments(appointmentsList);
   } catch (err) {
     console.error('🔥 Error al cargar citas:', err);
