@@ -1,12 +1,20 @@
-import { checkAuth, requireAuth, formatDate, getAgeFromDOB, showToast } from './utils.js';
+import { checkAuth, requireAuth, formatDate, getAgeFromDOB, showToast, toMinutes } from './utils.js';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+
+const logo = document.querySelector('.logo');
+    if (logo) {
+        logo.style.cursor = 'pointer';
+        logo.addEventListener('click', () => window.location.href = '../index.html');
+    }
 
 // DOM Elements - Tabs
 const listTab = document.getElementById('list-tab');
 const profileTab = document.getElementById('profile-tab');
+const historyTab = document.getElementById('history-tab');
 const listContent = document.getElementById('list');
 const profileContent = document.getElementById('profile');
+const historyContent = document.getElementById('history');
 
 // DOM Elements - Filters & List
 const startDateInput = document.getElementById('startDate');
@@ -26,69 +34,92 @@ const previewName = document.getElementById('previewName');
 const previewDetails = document.getElementById('previewDetails');
 const generateClinicalPdfBtn = document.getElementById('generateClinicalPdfBtn');
 
+// DOM Elements - History Report
+const historyPatientSearch = document.getElementById('historyPatientSearch');
+const historySearchResults = document.getElementById('historySearchResults');
+const historyContainer = document.getElementById('historyContent');
+const historyPatientName = document.getElementById('historyPatientName');
+const histTotal = document.getElementById('histTotal');
+const histCompleted = document.getElementById('histCompleted');
+const histPending = document.getElementById('histPending');
+const histCanceled = document.getElementById('histCanceled');
+const historyTableBody = document.getElementById('historyTableBody');
+const exportHistoryPdfBtn = document.getElementById('exportHistoryPdfBtn');
+
 // State
 let allPatients = [];
+let allAppointments = [];
 let filteredPatients = [];
 let selectedPatient = null;
+let selectedHistoryPatient = null;
+let currentHistoryAppointments = [];
 
 // --- Initialization ---
 document.addEventListener('DOMContentLoaded', async () => {
     checkAuth();
     requireAuth();
-    await loadPatients();
+    await loadData();
     setupTabs();
     setupEventListeners();
 });
 
-async function loadPatients() {
+async function loadData() {
     const token = localStorage.getItem('authToken');
     if (!token) return;
 
     try {
-        const res = await fetch('https://medinet360api.vercel.app/api/patients', {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
+        const [patientsRes, appointmentsRes] = await Promise.all([
+            fetch('https://medinet360api.vercel.app/api/patients', { headers: { 'Authorization': `Bearer ${token}` } }),
+            fetch('https://medinet360api.vercel.app/api/appointments', { headers: { 'Authorization': `Bearer ${token}` } })
+        ]);
 
-        if (res.ok) {
-            const data = await res.json();
-            // Handle different potential API structures just in case
+        if (patientsRes.ok) {
+            const data = await patientsRes.json();
             allPatients = Array.isArray(data) ? data : (data.patients || []);
         } else {
             console.error('Failed to load patients');
-            showToast('Failed to load patients data', 'error');
         }
+
+        if (appointmentsRes.ok) {
+            const data = await appointmentsRes.json();
+            allAppointments = Array.isArray(data) ? data : (data.appointments || []);
+        } else {
+            console.error('Failed to load appointments');
+        }
+
     } catch (error) {
-        console.error('Error loading patients:', error);
-        showToast('Error connection to server', 'error');
+        console.error('Error loading data:', error);
+        showToast('Error loading data', 'error');
     }
 }
 
 function setupTabs() {
-    listTab.addEventListener('click', () => {
-        switchTab('list');
-    });
-    profileTab.addEventListener('click', () => {
-        switchTab('profile');
-    });
+    listTab.addEventListener('click', () => switchTab('list'));
+    profileTab.addEventListener('click', () => switchTab('profile'));
+    historyTab.addEventListener('click', () => switchTab('history'));
 }
 
 function switchTab(tabName) {
+    // Reset all tabs
+    [listTab, profileTab, historyTab].forEach(t => {
+        t.classList.remove('active-tab', 'border-b-2', 'border-gray-300', 'text-gray-900');
+        t.classList.add('border-transparent', 'text-gray-500');
+    });
+    [listContent, profileContent, historyContent].forEach(c => c.classList.add('hidden'));
+
+    // Activate selected
     if (tabName === 'list') {
         listTab.classList.add('active-tab', 'border-b-2', 'border-gray-300', 'text-gray-900');
         listTab.classList.remove('border-transparent', 'text-gray-500');
-        profileTab.classList.remove('active-tab', 'border-b-2', 'border-gray-300', 'text-gray-900');
-        profileTab.classList.add('border-transparent');
-
         listContent.classList.remove('hidden');
-        profileContent.classList.add('hidden');
-    } else {
+    } else if (tabName === 'profile') {
         profileTab.classList.add('active-tab', 'border-b-2', 'border-gray-300', 'text-gray-900');
         profileTab.classList.remove('border-transparent', 'text-gray-500');
-        listTab.classList.remove('active-tab', 'border-b-2', 'border-gray-300', 'text-gray-900');
-        listTab.classList.add('border-transparent');
-
         profileContent.classList.remove('hidden');
-        listContent.classList.add('hidden');
+    } else if (tabName === 'history') {
+        historyTab.classList.add('active-tab', 'border-b-2', 'border-gray-300', 'text-gray-900');
+        historyTab.classList.remove('border-transparent', 'text-gray-500');
+        historyContent.classList.remove('hidden');
     }
 }
 
@@ -100,18 +131,26 @@ function setupEventListeners() {
     exportPdfListBtn.addEventListener('click', exportListToPDF);
 
     // Profile Tab Listeners
-    patientSearch.addEventListener('input', handleSearch);
+    patientSearch.addEventListener('input', (e) => handleSearch(e.target.value, 'profile'));
     generateClinicalPdfBtn.addEventListener('click', generateClinicalPDF);
+
+    // History Tab Listeners
+    historyPatientSearch.addEventListener('input', (e) => handleSearch(e.target.value, 'history'));
+    exportHistoryPdfBtn.addEventListener('click', generateHistoryPDF);
 
     // Close search results when clicking outside
     document.addEventListener('click', (e) => {
         if (!patientSearch.contains(e.target) && !searchResults.contains(e.target)) {
             searchResults.classList.add('hidden');
         }
+        if (!historyPatientSearch.contains(e.target) && !historySearchResults.contains(e.target)) {
+            historySearchResults.classList.add('hidden');
+        }
     });
 }
 
 // --- List Logic ---
+// ... (Logic from previous step remains similar, I'll rewrite it to ensure fullness) ...
 
 function applyDateFilter() {
     const start = startDateInput.value ? new Date(startDateInput.value) : null;
@@ -123,14 +162,11 @@ function applyDateFilter() {
     }
 
     // Adjust end date to include the whole day
-    if (end) {
-        end.setHours(23, 59, 59, 999);
-    }
+    if (end) end.setHours(23, 59, 59, 999);
 
     filteredPatients = allPatients.filter(p => {
-        if (!p.createdAt && !p.registerDate) return false; // Fallback if no date field
+        if (!p.createdAt && !p.registerDate) return false;
         const regDate = new Date(p.createdAt || p.registerDate);
-
         if (start && regDate < start) return false;
         if (end && regDate > end) return false;
         return true;
@@ -173,16 +209,12 @@ function renderTable(patients) {
     }
 
     patientsTableBody.innerHTML = patients.map(p => {
-        const age = getAgeFromDOB(p.birthday);
-        const dob = formatDate(p.birthday);
-        const regDate = p.createdAt ? formatDate(p.createdAt) : 'N/A';
-
         return `
             <tr>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${p.name} ${p.lastName}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${age}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${dob}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${regDate}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${getAgeFromDOB(p.birthday)}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatDate(p.birthday)}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${p.createdAt ? formatDate(p.createdAt) : 'N/A'}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <div class="text-xs">${p.phone || '-'}</div>
                     <div class="text-xs text-gray-400">${p.email || '-'}</div>
@@ -193,28 +225,26 @@ function renderTable(patients) {
 }
 
 
-// --- Individual Profile Logic ---
+// --- Search Logic (Unified for Profile and History) ---
 
-function handleSearch(e) {
-    const term = e.target.value.toLowerCase().trim();
+function handleSearch(term, mode) {
+    const container = mode === 'profile' ? searchResults : historySearchResults;
+    term = term.toLowerCase().trim();
+
     if (term.length < 1) {
-        searchResults.classList.add('hidden');
+        container.classList.add('hidden');
         return;
     }
 
     const matches = allPatients.filter(p => {
         const fullName = `${p.name} ${p.lastName}`.toLowerCase();
         return fullName.includes(term);
-    }).slice(0, 5); // Limit to 5 results
+    }).slice(0, 5);
 
-    renderSearchResults(matches);
-}
-
-function renderSearchResults(matches) {
-    searchResults.innerHTML = '';
+    container.innerHTML = '';
 
     if (matches.length === 0) {
-        searchResults.classList.add('hidden');
+        container.classList.add('hidden');
         return;
     }
 
@@ -225,28 +255,117 @@ function renderSearchResults(matches) {
             <p class="font-medium text-sm text-gray-800">${p.name} ${p.lastName}</p>
             <p class="text-xs text-gray-500">${p.email || 'No email'}</p>
         `;
-        div.addEventListener('click', () => selectPatient(p));
-        searchResults.appendChild(div);
+        div.addEventListener('click', () => {
+            if (mode === 'profile') selectProfilePatient(p);
+            else selectHistoryPatient(p);
+        });
+        container.appendChild(div);
     });
 
-    searchResults.classList.remove('hidden');
+    container.classList.remove('hidden');
 }
 
-function selectPatient(patient) {
+// --- Profile Logic ---
+
+function selectProfilePatient(patient) {
     selectedPatient = patient;
     patientSearch.value = `${patient.name} ${patient.lastName}`;
     searchResults.classList.add('hidden');
 
-    // Show preview
     selectedPatientPreview.classList.remove('hidden');
     previewName.textContent = `${patient.name} ${patient.lastName}`;
     previewDetails.textContent = `Edad: ${getAgeFromDOB(patient.birthday)} • Tel: ${patient.phone || 'N/A'}`;
-
-    // Enable button
     generateClinicalPdfBtn.disabled = false;
 }
 
-// --- Export Functions ---
+// --- History Logic ---
+
+function selectHistoryPatient(patient) {
+    selectedHistoryPatient = patient;
+    historyPatientSearch.value = `${patient.name} ${patient.lastName}`;
+    historySearchResults.classList.add('hidden');
+    historyContainer.classList.remove('hidden');
+    historyPatientName.textContent = `${patient.name} ${patient.lastName}`;
+
+    // Filter appointments for this patient with robust comparison
+    currentHistoryAppointments = allAppointments.filter(apt => {
+        if (!apt.patientId) return false;
+
+        // Handle if patientId is populated object or just ID string
+        const aptPatientId = (typeof apt.patientId === 'object' && apt.patientId !== null)
+            ? (apt.patientId._id || apt.patientId.id)
+            : apt.patientId;
+
+        // Compare as strings to avoid type mismatches
+        return String(aptPatientId) === String(patient._id);
+    });
+
+    console.log(`Found ${currentHistoryAppointments.length} appointments for patient ${patient.name}`);
+    renderHistoryStats();
+    renderHistoryTable();
+}
+
+function renderHistoryStats() {
+    const total = currentHistoryAppointments.length;
+    const completed = currentHistoryAppointments.filter(a => a.status === 'completed').length;
+    const canceled = currentHistoryAppointments.filter(a => a.status === 'canceled').length;
+    const pending = total - completed - canceled;
+
+    histTotal.textContent = total;
+    histCompleted.textContent = completed;
+    histCanceled.textContent = canceled;
+    histPending.textContent = pending;
+}
+
+function renderHistoryTable() {
+    if (currentHistoryAppointments.length === 0) {
+        historyTableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">No hay historial de citas para este paciente.</td></tr>';
+        return;
+    }
+
+    // Sort by date desc
+    const sorted = [...currentHistoryAppointments].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    historyTableBody.innerHTML = sorted.map(apt => {
+        return `
+            <tr>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${formatDate(apt.date)}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${apt.hour}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${apt.duration} min</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusBadge(apt.status)}">
+                            ${getStatusLabel(apt.status)}
+                        </span>
+                   </td>
+                   <td class="px-6 py-4 whitespace-normal text-sm text-gray-500 max-w-xs truncate" title="${apt.description || ''}">
+                        ${apt.description || '-'}
+                   </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function getStatusBadge(status) {
+    const badges = {
+        scheduled: 'bg-blue-100 text-blue-800',
+        pending: 'bg-yellow-100 text-yellow-800',
+        completed: 'bg-green-100 text-green-800',
+        canceled: 'bg-red-100 text-red-800'
+    };
+    return badges[status] || 'bg-gray-100 text-gray-800';
+}
+
+function getStatusLabel(status) {
+    const labels = {
+        scheduled: 'Agendada',
+        pending: 'Pendiente',
+        completed: 'Completada',
+        canceled: 'Cancelada'
+    };
+    return labels[status] || status;
+}
+
+// --- Export Logic ---
 
 function exportToCSV() {
     if (!filteredPatients.length) return;
@@ -256,17 +375,13 @@ function exportToCSV() {
         p.name,
         p.lastName,
         getAgeFromDOB(p.birthday),
-        formatDate(p.birthday), // assuming formatDate returns string
+        formatDate(p.birthday),
         p.phone || '',
         p.email || '',
         p.createdAt ? formatDate(p.createdAt) : ''
     ]);
 
-    const csvContent = [
-        headers.join(','),
-        ...rows.map(r => r.map(c => `"${c}"`).join(',')) // Quote fields to handle commas
-    ].join('\n');
-
+    const csvContent = [headers.join(','), ...rows.map(r => r.map(c => `"${c}"`).join(','))].join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
@@ -276,17 +391,12 @@ function exportToCSV() {
 
 function exportListToPDF() {
     if (!filteredPatients.length) return;
-
     const doc = new jsPDF();
 
-    // Header
     doc.setFontSize(18);
     doc.text('Reporte de Pacientes Nuevos', 14, 22);
-
     doc.setFontSize(11);
-    doc.setTextColor(100);
-    const dateRangeStr = `Generado el: ${new Date().toLocaleDateString()}`;
-    doc.text(dateRangeStr, 14, 30);
+    doc.text(`Generado el: ${new Date().toLocaleDateString()}`, 14, 30);
 
     const headers = [['Nombre', 'Edad', 'F. Nacimiento', 'Teléfono', 'Email', 'Registro']];
     const data = filteredPatients.map(p => [
@@ -299,14 +409,8 @@ function exportListToPDF() {
     ]);
 
     autoTable(doc, {
-        head: headers,
-        body: data,
-        startY: 35,
-        theme: 'grid',
-        styles: { fontSize: 8 },
-        headStyles: { fillColor: [79, 70, 229] } // Indigo-600-ish
+        head: headers, body: data, startY: 35, theme: 'grid', styles: { fontSize: 8 }, headStyles: { fillColor: [79, 70, 229] }
     });
-
     doc.save(`reporte_pacientes_${new Date().toISOString().split('T')[0]}.pdf`);
 }
 
@@ -315,111 +419,74 @@ function generateClinicalPDF() {
     const p = selectedPatient;
     const doc = new jsPDF();
 
-    // --- Header ---
     doc.setFontSize(22);
-    doc.setTextColor(40, 40, 40);
     doc.text('Ficha Clínica', 105, 20, null, null, 'center');
+    doc.setLineWidth(0.5); doc.line(20, 25, 190, 25);
 
-    doc.setLineWidth(0.5);
-    doc.line(20, 25, 190, 25);
-
-    // --- Personal Info Section ---
     let yPos = 40;
-    doc.setFontSize(14);
-    doc.setTextColor(79, 70, 229); // Accent color
-    doc.text('Información Personal', 20, yPos);
-    yPos += 10;
+    doc.setFontSize(14); doc.setTextColor(79, 70, 229); doc.text('Información Personal', 20, yPos); yPos += 10;
+    doc.setFontSize(10); doc.setTextColor(0);
 
-    doc.setFontSize(10);
-    doc.setTextColor(0);
+    doc.setFont(undefined, 'bold'); doc.text('Nombre:', 20, yPos); doc.setFont(undefined, 'normal'); doc.text(`${p.name} ${p.lastName}`, 50, yPos); yPos += 8;
+    doc.setFont(undefined, 'bold'); doc.text('F. Nac:', 20, yPos); doc.setFont(undefined, 'normal'); doc.text(`${formatDate(p.birthday)} (${getAgeFromDOB(p.birthday)} años)`, 50, yPos); yPos += 8;
+    doc.setFont(undefined, 'bold'); doc.text('Tel:', 20, yPos); doc.setFont(undefined, 'normal'); doc.text(p.phone || 'N/A', 50, yPos); yPos += 8;
+    doc.setFont(undefined, 'bold'); doc.text('Email:', 20, yPos); doc.setFont(undefined, 'normal'); doc.text(p.email || 'N/A', 50, yPos); yPos += 20;
 
-    // Layout: 2 columns
-    // Col 1
-    doc.setFont(undefined, 'bold');
-    doc.text('Nombre Completo:', 20, yPos);
-    doc.setFont(undefined, 'normal');
-    doc.text(`${p.name} ${p.lastName}`, 60, yPos);
+    doc.setFontSize(14); doc.setTextColor(79, 70, 229); doc.text('Notas Clínicas', 20, yPos); yPos += 10;
+    doc.setFontSize(10); doc.setTextColor(0);
+    const splitNotes = doc.splitTextToSize(p.notes || 'Sin notas.', 170);
+    doc.text(splitNotes, 20, yPos); yPos += (splitNotes.length * 5) + 15;
 
-    yPos += 8;
-    doc.setFont(undefined, 'bold');
-    doc.text('Fecha Nacimiento:', 20, yPos);
-    doc.setFont(undefined, 'normal');
-    doc.text(`${formatDate(p.birthday)} (${getAgeFromDOB(p.birthday)} años)`, 60, yPos);
-
-    yPos += 8;
-    doc.setFont(undefined, 'bold');
-    doc.text('Sexo:', 20, yPos);
-    doc.setFont(undefined, 'normal');
-    doc.text(p.gender || 'N/A', 60, yPos);
-
-    // Col 2 (Adjust X to ~110)
-    yPos -= 16;
-    doc.setFont(undefined, 'bold');
-    doc.text('Teléfono:', 110, yPos);
-    doc.setFont(undefined, 'normal');
-    doc.text(p.phone || 'N/A', 140, yPos);
-
-    yPos += 8;
-    doc.setFont(undefined, 'bold');
-    doc.text('Email:', 110, yPos);
-    doc.setFont(undefined, 'normal');
-    doc.text(p.email || 'N/A', 140, yPos);
-
-    yPos += 20; // Space before next section
-
-    // --- Clinical Notes Section ---
-    doc.setFontSize(14);
-    doc.setTextColor(79, 70, 229);
-    doc.text('Notas Clínicas', 20, yPos);
-    yPos += 10;
-
-    doc.setFontSize(10);
-    doc.setTextColor(0);
-
-    const notes = p.notes || 'Sin notas registradas.';
-    // Split text to fit width
-    const splitNotes = doc.splitTextToSize(notes, 170);
-    doc.text(splitNotes, 20, yPos);
-
-    yPos += (splitNotes.length * 5) + 15;
-
-    // --- Custom Fields Section ---
     if (p.customFields && p.customFields.length > 0) {
-        // Check if we need a new page
-        if (yPos > 250) {
-            doc.addPage();
-            yPos = 20;
-        }
-
-        doc.setFontSize(14);
-        doc.setTextColor(79, 70, 229); // Accent
-        doc.text('Datos Adicionales', 20, yPos);
-        yPos += 10;
-
-        // Use autoTable for key-value pairs of custom fields for cleaner look
+        if (yPos > 240) { doc.addPage(); yPos = 20; }
+        doc.setFontSize(14); doc.setTextColor(79, 70, 229); doc.text('Datos Adicionales', 20, yPos); yPos += 10;
         const cfData = p.customFields.map(f => [f.fieldName, f.value]);
-
         autoTable(doc, {
-            body: cfData,
-            startY: yPos,
-            theme: 'striped',
-            headStyles: { fillColor: [200, 200, 200], textColor: 50 },
-            columns: [
-                { header: 'Campo', dataKey: '0' },
-                { header: 'Valor', dataKey: '1' },
-            ],
-            margin: { left: 20, right: 20 }
+            body: cfData, startY: yPos, theme: 'striped', headStyles: { fillColor: [200, 200, 200], textColor: 50 },
+            columns: [{ header: 'Campo', dataKey: '0' }, { header: 'Valor', dataKey: '1' }]
         });
     }
 
-    // Footer
-    const pageCount = doc.internal.getNumberOfPages();
-    for (let i = 1; i <= pageCount; i++) {
-        doc.setPage(i);
-        doc.setFontSize(8);
-        doc.setTextColor(150);
-        doc.text(`Página ${i} de ${pageCount} - Generado por Medinet360`, 105, 290, null, null, 'center');
-    }
-
     doc.save(`Ficha_${p.name}_${p.lastName}.pdf`);
+}
+
+function generateHistoryPDF() {
+    if (!selectedHistoryPatient) return;
+    const p = selectedHistoryPatient;
+    const doc = new jsPDF();
+
+    // Stats
+    const total = currentHistoryAppointments.length;
+    const completed = currentHistoryAppointments.filter(a => a.status === 'completed').length;
+
+    doc.setFontSize(20);
+    doc.text('Historial de Citas', 105, 20, null, null, 'center');
+
+    doc.setFontSize(12);
+    doc.text(`Paciente: ${p.name} ${p.lastName}`, 14, 35);
+    doc.setFontSize(10);
+    doc.text(`Total Citas: ${total}   Completadas: ${completed}`, 14, 42);
+
+    const headers = [['Fecha', 'Hora', 'Duración', 'Estado', 'Nota']];
+    const sorted = [...currentHistoryAppointments].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    const data = sorted.map(a => [
+        formatDate(a.date),
+        a.hour,
+        `${a.duration} min`,
+        getStatusLabel(a.status),
+        a.description || '-'
+    ]);
+
+    autoTable(doc, {
+        head: headers,
+        body: data,
+        startY: 50,
+        theme: 'grid',
+        styles: { fontSize: 9 },
+        headStyles: { fillColor: [79, 70, 229] },
+        columnStyles: { 4: { cellWidth: 50 } } // Limit width of note column
+    });
+
+    doc.save(`Historial_Citas_${p.name}.pdf`);
 }
