@@ -1,55 +1,65 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Medinet360 - Manage patient records effortlessly">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://res.cloudinary.com/dhu9pmzqp/image/upload/v1761155608/medinet360_yvb9ob.webp">
-    <meta property="og:url" content="https://medinet360.netlify.app/">
-    <meta name="author" content="Josué H. Gotay">
-    <meta name="description" content="Medinet360 helps healthcare professionals organize, track, and access patient data — all in one secure platform.">
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-    </style>
-    <title>Dashboard • Medinet360</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-    <link rel="manifest" href="/images/site.webmanifest">
-    <link rel="stylesheet" href="../css/dashboardAppointments.css">
-    <script type="module" src="../js/dashboardAppointments.js"></script>
-    <script type="module" src="../js/appointmentsHelper.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Medinet360 - Manage patient records effortlessly">
+  <meta property="og:type" content="website">
+  <meta property="og:image"
+    content="https://res.cloudinary.com/dhu9pmzqp/image/upload/v1761155608/medinet360_yvb9ob.webp">
+  <meta property="og:url" content="https://medinet360.netlify.app/">
+  <meta name="author" content="Josué H. Gotay">
+  <meta name="description"
+    content="Medinet360 helps healthcare professionals organize, track, and access patient data — all in one secure platform.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+  </style>
+  <title>Dashboard • Medinet360</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/site.webmanifest">
+  <link rel="stylesheet" href="../css/dashboardAppointments.css">
+  <script type="module" src="../js/dashboardAppointments.js"></script>
+  <script type="module" src="../js/appointmentsHelper.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
+
   <style>
     /* Pequeño ajuste para que Tom Select se parezca más a Tailwind */
     .ts-control {
-        border: 1px solid #D1D5DB; /* border-gray-300 */
-        border-radius: 0.375rem; /* rounded-md */
-        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); /* shadow-sm */
-        padding: 0.375rem 0.75rem; /* similar a py-2 px-3 */
+      border: 1px solid #D1D5DB;
+      /* border-gray-300 */
+      border-radius: 0.375rem;
+      /* rounded-md */
+      box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      /* shadow-sm */
+      padding: 0.375rem 0.75rem;
+      /* similar a py-2 px-3 */
     }
+
     .ts-control:focus {
-        border-color: #2563EB; /* focus:border-blue-500 */
-        box-shadow: 0 0 0 1px #2563EB; /* focus:ring-blue-500 */
+      border-color: #2563EB;
+      /* focus:border-blue-500 */
+      box-shadow: 0 0 0 1px #2563EB;
+      /* focus:ring-blue-500 */
     }
+
     .ts-dropdown {
-        border-color: #D1D5DB;
-        border-radius: 0.375rem;
+      border-color: #D1D5DB;
+      border-radius: 0.375rem;
     }
   </style>
 </head>
+
 <body class="bg-gray-50 text-gray-800">
 
   <!-- Navbar superior -->
   <header class="flex items-center justify-between bg-white border-b border-gray-200 px-4 py-3 md:hidden">
     <button id="menu-btn" class="text-gray-700 focus:outline-none">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-        viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16" />
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
     <h1 class="font-semibold text-lg">Appointments</h1>
@@ -66,18 +76,25 @@
       </div>
 
       <nav class="flex-1 space-y-4">
-        <a href="patients.html" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
+        <a href="home.html" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          Home
+        </a>
+
+        <a href="patients.html" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
           Patients
         </a>
 
-        <a href="appointments.html" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
+        <a href="appointments.html"
+          class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
           </svg>
@@ -86,8 +103,7 @@
         </a>
 
         <a href="reports.html" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M9 17v-6h2v6H9zm4 0v-4h2v4h-2zM5 21h14a2 2 0 002-2V7l-6-4H5a2 2 0 00-2 2v14a2 2 0 002 2z" />
           </svg>
@@ -97,8 +113,7 @@
 
       <div class="mt-auto">
         <a href="account" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M5.121 17.804A4 4 0 118 4a4 4 0 013.879 13.804A8 8 0 015.12 17.804z" />
           </svg>
@@ -115,7 +130,8 @@
       <div class="flex justify-between items-center mb-8">
         <h1 class="text-2xl font-semibold">Dashboard</h1>
         <div class="relative">
-          <input type="text" placeholder="Buscar..." class="border border-gray-300 rounded-lg pl-8 pr-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none w-48 md:w-80">
+          <input type="text" placeholder="Buscar..."
+            class="border border-gray-300 rounded-lg pl-8 pr-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none w-48 md:w-80">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 absolute left-2 top-2.5 text-gray-500" fill="none"
             viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -125,308 +141,339 @@
       </div>
 
       <!-- Main content -->
-  <main class="flex-1 p-6 overflow-auto">
-    <header class="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
-      <h1 class="text-2xl font-semibold text-gray-800 mb-4 sm:mb-0">Citas</h1>
-      <div class="flex items-center gap-3">
-        <div class="notification-container"></div>
-        <button id="newAppointmentButton" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-          </svg>
-          Nueva Cita
-        </button>
-      </div>
-    </header>
-
-    <!-- Tabs -->
-    <div class="flex flex-wrap gap-2 mb-6">
-      <button class="px-4 py-2 rounded-md bg-blue-600 text-white font-medium">Lista</button>
-      <button onclick="window.location.href='/dashboard/appointmentsCalendar.html'" class="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition">Calendario</button>
-    </div>
-
-    <!-- Filters -->
-    <div class="flex flex-wrap gap-2 mb-6 items-center">
-      <span class="text-gray-700 font-medium mr-2">Estado:</span>
-      <button id="allAppointments" class="allAppointments active">Todas</button>
-      <button id="scheduleAppointments" class="scheduleAppointments">Agendadas</button>
-      <button id="completedAppointments" class="completedAppointments">Completadas</button>
-      <button id="pendingAppointments" class="pendingAppointments">Pendientes</button>
-      <button id="canceledAppointments" class="canceledAppointments">Canceladas</button>
-    </div>
-
-    <!-- Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Left side -->
-      <div class="lg:col-span-2 space-y-6">
-        <!-- Citas de Hoy -->
-        <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-          <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
-            <h2 class="text-lg font-semibold text-gray-900">Citas de Hoy</h2>
-          </div>
-          
-          <div id="todayAppointmentsContainer" class="overflow-x-auto">
-            <table class="w-full">
-              <thead>
-                <tr class="border-b border-gray-200 bg-gray-50">
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Paciente</th>
-                  <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Hora</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Duración</th>
-                  <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Estado</th>
-                  <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Acciones</th>
-                </tr>
-              </thead>
-              <tbody id="todayAppointmentsBody" class="divide-y divide-gray-200">
-                <tr>
-                  <td colspan="5" class="px-6 py-8 text-center text-gray-500 text-sm">
-                    No hay citas para hoy
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Próximas Citas -->
-        <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-          <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
-            <h2 class="text-lg font-semibold text-gray-900">Próximas Citas</h2>
-          </div>
-          
-          <div id="upcomingAppointmentsContainer" class="overflow-x-auto">
-            <table class="w-full">
-              <thead>
-                <tr class="border-b border-gray-200 bg-gray-50">
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Paciente</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Fecha</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Hora</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Estado</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Acciones</th>
-                </tr>
-              </thead>
-              <tbody id="upcomingAppointmentsBody" class="divide-y divide-gray-200">
-                <tr>
-                  <td colspan="5" class="px-6 py-8 text-center text-gray-500 text-sm">
-                    No hay citas próximas
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right side -->
-      <div id="rightSide" class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-blue-600 mx-auto mb-3"
-          fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M8 7V3m8 4V3m-9 8h10m-9 4h4m-8 6h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-        <h3 class="font-semibold text-gray-800">Selecciona una cita</h3>
-        <p class="text-gray-500 text-sm">Haz clic en cualquier cita para ver detalles y editar</p>
-      </div>
-    </div>
-
-    <dialog id="appointmentModal">
-      <div id="appointmentFormContainer" class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-xl">
-        
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-bold text-gray-900">Nueva Cita</h2>
-            <button id="closeButton" class="text-gray-500 hover:text-gray-700">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
+      <main class="flex-1 p-6 overflow-auto">
+        <header class="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
+          <h1 class="text-2xl font-semibold text-gray-800 mb-4 sm:mb-0">Citas</h1>
+          <div class="flex items-center gap-3">
+            <div class="notification-container"></div>
+            <button id="newAppointmentButton"
+              class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+              Nueva Cita
             </button>
+          </div>
+        </header>
+
+        <!-- Tabs -->
+        <div class="flex flex-wrap gap-2 mb-6">
+          <button class="px-4 py-2 rounded-md bg-blue-600 text-white font-medium">Lista</button>
+          <button onclick="window.location.href='/dashboard/appointmentsCalendar.html'"
+            class="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition">Calendario</button>
         </div>
 
-        <!-- Appointment form -->
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-2 mb-6 items-center">
+          <span class="text-gray-700 font-medium mr-2">Estado:</span>
+          <button id="allAppointments" class="allAppointments active">Todas</button>
+          <button id="scheduleAppointments" class="scheduleAppointments">Agendadas</button>
+          <button id="completedAppointments" class="completedAppointments">Completadas</button>
+          <button id="pendingAppointments" class="pendingAppointments">Pendientes</button>
+          <button id="canceledAppointments" class="canceledAppointments">Canceladas</button>
+        </div>
 
-        <form id="appointmentForm" action="#" method="">
-            <div class="grid grid-cols-2 gap-6">
+        <!-- Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Left side -->
+          <div class="lg:col-span-2 space-y-6">
+            <!-- Citas de Hoy -->
+            <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+              <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                <h2 class="text-lg font-semibold text-gray-900">Citas de Hoy</h2>
+              </div>
 
-                <div class="col-span-2">
-                    <label for="patientId" class="block text-sm font-medium text-gray-700 mb-1">
-                        Paciente <span class="text-red-500">*</span>
-                    </label>
-                    <select id="patientSelect" name="patientId" placeholder="Selecciona un paciente...">
-                    </select>
-                </div>
-
-                <div class="col-span-1">
-                    <label for="date" class="block text-sm font-medium text-gray-700 mb-1">
-                        Fecha <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <input type="date" id="date" name="fecha" placeholder="mm/dd/yyyy" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400">
-                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-span-1">
-                    <label for="hour" class="block text-sm font-medium text-gray-700 mb-1">
-                        Hora <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <input type="time" id="hour" name="hora" placeholder="--:-- --" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400">
-                    </div>
-                </div>
-
-                <div class="col-span-2">
-                    <label for="duration" class="block text-sm font-medium text-gray-700 mb-1">
-                        Duración (minutos)
-                    </label>
-                    <select id="duration" name="duracion" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        <option value="30">30 minutos</option>
-                        <option value="45">45 minutos</option>
-                        <option value="60">60 minutos</option>
-                    </select>
-                </div>
-
-                <div class="col-span-2">
-                    <label for="status" class="block text-sm font-medium text-gray-700 mb-1">
-                        Status
-                    </label>
-                    <select id="status" name="status" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        <option value="scheduled">Agendada</option>
-                        <option value="pending">Pendiente</option>
-                        <option value="completed">Completada</option>
-                        <option value="canceled">Cancelada</option>
-                    </select>
-                </div>
-
-                <div class="col-span-2">
-                    <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">
-                        Notas (opcional)
-                    </label>
-                    <textarea id="notes" name="notas" rows="4" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400" placeholder="Agrega notas adicionales sobre la cita..."></textarea>
-                </div>
-
+              <div id="todayAppointmentsContainer" class="overflow-x-auto">
+                <table class="w-full">
+                  <thead>
+                    <tr class="border-b border-gray-200 bg-gray-50">
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        Paciente</th>
+                      <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        Hora</th>
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        Duración</th>
+                      <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        Estado</th>
+                      <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="todayAppointmentsBody" class="divide-y divide-gray-200">
+                    <tr>
+                      <td colspan="5" class="px-6 py-8 text-center text-gray-500 text-sm">
+                        No hay citas para hoy
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            <div class="mt-8 flex justify-end space-x-4">
-                <button type="button" id="cancelButton" class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                    Cancelar
-                </button>
-                <button type="submit" id="createAppointment" class="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Crear Cita
-                </button>
+            <!-- Próximas Citas -->
+            <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+              <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                <h2 class="text-lg font-semibold text-gray-900">Próximas Citas</h2>
+              </div>
+
+              <div id="upcomingAppointmentsContainer" class="overflow-x-auto">
+                <table class="w-full">
+                  <thead>
+                    <tr class="border-b border-gray-200 bg-gray-50">
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        Paciente</th>
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Fecha
+                      </th>
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Hora
+                      </th>
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        Estado</th>
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="upcomingAppointmentsBody" class="divide-y divide-gray-200">
+                    <tr>
+                      <td colspan="5" class="px-6 py-8 text-center text-gray-500 text-sm">
+                        No hay citas próximas
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
+          </div>
 
-        </form>
-      </div>
-    </dialog>
+          <!-- Right side -->
+          <div id="rightSide" class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-blue-600 mx-auto mb-3" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M8 7V3m8 4V3m-9 8h10m-9 4h4m-8 6h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <h3 class="font-semibold text-gray-800">Selecciona una cita</h3>
+            <p class="text-gray-500 text-sm">Haz clic en cualquier cita para ver detalles y editar</p>
+          </div>
+        </div>
 
-  <dialog id="updateAppointmentModal">
-      <div id="updateAppointmentFormContainer" class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-xl">
-        
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-bold text-gray-900">Nueva Cita</h2>
-            <button id="closeButton" class="text-gray-500 hover:text-gray-700">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        <dialog id="appointmentModal">
+          <div id="appointmentFormContainer" class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-xl">
+
+            <div class="flex justify-between items-center mb-6">
+              <h2 class="text-xl font-bold text-gray-900">Nueva Cita</h2>
+              <button id="closeButton" class="text-gray-500 hover:text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
-            </button>
-        </div>
+              </button>
+            </div>
 
-        <!-- Appointment form -->
+            <!-- Appointment form -->
 
-        <form id="appointmentForm" action="#" method="POST">
-            <div class="grid grid-cols-2 gap-6">
+            <form id="appointmentForm" action="#" method="">
+              <div class="grid grid-cols-2 gap-6">
 
                 <div class="col-span-2">
-                    <label for="patientId" class="block text-sm font-medium text-gray-700 mb-1">
-                        Paciente <span class="text-red-500">*</span>
-                    </label>
-                    <select id="patientSelect" name="patientId" placeholder="Selecciona un paciente...">
-                    </select>
+                  <label for="patientId" class="block text-sm font-medium text-gray-700 mb-1">
+                    Paciente <span class="text-red-500">*</span>
+                  </label>
+                  <select id="patientSelect" name="patientId" placeholder="Selecciona un paciente...">
+                  </select>
                 </div>
 
                 <div class="col-span-1">
-                    <label for="date" class="block text-sm font-medium text-gray-700 mb-1">
-                        Fecha <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <input type="date" id="date" name="fecha" placeholder="mm/dd/yyyy" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400">
-                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                        </div>
+                  <label for="date" class="block text-sm font-medium text-gray-700 mb-1">
+                    Fecha <span class="text-red-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <input type="date" id="date" name="fecha" placeholder="mm/dd/yyyy"
+                      class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400">
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                     </div>
+                  </div>
                 </div>
 
                 <div class="col-span-1">
-                    <label for="hour" class="block text-sm font-medium text-gray-700 mb-1">
-                        Hora <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <input type="time" id="hour" name="hora" placeholder="--:-- --" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400">
+                  <label for="hour" class="block text-sm font-medium text-gray-700 mb-1">
+                    Hora <span class="text-red-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <input type="time" id="hour" name="hora" placeholder="--:-- --"
+                      class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400">
+                  </div>
+                </div>
+
+                <div class="col-span-2">
+                  <label for="duration" class="block text-sm font-medium text-gray-700 mb-1">
+                    Duración (minutos)
+                  </label>
+                  <select id="duration" name="duracion"
+                    class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    <option value="30">30 minutos</option>
+                    <option value="45">45 minutos</option>
+                    <option value="60">60 minutos</option>
+                  </select>
+                </div>
+
+                <div class="col-span-2">
+                  <label for="status" class="block text-sm font-medium text-gray-700 mb-1">
+                    Status
+                  </label>
+                  <select id="status" name="status"
+                    class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    <option value="scheduled">Agendada</option>
+                    <option value="pending">Pendiente</option>
+                    <option value="completed">Completada</option>
+                    <option value="canceled">Cancelada</option>
+                  </select>
+                </div>
+
+                <div class="col-span-2">
+                  <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">
+                    Notas (opcional)
+                  </label>
+                  <textarea id="notes" name="notas" rows="4"
+                    class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400"
+                    placeholder="Agrega notas adicionales sobre la cita..."></textarea>
+                </div>
+
+              </div>
+
+              <div class="mt-8 flex justify-end space-x-4">
+                <button type="button" id="cancelButton"
+                  class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                  Cancelar
+                </button>
+                <button type="submit" id="createAppointment"
+                  class="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  Crear Cita
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </dialog>
+
+        <dialog id="updateAppointmentModal">
+          <div id="updateAppointmentFormContainer" class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-xl">
+
+            <div class="flex justify-between items-center mb-6">
+              <h2 class="text-xl font-bold text-gray-900">Nueva Cita</h2>
+              <button id="closeButton" class="text-gray-500 hover:text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Appointment form -->
+
+            <form id="appointmentForm" action="#" method="POST">
+              <div class="grid grid-cols-2 gap-6">
+
+                <div class="col-span-2">
+                  <label for="patientId" class="block text-sm font-medium text-gray-700 mb-1">
+                    Paciente <span class="text-red-500">*</span>
+                  </label>
+                  <select id="patientSelect" name="patientId" placeholder="Selecciona un paciente...">
+                  </select>
+                </div>
+
+                <div class="col-span-1">
+                  <label for="date" class="block text-sm font-medium text-gray-700 mb-1">
+                    Fecha <span class="text-red-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <input type="date" id="date" name="fecha" placeholder="mm/dd/yyyy"
+                      class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400">
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                     </div>
+                  </div>
+                </div>
+
+                <div class="col-span-1">
+                  <label for="hour" class="block text-sm font-medium text-gray-700 mb-1">
+                    Hora <span class="text-red-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <input type="time" id="hour" name="hora" placeholder="--:-- --"
+                      class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400">
+                  </div>
                 </div>
 
                 <div class="col-span-2">
-                    <label for="duration" class="block text-sm font-medium text-gray-700 mb-1">
-                        Duración (minutos)
-                    </label>
-                    <select id="duration" name="duracion" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        <option value="30">30 minutos</option>
-                        <option value="45">45 minutos</option>
-                        <option value="60">60 minutos</option>
-                    </select>
+                  <label for="duration" class="block text-sm font-medium text-gray-700 mb-1">
+                    Duración (minutos)
+                  </label>
+                  <select id="duration" name="duracion"
+                    class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    <option value="30">30 minutos</option>
+                    <option value="45">45 minutos</option>
+                    <option value="60">60 minutos</option>
+                  </select>
                 </div>
 
                 <div class="col-span-2">
-                    <label for="status" class="block text-sm font-medium text-gray-700 mb-1">
-                        Status
-                    </label>
-                    <select id="status" name="status" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        <option value="scheduled">Agendada</option>
-                        <option value="pending">Pendiente</option>
-                        <option value="completed">Completada</option>
-                    </select>
+                  <label for="status" class="block text-sm font-medium text-gray-700 mb-1">
+                    Status
+                  </label>
+                  <select id="status" name="status"
+                    class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    <option value="scheduled">Agendada</option>
+                    <option value="pending">Pendiente</option>
+                    <option value="completed">Completada</option>
+                  </select>
                 </div>
 
                 <div class="col-span-2">
-                    <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">
-                        Notas (opcional)
-                    </label>
-                    <textarea id="notes" name="notas" rows="4" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400" placeholder="Agrega notas adicionales sobre la cita..."></textarea>
+                  <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">
+                    Notas (opcional)
+                  </label>
+                  <textarea id="notes" name="notas" rows="4"
+                    class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400"
+                    placeholder="Agrega notas adicionales sobre la cita..."></textarea>
                 </div>
 
-            </div>
+              </div>
 
-            <div class="mt-8 flex justify-end space-x-4">
-                <button type="button" id="cancelButton" class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                    Cancelar
+              <div class="mt-8 flex justify-end space-x-4">
+                <button type="button" id="cancelButton"
+                  class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                  Cancelar
                 </button>
-                <button type="submit" id="createAppointment" class="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Crear Cita
+                <button type="submit" id="createAppointment"
+                  class="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  Crear Cita
                 </button>
-            </div>
+              </div>
 
-        </form>
-      </div>
-    </dialog>
-  </main>
-      
-  <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
-  <!-- Script para el menú móvil y para el select de búsqueda -->
-  <script>
-    const menuBtn = document.getElementById('menu-btn');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
+            </form>
+          </div>
+        </dialog>
+      </main>
 
-    menuBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('-translate-x-full');
-      overlay.classList.toggle('hidden');
-    });
+      <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+      <!-- Script para el menú móvil y para el select de búsqueda -->
+      <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
 
-    overlay.addEventListener('click', () => {
-      sidebar.classList.add('-translate-x-full');
-      overlay.classList.add('hidden');
-    });
+        menuBtn.addEventListener('click', () => {
+          sidebar.classList.toggle('-translate-x-full');
+          overlay.classList.toggle('hidden');
+        });
 
-  </script>
+        overlay.addEventListener('click', () => {
+          sidebar.classList.add('-translate-x-full');
+          overlay.classList.add('hidden');
+        });
+
+      </script>
 
 </body>
+
 </html>
