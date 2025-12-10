@@ -1,10 +1,14 @@
+import { checkAuth, requireAuth, handleLogout } from './utils.js';
 document.addEventListener('DOMContentLoaded', () => {
+  checkAuth();
+  requireAuth();
+  loadUserData();
   const logo = document.querySelector('.logo');
 
-logo.style.cursor = 'pointer'
-logo.addEventListener('click', () =>{
-    window.location.href = '../index.html'
-})
+  logo.style.cursor = 'pointer'
+  logo.addEventListener('click', () =>{
+      window.location.href = '../index.html'
+  })
   // Mobile menu logic (replicated/adapted from home.html logic)
   const menuBtn = document.getElementById('menu-btn');
   const sidebar = document.getElementById('sidebar');
@@ -71,9 +75,7 @@ logo.addEventListener('click', () =>{
   logoutBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      // In a real app, clear tokens/session here
-      // For now, redirect to sign in
-      window.location.href = '../signIn.html';
+      handleLogout();
     });
   });
 
@@ -86,3 +88,59 @@ logo.addEventListener('click', () =>{
     });
   }
 });
+
+async function loadUserData() {
+  const token = localStorage.getItem("authToken");
+  if (!token) return console.log("No user logged in");
+
+  try {
+    const res = await fetch("https://medinet360api.vercel.app/api/auth/profile", {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!res.ok) {
+      console.log("Error loading user");
+      return;
+    }
+
+    const user = await res.json();
+
+    // RELLENA LOS CAMPOS DEL PERFIL
+    document.getElementById("name").value = user.name || "";
+    document.getElementById("lastName").value = user.lastName || "";
+    document.getElementById("fullName").textContent = user.name || " " + " " + user.lastName || "";
+    document.getElementById("email").value = user.email || "";
+    document.getElementById("role").textContent = `Role: ${user.role.charAt(0).toUpperCase() + user.role.slice(1)}` || "";
+    // GENERAR INICIALES
+    const firstInitial = user.name ? user.name.charAt(0).toUpperCase() : "";
+    const lastInitial = user.lastName ? user.lastName.charAt(0).toUpperCase() : "";
+    const initials = `${firstInitial}${lastInitial}`;
+
+    // Elementos del DOM
+    const avatar = document.getElementById("profile-avatar");
+    const profileImage = document.getElementById("profileImage");
+
+    // SI NO HAY FOTO → MOSTRAR INICIALES
+    if (!user.profileImage || user.profileImage === "") {
+        profileImage.classList.add("hidden");
+
+        avatar.textContent = initials;
+        avatar.classList.remove("hidden");
+    }
+    // SI HAY FOTO → MOSTRAR FOTO
+    else {
+        avatar.classList.add("hidden");
+
+        profileImage.src = user.profileImage;
+        profileImage.classList.remove("hidden");
+    }
+
+
+      } catch (err) {
+        console.log("Fetch error:", err);
+      }
+}
+
+

@@ -37,7 +37,7 @@ menuButton.addEventListener('click', () => {
 const signInButton = document.getElementById('signInButton');
 
 signInButton.addEventListener('click', () =>{
-    window.location.href = 'signIn.html';
+    window.location.href = '/signIn.html';
 })
 
 //Sign Up button function
@@ -45,7 +45,7 @@ const signUpButtons = document.querySelectorAll('.startedButton button');
 
 signUpButtons.forEach(button => {
     button.addEventListener('click', () =>{
-        window.location.href = 'signUp.html';
+        window.location.href = '/signUp.html';
     });
 });
 
