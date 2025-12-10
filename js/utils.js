@@ -61,8 +61,8 @@ export async function handleLogout() {
     try {
         localStorage.removeItem('authToken');
         localStorage.removeItem('currentUser');
-        window.location.href = 'index.html';  
         showToast("Logout successfuly", "success", 4000)
+        window.location.href = 'index.html'; 
     } catch (error) {
         console.error('Error during logout:', error);
         localStorage.clear();

@@ -57,7 +57,7 @@ form.addEventListener('submit', async (e) => {
 
     // short delay to show toast, then redirect
     setTimeout(() => {
-      window.location.href = '/dashboard/patients.html';
+      window.location.href = '/dashboard/home.html';
     }, 900);
 
   } catch (err) {
