@@ -232,8 +232,25 @@
 
           <!-- SOLICITUDES TAB -->
           <div id="requests" class="tab-content hidden animate-fade-in-up">
-            <div
+            <!-- Loading State -->
+            <div id="loadingAssistants"
               class="bg-white rounded-3xl p-8 shadow-sm min-h-[400px] flex flex-col items-center justify-center text-center">
+              <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4 animate-pulse">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <p class="text-gray-500">Cargando solicitudes...</p>
+            </div>
+
+            <!-- Pending Assistants List Container -->
+            <div id="pendingAssistantsList" class="hidden space-y-4"></div>
+
+            <!-- Empty State -->
+            <div id="emptyAssistants"
+              class="hidden bg-white rounded-3xl p-8 shadow-sm min-h-[400px] flex flex-col items-center justify-center text-center">
               <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
@@ -267,7 +284,9 @@
                 class="mt-6 px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
                 + Agregar Asistente
               </button>
-              <dialog id="addAssistantDialog"
+            </div>
+          </div>
+          <dialog id="addAssistantDialog"
                 class="backdrop:bg-black backdrop:bg-opacity-50 bg-transparent p-0 rounded-2xl">
                 <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
                   <!-- Header -->
@@ -324,9 +343,6 @@
                   </button>
                 </div>
               </dialog>
-            </div>
-          </div>
-
         </div>
 
       </div>

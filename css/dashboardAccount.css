@@ -59,3 +59,8 @@
         animation: slideUp 0.3s forwards;
     }  
 }
+
+#addAssistantBtn:hover{
+    background-color: #6a6adf;
+    color: white;
+}

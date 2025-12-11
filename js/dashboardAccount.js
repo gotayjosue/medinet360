@@ -5,11 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
   requireAuth();
   loadUserData();
   loadClinicId();
+  loadPendingAssistants();
+  loadApprovedAssistants();
   const logo = document.querySelector('.logo');
 
   logo.style.cursor = 'pointer'
-  logo.addEventListener('click', () =>{
-      window.location.href = '../index.html'
+  logo.addEventListener('click', () => {
+    window.location.href = '../index.html'
   })
   // Mobile menu logic (replicated/adapted from home.html logic)
   const menuBtn = document.getElementById('menu-btn');
@@ -48,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tabButtons.forEach(btn => {
       btn.classList.remove('active', 'text-indigo-600', 'font-semibold');
       btn.classList.add('text-gray-500');
-      
+
       // Reset the border indicator
       const indicator = btn.querySelector('.active-indicator');
       if (indicator) indicator.classList.add('hidden');
@@ -59,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (activeBtn) {
       activeBtn.classList.remove('text-gray-500');
       activeBtn.classList.add('active', 'text-indigo-600', 'font-semibold');
-      
+
       const indicator = activeBtn.querySelector('.active-indicator');
       if (indicator) indicator.classList.remove('hidden');
     }
@@ -124,23 +126,23 @@ async function loadUserData() {
 
     // SI NO HAY FOTO → MOSTRAR INICIALES
     if (!user.profileImage || user.profileImage === "") {
-        profileImage.classList.add("hidden");
+      profileImage.classList.add("hidden");
 
-        avatar.textContent = initials;
-        avatar.classList.remove("hidden");
+      avatar.textContent = initials;
+      avatar.classList.remove("hidden");
     }
     // SI HAY FOTO → MOSTRAR FOTO
     else {
-        avatar.classList.add("hidden");
+      avatar.classList.add("hidden");
 
-        profileImage.src = user.profileImage;
-        profileImage.classList.remove("hidden");
+      profileImage.src = user.profileImage;
+      profileImage.classList.remove("hidden");
     }
 
 
-      } catch (err) {
-        console.log("Fetch error:", err);
-      }
+  } catch (err) {
+    console.log("Fetch error:", err);
+  }
 }
 
 // AGREGAR ASISTENTE
@@ -188,6 +190,351 @@ async function loadClinicId() {
   }
 }
 
+// ============================================
+// ASSISTANT APPROVAL SYSTEM
+// ============================================
 
+async function loadPendingAssistants() {
+  const token = localStorage.getItem("authToken");
+  if (!token) {
+    console.log("No user logged in");
+    return;
+  }
 
+  const loadingEl = document.getElementById("loadingAssistants");
+  const listEl = document.getElementById("pendingAssistantsList");
+  const emptyEl = document.getElementById("emptyAssistants");
+
+  try {
+    const res = await fetch("https://medinet360api.vercel.app/api/assistants/pending", {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!res.ok) {
+      console.log("Error loading pending assistants");
+      loadingEl.classList.add("hidden");
+      emptyEl.classList.remove("hidden");
+      return;
+    }
+
+    const assistants = await res.json();
+
+    // Hide loading
+    loadingEl.classList.add("hidden");
+
+    // Render assistants or show empty state
+    if (assistants && assistants.length > 0) {
+      renderPendingAssistants(assistants);
+      listEl.classList.remove("hidden");
+      emptyEl.classList.add("hidden");
+    } else {
+      listEl.classList.add("hidden");
+      emptyEl.classList.remove("hidden");
+    }
+
+  } catch (err) {
+    console.log("Fetch error:", err);
+    loadingEl.classList.add("hidden");
+    emptyEl.classList.remove("hidden");
+  }
+}
+
+function renderPendingAssistants(assistants) {
+  const listEl = document.getElementById("pendingAssistantsList");
+  listEl.innerHTML = ""; // Clear existing content
+
+  assistants.forEach(assistant => {
+    const card = document.createElement("div");
+    card.className = "bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow";
+    card.id = `assistant-${assistant._id}`;
+
+    card.innerHTML = `
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <!-- Avatar with initials -->
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center text-lg font-semibold">
+            ${assistant.name.charAt(0).toUpperCase()}${assistant.lastName.charAt(0).toUpperCase()}
+          </div>
+          
+          <!-- Assistant Info -->
+          <div>
+            <h4 class="text-lg font-semibold text-gray-800">${assistant.name} ${assistant.lastName}</h4>
+            <p class="text-sm text-gray-500">${assistant.email}</p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-2">
+          <!-- Reject Button -->
+          <button 
+            onclick="rejectAssistant('${assistant._id}', this)"
+            class="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors shadow-sm hover:shadow-md flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            Rechazar
+          </button>
+          
+          <!-- Approve Button -->
+          <button 
+            onclick="approveAssistant('${assistant._id}', this)"
+            class="px-6 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors shadow-sm hover:shadow-md flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Aprobar
+          </button>
+        </div>
+      </div>
+    `;
+
+    listEl.appendChild(card);
+  });
+}
+
+async function approveAssistant(assistantId, buttonElement) {
+  const token = localStorage.getItem("authToken");
+  if (!token) {
+    showToast("No estás autenticado", "error");
+    return;
+  }
+
+  // Disable button and show loading state
+  buttonElement.disabled = true;
+  buttonElement.innerHTML = `
+    <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+    Aprobando...
+  `;
+
+  try {
+    const res = await fetch("https://medinet360api.vercel.app/api/assistants/approve", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ assistantId })
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || "Error al aprobar asistente");
+    }
+
+    // Success - remove card from DOM with animation
+    const card = document.getElementById(`assistant-${assistantId}`);
+    if (card) {
+      card.style.transition = "opacity 0.3s, transform 0.3s";
+      card.style.opacity = "0";
+      card.style.transform = "translateX(20px)";
+
+      setTimeout(() => {
+        card.remove();
+
+        // Check if list is now empty
+        const listEl = document.getElementById("pendingAssistantsList");
+        if (listEl.children.length === 0) {
+          listEl.classList.add("hidden");
+          document.getElementById("emptyAssistants").classList.remove("hidden");
+        }
+      }, 300);
+    }
+
+    showToast("Asistente aprobado exitosamente", "success");
+
+  } catch (err) {
+    console.error("Error approving assistant:", err);
+    showToast(err.message || "Error al aprobar asistente", "error");
+
+    // Re-enable button on error
+    buttonElement.disabled = false;
+    buttonElement.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+      Aprobar
+    `;
+  }
+}
+
+// Reject Assistant Function
+async function rejectAssistant(assistantId, buttonElement) {
+  const token = localStorage.getItem("authToken");
+  if (!token) {
+    showToast("No estás autenticado", "error");
+    return;
+  }
+
+  // Disable button and show loading state
+  buttonElement.disabled = true;
+  buttonElement.innerHTML = `
+    <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+    Rechazando...
+  `;
+
+  try {
+    const res = await fetch("https://medinet360api.vercel.app/api/assistants/reject", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ assistantId })
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || "Error al rechazar asistente");
+    }
+
+    // Success - remove card from DOM with animation
+    const card = document.getElementById(`assistant-${assistantId}`);
+    if (card) {
+      card.style.transition = "opacity 0.3s, transform 0.3s";
+      card.style.opacity = "0";
+      card.style.transform = "translateX(-20px)";
+
+      setTimeout(() => {
+        card.remove();
+
+        // Check if list is now empty
+        const listEl = document.getElementById("pendingAssistantsList");
+        if (listEl.children.length === 0) {
+          listEl.classList.add("hidden");
+          document.getElementById("emptyAssistants").classList.remove("hidden");
+        }
+      }, 300);
+    }
+
+    showToast("Solicitud rechazada", "success");
+
+  } catch (err) {
+    console.error("Error rejecting assistant:", err);
+    showToast(err.message || "Error al rechazar asistente", "error");
+
+    // Re-enable button on error
+    buttonElement.disabled = false;
+    buttonElement.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+      Rechazar
+    `;
+  }
+}
+
+// ============================================
+// APPROVED ASSISTANTS LIST
+// ============================================
+
+async function loadApprovedAssistants() {
+  const token = localStorage.getItem("authToken");
+  if (!token) {
+    console.log("No user logged in");
+    return;
+  }
+
+  try {
+    const res = await fetch("https://medinet360api.vercel.app/api/assistants/all", {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!res.ok) {
+      console.log("Error loading approved assistants");
+      return;
+    }
+
+    const assistants = await res.json();
+
+    // Render approved assistants
+    if (assistants && assistants.length > 0) {
+      renderApprovedAssistants(assistants);
+    }
+
+  } catch (err) {
+    console.log("Fetch error:", err);
+  }
+}
+
+function renderApprovedAssistants(assistants) {
+  const assistantsTab = document.getElementById("assistants");
+
+  // Clear existing content
+  assistantsTab.innerHTML = `
+    <div class="space-y-4">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold text-gray-800">Mis Asistentes</h3>
+        <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">
+          ${assistants.length} ${assistants.length === 1 ? 'Asistente' : 'Asistentes'}
+        </span>
+      </div>
+      <div id="approvedAssistantsList" class="space-y-3"></div>
+    </div>
+  `;
+
+  const listEl = document.getElementById("approvedAssistantsList");
+
+  assistants.forEach(assistant => {
+    const card = document.createElement("div");
+    card.className = "bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow";
+
+    card.innerHTML = `
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <!-- Avatar with initials -->
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 text-white flex items-center justify-center text-lg font-semibold">
+            ${assistant.name.charAt(0).toUpperCase()}${assistant.lastName.charAt(0).toUpperCase()}
+          </div>
+          
+          <!-- Assistant Info -->
+          <div>
+            <h4 class="text-lg font-semibold text-gray-800">${assistant.name} ${assistant.lastName}</h4>
+            <p class="text-sm text-gray-500">${assistant.email}</p>
+          </div>
+        </div>
+
+        <!-- Status Badge -->
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Activo
+          </span>
+        </div>
+      </div>
+    `;
+
+    listEl.appendChild(card);
+  });
+
+  // Add "Agregar Asistente" button at the end
+  const buttonContainer = document.createElement("div");
+  buttonContainer.className = "flex justify-center mt-6";
+  buttonContainer.style.cursor = "pointer";
+  buttonContainer.innerHTML = `
+    <button id="addAssistantBtn" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+      + Agregar Asistente
+    </button>
+  `;
+  assistantsTab.querySelector(".space-y-4").appendChild(buttonContainer);
+  buttonContainer.addEventListener("click", () => {
+    const dialog = document.getElementById("addAssistantDialog");
+    dialog.showModal();
+  });
+}
+
+// Make functions globally accessible for onclick handlers
+window.approveAssistant = approveAssistant;
+window.rejectAssistant = rejectAssistant;
 
