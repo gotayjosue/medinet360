@@ -75,7 +75,11 @@ function updateMetrics(patients, appointments) {
     totalPatientsMetric.textContent = patients.length;
 
     // 2. Appointments Today
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const today = `${year}-${month}-${day}`;
     const todayCount = appointments.filter(apt => apt.date === today).length;
     appointmentsTodayMetric.textContent = todayCount;
 
