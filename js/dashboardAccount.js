@@ -71,12 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Logout Functionality
-  const logoutBtns = document.querySelectorAll('.logout-btn');
-  logoutBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      handleLogout();
-    });
+  const logoutBtn = document.getElementById('logout-btn');
+  logoutBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    handleLogout();
   });
 
   // Optional: Handle form submission for 'User Info'
