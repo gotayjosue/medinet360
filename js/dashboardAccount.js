@@ -1,8 +1,10 @@
-import { checkAuth, requireAuth, handleLogoutAccount } from './utils.js';
+import { checkAuth, requireAuth, handleLogoutAccount, showToast } from './utils.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   checkAuth();
   requireAuth();
   loadUserData();
+  loadClinicId();
   const logo = document.querySelector('.logo');
 
   logo.style.cursor = 'pointer'
@@ -108,7 +110,7 @@ async function loadUserData() {
     // RELLENA LOS CAMPOS DEL PERFIL
     document.getElementById("name").value = user.name || "";
     document.getElementById("lastName").value = user.lastName || "";
-    document.getElementById("fullName").textContent = user.name || " " + " " + user.lastName || "";
+    document.getElementById("fullName").textContent = user.name + " " + user.lastName || "";
     document.getElementById("email").value = user.email || "";
     document.getElementById("role").textContent = `Role: ${user.role.charAt(0).toUpperCase() + user.role.slice(1)}` || "";
     // GENERAR INICIALES
@@ -140,5 +142,52 @@ async function loadUserData() {
         console.log("Fetch error:", err);
       }
 }
+
+// AGREGAR ASISTENTE
+const addAssistantBtn = document.getElementById("addAssistantBtn");
+const addAssistantDialog = document.getElementById("addAssistantDialog");
+const closeDialogBtn = document.getElementById("closeDialogBtn");
+const copyCodeBtn = document.getElementById("copyCodeBtn");
+
+addAssistantBtn.addEventListener("click", () => {
+  addAssistantDialog.showModal();
+});
+
+closeDialogBtn.addEventListener("click", () => {
+  addAssistantDialog.close();
+});
+
+copyCodeBtn.addEventListener("click", () => {
+  const codeInput = document.getElementById("assistantCode");
+  codeInput.select();
+  document.execCommand("copy");
+  showToast("Código copiado al portapapeles", "success");
+});
+
+async function loadClinicId() {
+  const token = localStorage.getItem("authToken");
+  if (!token) return console.log("No user logged in");
+
+  try {
+    const res = await fetch("https://medinet360api.vercel.app/api/auth/profile", {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!res.ok) {
+      console.log("Error loading user");
+      return;
+    }
+
+    const user = await res.json();
+    const clinicId = user.clinicId;
+    document.getElementById("assistantCode").value = clinicId || "";
+  } catch (err) {
+    console.log("Fetch error:", err);
+  }
+}
+
+
 
 

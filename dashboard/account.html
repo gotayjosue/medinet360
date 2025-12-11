@@ -97,21 +97,23 @@
 
     <!-- Main Content Area -->
     <main class="flex-1 md:ml-64 p-6 md:p-10 flex">
-      
+
       <!-- Account Container -->
       <div class="w-full max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
-        
+
         <!-- Left Menu (Inner Sidebar) -->
         <div class="w-full md:w-64 flex-shrink-0">
           <h2 class="text-xl font-bold text-gray-800 mb-8">User Profile</h2>
-          
+
           <nav class="space-y-1">
             <!-- User Info Tab -->
-            <button data-tab="info" 
+            <button data-tab="info"
               class="tab-btn w-full flex items-center justify-between text-left px-4 py-3 text-indigo-600 font-semibold hover:bg-gray-50 rounded-lg transition-colors group active">
               <span class="flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
                 Información
               </span>
@@ -119,11 +121,13 @@
             </button>
 
             <!-- Solicitudes Tab -->
-            <button data-tab="requests" 
+            <button data-tab="requests"
               class="tab-btn w-full flex items-center justify-between text-left px-4 py-3 text-gray-500 hover:text-gray-800 hover:bg-gray-50 rounded-lg transition-colors group">
               <span class="flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                 </svg>
                 Solicitudes
               </span>
@@ -131,130 +135,197 @@
             </button>
 
             <!-- Asistentes Tab -->
-            <button data-tab="assistants" 
+            <button data-tab="assistants"
               class="tab-btn w-full flex items-center justify-between text-left px-4 py-3 text-gray-500 hover:text-gray-800 hover:bg-gray-50 rounded-lg transition-colors group">
               <span class="flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
                 Asistentes
               </span>
               <span class="active-indicator hidden w-1 h-5 bg-red-500 rounded-full"></span>
             </button>
 
-             <!-- Logout Tab -->
-             <button id="logout-btn" class="logout-btn w-full flex items-center justify-between text-left px-4 py-3 text-red-500 hover:bg-red-50 rounded-lg transition-colors mt-8">
-                <span class="flex items-center gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                  </svg>
-                  Logout
-                </span>
-              </button>
+            <!-- Logout Tab -->
+            <button id="logout-btn"
+              class="logout-btn w-full flex items-center justify-between text-left px-4 py-3 text-red-500 hover:bg-red-50 rounded-lg transition-colors mt-8">
+              <span class="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Logout
+              </span>
+            </button>
           </nav>
         </div>
 
         <!-- Right Content (Cards) -->
         <div class="flex-1">
-            
-            <!-- INFORMACIÓN TAB -->
-            <div id="info" class="tab-content animate-fade-in-up">
-                
-                <!-- Profile Header Card -->
-                <div class="bg-white rounded-3xl p-8 shadow-sm mb-6 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden">
-                    <!-- Avatar con iniciales -->
-                  <div id="profile-avatar"
-                      class="w-24 h-24 rounded-full bg-indigo-600 text-white flex items-center justify-center
+
+          <!-- INFORMACIÓN TAB -->
+          <div id="info" class="tab-content animate-fade-in-up">
+
+            <!-- Profile Header Card -->
+            <div
+              class="bg-white rounded-3xl p-8 shadow-sm mb-6 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden">
+              <!-- Avatar con iniciales -->
+              <div id="profile-avatar" class="w-24 h-24 rounded-full bg-indigo-600 text-white flex items-center justify-center
                               text-3xl font-semibold border-4 border-yellow-100 shadow-md hidden">
+              </div>
+
+              <!-- Imagen de perfil (por si tienes foto en el futuro) -->
+              <img id="profileImage" src="" alt="Profile"
+                class="w-24 h-24 rounded-full object-cover border-4 border-yellow-100 shadow-md hidden">
+
+              <div class="text-center md:text-left">
+                <h3 id="fullName" class="text-2xl font-bold text-gray-800">Sara Tancredi</h3>
+                <p id="role" class="text-gray-500">New York, USA</p>
+              </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="bg-white rounded-3xl p-8 shadow-sm">
+              <form id="profile-form" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <!-- Name -->
+                  <div class="space-y-2">
+                    <label class="text-sm font-medium text-gray-500 block">Name</label>
+                    <input id="name" type="text" value="Sara"
+                      class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 font-medium text-gray-700">
                   </div>
 
-                  <!-- Imagen de perfil (por si tienes foto en el futuro) -->
-                  <img id="profileImage" 
-                      src="" 
-                      alt="Profile" 
-                      class="w-24 h-24 rounded-full object-cover border-4 border-yellow-100 shadow-md hidden">
+                  <!-- Last Name -->
+                  <div class="space-y-2">
+                    <label class="text-sm font-medium text-gray-500 block">Last Name</label>
+                    <input type="text" id="lastName" value="Tancredi"
+                      class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 font-medium text-gray-700">
+                  </div>
 
-                    <div class="text-center md:text-left">
-                        <h3 id="fullName" class="text-2xl font-bold text-gray-800">Sara Tancredi</h3>
-                        <p id="role" class="text-gray-500">New York, USA</p>
-                    </div>
+                  <!-- Email -->
+                  <div class="space-y-2">
+                    <label class="text-sm font-medium text-gray-500 block">Email Address</label>
+                    <input type="email" id="email" value="Sara Tancredi@gmail.com"
+                      class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 font-bold text-gray-800">
+                  </div>
+
+                  <!-- Phone -->
+                  <div class="space-y-2">
+                    <label class="text-sm font-medium text-gray-500 block">Phone Number</label>
+                    <input type="tel" id="phone" value="(+98) 9123728167"
+                      class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 font-medium text-gray-700">
+                  </div>
                 </div>
 
-                <!-- Form Card -->
-                <div class="bg-white rounded-3xl p-8 shadow-sm">
-                    <form id="profile-form" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Name -->
-                            <div class="space-y-2">
-                                <label class="text-sm font-medium text-gray-500 block">Name</label>
-                                <input id="name" type="text" value="Sara" 
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 font-medium text-gray-700">
-                            </div>
-                            
-                            <!-- Last Name -->
-                            <div class="space-y-2">
-                                <label class="text-sm font-medium text-gray-500 block">Last Name</label>
-                                <input type="text" id="lastName" value="Tancredi" 
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 font-medium text-gray-700">
-                            </div>
-
-                            <!-- Email -->
-                            <div class="space-y-2">
-                                <label class="text-sm font-medium text-gray-500 block">Email Address</label>
-                                <input type="email" id="email" value="Sara Tancredi@gmail.com" 
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 font-bold text-gray-800">
-                            </div>
-
-                            <!-- Phone -->
-                            <div class="space-y-2">
-                                <label class="text-sm font-medium text-gray-500 block">Phone Number</label>
-                                <input type="tel" id="phone" value="(+98) 9123728167" 
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 font-medium text-gray-700">
-                            </div>
-                        </div>
-
-                        <div class="pt-6 flex justify-end">
-                            <button type="submit" 
-                                class="bg-orange-500 text-white px-8 py-3 rounded-xl font-medium shadow-lg shadow-orange-500/30 hover:bg-orange-600 hover:shadow-orange-500/50 transition transform hover:-translate-y-0.5">
-                                Save Changes
-                            </button>
-                        </div>
-                    </form>
+                <div class="pt-6 flex justify-end">
+                  <button type="submit"
+                    class="bg-orange-500 text-white px-8 py-3 rounded-xl font-medium shadow-lg shadow-orange-500/30 hover:bg-orange-600 hover:shadow-orange-500/50 transition transform hover:-translate-y-0.5">
+                    Save Changes
+                  </button>
                 </div>
+              </form>
             </div>
+          </div>
 
-            <!-- SOLICITUDES TAB -->
-            <div id="requests" class="tab-content hidden animate-fade-in-up">
-                <div class="bg-white rounded-3xl p-8 shadow-sm min-h-[400px] flex flex-col items-center justify-center text-center">
-                    <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Solicitudes de Asistentes</h3>
-                    <p class="text-gray-500 max-w-sm">
-                        Aquí aparecerán las solicitudes pendientes de aprobación. Actualmente no tienes solicitudes nuevas.
-                    </p>
-                </div>
+          <!-- SOLICITUDES TAB -->
+          <div id="requests" class="tab-content hidden animate-fade-in-up">
+            <div
+              class="bg-white rounded-3xl p-8 shadow-sm min-h-[400px] flex flex-col items-center justify-center text-center">
+              <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Solicitudes de Asistentes</h3>
+              <p class="text-gray-500 max-w-sm">
+                Aquí aparecerán las solicitudes pendientes de aprobación. Actualmente no tienes solicitudes nuevas.
+              </p>
             </div>
+          </div>
 
-            <!-- ASISTENTES TAB -->
-            <div id="assistants" class="tab-content hidden animate-fade-in-up">
-                 <div class="bg-white rounded-3xl p-8 shadow-sm min-h-[400px] flex flex-col items-center justify-center text-center">
-                    <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          <!-- ASISTENTES TAB -->
+          <div id="assistants" class="tab-content hidden animate-fade-in-up">
+            <div
+              class="bg-white rounded-3xl p-8 shadow-sm min-h-[400px] flex flex-col items-center justify-center text-center">
+              <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Mis Asistentes</h3>
+              <p class="text-gray-500 max-w-sm">
+                Gestiona a tu equipo de asistentes desde aquí. Agrega, edita o elimina accesos.
+              </p>
+              <button id="addAssistantBtn"
+                class="mt-6 px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                + Agregar Asistente
+              </button>
+              <dialog id="addAssistantDialog"
+                class="backdrop:bg-black backdrop:bg-opacity-50 bg-transparent p-0 rounded-2xl">
+                <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
+                  <!-- Header -->
+                  <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                      <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none"
+                          viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                         </svg>
+                      </div>
+                      <h3 class="text-xl font-bold text-gray-800">Agregar Asistente</h3>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Mis Asistentes</h3>
-                    <p class="text-gray-500 max-w-sm">
-                        Gestiona a tu equipo de asistentes desde aquí. Agrega, edita o elimina accesos.
-                    </p>
-                    <button class="mt-6 px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
-                        + Agregar Asistente
+                    <button id="closeDialogBtn" class="text-gray-400 hover:text-gray-600 transition">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M6 18L18 6M6 6l12 12" />
+                      </svg>
                     </button>
+                  </div>
+
+                  <!-- Message -->
+                  <p class="text-gray-600 mb-6 leading-relaxed">
+                    Copia este código y compártelo con tus asistentes para que puedan crear su cuenta.
+                  </p>
+
+                  <!-- Code Input -->
+                  <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Código de Clínica</label>
+                    <div class="relative">
+                      <input type="text" id="assistantCode" value="" readonly
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl font-mono text-gray-800 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                      <div class="absolute inset-y-0 right-3 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
+                          viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Action Button -->
+                  <button id="copyCodeBtn"
+                    class="w-full bg-indigo-600 text-white px-6 py-3 rounded-xl font-medium shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 hover:shadow-indigo-500/50 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    Copiar Código
+                  </button>
                 </div>
+              </dialog>
             </div>
+          </div>
 
         </div>
 
