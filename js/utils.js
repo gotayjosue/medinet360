@@ -66,7 +66,7 @@ export async function handleLogout() {
     } catch (error) {
         console.error('Error during logout:', error);
         localStorage.clear();
-        window.location.href = 'index.html';
+        window.location.href = '/index.html';
     }
 }
 
