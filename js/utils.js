@@ -70,6 +70,19 @@ export async function handleLogout() {
     }
 }
 
+export async function handleLogoutAccount() {
+    try {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('currentUser');
+        showToast("Logout successfuly", "success", 4000)
+        window.location.href = '../index.html'; 
+    } catch (error) {
+        console.error('Error during logout:', error);
+        localStorage.clear();
+        window.location.href = '../index.html';
+    }
+}
+
 // Protección de rutas del dashboard
 export function requireAuth() {
     const token = localStorage.getItem('authToken');

@@ -1,4 +1,4 @@
-import { checkAuth, requireAuth, handleLogout } from './utils.js';
+import { checkAuth, requireAuth, handleLogoutAccount } from './utils.js';
 document.addEventListener('DOMContentLoaded', () => {
   checkAuth();
   requireAuth();
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const logoutBtn = document.getElementById('logout-btn');
   logoutBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    handleLogout();
+    handleLogoutAccount();
   });
 
   // Optional: Handle form submission for 'User Info'
