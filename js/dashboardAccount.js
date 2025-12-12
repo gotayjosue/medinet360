@@ -109,6 +109,14 @@ async function loadUserData() {
 
     const user = await res.json();
 
+    // Ocultar ciertas secciones si el usuario es asistente
+    if (user.role === "assistant"){
+      document.getElementById('requests').style.display = 'none';
+      document.getElementById('assistants').style.display = 'none';
+      document.getElementById('requestsBtn').style.display = 'none';
+      document.getElementById('assistantsBtn').style.display = 'none';
+    }
+
     // RELLENA LOS CAMPOS DEL PERFIL
     document.getElementById("name").value = user.name || "";
     document.getElementById("lastName").value = user.lastName || "";
