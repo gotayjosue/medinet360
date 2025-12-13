@@ -474,6 +474,7 @@ async function loadApprovedAssistants() {
   }
 }
 
+
 function renderApprovedAssistants(assistants) {
   const assistantsTab = document.getElementById("assistants");
 
@@ -486,7 +487,7 @@ function renderApprovedAssistants(assistants) {
           ${assistants.length} ${assistants.length === 1 ? 'Asistente' : 'Asistentes'}
         </span>
       </div>
-      <div id="approvedAssistantsList" class="space-y-3"></div>
+      <div id="approvedAssistantsList" class="space-y-4"></div>
     </div>
   `;
 
@@ -494,32 +495,110 @@ function renderApprovedAssistants(assistants) {
 
   assistants.forEach(assistant => {
     const card = document.createElement("div");
-    card.className = "bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow";
+    card.className = "bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow border border-transparent hover:border-indigo-100";
+    card.id = `assistant-card-${assistant._id}`;
 
     card.innerHTML = `
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-4">
-          <!-- Avatar with initials -->
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 text-white flex items-center justify-center text-lg font-semibold">
-            ${assistant.name.charAt(0).toUpperCase()}${assistant.lastName.charAt(0).toUpperCase()}
+      <div class="cursor-pointer" onclick="toggleAssistantCard('${assistant._id}')">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <!-- Avatar with initials -->
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center text-lg font-semibold shadow-sm">
+              ${assistant.name.charAt(0).toUpperCase()}${assistant.lastName.charAt(0).toUpperCase()}
+            </div>
+            
+            <!-- Assistant Info -->
+            <div>
+              <h4 class="text-lg font-bold text-gray-800">${assistant.name} ${assistant.lastName}</h4>
+              <p class="text-sm text-gray-500 font-medium">${assistant.email}</p>
+            </div>
           </div>
-          
-          <!-- Assistant Info -->
-          <div>
-            <h4 class="text-lg font-semibold text-gray-800">${assistant.name} ${assistant.lastName}</h4>
-            <p class="text-sm text-gray-500">${assistant.email}</p>
+
+          <!-- Status & Chevron -->
+          <div class="flex items-center gap-4">
+             <span class="hidden md:flex px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase tracking-wide items-center gap-1">
+              <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+              Activo
+            </span>
+            <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
+              <svg id="chevron-${assistant._id}" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 chevron-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Collapsible Body -->
+      <div id="body-${assistant._id}" class="assistant-card-body">
+        
+        <!-- Loading Spinner -->
+        <div id="loading-${assistant._id}" class="hidden py-8 flex justify-center">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
         </div>
 
-        <!-- Status Badge -->
-        <div class="flex items-center gap-2">
-          <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Activo
-          </span>
+        <!-- Permissions Content -->
+        <div id="content-${assistant._id}" class="hidden">
+          <h5 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">Permisos del Asistente</h5>
+          
+          <form id="form-${assistant._id}" onsubmit="updateAssistantPermissions(event, '${assistant._id}')">
+            <div class="permissions-grid">
+              
+              <div class="permission-item">
+                <label>
+                  <input type="checkbox" name="permissions" value="createPatient" class="permission-checkbox">
+                  <span>Crear Pacientes</span>
+                </label>
+              </div>
+
+              <div class="permission-item">
+                <label>
+                  <input type="checkbox" name="permissions" value="editPatient" class="permission-checkbox">
+                  <span>Editar Pacientes</span>
+                </label>
+              </div>
+
+              <div class="permission-item">
+                <label>
+                  <input type="checkbox" name="permissions" value="deletePatient" class="permission-checkbox">
+                  <span>Eliminar Pacientes</span>
+                </label>
+              </div>
+
+              <div class="permission-item">
+                <label>
+                  <input type="checkbox" name="permissions" value="createAppointment" class="permission-checkbox">
+                  <span>Crear Citas</span>
+                </label>
+              </div>
+
+              <div class="permission-item">
+                <label>
+                  <input type="checkbox" name="permissions" value="editAppointment" class="permission-checkbox">
+                  <span>Editar Citas</span>
+                </label>
+              </div>
+
+              <div class="permission-item">
+                <label>
+                  <input type="checkbox" name="permissions" value="deleteAppointment" class="permission-checkbox">
+                  <span>Eliminar Citas</span>
+                </label>
+              </div>
+
+            </div>
+
+            <div class="flex justify-end pt-2">
+              <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium shadow-lg shadow-indigo-500/20 hover:bg-indigo-700 hover:shadow-indigo-500/40 transition-all transform active:scale-95 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Actualizar Permisos
+              </button>
+            </div>
+          </form>
         </div>
+
       </div>
     `;
 
@@ -528,21 +607,144 @@ function renderApprovedAssistants(assistants) {
 
   // Add "Agregar Asistente" button at the end
   const buttonContainer = document.createElement("div");
-  buttonContainer.className = "flex justify-center mt-6";
-  buttonContainer.style.cursor = "pointer";
+  buttonContainer.className = "flex justify-center mt-8 pb-8";
   buttonContainer.innerHTML = `
-    <button id="addAssistantBtn" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
-      + Agregar Asistente
+    <button id="addAssistantBtn" class="flex items-center gap-2 px-6 py-3 border-2 border-dashed border-gray-300 rounded-xl text-gray-500 font-medium hover:border-indigo-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all group">
+      <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-indigo-100 text-gray-400 group-hover:text-indigo-600 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+      </div>
+      Agregar Nuevo Asistente
     </button>
   `;
   assistantsTab.querySelector(".space-y-4").appendChild(buttonContainer);
-  buttonContainer.addEventListener("click", () => {
+  
+  // Re-attach event listener for the button (since we recreated it)
+  buttonContainer.querySelector("button").addEventListener("click", () => {
     const dialog = document.getElementById("addAssistantDialog");
     dialog.showModal();
   });
 }
 
+// TOGGLE CARD & FETCH PERMISSIONS
+async function toggleAssistantCard(assistantId) {
+  const body = document.getElementById(`body-${assistantId}`);
+  const chevron = document.getElementById(`chevron-${assistantId}`);
+  const content = document.getElementById(`content-${assistantId}`);
+  const loading = document.getElementById(`loading-${assistantId}`);
+
+  // Toggle classes
+  const isOpen = body.classList.contains('open');
+  
+  if (isOpen) {
+    // Close
+    body.classList.remove('open');
+    chevron.classList.remove('rotate');
+  } else {
+    // Open
+    body.classList.add('open');
+    chevron.classList.add('rotate');
+
+    // Check if data is already loaded (simple check: if form input has checked attribute set?? No, better flag)
+    // Or just check if content is hidden and empty inputs.
+    // Let's rely on a data attribute or just checking if we already fetched.
+    if (!body.dataset.loaded) {
+      await fetchAssistantPermissions(assistantId);
+      body.dataset.loaded = "true";
+    }
+  }
+}
+
+async function fetchAssistantPermissions(assistantId) {
+  const loading = document.getElementById(`loading-${assistantId}`);
+  const content = document.getElementById(`content-${assistantId}`);
+  const form = document.getElementById(`form-${assistantId}`);
+  
+  loading.classList.remove('hidden');
+  content.classList.add('hidden');
+
+  const token = localStorage.getItem("authToken");
+
+  try {
+    const res = await fetch(`https://medinet360api.vercel.app/api/assistants/permissions/${assistantId}`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+
+    if (!res.ok) throw new Error("Error cargando permisos");
+
+    const data = await res.json();
+    const permissions = data.permissions || {};
+
+    // Populate Checkboxes
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+      if (permissions[cb.value]) {
+        cb.checked = true;
+      } else {
+        cb.checked = false;
+      }
+    });
+
+    loading.classList.add('hidden');
+    content.classList.remove('hidden');
+
+  } catch (err) {
+    console.error(err);
+    loading.innerHTML = `<p class="text-red-500 text-sm">Error al cargar permisos. Intenta de nuevo.</p>`;
+    showToast("Error al cargar permisos", "error");
+  }
+}
+
+// UPDATE PERMISSIONS
+async function updateAssistantPermissions(e, assistantId) {
+  e.preventDefault();
+  
+  const form = document.getElementById(`form-${assistantId}`);
+  const btn = form.querySelector('button[type="submit"]');
+  const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+  
+  const permissions = {};
+  checkboxes.forEach(cb => {
+    permissions[cb.value] = cb.checked;
+  });
+
+  // Loading state
+  const originalBtnContent = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = `<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Guardando...`;
+
+  const token = localStorage.getItem("authToken");
+
+  try {
+    const res = await fetch(`https://medinet360api.vercel.app/api/assistants/update-permissions/${assistantId}`, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        permissions
+      })
+    });
+
+    if (!res.ok) throw new Error("Error actualizando permisos");
+
+    const data = await res.json();
+    showToast("Permisos actualizados correctamente", "success");
+
+  } catch (err) {
+    console.error(err);
+    showToast("Error al actualizar permisos", "error");
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = originalBtnContent;
+  }
+}
+
 // Make functions globally accessible for onclick handlers
 window.approveAssistant = approveAssistant;
 window.rejectAssistant = rejectAssistant;
+window.toggleAssistantCard = toggleAssistantCard;
+window.updateAssistantPermissions = updateAssistantPermissions;
 
