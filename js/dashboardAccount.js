@@ -96,7 +96,7 @@ async function loadUserData() {
   if (!token) return console.log("No user logged in");
 
   try {
-    const res = await fetch("https://medinet360api.vercel.app/api/auth/profile", {
+    const res = await fetch("https://medinet360-api.onrender.com/api/auth/profile", {
       headers: {
         "Authorization": `Bearer ${token}`
       }
@@ -110,7 +110,7 @@ async function loadUserData() {
     const user = await res.json();
 
     // Ocultar ciertas secciones si el usuario es asistente
-    if (user.role === "assistant"){
+    if (user.role === "assistant") {
       document.getElementById('requests').style.display = 'none';
       document.getElementById('assistants').style.display = 'none';
       document.getElementById('requestsBtn').style.display = 'none';
@@ -179,7 +179,7 @@ async function loadClinicId() {
   if (!token) return console.log("No user logged in");
 
   try {
-    const res = await fetch("https://medinet360api.vercel.app/api/auth/profile", {
+    const res = await fetch("https://medinet360-api.onrender.com/api/auth/profile", {
       headers: {
         "Authorization": `Bearer ${token}`
       }
@@ -214,7 +214,7 @@ async function loadPendingAssistants() {
   const emptyEl = document.getElementById("emptyAssistants");
 
   try {
-    const res = await fetch("https://medinet360api.vercel.app/api/assistants/pending", {
+    const res = await fetch("https://medinet360-api.onrender.com/api/assistants/pending", {
       headers: {
         "Authorization": `Bearer ${token}`
       }
@@ -320,7 +320,7 @@ async function approveAssistant(assistantId, buttonElement) {
   `;
 
   try {
-    const res = await fetch("https://medinet360api.vercel.app/api/assistants/approve", {
+    const res = await fetch("https://medinet360-api.onrender.com/api/assistants/approve", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -389,7 +389,7 @@ async function rejectAssistant(assistantId, buttonElement) {
   `;
 
   try {
-    const res = await fetch("https://medinet360api.vercel.app/api/assistants/reject", {
+    const res = await fetch("https://medinet360-api.onrender.com/api/assistants/reject", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -451,7 +451,7 @@ async function loadApprovedAssistants() {
   }
 
   try {
-    const res = await fetch("https://medinet360api.vercel.app/api/assistants/all", {
+    const res = await fetch("https://medinet360-api.onrender.com/api/assistants/all", {
       headers: {
         "Authorization": `Bearer ${token}`
       }
@@ -619,7 +619,7 @@ function renderApprovedAssistants(assistants) {
     </button>
   `;
   assistantsTab.querySelector(".space-y-4").appendChild(buttonContainer);
-  
+
   // Re-attach event listener for the button (since we recreated it)
   buttonContainer.querySelector("button").addEventListener("click", () => {
     const dialog = document.getElementById("addAssistantDialog");
@@ -636,7 +636,7 @@ async function toggleAssistantCard(assistantId) {
 
   // Toggle classes
   const isOpen = body.classList.contains('open');
-  
+
   if (isOpen) {
     // Close
     body.classList.remove('open');
@@ -660,14 +660,14 @@ async function fetchAssistantPermissions(assistantId) {
   const loading = document.getElementById(`loading-${assistantId}`);
   const content = document.getElementById(`content-${assistantId}`);
   const form = document.getElementById(`form-${assistantId}`);
-  
+
   loading.classList.remove('hidden');
   content.classList.add('hidden');
 
   const token = localStorage.getItem("authToken");
 
   try {
-    const res = await fetch(`https://medinet360api.vercel.app/api/assistants/permissions/${assistantId}`, {
+    const res = await fetch(`https://medinet360-api.onrender.com/api/assistants/permissions/${assistantId}`, {
       headers: { "Authorization": `Bearer ${token}` }
     });
 
@@ -699,11 +699,11 @@ async function fetchAssistantPermissions(assistantId) {
 // UPDATE PERMISSIONS
 async function updateAssistantPermissions(e, assistantId) {
   e.preventDefault();
-  
+
   const form = document.getElementById(`form-${assistantId}`);
   const btn = form.querySelector('button[type="submit"]');
   const checkboxes = form.querySelectorAll('input[type="checkbox"]');
-  
+
   const permissions = {};
   checkboxes.forEach(cb => {
     permissions[cb.value] = cb.checked;
@@ -717,7 +717,7 @@ async function updateAssistantPermissions(e, assistantId) {
   const token = localStorage.getItem("authToken");
 
   try {
-    const res = await fetch(`https://medinet360api.vercel.app/api/assistants/update-permissions/${assistantId}`, {
+    const res = await fetch(`https://medinet360-api.onrender.com/api/assistants/update-permissions/${assistantId}`, {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json",

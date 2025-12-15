@@ -46,10 +46,10 @@ async function loadDashboardData() {
     try {
         // Fetch Patients and Appointments in parallel
         const [patientsRes, appointmentsRes] = await Promise.all([
-            fetch('https://medinet360api.vercel.app/api/patients', {
+            fetch('https://medinet360-api.onrender.com/api/patients', {
                 headers: { 'Authorization': `Bearer ${token}` }
             }),
-            fetch('https://medinet360api.vercel.app/api/appointments', {
+            fetch('https://medinet360-api.onrender.com/api/appointments', {
                 headers: { 'Authorization': `Bearer ${token}` }
             })
         ]);

@@ -3,10 +3,10 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 const logo = document.querySelector('.logo');
-    if (logo) {
-        logo.style.cursor = 'pointer';
-        logo.addEventListener('click', () => window.location.href = '../index.html');
-    }
+if (logo) {
+    logo.style.cursor = 'pointer';
+    logo.addEventListener('click', () => window.location.href = '../index.html');
+}
 
 // DOM Elements - Tabs
 const listTab = document.getElementById('list-tab');
@@ -69,8 +69,8 @@ async function loadData() {
 
     try {
         const [patientsRes, appointmentsRes] = await Promise.all([
-            fetch('https://medinet360api.vercel.app/api/patients', { headers: { 'Authorization': `Bearer ${token}` } }),
-            fetch('https://medinet360api.vercel.app/api/appointments', { headers: { 'Authorization': `Bearer ${token}` } })
+            fetch('https://medinet360-api.onrender.com/api/patients', { headers: { 'Authorization': `Bearer ${token}` } }),
+            fetch('https://medinet360-api.onrender.com/api/appointments', { headers: { 'Authorization': `Bearer ${token}` } })
         ]);
 
         if (patientsRes.ok) {

@@ -8,8 +8,8 @@ import { showToast } from './utils.js';
 const logo = document.querySelector('.logo');
 logo.style.cursor = 'pointer'
 
-logo.addEventListener('click', () =>{
-    window.location.href = '../index.html'
+logo.addEventListener('click', () => {
+  window.location.href = '../index.html'
 })
 
 //Selecting elements for the modal form
@@ -20,17 +20,17 @@ const cancelButton = document.getElementById('cancelButton')
 
 //Add button event to open the modal when it is clicked
 addPatientButton.addEventListener('click', () => {
-    patientModal.showModal()
+  patientModal.showModal()
 })
 
 //Close button event to close the modal form when it is clicked
 closeButton.addEventListener('click', () => {
-    patientModal.close()
+  patientModal.close()
 })
 
 //Cancel button event to close the modal form when it is clicked
 cancelButton.addEventListener('click', () => {
-    patientModal.close()
+  patientModal.close()
 })
 
 // Selecting elements for the add custom fields functionality
@@ -111,7 +111,7 @@ patientForm.addEventListener('submit', async (e) => {
     customFields: []
   };
 
-    /* --- Validar custom fields --- */
+  /* --- Validar custom fields --- */
   let hasError = false;
   document.querySelectorAll('.custom-field-group').forEach(group => {
     const fieldNameInput = group.querySelector('.custom-field-name');
@@ -150,7 +150,7 @@ patientForm.addEventListener('submit', async (e) => {
 
   /* 3️⃣ Enviar POST con JWT */
   try {
-    const response = await fetch('https://medinet360api.vercel.app/api/patients', {
+    const response = await fetch('https://medinet360-api.onrender.com/api/patients', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -193,7 +193,7 @@ async function loadPatients() {
   }
 
   try {
-    const res = await fetch('https://medinet360api.vercel.app/api/patients', {
+    const res = await fetch('https://medinet360-api.onrender.com/api/patients', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -293,7 +293,7 @@ function renderPatients(patients) {
   container.innerHTML = cardsHTML;
 
   const patientCards = container.querySelectorAll('.patient-card')
-  
+
   patientCards.forEach(card => {
     card.style.cursor = 'pointer';
     card.addEventListener('click', () => {
@@ -302,39 +302,39 @@ function renderPatients(patients) {
     })
   })
 
-  
+
 }
 
 // Search patients functions
-function searchPatients(query){
-      if(query === ''){
-          renderPatients(allPatients)
-          return
-      }
-      const q = query.trim().toLowerCase();
+function searchPatients(query) {
+  if (query === '') {
+    renderPatients(allPatients)
+    return
+  }
+  const q = query.trim().toLowerCase();
 
-      const filteredPatients = allPatients.filter(p => {
-          const fullName = `${p.name ?? ''} ${p.lastName ?? ''}`.toLowerCase();
-          return fullName.includes(q);
-      });
+  const filteredPatients = allPatients.filter(p => {
+    const fullName = `${p.name ?? ''} ${p.lastName ?? ''}`.toLowerCase();
+    return fullName.includes(q);
+  });
 
-      renderPatients(filteredPatients)
-    }
+  renderPatients(filteredPatients)
+}
 
-    const searchBar = document.getElementById('searchBar')
+const searchBar = document.getElementById('searchBar')
 
-    searchBar.addEventListener('input', () => {
-      const searchTerm = searchBar.value.trim();
-      searchPatients(searchTerm)
-    })
+searchBar.addEventListener('input', () => {
+  const searchTerm = searchBar.value.trim();
+  searchPatients(searchTerm)
+})
 
 
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    checkAuth();
-    requireAuth();
-    loadPatients();
+  checkAuth();
+  requireAuth();
+  loadPatients();
 });
 
 

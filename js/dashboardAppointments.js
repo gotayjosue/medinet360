@@ -60,7 +60,7 @@ async function loadPatients() {
   }
 
   try {
-    const res = await fetch('https://medinet360api.vercel.app/api/patients', {
+    const res = await fetch('https://medinet360-api.onrender.com/api/patients', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -183,8 +183,8 @@ appointmentForm.addEventListener('submit', async (e) => {
 
   try {
     const url = isEditMode && currentEditId
-      ? `https://medinet360api.vercel.app/api/appointments/${currentEditId}`
-      : `https://medinet360api.vercel.app/api/appointments`;
+      ? `https://medinet360-api.onrender.com/api/appointments/${currentEditId}`
+      : `https://medinet360-api.onrender.com/api/appointments`;
 
     const method = isEditMode && currentEditId ? 'PUT' : 'POST';
 
@@ -320,7 +320,7 @@ async function loadAppointments() {
   }
 
   try {
-    const res = await fetch('https://medinet360api.vercel.app/api/appointments', {
+    const res = await fetch('https://medinet360-api.onrender.com/api/appointments', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -560,7 +560,7 @@ function getStatusLabel(status) {
   
 //   const token = localStorage.getItem('authToken');
 //   try {
-//     const res = await fetch(`https://medinet360api.vercel.app/api/appointments/${id}`, {
+//     const res = await fetch(`https://medinet360-api.onrender.com/api/appointments/${id}`, {
 //       method: 'DELETE',
 //       headers: {
 //         'Authorization': `Bearer ${token}`

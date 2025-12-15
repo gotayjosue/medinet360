@@ -13,7 +13,7 @@ export async function editAppointment(id) {
   if (!token) return;
 
   try {
-    const res = await fetch(`https://medinet360api.vercel.app/api/appointments/${id}`, {
+    const res = await fetch(`https://medinet360-api.onrender.com/api/appointments/${id}`, {
       method: 'GET',
       headers: { 'Authorization': `Bearer ${token}` }
     });
@@ -57,11 +57,11 @@ export async function editAppointment(id) {
 
 // Función para eliminar con confirmación bonita
 export async function deleteAppointment(id) {
-    // Crear modal de confirmación
-    const confirmModal = document.createElement('dialog');
-    confirmModal.className = 'rounded-lg shadow-2xl max-w-md w-full backdrop:bg-black backdrop:bg-opacity-50';
-    confirmModal.id = 'confirmDeleteModal';
-    confirmModal.innerHTML = `
+  // Crear modal de confirmación
+  const confirmModal = document.createElement('dialog');
+  confirmModal.className = 'rounded-lg shadow-2xl max-w-md w-full backdrop:bg-black backdrop:bg-opacity-50';
+  confirmModal.id = 'confirmDeleteModal';
+  confirmModal.innerHTML = `
     <div class="bg-white p-6 rounded-lg">
       <div class="flex items-center gap-4 mb-4">
         <div class="bg-red-100 p-3 rounded-full">
@@ -86,40 +86,40 @@ export async function deleteAppointment(id) {
     </div>
   `;
 
-    document.body.appendChild(confirmModal);
-    confirmModal.showModal();
+  document.body.appendChild(confirmModal);
+  confirmModal.showModal();
 
-    // Event listeners
-    document.getElementById('cancelDelete').addEventListener('click', () => {
+  // Event listeners
+  document.getElementById('cancelDelete').addEventListener('click', () => {
+    confirmModal.close();
+    confirmModal.remove();
+  });
+
+  document.getElementById('confirmDelete').addEventListener('click', async () => {
+    const token = localStorage.getItem('authToken');
+    try {
+      const res = await fetch(`https://medinet360-api.onrender.com/api/appointments/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (res.ok) {
+        showToast('Cita eliminada exitosamente', 'success');
         confirmModal.close();
         confirmModal.remove();
-    });
-
-    document.getElementById('confirmDelete').addEventListener('click', async () => {
-        const token = localStorage.getItem('authToken');
-        try {
-            const res = await fetch(`https://medinet360api.vercel.app/api/appointments/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-
-            if (res.ok) {
-              showToast('Cita eliminada exitosamente', 'success');
-                confirmModal.close();
-                confirmModal.remove();
-                await sleep(1200);
-                // Recargar citas
-                window.location.reload();
-            } else {
-                throw new Error('Error al eliminar');
-            }
-        } catch (err) {
-            console.error('Error:', err);
-            showToast('Error al eliminar la cita', 'error');
-        }
-    });
+        await sleep(1200);
+        // Recargar citas
+        window.location.reload();
+      } else {
+        throw new Error('Error al eliminar');
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      showToast('Error al eliminar la cita', 'error');
+    }
+  });
 }
 
 // ============================================
@@ -127,52 +127,52 @@ export async function deleteAppointment(id) {
 // ============================================
 
 export async function viewAppointmentDetailsModal(id) {
-    const token = localStorage.getItem('authToken');
-    if (!token) return;
+  const token = localStorage.getItem('authToken');
+  if (!token) return;
 
-    try {
-        const res = await fetch(`https://medinet360api.vercel.app/api/appointments/${id}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
+  try {
+    const res = await fetch(`https://medinet360-api.onrender.com/api/appointments/${id}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
 
-        if (!res.ok) throw new Error('Error al cargar la cita');
+    if (!res.ok) throw new Error('Error al cargar la cita');
 
-        const apt = await res.json();
+    const apt = await res.json();
 
-        // Helper functions
-        const formatDate = (dateStr) => {
-            const [yyyy, mm, dd] = dateStr.split("-");
-            return `${dd}/${mm}/${yyyy}`;
-        };
+    // Helper functions
+    const formatDate = (dateStr) => {
+      const [yyyy, mm, dd] = dateStr.split("-");
+      return `${dd}/${mm}/${yyyy}`;
+    };
 
-        const getStatusBadge = (status) => {
-            const badges = {
-                scheduled: 'bg-blue-100 text-blue-800',
-                pending: 'bg-yellow-100 text-yellow-800',
-                completed: 'bg-green-100 text-green-800',
-                canceled: 'bg-red-100 text-red-800'
-            };
-            return badges[status] || badges.scheduled;
-        };
+    const getStatusBadge = (status) => {
+      const badges = {
+        scheduled: 'bg-blue-100 text-blue-800',
+        pending: 'bg-yellow-100 text-yellow-800',
+        completed: 'bg-green-100 text-green-800',
+        canceled: 'bg-red-100 text-red-800'
+      };
+      return badges[status] || badges.scheduled;
+    };
 
-        const getStatusLabel = (status) => {
-            const labels = {
-                scheduled: 'Agendada',
-                pending: 'Pendiente',
-                completed: 'Completada',
-                canceled: 'Cancelada'
-            };
-            return labels[status] || status;
-        };
+    const getStatusLabel = (status) => {
+      const labels = {
+        scheduled: 'Agendada',
+        pending: 'Pendiente',
+        completed: 'Completada',
+        canceled: 'Cancelada'
+      };
+      return labels[status] || status;
+    };
 
-        // Crear modal de detalles
-        const detailsModal = document.createElement('dialog');
-        detailsModal.id = 'appointmentDetailsModal';
-        detailsModal.className = 'rounded-lg shadow-2xl max-w-2xl w-full backdrop:bg-black backdrop:bg-opacity-50';
-        detailsModal.innerHTML = `
+    // Crear modal de detalles
+    const detailsModal = document.createElement('dialog');
+    detailsModal.id = 'appointmentDetailsModal';
+    detailsModal.className = 'rounded-lg shadow-2xl max-w-2xl w-full backdrop:bg-black backdrop:bg-opacity-50';
+    detailsModal.innerHTML = `
       <div class="bg-white p-8 rounded-lg">
         <div class="flex justify-between items-center mb-6">
           <h2 class="text-2xl font-bold text-gray-900">Detalles de la Cita</h2>
@@ -234,29 +234,29 @@ export async function viewAppointmentDetailsModal(id) {
       </div>
     `;
 
-        document.body.appendChild(detailsModal);
-        detailsModal.showModal();
+    document.body.appendChild(detailsModal);
+    detailsModal.showModal();
 
-        // Event listeners
-        document.getElementById('closeDetailsModal').addEventListener('click', () => {
-            detailsModal.close();
-            detailsModal.remove();
-        });
+    // Event listeners
+    document.getElementById('closeDetailsModal').addEventListener('click', () => {
+      detailsModal.close();
+      detailsModal.remove();
+    });
 
-    } catch (err) {
-        console.error('Error:', err);
-        if (window.showToast) {
-            window.showToast('Error al cargar detalles', 'error');
-        }
+  } catch (err) {
+    console.error('Error:', err);
+    if (window.showToast) {
+      window.showToast('Error al cargar detalles', 'error');
     }
+  }
 }
 
 function closeAppointmentDetailsModal() {
-    const modal = document.getElementById('appointmentDetailsModal');
-    if (modal) {
-        modal.close();
-        modal.remove();
-    }
+  const modal = document.getElementById('appointmentDetailsModal');
+  if (modal) {
+    modal.close();
+    modal.remove();
+  }
 }
 
 // ============================================
@@ -264,40 +264,40 @@ function closeAppointmentDetailsModal() {
 // ============================================
 
 function showDayAppointments(dateStr, appointments) {
-    const dayAppts = appointments.filter(apt => apt.date === dateStr);
+  const dayAppts = appointments.filter(apt => apt.date === dateStr);
 
-    if (dayAppts.length === 0) return;
+  if (dayAppts.length === 0) return;
 
-    const formatDate = (dateStr) => {
-        const [yyyy, mm, dd] = dateStr.split("-");
-        return `${dd}/${mm}/${yyyy}`;
+  const formatDate = (dateStr) => {
+    const [yyyy, mm, dd] = dateStr.split("-");
+    return `${dd}/${mm}/${yyyy}`;
+  };
+
+  const getStatusBadge = (status) => {
+    const badges = {
+      scheduled: 'bg-blue-100 text-blue-800',
+      pending: 'bg-yellow-100 text-yellow-800',
+      completed: 'bg-green-100 text-green-800',
+      canceled: 'bg-red-100 text-red-800'
     };
+    return badges[status] || badges.scheduled;
+  };
 
-    const getStatusBadge = (status) => {
-        const badges = {
-            scheduled: 'bg-blue-100 text-blue-800',
-            pending: 'bg-yellow-100 text-yellow-800',
-            completed: 'bg-green-100 text-green-800',
-            canceled: 'bg-red-100 text-red-800'
-        };
-        return badges[status] || badges.scheduled;
+  const getStatusLabel = (status) => {
+    const labels = {
+      scheduled: 'Agendada',
+      pending: 'Pendiente',
+      completed: 'Completada',
+      canceled: 'Cancelada'
     };
+    return labels[status] || status;
+  };
 
-    const getStatusLabel = (status) => {
-        const labels = {
-            scheduled: 'Agendada',
-            pending: 'Pendiente',
-            completed: 'Completada',
-            canceled: 'Cancelada'
-        };
-        return labels[status] || status;
-    };
-
-    // Crear modal con lista de citas
-    const dayModal = document.createElement('dialog');
-    dayModal.id = 'dayAppointmentsModal';
-    dayModal.className = 'rounded-lg shadow-2xl max-w-3xl w-full backdrop:bg-black backdrop:bg-opacity-50';
-    dayModal.innerHTML = `
+  // Crear modal con lista de citas
+  const dayModal = document.createElement('dialog');
+  dayModal.id = 'dayAppointmentsModal';
+  dayModal.className = 'rounded-lg shadow-2xl max-w-3xl w-full backdrop:bg-black backdrop:bg-opacity-50';
+  dayModal.innerHTML = `
     <div class="bg-white p-8 rounded-lg max-h-[80vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-900">Citas del ${formatDate(dateStr)}</h2>
@@ -342,21 +342,21 @@ function showDayAppointments(dateStr, appointments) {
     </div>
   `;
 
-    document.body.appendChild(dayModal);
-    dayModal.showModal();
+  document.body.appendChild(dayModal);
+  dayModal.showModal();
 
-    document.getElementById('closeDayModal').addEventListener('click', () => {
-        dayModal.close();
-        dayModal.remove();
-    });
+  document.getElementById('closeDayModal').addEventListener('click', () => {
+    dayModal.close();
+    dayModal.remove();
+  });
 }
 
 function closeDayAppointmentsModal() {
-    const modal = document.getElementById('dayAppointmentsModal');
-    if (modal) {
-        modal.close();
-        modal.remove();
-    }
+  const modal = document.getElementById('dayAppointmentsModal');
+  if (modal) {
+    modal.close();
+    modal.remove();
+  }
 }
 
 // ============================================
@@ -372,8 +372,8 @@ window.closeDayAppointmentsModal = closeDayAppointmentsModal;
 window.isEditMode = () => isEditMode;
 window.getCurrentEditId = () => currentEditId;
 window.resetEditMode = () => {
-    isEditMode = false;
-    currentEditId = null;
+  isEditMode = false;
+  currentEditId = null;
 };
 
 console.log('✅ Appointment functions loaded successfully');

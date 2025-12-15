@@ -60,7 +60,7 @@ async function loadPatients() {
     }
 
     try {
-        const res = await fetch('https://medinet360api.vercel.app/api/patients', {
+        const res = await fetch('https://medinet360-api.onrender.com/api/patients', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -170,7 +170,7 @@ appointmentForm.addEventListener('submit', async (e) => {
     }
 
     try {
-        const response = await fetch('https://medinet360api.vercel.app/api/appointments', {
+        const response = await fetch('https://medinet360-api.onrender.com/api/appointments', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -241,7 +241,7 @@ async function loadAppointments() {
     }
 
     try {
-        const res = await fetch('https://medinet360api.vercel.app/api/appointments', {
+        const res = await fetch('https://medinet360-api.onrender.com/api/appointments', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
