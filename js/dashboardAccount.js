@@ -81,13 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
     handleLogoutAccount();
   });
 
-  // Optional: Handle form submission for 'User Info'
+  // Handle form submission for 'User Info'
   const profileForm = document.getElementById('profile-form');
   if (profileForm) {
-    profileForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Changes saved successfully! (Simulation)');
-    });
+    profileForm.addEventListener('submit', updateUserProfile);
   }
 });
 
@@ -108,6 +105,12 @@ async function loadUserData() {
     }
 
     const user = await res.json();
+
+    // Guardar ID del usuario en el formulario para usarlo al actualizar
+    const profileForm = document.getElementById('profile-form');
+    if (profileForm && user._id) {
+      profileForm.dataset.userId = user._id; // Asegúrate de que el backend devuelve _id o id
+    }
 
     // Ocultar ciertas secciones si el usuario es asistente
     if (user.role === "assistant") {
@@ -150,6 +153,85 @@ async function loadUserData() {
 
   } catch (err) {
     console.log("Fetch error:", err);
+  }
+}
+
+async function updateUserProfile(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const userId = form.dataset.userId;
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  if (!userId) {
+    showToast("Error: No se pudo identificar al usuario.", "error");
+    return;
+  }
+
+  // Obtener valores
+  const name = document.getElementById("name").value.trim();
+  const lastName = document.getElementById("lastName").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  // Validaciones básicas
+  if (!name || !lastName || !email) {
+    showToast("Por favor completa todos los campos requeridos.", "error");
+    return;
+  }
+
+  // UI de carga
+  const originalBtnText = submitBtn.innerHTML;
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = `
+    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+    Guardando...
+  `;
+
+  try {
+    const token = localStorage.getItem("authToken");
+    const res = await fetch(`https://medinet360-api.onrender.com/api/auth/profile/${userId}`, {
+      method: 'PUT', // Asumo PUT, si es POST cambiar aquí
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        name,
+        lastName,
+        email
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Error al actualizar perfil");
+    }
+
+    // Actualizar UI con nuevos datos si es necesario (ej. nombre en header si existe)
+    document.getElementById("fullName").textContent = `${data.name} ${data.lastName}`;
+
+    // Generar nuevas iniciales
+    const firstInitial = data.name ? data.name.charAt(0).toUpperCase() : "";
+    const lastInitial = data.lastName ? data.lastName.charAt(0).toUpperCase() : "";
+    const initials = `${firstInitial}${lastInitial}`;
+
+    const avatar = document.getElementById("profile-avatar");
+    if (avatar && (!data.profileImage || data.profileImage === "")) {
+      avatar.textContent = initials;
+    }
+
+    showToast("Perfil actualizado exitosamente", "success");
+
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    showToast(error.message, "error");
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalBtnText;
   }
 }
 
