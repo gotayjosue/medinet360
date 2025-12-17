@@ -106,6 +106,22 @@ async function loadUserData() {
 
     const user = await res.json();
 
+    // CARGAR DATOS DE LA CLINICA
+    const clinicRes = await fetch(`https://medinet360-api.onrender.com/api/clinic/${user.clinicId}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!clinicRes.ok) {
+      console.log("Error loading clinic");
+      return;
+    }
+
+    const clinic = await clinicRes.json();
+    
+    document.getElementById("clinicName").textContent = `Clínica: ${clinic.name}` || "";
+
     // Guardar ID del usuario en el formulario para usarlo al actualizar
     const profileForm = document.getElementById('profile-form');
     if (profileForm && user._id) {
