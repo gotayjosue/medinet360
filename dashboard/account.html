@@ -303,20 +303,35 @@
 
             <!-- Clinic Info Card -->
             <div class="bg-white rounded-3xl p-8 shadow-sm">
-              <h3 class="text-xl font-bold text-gray-800 mb-4 border-b border-gray-100 pb-3">Información de la Clínica
-              </h3>
+              <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-3">
+                <h3 class="text-xl font-bold text-gray-800">Información de la Clínica</h3>
+                <button id="saveClinicInfoBtn"
+                  class="bg-indigo-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-indigo-700 transition shadow-sm">
+                  Guardar Cambios
+                </button>
+              </div>
+
               <div class="space-y-4 text-gray-600">
                 <div>
-                  <span class="block text-sm font-bold text-gray-400 uppercase tracking-wider">Nombre</span>
-                  <p id="clinicNameDisplay" class="text-lg font-medium text-gray-800">Cargando...</p>
+                  <label for="clinicNameDisplay"
+                    class="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Nombre</label>
+                  <input type="text" id="clinicNameDisplay"
+                    class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 font-medium text-gray-800"
+                    placeholder="Nombre de la Clínica">
                 </div>
                 <div>
-                  <span class="block text-sm font-bold text-gray-400 uppercase tracking-wider">Dirección</span>
-                  <p id="clinicAddressDisplay" class="text-lg">Cargando...</p>
+                  <label for="clinicAddressDisplay"
+                    class="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Dirección</label>
+                  <input type="text" id="clinicAddressDisplay"
+                    class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 text-gray-800"
+                    placeholder="Dirección">
                 </div>
                 <div>
-                  <span class="block text-sm font-bold text-gray-400 uppercase tracking-wider">Teléfono</span>
-                  <p id="clinicPhoneDisplay" class="text-lg">Cargando...</p>
+                  <label for="clinicPhoneDisplay"
+                    class="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Teléfono</label>
+                  <input type="tel" id="clinicPhoneDisplay"
+                    class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 text-gray-800"
+                    placeholder="Teléfono">
                 </div>
               </div>
             </div>

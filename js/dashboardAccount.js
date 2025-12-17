@@ -128,9 +128,9 @@ async function loadUserData() {
     const clinicAddressDisplay = document.getElementById("clinicAddressDisplay");
     const clinicPhoneDisplay = document.getElementById("clinicPhoneDisplay");
 
-    if (clinicNameDisplay) clinicNameDisplay.textContent = clinic.name || "No definido";
-    if (clinicAddressDisplay) clinicAddressDisplay.textContent = clinic.address || "No definido";
-    if (clinicPhoneDisplay) clinicPhoneDisplay.textContent = clinic.phone || "No definido";
+    if (clinicNameDisplay) clinicNameDisplay.value = clinic.name || "";
+    if (clinicAddressDisplay) clinicAddressDisplay.value = clinic.address || "";
+    if (clinicPhoneDisplay) clinicPhoneDisplay.value = clinic.phone || "";
 
     // Load Template Editor
     if (clinic.customFieldTemplate) {
@@ -138,7 +138,11 @@ async function loadUserData() {
     }
 
     // Save clinicId for later use
-    document.getElementById("saveTemplateBtn").dataset.clinicId = user.clinicId;
+    const saveTemplateBtn = document.getElementById("saveTemplateBtn");
+    const saveClinicInfoBtn = document.getElementById("saveClinicInfoBtn");
+
+    if (saveTemplateBtn) saveTemplateBtn.dataset.clinicId = user.clinicId;
+    if (saveClinicInfoBtn) saveClinicInfoBtn.dataset.clinicId = user.clinicId;
 
     // Guardar ID del usuario en el formulario para usarlo al actualizar
     const profileForm = document.getElementById('profile-form');
@@ -864,6 +868,76 @@ window.rejectAssistant = rejectAssistant;
 window.toggleAssistantCard = toggleAssistantCard;
 window.updateAssistantPermissions = updateAssistantPermissions;
 
+const saveClinicInfoBtn = document.getElementById("saveClinicInfoBtn");
+
+if (saveClinicInfoBtn) {
+  saveClinicInfoBtn.addEventListener("click", updateClinicInfo);
+}
+
+async function updateClinicInfo() {
+  const clinicId = saveClinicInfoBtn.dataset.clinicId;
+
+  if (!clinicId) {
+    showToast("Error: No se identificó la clínica.", "error");
+    return;
+  }
+
+  const name = document.getElementById("clinicNameDisplay").value.trim();
+  const address = document.getElementById("clinicAddressDisplay").value.trim();
+  const phone = document.getElementById("clinicPhoneDisplay").value.trim();
+
+  if (!name) {
+    showToast("El nombre de la clínica es obligatorio.", "error");
+    return;
+  }
+
+  // Loading UI
+  const originalText = saveClinicInfoBtn.innerHTML;
+  saveClinicInfoBtn.disabled = true;
+  saveClinicInfoBtn.innerHTML = "Guardando...";
+
+  try {
+    const token = localStorage.getItem("authToken");
+    const res = await fetch(`https://medinet360-api.onrender.com/api/clinic/${clinicId}`, {
+      method: "PUT", // Using PUT as requested
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        name,
+        address,
+        phone
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      if (data.errors && Array.isArray(data.errors)) {
+        // Backend returned express-validator errors
+        const messages = data.errors.map(err => err.msg).join(". ");
+        throw new Error(messages);
+      } else if (data.message || data.error) {
+        throw new Error(data.message || data.error);
+      } else {
+        throw new Error("Error al actualizar la información de la clínica");
+      }
+    }
+
+    showToast("Información actualizada exitosamente", "success");
+
+    // Update Header Name as well
+    document.getElementById("clinicName").textContent = `Clínica: ${name}`;
+
+  } catch (err) {
+    console.error(err);
+    showToast(err.message || "Error al actualizar la información", "error");
+  } finally {
+    saveClinicInfoBtn.disabled = false;
+    saveClinicInfoBtn.innerHTML = originalText;
+  }
+}
 
 // ============================================
 // CLINIC TEMPLATE EDITOR
