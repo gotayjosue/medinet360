@@ -1,4 +1,4 @@
-import { checkAuth, requireAuth, showToast, toMinutes } from './utils.js';
+import { checkAuth, requireAuth, showToast, toMinutes, getClinicName } from './utils.js';
 import { isEditMode, currentEditId } from './appoinmentsState.js';
 import { NotificationService } from './notificationService.js';
 
@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     requireAuth();
     loadPatients();
     initializeCalendar();
+    getClinicName();
 
 });
 

@@ -4,12 +4,14 @@ import {
   showToast,
   formatDateForInput,
   formatDate,
-  getAgeFromDOB
+  getAgeFromDOB,
+  getClinicName
 } from "./utils";
 
 let currentPatientId = null; // Guardar el ID del paciente actual
 
 document.addEventListener('DOMContentLoaded', async () => {
+  getClinicName();
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
   if (!id) {

@@ -1,5 +1,5 @@
 
-import { checkAuth, requireAuth, formatDate, showToast } from './utils.js';
+import { checkAuth, requireAuth, formatDate, showToast, getClinicName } from './utils.js';
 
 // DOM Elements
 const totalPatientsMetric = document.getElementById('totalPatientsMetric');
@@ -9,6 +9,7 @@ const recentAppointmentsTable = document.getElementById('recentAppointmentsTable
 const genderPieChartCtx = document.getElementById('genderPieChart').getContext('2d');
 
 // --- Helper Functions ---
+
 
 function getStatusBadge(status) {
     const badges = {
@@ -191,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // We just handle the data.
 
     loadDashboardData();
+    getClinicName();
 
     const logo = document.querySelector('.logo');
     if (logo) {

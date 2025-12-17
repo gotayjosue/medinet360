@@ -1,4 +1,12 @@
-import { checkAuth, requireAuth, formatDate, getAgeFromDOB, showToast, toMinutes } from './utils.js';
+import { checkAuth, 
+    requireAuth, 
+    formatDate, 
+    getAgeFromDOB, 
+    showToast, 
+    toMinutes, 
+    getClinicName } 
+from './utils.js';
+
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
@@ -61,6 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadData();
     setupTabs();
     setupEventListeners();
+    getClinicName();
 });
 
 async function loadData() {

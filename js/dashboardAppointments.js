@@ -1,4 +1,4 @@
-import { checkAuth, requireAuth, showToast, sleep, toMinutes } from './utils.js';
+import { checkAuth, requireAuth, showToast, sleep, toMinutes, getClinicName } from './utils.js';
 import { 
   viewAppointmentDetailsModal, 
   editAppointment, 
@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     requireAuth();
     loadPatients()
     loadAppointments()
+    getClinicName()
 })
 
 // -------------------------------

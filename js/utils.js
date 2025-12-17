@@ -246,3 +246,29 @@ export function toMinutes(hhmm) {
   const [h, m] = hhmm.split(':').map(Number);
   return h * 60 + m;
 }
+
+// Get clinic name
+export async function getClinicName() {
+  const clinicNameText = document.getElementById('clinicNameText');
+    const token = localStorage.getItem('authToken');
+    if (!token) return;
+
+    // Fetch clinic name from profile
+    try {
+        const res = await fetch('https://medinet360-api.onrender.com/api/auth/profile', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        const clinicId = data.clinicId;
+        
+        const clinicRes = await fetch(`https://medinet360-api.onrender.com/api/clinic/${clinicId}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const clinicData = await clinicRes.json();
+        clinicNameText.textContent = clinicData.name;
+    } catch (error) {
+        console.error("Error fetching clinic name:", error);
+        showToast("Error fetching clinic name", "error");
+        return "Unknown Clinic";
+    }
+}

@@ -1,4 +1,4 @@
-import { checkAuth, requireAuth, handleLogoutAccount, showToast } from './utils.js';
+import { checkAuth, requireAuth, handleLogoutAccount, showToast, getClinicName } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   checkAuth();
@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadPendingAssistants();
   loadApprovedAssistants();
   const logo = document.querySelector('.logo');
+  getClinicName();
 
   logo.style.cursor = 'pointer'
   logo.addEventListener('click', () => {

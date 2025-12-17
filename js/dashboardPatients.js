@@ -1,5 +1,5 @@
 // Verifying the user sesion status
-import { checkAuth, requireAuth, formatDate, getAgeFromDOB } from './utils.js';
+import { checkAuth, requireAuth, formatDate, getAgeFromDOB, getClinicName } from './utils.js';
 
 //Importing the alert container function from utils.js
 import { showToast } from './utils.js';
@@ -363,6 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
   checkAuth();
   requireAuth();
   loadPatients();
+  getClinicName();
 });
 
 // ==========================================
