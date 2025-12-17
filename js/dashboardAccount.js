@@ -119,8 +119,26 @@ async function loadUserData() {
     }
 
     const clinic = await clinicRes.json();
-    
+
+    // Populate Header Clinic Name
     document.getElementById("clinicName").textContent = `Clínica: ${clinic.name}` || "";
+
+    // Populate Clinic Info Tab
+    const clinicNameDisplay = document.getElementById("clinicNameDisplay");
+    const clinicAddressDisplay = document.getElementById("clinicAddressDisplay");
+    const clinicPhoneDisplay = document.getElementById("clinicPhoneDisplay");
+
+    if (clinicNameDisplay) clinicNameDisplay.textContent = clinic.name || "No definido";
+    if (clinicAddressDisplay) clinicAddressDisplay.textContent = clinic.address || "No definido";
+    if (clinicPhoneDisplay) clinicPhoneDisplay.textContent = clinic.phone || "No definido";
+
+    // Load Template Editor
+    if (clinic.customFieldTemplate) {
+      renderTemplateEditor(clinic.customFieldTemplate);
+    }
+
+    // Save clinicId for later use
+    document.getElementById("saveTemplateBtn").dataset.clinicId = user.clinicId;
 
     // Guardar ID del usuario en el formulario para usarlo al actualizar
     const profileForm = document.getElementById('profile-form');
@@ -845,4 +863,161 @@ window.approveAssistant = approveAssistant;
 window.rejectAssistant = rejectAssistant;
 window.toggleAssistantCard = toggleAssistantCard;
 window.updateAssistantPermissions = updateAssistantPermissions;
+
+
+// ============================================
+// CLINIC TEMPLATE EDITOR
+// ============================================
+
+const templateFieldsContainer = document.getElementById("templateFieldsContainer");
+const addTemplateFieldBtn = document.getElementById("addTemplateFieldBtn");
+const saveTemplateBtn = document.getElementById("saveTemplateBtn");
+
+if (addTemplateFieldBtn) {
+  addTemplateFieldBtn.addEventListener("click", () => {
+    addTemplateFieldRow();
+  });
+}
+
+if (saveTemplateBtn) {
+  saveTemplateBtn.addEventListener("click", saveClinicTemplate);
+}
+
+function renderTemplateEditor(template) {
+  if (!templateFieldsContainer) return;
+  templateFieldsContainer.innerHTML = ""; // Clear
+
+  if (!template || template.length === 0) return;
+
+  template.forEach(field => {
+    addTemplateFieldRow(field);
+  });
+}
+
+function addTemplateFieldRow(fieldData = {}) {
+  const rowId = Date.now();
+  const row = document.createElement("div");
+  row.className = "template-row flex flex-col md:flex-row gap-4 items-start md:items-center bg-gray-50 p-4 rounded-xl border border-gray-200 animate-fade-in-up";
+  row.dataset.id = rowId;
+
+  const labelValue = fieldData.label || "";
+  const typeValue = fieldData.type || "text";
+  const optionsValue = fieldData.options ? fieldData.options.join(", ") : "";
+
+  row.innerHTML = `
+    <div class="flex-1 w-full">
+      <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Nombre del Campo</label>
+      <input type="text" class="field-label w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200 outline-none transition" 
+        placeholder="Ej. Alergias" value="${labelValue}">
+    </div>
+
+    <div class="w-full md:w-48">
+      <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Tipo</label>
+      <select class="field-type w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200 outline-none transition"
+        onchange="toggleOptionsInput(this)">
+        <option value="text" ${typeValue === 'text' ? 'selected' : ''}>Texto</option>
+        <option value="number" ${typeValue === 'number' ? 'selected' : ''}>Número</option>
+        <option value="date" ${typeValue === 'date' ? 'selected' : ''}>Fecha</option>
+        <option value="checkbox" ${typeValue === 'checkbox' ? 'selected' : ''}>Checkbox (Sí/No)</option>
+        <option value="select" ${typeValue === 'select' ? 'selected' : ''}>Selección (Menú)</option>
+      </select>
+    </div>
+
+    <div class="flex-1 w-full field-options-container ${typeValue !== 'select' ? 'hidden' : ''}">
+      <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Opciones (separadas por coma)</label>
+      <input type="text" class="field-options w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200 outline-none transition" 
+        placeholder="Ej. Opción 1, Opción 2" value="${optionsValue}">
+    </div>
+
+    <button onclick="removeTemplateRow(this)" class="mt-4 md:mt-0 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+      </svg>
+    </button>
+  `;
+
+  templateFieldsContainer.appendChild(row);
+}
+
+// Make globally available for onclick
+window.removeTemplateRow = function (btn) {
+  const row = btn.closest(".template-row");
+  row.remove();
+}
+
+window.toggleOptionsInput = function (select) {
+  const row = select.closest(".template-row");
+  const optionsContainer = row.querySelector(".field-options-container");
+  if (select.value === 'select') {
+    optionsContainer.classList.remove("hidden");
+  } else {
+    optionsContainer.classList.add("hidden");
+  }
+}
+
+async function saveClinicTemplate() {
+  const clinicId = saveTemplateBtn.dataset.clinicId;
+  if (!clinicId) {
+    showToast("Error: No se identificó la clínica.", "error");
+    return;
+  }
+
+  // Scrape Data
+  const rows = document.querySelectorAll(".template-row");
+  const template = [];
+  let isValid = true;
+
+  rows.forEach(row => {
+    const label = row.querySelector(".field-label").value.trim();
+    const type = row.querySelector(".field-type").value;
+    const optionsRaw = row.querySelector(".field-options").value;
+
+    if (!label) {
+      isValid = false;
+      row.querySelector(".field-label").classList.add("border-red-500");
+    } else {
+      row.querySelector(".field-label").classList.remove("border-red-500");
+    }
+
+    const fieldObj = { label, type };
+    if (type === 'select') {
+      fieldObj.options = optionsRaw.split(",").map(s => s.trim()).filter(s => s !== "");
+    }
+
+    template.push(fieldObj);
+  });
+
+  if (!isValid) {
+    showToast("Por favor, asigna un nombre a todos los campos.", "error");
+    return;
+  }
+
+  // UI Loading
+  const originalText = saveTemplateBtn.innerHTML;
+  saveTemplateBtn.disabled = true;
+  saveTemplateBtn.innerHTML = "Guardando...";
+
+  try {
+    const token = localStorage.getItem("authToken");
+    const res = await fetch(`https://medinet360-api.onrender.com/api/clinic/${clinicId}/custom-fields`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ customFieldTemplate: template })
+    });
+
+    if (!res.ok) throw new Error("Error al guardar la plantilla");
+
+    showToast("Plantilla guardada exitosamente", "success");
+
+  } catch (err) {
+    console.error(err);
+    showToast("Error al guardar la plantilla", "error");
+  } finally {
+    saveTemplateBtn.disabled = false;
+    saveTemplateBtn.innerHTML = originalText;
+  }
+}
 

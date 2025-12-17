@@ -19,7 +19,8 @@ const closeButton = document.getElementById('closeModalButton')
 const cancelButton = document.getElementById('cancelButton')
 
 //Add button event to open the modal when it is clicked
-addPatientButton.addEventListener('click', () => {
+addPatientButton.addEventListener('click', async () => {
+  await loadClinicTemplate();
   patientModal.showModal()
 })
 
@@ -39,6 +40,7 @@ const patientForm = document.getElementById('patientForm');
 
 // Counter para generar IDs únicos
 let customFieldCount = 0;
+let clinicTemplateLoaded = false;
 
 //Lista de pacientes del backend
 
@@ -139,6 +141,32 @@ patientForm.addEventListener('submit', async (e) => {
       formData.customFields.push({ fieldName, value });
     }
   });
+
+  // --- SCRAPE TEMPLATE FIELDS ---
+  const templateContainer = document.getElementById('customFieldsContainer');
+  if (templateContainer) {
+    const templateRows = templateContainer.querySelectorAll('.template-field-group');
+    templateRows.forEach(row => {
+      const label = row.dataset.label;
+      const type = row.dataset.type;
+      let value = "";
+
+      if (type === 'checkbox') {
+        value = row.querySelector('input[type="checkbox"]').checked ? "Sí" : "No";
+      } else {
+        value = row.querySelector('.template-input').value.trim();
+      }
+
+      // Templates always have a label, so we just push if there is a value (or always for checkboxes?)
+      // If it's a checkbox, "No" is a value.
+      // If text/date/select is empty, maybe we skip it or send empty string?
+      // Let's send it even if empty to match the template structure, or maybe only if not empty.
+      // Requirement says: "Asegúrate de que estos campos... se guarden". 
+      if (value !== "") {
+        formData.customFields.push({ fieldName: label, value });
+      }
+    });
+  }
 
   if (hasError) {
     showToast('Complete the marked custom fields.', 'error');
@@ -336,6 +364,101 @@ document.addEventListener('DOMContentLoaded', () => {
   requireAuth();
   loadPatients();
 });
+
+// ==========================================
+// LOAD CLINIC TEMPLATE
+// ==========================================
+async function loadClinicTemplate() {
+  const container = document.getElementById('customFieldsContainer');
+  if (!container) return;
+
+  // Clear previous template fields
+  container.innerHTML = "";
+
+  const token = localStorage.getItem('authToken');
+  if (!token) return;
+
+  try {
+    // 1. Get User Profile to find Clinic ID (or if we have it stored)
+    const profileRes = await fetch("https://medinet360-api.onrender.com/api/auth/profile", {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    const user = await profileRes.json();
+
+    if (!user.clinicId) return;
+
+    // 2. Get Clinic Data
+    const clinicRes = await fetch(`https://medinet360-api.onrender.com/api/clinic/${user.clinicId}`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+
+    if (!clinicRes.ok) return;
+
+    const clinic = await clinicRes.json();
+
+    if (clinic.customFieldTemplate && clinic.customFieldTemplate.length > 0) {
+      renderClinicTemplate(clinic.customFieldTemplate);
+    }
+
+  } catch (err) {
+    console.error("Error loading template:", err);
+  }
+}
+
+function renderClinicTemplate(template) {
+  const container = document.getElementById('customFieldsContainer');
+
+  template.forEach(field => {
+    const div = document.createElement('div');
+    div.className = "template-field-group col-span-2 sm:col-span-1";
+    div.dataset.label = field.label;
+    div.dataset.type = field.type;
+
+    const label = document.createElement('label');
+    label.className = "block text-sm font-medium text-gray-700 mb-1";
+    label.textContent = field.label;
+
+    let input;
+
+    if (field.type === 'select') {
+      input = document.createElement('select');
+      input.className = "template-input block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
+
+      const defaultOption = document.createElement('option');
+      defaultOption.value = "";
+      defaultOption.textContent = "Seleccione una opción";
+      input.appendChild(defaultOption);
+
+      if (field.options && Array.isArray(field.options)) {
+        field.options.forEach(opt => {
+          const option = document.createElement('option');
+          option.value = opt;
+          option.textContent = opt;
+          input.appendChild(option);
+        });
+      }
+
+    } else if (field.type === 'checkbox') {
+      // Different layout for checkbox
+      div.className = "template-field-group col-span-2 flex items-center gap-3 bg-gray-50 p-3 rounded-md border border-gray-200";
+      label.className = "block text-sm font-medium text-gray-900 m-0 order-2"; // label after
+
+      input = document.createElement('input');
+      input.type = "checkbox";
+      input.className = "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded order-1";
+
+    } else {
+      // Text, Number, Date
+      input = document.createElement('input');
+      input.type = field.type || 'text';
+      input.className = "template-input block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
+    }
+
+    div.appendChild(label);
+    div.appendChild(input);
+    container.appendChild(div);
+  });
+}
 
 
 
