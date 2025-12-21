@@ -119,12 +119,13 @@ form.addEventListener("submit", async (e) => {
             return;
         }
 
-        showToast('Signed up successfully!', 'success');
+        // Use message from backend which probably includes verification instruction
+        showToast(data.message || 'Signed up successfully! Please verify your email.', 'success', 4000);
         form.reset();
 
         setTimeout(() => {
             window.location.href = '/signIn.html'
-        }, 1500)
+        }, 4000)
 
     } catch (err) {
         console.error('❌ Error:', err);

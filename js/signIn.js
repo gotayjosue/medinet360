@@ -44,7 +44,7 @@ form.addEventListener('submit', async (e) => {
     const payload = await res.json();
 
     if (!res.ok) {
-      throw new Error(payload?.message || 'Login failed');
+      throw new Error(payload?.error || payload?.message || 'Login failed');
     }
 
     const { token, user } = payload;
