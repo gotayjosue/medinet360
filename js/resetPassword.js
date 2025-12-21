@@ -15,6 +15,30 @@ const confirmPasswordInput = document.getElementById('confirmPassword');
 const togglePassword = document.getElementById('togglePassword');
 const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
 
+// Password validation feedback
+const rules = {
+    length: document.getElementById('length'),
+    special: document.getElementById('special'),
+    number: document.getElementById('number'),
+    uppercase: document.getElementById('uppercase')
+};
+
+passwordInput.addEventListener('input', () => {
+    const value = passwordInput.value;
+
+    // Check conditions
+    const hasLength = value.length >= 8;
+    const hasSpecial = /[@%$]/.test(value);
+    const hasNumber = /\d/.test(value);
+    const hasUppercase = /[A-Z]/.test(value);
+
+    // Update visual feedback
+    if (rules.length) rules.length.classList.toggle('valid', hasLength);
+    if (rules.special) rules.special.classList.toggle('valid', hasSpecial);
+    if (rules.number) rules.number.classList.toggle('valid', hasNumber);
+    if (rules.uppercase) rules.uppercase.classList.toggle('valid', hasUppercase);
+});
+
 // Extract token from URL
 // Assuming URL is like /reset-password/TOKEN or similar structure where token is the last segment
 const getTokenFromUrl = () => {
@@ -46,6 +70,15 @@ form.addEventListener('submit', async (e) => {
 
     if (!password || !confirmPassword) {
         showToast('Please fill in all fields', 'error', 3500);
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        return;
+    }
+
+    // Validate using regex (same pattern as HTML)
+    const passwordPattern = /(?=.*[A-Z])(?=.*\d)(?=.*[@%$]).{8,}/;
+    if (!passwordPattern.test(password)) {
+        showToast('Password does not meet requirements', 'error', 3500);
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
         return;
