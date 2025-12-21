@@ -1,0 +1,5 @@
+# Redirect específico para reset-password
+[[redirects]]
+  from = "/reset-password/*"
+  to = "/resetPassword.html"
+  status = 200
