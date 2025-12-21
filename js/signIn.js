@@ -5,7 +5,7 @@ logo.style.cursor = 'pointer';
 
 // Redirect to homepage on logo click
 logo.addEventListener('click', () => {
-    window.location.href = 'index.html';
+  window.location.href = 'index.html';
 });
 
 const form = document.querySelector('.signInForm');
@@ -62,6 +62,49 @@ form.addEventListener('submit', async (e) => {
 
   } catch (err) {
     showToast(err.message || 'Error signing in', 'error', 4500);
+
+    // Check if error is related to email verification
+    if (err.message.includes('verifica tu correo')) {
+      const resendContainer = document.getElementById('resendContainer');
+      if (resendContainer) {
+        resendContainer.style.display = 'block';
+
+        const resendBtn = document.getElementById('resendBtn');
+        // Remove old listeners to avoid duplicates if multiple errors
+        const newBtn = resendBtn.cloneNode(true);
+        resendBtn.parentNode.replaceChild(newBtn, resendBtn);
+
+        newBtn.addEventListener('click', async (evt) => {
+          evt.preventDefault();
+          newBtn.textContent = 'Sending...';
+          newBtn.style.pointerEvents = 'none';
+
+          try {
+            const resVerify = await fetch('https://medinet360-api.onrender.com/api/auth/resend-verification', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email })
+            });
+            const dataVerify = await resVerify.json();
+
+            if (resVerify.ok) {
+              showToast(dataVerify.message || 'Verification email sent!', 'success', 4000);
+              newBtn.textContent = 'Email Sent!';
+            } else {
+              showToast(dataVerify.error || 'Failed to resend email', 'error');
+              newBtn.textContent = 'Resend Verification Email';
+              newBtn.style.pointerEvents = 'auto';
+            }
+          } catch (error) {
+            console.error(error);
+            showToast('Error sending request', 'error');
+            newBtn.textContent = 'Resend Verification Email';
+            newBtn.style.pointerEvents = 'auto';
+          }
+        });
+      }
+    }
+
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = originalText;
@@ -78,7 +121,7 @@ export function authFetch(url, options = {}) {
 
 // Toggle password visibility
 togglePassword.addEventListener('click', () => {
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password'
-    passwordInput.setAttribute('type', type)
-    togglePassword.src = type === 'password' ? '/images/eye-closed.png' : '/images/eye-open.png'
+  const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password'
+  passwordInput.setAttribute('type', type)
+  togglePassword.src = type === 'password' ? '/images/eye-closed.png' : '/images/eye-open.png'
 })

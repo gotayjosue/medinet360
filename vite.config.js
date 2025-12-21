@@ -20,6 +20,7 @@ export default defineConfig({
         dashboardAppointmentsCalendar: resolve(__dirname, "dashboard/appointmentsCalendar.html"),
         forgotPassword: resolve(__dirname, "forgotPassword.html"),
         resetPassword: resolve(__dirname, "resetPassword.html"),
+        verifyEmail: resolve(__dirname, "verify-email.html"),
       },
     },
   },

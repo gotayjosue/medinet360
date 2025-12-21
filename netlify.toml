@@ -3,3 +3,9 @@
   from = "/reset-password/*"
   to = "/resetPassword.html"
   status = 200
+
+# Redirect específico para verify-email
+[[redirects]]
+  from = "/verify-email/*"
+  to = "/verify-email.html"
+  status = 200
