@@ -111,10 +111,11 @@ form.addEventListener('submit', async (e) => {
 
         if (!res.ok) {
             // Handle specific error for expired token if backend sends distinct message
-            if (payload.error && (payload.error.includes('expire') || payload.error.includes('expired'))) {
-                throw new Error('Token expired. Please request a new link.');
+            const errMsg = payload?.error || payload?.message;
+            if (errMsg && (errMsg.includes('expire') || errMsg.includes('expired') || errMsg.includes('expira'))) {
+                throw new Error('El token ha expirado. Por favor solicita un nuevo enlace.');
             }
-            throw new Error(payload?.error || 'Error resetting password');
+            throw new Error(errMsg || 'Error resetting password');
         }
 
         showToast(payload.message || 'Password reset successfully', 'success', 4000);
