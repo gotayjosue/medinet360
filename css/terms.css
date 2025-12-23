@@ -1,0 +1,250 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+:root {
+    --primary-color: #564b7a;
+    --secondary-color: #8b8daf;
+    --background-color: #f0f0f0;
+    --text-color: #333333;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+    padding-left: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    display: grid;
+    grid-template-rows: 0fr;
+    text-align: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.7s ease;
+    opacity: 0;
+    z-index: 1;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 15px 0;
+    display: block;
+    border-bottom: 1px solid #ddd;
+}
+
+nav.open {
+    display: flex;
+    flex-direction: column;
+    max-height: 300px;
+    opacity: 1;
+}
+
+#menuButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 20px;
+    z-index: 2;
+}
+
+#menuButton::before {
+    content: "\2630";
+}
+
+#menuButton.open::before {
+    content: "\2715";
+}
+
+#signInButton {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+#signInButton:hover {
+    transition: 0.2s ease;
+    background-color: var(--secondary-color);
+}
+
+h1 {
+    font-size: 40px;
+    margin-top: 40px;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+.terms-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 40px;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+h3 {
+    margin: 20px 0 10px;
+    color: #444;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+ul {
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: var(--text-color);
+    color: white;
+    padding: 30px 0;
+    margin-top: 50px;
+}
+
+@keyframes rotation {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.footerLogo {
+    grid-column: 1;
+    grid-row: 1;
+    width: 80px;
+    height: auto;
+    animation: rotation 10s linear infinite;
+    padding: 20px;
+}
+
+.copyright {
+    grid-column: 1/3;
+    grid-row: 2;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.copyright a {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.copyright a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.socialMedia {
+    grid-column: 1/3;
+    grid-row: 1;
+    text-align: center;
+    align-content: center;
+}
+
+.socialMedia img {
+    width: 30px;
+    height: auto;
+    margin: 10px;
+    filter: invert(1);
+}
+
+@media screen and (min-width: 1000px) {
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    nav a:hover {
+        transition: 0.2s ease;
+        padding: 10px 15px;
+        background-color: var(--secondary-color);
+        color: white;
+        border-radius: 5px;
+    }
+
+    #menuButton {
+        display: none;
+    }
+
+    nav {
+        max-height: none;
+        opacity: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    nav ul {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    nav a {
+        border: none;
+        padding: 0 15px;
+    }
+
+    .signInContainer {
+        margin-left: 20px;
+        align-self: center;
+    }
+
+    #signInButton {
+        width: auto;
+        margin: 0;
+    }
+
+    .footerLogo {
+        width: 100px;
+    }
+}
