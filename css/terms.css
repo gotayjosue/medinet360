@@ -111,7 +111,7 @@ section {
     background: white;
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 h2 {
@@ -149,8 +149,13 @@ footer {
 }
 
 @keyframes rotation {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .footerLogo {
@@ -167,17 +172,27 @@ footer {
     grid-row: 2;
     text-align: center;
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.copyright a {
-    color: #ccc;
+.legal-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 5px;
+}
+
+.legal-links a {
+    color: #bbb;
     text-decoration: none;
-    margin-left: 10px;
+    font-size: 0.9em;
+    transition: color 0.3s ease;
 }
 
-.copyright a:hover {
+.legal-links a:hover {
     color: white;
-    text-decoration: underline;
 }
 
 .socialMedia {

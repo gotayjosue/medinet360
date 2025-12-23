@@ -22,6 +22,8 @@ export default defineConfig({
         resetPassword: resolve(__dirname, "resetPassword.html"),
         verifyEmail: resolve(__dirname, "verify-email.html"),
         terms: resolve(__dirname, "terms.html"),
+        privacyPolicy: resolve(__dirname, "privacy-policy.html"),
+        refundPolicy: resolve(__dirname, "refund-policy.html"),
       },
     },
   },
