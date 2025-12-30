@@ -87,6 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (profileForm) {
     profileForm.addEventListener('submit', updateUserProfile);
   }
+
+  // Handle Subscription Management Button
+  const manageSubBtn = document.getElementById('manageSubscriptionBtn');
+  if (manageSubBtn) {
+    manageSubBtn.addEventListener('click', handleManageSubscription);
+  }
 });
 
 async function loadUserData() {
@@ -123,6 +129,9 @@ async function loadUserData() {
 
     // Populate Header Clinic Name
     document.getElementById("clinicName").textContent = `Clínica: ${clinic.name}` || "";
+
+    // Load Subscription Data
+    loadSubscriptionData(clinic);
 
     // Populate Clinic Info Tab
     const clinicNameDisplay = document.getElementById("clinicNameDisplay");
@@ -1093,6 +1102,171 @@ async function saveClinicTemplate() {
   } finally {
     saveTemplateBtn.disabled = false;
     saveTemplateBtn.innerHTML = originalText;
+  }
+}
+
+// ==========================================
+// SUBSCRIPTION MANAGEMENT
+// ==========================================
+
+function loadSubscriptionData(clinic) {
+  const currentPlanEl = document.getElementById('currentPlan');
+  const subscriptionStatusEl = document.getElementById('subscriptionStatus');
+  const subscriptionEndDateEl = document.getElementById('subscriptionEndDate');
+  const planFeaturesEl = document.getElementById('planFeatures');
+
+  if (!currentPlanEl) return; // Tab not loaded yet
+
+  // Map plan names
+  const planNames = {
+    'free': 'Free',
+    'clinic_pro': 'Clinic Pro',
+    'clinic_plus': 'Clinic Plus'
+  };
+
+  const plan = clinic.plan || 'free';
+  const status = clinic.subscriptionStatus || 'active';
+
+  // Update plan name
+  currentPlanEl.textContent = planNames[plan] || 'Free';
+
+  // Update status badge
+  const statusConfig = {
+    'active': { text: 'Activo', class: 'bg-green-100 text-green-700' },
+    'trialing': { text: 'Prueba', class: 'bg-blue-100 text-blue-700' },
+    'past_due': { text: 'Pago Vencido', class: 'bg-red-100 text-red-700' },
+    'canceled': { text: 'Cancelado', class: 'bg-gray-100 text-gray-700' },
+    'paused': { text: 'Pausado', class: 'bg-yellow-100 text-yellow-700' }
+  };
+
+  const statusInfo = statusConfig[status] || statusConfig['active'];
+  subscriptionStatusEl.textContent = statusInfo.text;
+  subscriptionStatusEl.className = `px-3 py-1 rounded-full text-xs font-semibold uppercase ${statusInfo.class}`;
+
+  // Update end date if exists
+  if (clinic.subscriptionEndDate) {
+    const endDate = new Date(clinic.subscriptionEndDate);
+    subscriptionEndDateEl.textContent = `Vence: ${endDate.toLocaleDateString('es-ES')}`;
+  }
+
+  // Update features based on plan
+  const features = {
+    'free': [
+      'Hasta 5 pacientes',
+      'Gestión de citas'
+    ],
+    'clinic_pro': [
+      'Pacientes ilimitados',
+      'Gestión de citas',
+      'Hasta 2 asistentes'
+    ],
+    'clinic_plus': [
+      'Pacientes ilimitados',
+      'Gestión de citas',
+      'Asistentes ilimitados',
+      'Analíticas avanzadas'
+    ]
+  };
+
+  const planFeatures = features[plan] || features['free'];
+
+  planFeaturesEl.innerHTML = `
+    <h5 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3">Características de tu plan</h5>
+    <ul class="space-y-2 text-gray-700">
+      ${planFeatures.map(feature => `
+        <li class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span>${feature}</span>
+        </li>
+      `).join('')}
+    </ul>
+  `;
+}
+
+async function handleManageSubscription() {
+  const btn = document.getElementById('manageSubscriptionBtn');
+  const originalHTML = btn.innerHTML;
+
+  try {
+    btn.disabled = true;
+    btn.innerHTML = `
+      <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <span>Cargando...</span>
+    `;
+
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      throw new Error('No estás autenticado');
+    }
+
+    // Get user profile
+    const profileRes = await fetch('https://medinet360-api.onrender.com/api/auth/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    if (!profileRes.ok) {
+      throw new Error('Error al obtener perfil de usuario');
+    }
+
+    const user = await profileRes.json();
+
+    // Get clinic data
+    const clinicRes = await fetch(`https://medinet360-api.onrender.com/api/clinic/${user.clinicId}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    if (!clinicRes.ok) {
+      throw new Error('Error al obtener datos de la clínica');
+    }
+
+    const clinic = await clinicRes.json();
+
+    // Check if clinic has Paddle subscription
+    if (!clinic.paddleCustomerId) {
+      btn.disabled = false;
+      btn.innerHTML = originalHTML;
+
+      const shouldGoToPricing = confirm(
+        'No tienes una suscripción activa de Paddle.\n\n' +
+        '¿Quieres ir a la página de precios para suscribirte?'
+      );
+
+      if (shouldGoToPricing) {
+        window.location.href = '../pricing.html';
+      }
+      return;
+    }
+    const response = await fetch('https://medinet360-api.onrender.com/api/paddle/create-portal-session', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al crear sesión del portal');
+    }
+
+    const data = await response.json();
+
+    if (data.url) {
+      // Redirect to Paddle portal
+      window.location.href = data.url;
+    } else {
+      throw new Error('No se recibió URL del portal');
+    }
+
+  } catch (error) {
+    console.error('Error managing subscription:', error);
+    showToast('Error al abrir el portal de suscripción', 'error');
+    btn.disabled = false;
+    btn.innerHTML = originalHTML;
   }
 }
 

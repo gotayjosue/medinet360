@@ -191,6 +191,22 @@ patientForm.addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (!response.ok) {
+      // Check for 403 - Plan Limit Reached
+      if (response.status === 403) {
+        showToast('⚠️ Límite de plan alcanzado', 'error');
+
+        // Show upgrade dialog
+        const shouldUpgrade = confirm(
+          'Has alcanzado el límite de tu plan gratuito (5 pacientes).\n\n' +
+          '¿Quieres actualizar tu plan para tener acceso ilimitado a pacientes y más funciones?'
+        );
+
+        if (shouldUpgrade) {
+          window.location.href = '../pricing.html';
+        }
+        return;
+      }
+
       // Si el backend devuelve { errors: [...] }
       if (data.errors && Array.isArray(data.errors)) {
         const msgs = data.errors.map(e => e.msg).join('<br>');
