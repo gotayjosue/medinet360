@@ -130,7 +130,7 @@ function openCheckout(priceId) {
                 quantity: 1
             }
         ],
-        customData: {
+        custom_data: {
             clinicId: String(userClinicId)
         },
         customer: {
