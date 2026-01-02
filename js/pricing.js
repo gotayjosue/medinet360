@@ -89,13 +89,177 @@ async function loadUserData() {
             userClinicId = data.clinicId;
             userEmail = data.email;
             console.log('✅ User data loaded:', { clinicId: userClinicId, email: userEmail });
+
+            // Now fetch clinic details to check subscription status
+            await checkSubscriptionStatus(userClinicId, token);
         }
     } catch (error) {
         console.error('Error loading user data:', error);
     }
 }
 
+async function checkSubscriptionStatus(clinicId, token) {
+    try {
+        const response = await fetch(`https://medinet360-api.onrender.com/api/clinic/${clinicId}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (response.ok) {
+            const clinic = await response.json();
+            const status = clinic.subscriptionStatus;
+            const plan = clinic.plan || 'free';
+
+            updatePricingUI(status, plan);
+        }
+    } catch (error) {
+        console.error('Error loading clinic data:', error);
+    }
+}
+
+function updatePricingUI(status, plan) {
+    const isPaidSubscription = (status === 'active' || status === 'trialing') && plan !== 'free';
+
+    // 1. Badge Logic
+    let activeCardSelector = '.freePlan';
+    if (plan === 'clinic_pro') activeCardSelector = '.proPlan';
+    if (plan === 'clinic_plus') activeCardSelector = '.professionalPlan';
+
+    const activeCard = document.querySelector(activeCardSelector);
+    if (activeCard) {
+        // Create Badge if not exists
+        if (!activeCard.querySelector('.actual-plan-badge')) {
+            const badge = document.createElement('div');
+            badge.textContent = 'Actual Plan';
+            badge.className = 'actual-plan-badge';
+            badge.style.cssText = `
+                background-color: #4F46E5; 
+                color: white; 
+                padding: 4px 12px; 
+                border-radius: 9999px; 
+                font-size: 0.75rem; 
+                font-weight: bold; 
+                text-transform: uppercase; 
+                position: absolute; 
+                top: -12px; 
+                left: 50%; 
+                transform: translateX(-50%);
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                z-index: 10;
+            `;
+            activeCard.style.position = 'relative';
+            activeCard.style.border = '2px solid #4F46E5';
+            activeCard.appendChild(badge);
+        }
+    }
+
+    // 2. Button Logic
+    const freeBtn = document.querySelector('.freePlan button');
+    const proBtns = [
+        document.getElementById('pro-trial-btn'),
+        document.getElementById('pro-instant-btn')
+    ];
+    const plusBtns = [
+        document.getElementById('plus-trial-btn'),
+        document.getElementById('plus-instant-btn')
+    ];
+
+    if (!isPaidSubscription) {
+        // Free/No Plan: Hide Free Button
+        if (freeBtn) freeBtn.style.display = 'none';
+    } else {
+        // Paid Plan: All buttons -> Manage Subscription
+        if (freeBtn) {
+            freeBtn.style.display = 'block';
+            convertToManageButton(freeBtn);
+        }
+        handlePaidButtons(proBtns);
+        handlePaidButtons(plusBtns);
+    }
+}
+
+function handlePaidButtons(buttons) {
+    const [btn1, btn2] = buttons;
+    if (btn1 && btn2) {
+        btn2.style.display = 'none'; // Hide instant button
+        convertToManageButton(btn1);
+        btn1.style.width = '100%';
+    }
+}
+
+function convertToManageButton(btn) {
+    // Check if simple button or needs replacement to clear listeners
+    // Safest to just clone/replace
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+
+    newBtn.textContent = 'Gestionar Suscripción';
+    newBtn.className = ''; // remove existing classes
+    newBtn.style.cssText = `
+        background-color: #4F46E5;
+        color: white;
+        width: 100%;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        margin-top: 1rem;
+        transition: background-color 0.2s;
+        display: block;
+    `;
+    newBtn.onmouseover = () => newBtn.style.backgroundColor = '#4338ca';
+    newBtn.onmouseout = () => newBtn.style.backgroundColor = '#4F46E5';
+    newBtn.addEventListener('click', handleManageSubscription);
+}
+
+async function handleManageSubscription(e) {
+    const btn = e.target;
+    // Prevent double clicks
+    if (btn.disabled) return;
+
+    const originalText = btn.textContent;
+
+    btn.disabled = true;
+    btn.textContent = 'Cargando...';
+
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        showToast('Sesión expirada. Por favor inicia sesión.', 'error');
+        return;
+    }
+
+    try {
+        const response = await fetch('https://medinet360-api.onrender.com/api/paddle/create-portal-session', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                throw new Error('No valid URL returned');
+            }
+        } else {
+            throw new Error('Error creating portal session');
+        }
+    } catch (error) {
+        console.error('Error opening portal:', error);
+        showToast('Error al abrir el portal de suscripción', 'error');
+        btn.disabled = false;
+        btn.textContent = originalText;
+    }
+}
+
 function attachButtonListeners() {
+    // Only attach standard listeners if NOT already converted (though logic above handles replacement)
+    // Detailed logic: this function runs initally. checkSubscriptionStatus runs async.
+    // If checkSubscriptionStatus finds active sub, it will REPLACE buttons, removing these listeners.
+
     const proTrialBtn = document.getElementById('pro-trial-btn');
     const proInstantBtn = document.getElementById('pro-instant-btn');
     const plusTrialBtn = document.getElementById('plus-trial-btn');
