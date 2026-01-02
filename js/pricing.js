@@ -108,16 +108,19 @@ async function checkSubscriptionStatus(clinicId, token) {
             const clinic = await response.json();
             const status = clinic.subscriptionStatus;
             const plan = clinic.plan || 'free';
+            const endDate = clinic.subscriptionEndDate ? new Date(clinic.subscriptionEndDate) : null;
 
-            updatePricingUI(status, plan);
+            updatePricingUI(status, plan, endDate);
         }
     } catch (error) {
         console.error('Error loading clinic data:', error);
     }
 }
 
-function updatePricingUI(status, plan) {
-    const isPaidSubscription = (status === 'active' || status === 'trialing') && plan !== 'free';
+function updatePricingUI(status, plan, endDate) {
+    const now = new Date();
+    const isInGracePeriod = status === 'canceled' && endDate && endDate > now;
+    const isPaidSubscription = (status === 'active' || status === 'trialing' || isInGracePeriod) && plan !== 'free';
 
     // 1. Badge Logic
     let activeCardSelector = '.freePlan';
@@ -129,10 +132,19 @@ function updatePricingUI(status, plan) {
         // Create Badge if not exists
         if (!activeCard.querySelector('.actual-plan-badge')) {
             const badge = document.createElement('div');
-            badge.textContent = 'Actual Plan';
+
+            // Different badge text and color for grace period
+            if (isInGracePeriod) {
+                const daysRemaining = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));
+                badge.textContent = `Actual Plan - Expira en ${daysRemaining} ${daysRemaining === 1 ? 'día' : 'días'}`;
+                badge.style.backgroundColor = '#F59E0B'; // Orange
+            } else {
+                badge.textContent = 'Actual Plan';
+                badge.style.backgroundColor = '#4F46E5'; // Indigo
+            }
+
             badge.className = 'actual-plan-badge';
-            badge.style.cssText = `
-                background-color: #4F46E5; 
+            badge.style.cssText += `
                 color: white; 
                 padding: 4px 12px; 
                 border-radius: 9999px; 
@@ -147,8 +159,28 @@ function updatePricingUI(status, plan) {
                 z-index: 10;
             `;
             activeCard.style.position = 'relative';
-            activeCard.style.border = '2px solid #4F46E5';
+            activeCard.style.border = isInGracePeriod ? '2px solid #F59E0B' : '2px solid #4F46E5';
             activeCard.appendChild(badge);
+        }
+
+        // Add grace period warning message if applicable
+        if (isInGracePeriod && !activeCard.querySelector('.grace-period-warning')) {
+            const warning = document.createElement('div');
+            warning.className = 'grace-period-warning';
+            warning.style.cssText = `
+                background-color: #FEF3C7;
+                border-left: 4px solid #F59E0B;
+                padding: 12px;
+                margin-top: 16px;
+                border-radius: 8px;
+                font-size: 0.875rem;
+                color: #92400E;
+                line-height: 1.5;
+            `;
+            warning.innerHTML = `
+                <strong>⚠️ Suscripción Cancelada:</strong> Tu plan se degradará a Free el ${endDate.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}.
+            `;
+            activeCard.appendChild(warning);
         }
     }
 
@@ -176,6 +208,7 @@ function updatePricingUI(status, plan) {
         handlePaidButtons(plusBtns);
     }
 }
+
 
 function handlePaidButtons(buttons) {
     const [btn1, btn2] = buttons;

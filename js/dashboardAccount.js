@@ -1114,6 +1114,8 @@ function loadSubscriptionData(clinic) {
   const subscriptionStatusEl = document.getElementById('subscriptionStatus');
   const subscriptionEndDateEl = document.getElementById('subscriptionEndDate');
   const planFeaturesEl = document.getElementById('planFeatures');
+  const gracePeriodAlertEl = document.getElementById('gracePeriodAlert');
+  const gracePeriodEndDateEl = document.getElementById('gracePeriodEndDate');
 
   if (!currentPlanEl) return; // Tab not loaded yet
 
@@ -1126,16 +1128,36 @@ function loadSubscriptionData(clinic) {
 
   const plan = clinic.plan || 'free';
   const status = clinic.subscriptionStatus || 'active';
+  const endDate = clinic.subscriptionEndDate ? new Date(clinic.subscriptionEndDate) : null;
+  const now = new Date();
+
+  // Check if in grace period (canceled but still active)
+  const isInGracePeriod = status === 'canceled' && endDate && endDate > now;
 
   // Update plan name
   currentPlanEl.textContent = planNames[plan] || 'Free';
+
+  // Show/Hide Grace Period Alert
+  if (isInGracePeriod && gracePeriodAlertEl && gracePeriodEndDateEl) {
+    gracePeriodAlertEl.classList.remove('hidden');
+    gracePeriodEndDateEl.textContent = endDate.toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  } else if (gracePeriodAlertEl) {
+    gracePeriodAlertEl.classList.add('hidden');
+  }
 
   // Update status badge
   const statusConfig = {
     'active': { text: 'Activo', class: 'bg-green-100 text-green-700' },
     'trialing': { text: 'Prueba', class: 'bg-blue-100 text-blue-700' },
     'past_due': { text: 'Pago Vencido', class: 'bg-red-100 text-red-700' },
-    'canceled': { text: 'Cancelado', class: 'bg-gray-100 text-gray-700' },
+    'canceled': {
+      text: isInGracePeriod ? 'Cancelado - Activo' : 'Cancelado',
+      class: isInGracePeriod ? 'bg-orange-100 text-orange-700' : 'bg-gray-100 text-gray-700'
+    },
     'paused': { text: 'Pausado', class: 'bg-yellow-100 text-yellow-700' }
   };
 
@@ -1144,9 +1166,18 @@ function loadSubscriptionData(clinic) {
   subscriptionStatusEl.className = `px-3 py-1 rounded-full text-xs font-semibold uppercase ${statusInfo.class}`;
 
   // Update end date if exists
-  if (clinic.subscriptionEndDate) {
-    const endDate = new Date(clinic.subscriptionEndDate);
-    subscriptionEndDateEl.textContent = `Vence: ${endDate.toLocaleDateString('es-ES')}`;
+  if (endDate) {
+    if (isInGracePeriod) {
+      // Calculate days remaining
+      const daysRemaining = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));
+      subscriptionEndDateEl.textContent = `Expira en ${daysRemaining} ${daysRemaining === 1 ? 'día' : 'días'} (${endDate.toLocaleDateString('es-ES')})`;
+      subscriptionEndDateEl.className = 'text-sm font-semibold text-orange-600';
+    } else {
+      subscriptionEndDateEl.textContent = `Vence: ${endDate.toLocaleDateString('es-ES')}`;
+      subscriptionEndDateEl.className = 'text-sm text-gray-600';
+    }
+  } else {
+    subscriptionEndDateEl.textContent = '';
   }
 
   // Update features based on plan
@@ -1184,6 +1215,7 @@ function loadSubscriptionData(clinic) {
     </ul>
   `;
 }
+
 
 async function handleManageSubscription() {
   const btn = document.getElementById('manageSubscriptionBtn');

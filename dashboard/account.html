@@ -386,6 +386,23 @@
             <div class="bg-white rounded-3xl p-8 shadow-sm">
               <h3 class="text-2xl font-bold text-gray-800 mb-6">Mi Suscripción</h3>
 
+              <!-- Grace Period Alert (Hidden by default) -->
+              <div id="gracePeriodAlert" class="hidden mb-6 bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-500 rounded-xl p-5">
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                  </div>
+                  <div class="flex-1">
+                    <h4 class="text-lg font-bold text-orange-800 mb-1">Suscripción Cancelada</h4>
+                    <p id="gracePeriodMessage" class="text-orange-700 text-sm leading-relaxed">
+                      Tu suscripción ha sido cancelada, pero mantienes acceso completo a las funcionalidades de tu plan hasta el <strong id="gracePeriodEndDate"></strong>. Después de esta fecha, tu plan se degradará automáticamente a Free.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <!-- Plan Info Card -->
               <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 mb-6">
                 <div class="flex items-center justify-between mb-4">
