@@ -461,7 +461,7 @@ async function approveAssistant(assistantId, buttonElement) {
 
     if (!res.ok) {
       const errorData = await res.json();
-      throw new Error(errorData.message || "Error al aprobar asistente");
+      throw new Error(errorData.error || errorData.message || "Error al aprobar asistente");
     }
 
     // Success - remove card from DOM with animation
