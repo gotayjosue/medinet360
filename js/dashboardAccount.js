@@ -1257,9 +1257,10 @@ async function handleManageSubscription() {
     }
 
     const clinic = await clinicRes.json();
+    const plan = clinic.plan || 'free';
 
-    // Check if clinic has Paddle subscription
-    if (!clinic.paddleCustomerId) {
+    // Check if clinic has Paddle subscription or is on Free plan
+    if (!clinic.paddleCustomerId || plan === 'free') {
       btn.disabled = false;
       btn.innerHTML = originalHTML;
 
@@ -1289,7 +1290,7 @@ async function handleManageSubscription() {
 
     if (data.url) {
       // Redirect to Paddle portal
-      window.location.href = data.url;
+      window.open(data.url, '_blank');
     } else {
       throw new Error('No se recibió URL del portal');
     }

@@ -36,11 +36,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         showToast('Error al inicializar el sistema de pagos', 'error');
     }
 
-    // Load user data for checkout
-    await loadUserData();
-
-    // Attach event listeners to buttons
+    // Attach event listeners to buttons (standard checkout)
     attachButtonListeners();
+
+    // Load user data for checkout (may replace buttons with Manage/Upgrade/Downgrade logic)
+    await loadUserData();
 
     // Set the current year in the footer
     const currentYear = new Date().getFullYear();
@@ -263,6 +263,8 @@ function convertToManageButton(btn, targetPlan, currentPlan) {
 }
 
 async function handleManageSubscription(e) {
+    e.preventDefault();
+    e.stopPropagation();
     const btn = e.target;
     // Prevent double clicks
     if (btn.disabled) return;
@@ -290,7 +292,7 @@ async function handleManageSubscription(e) {
         if (response.ok) {
             const data = await response.json();
             if (data.url) {
-                window.location.href = data.url;
+                window.open(data.url, '_blank');
             } else {
                 throw new Error('No valid URL returned');
             }
