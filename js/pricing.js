@@ -15,6 +15,12 @@ let paddleInstance = null;
 let userClinicId = null;
 let userEmail = null;
 
+const PLAN_LEVELS = {
+    'free': 0,
+    'clinic_pro': 1,
+    'clinic_plus': 2
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
     checkAuth();
 
@@ -199,33 +205,44 @@ function updatePricingUI(status, plan, endDate) {
         // Free/No Plan: Hide Free Button
         if (freeBtn) freeBtn.style.display = 'none';
     } else {
-        // Paid Plan: All buttons -> Manage Subscription
+        // Paid Plan: All buttons -> Manage/Upgrade/Downgrade
         if (freeBtn) {
             freeBtn.style.display = 'block';
-            convertToManageButton(freeBtn);
+            convertToManageButton(freeBtn, 'free', plan);
         }
-        handlePaidButtons(proBtns);
-        handlePaidButtons(plusBtns);
+        handlePaidButtons(proBtns, 'clinic_pro', plan);
+        handlePaidButtons(plusBtns, 'clinic_plus', plan);
     }
 }
 
 
-function handlePaidButtons(buttons) {
+function handlePaidButtons(buttons, targetPlan, currentPlan) {
     const [btn1, btn2] = buttons;
     if (btn1 && btn2) {
         btn2.style.display = 'none'; // Hide instant button
-        convertToManageButton(btn1);
+        convertToManageButton(btn1, targetPlan, currentPlan);
         btn1.style.width = '100%';
     }
 }
 
-function convertToManageButton(btn) {
+function convertToManageButton(btn, targetPlan, currentPlan) {
     // Check if simple button or needs replacement to clear listeners
     // Safest to just clone/replace
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
 
-    newBtn.textContent = 'Gestionar Suscripción';
+    // Determine button text based on plan hierarchy
+    const targetLevel = PLAN_LEVELS[targetPlan] || 0;
+    const currentLevel = PLAN_LEVELS[currentPlan] || 0;
+
+    if (targetLevel > currentLevel) {
+        newBtn.textContent = 'Actualizar Suscripción';
+    } else if (targetLevel < currentLevel) {
+        newBtn.textContent = 'Downgrade Plan';
+    } else {
+        newBtn.textContent = 'Gestionar Suscripción';
+    }
+
     newBtn.className = ''; // remove existing classes
     newBtn.style.cssText = `
         background-color: #4F46E5;
