@@ -20,6 +20,7 @@ const PLAN_LEVELS = {
 };
 
 const PLAN_PRICE_IDS = {
+    'free': 'free',
     'clinic_pro': PRICE_IDS.PRO_INSTANT,
     'clinic_plus': PRICE_IDS.PLUS_INSTANT
 };
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         paddleInstance = await initializePaddle({
             token: PADDLE_CLIENT_TOKEN,
-            environment: 'production'
+            environment: 'sandbox'
         });
         console.log('✅ Paddle initialized successfully');
     } catch (error) {
@@ -294,9 +295,18 @@ async function handleUpdateSubscription(e, newPriceId) {
 
         const data = await response.json();
 
-        if (response.ok && data.url) {
-            // Redirect to checkout update URL
-            window.location.href = data.url;
+        if (response.ok) {
+            if (data.url) {
+                // Normal case: Redirect to checkout to pay difference
+                window.location.href = data.url;
+            } else if (data.success) {
+                // Automatic case: Paddle updated without charge (e.g. deferred downgrade)
+                // Show success and reload to see changes
+                showToast(data.message || 'Plan actualizado correctamente', 'success');
+                setTimeout(() => window.location.reload(), 2000);
+            } else {
+                throw new Error(data.message || 'Error desconocido');
+            }
         } else {
             throw new Error(data.message || 'Error al actualizar suscripción');
         }
