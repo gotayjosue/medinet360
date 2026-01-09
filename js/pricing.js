@@ -5,9 +5,7 @@ import { initializePaddle } from '@paddle/paddle-js';
 // Paddle Configuration
 const PADDLE_CLIENT_TOKEN = import.meta.env.VITE_PADDLE_CLIENT_TOKEN;
 const PRICE_IDS = {
-    PRO_TRIAL: import.meta.env.VITE_PADDLE_PRICE_ID_PRO_TRIAL,
     PRO_INSTANT: import.meta.env.VITE_PADDLE_PRICE_ID_PRO_INSTANT,
-    PLUS_TRIAL: import.meta.env.VITE_PADDLE_PRICE_ID_PLUS_TRIAL,
     PLUS_INSTANT: import.meta.env.VITE_PADDLE_PRICE_ID_PLUS_INSTANT
 };
 
@@ -19,6 +17,11 @@ const PLAN_LEVELS = {
     'free': 0,
     'clinic_pro': 1,
     'clinic_plus': 2
+};
+
+const PLAN_PRICE_IDS = {
+    'clinic_pro': PRICE_IDS.PRO_INSTANT,
+    'clinic_plus': PRICE_IDS.PLUS_INSTANT
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -192,14 +195,8 @@ function updatePricingUI(status, plan, endDate) {
 
     // 2. Button Logic
     const freeBtn = document.querySelector('.freePlan button');
-    const proBtns = [
-        document.getElementById('pro-trial-btn'),
-        document.getElementById('pro-instant-btn')
-    ];
-    const plusBtns = [
-        document.getElementById('plus-trial-btn'),
-        document.getElementById('plus-instant-btn')
-    ];
+    const proBtn = document.getElementById('pro-instant-btn');
+    const plusBtn = document.getElementById('plus-instant-btn');
 
     if (!isPaidSubscription) {
         // Free/No Plan: Hide Free Button
@@ -210,20 +207,12 @@ function updatePricingUI(status, plan, endDate) {
             freeBtn.style.display = 'block';
             convertToManageButton(freeBtn, 'free', plan);
         }
-        handlePaidButtons(proBtns, 'clinic_pro', plan);
-        handlePaidButtons(plusBtns, 'clinic_plus', plan);
+        if (proBtn) convertToManageButton(proBtn, 'clinic_pro', plan);
+        if (plusBtn) convertToManageButton(plusBtn, 'clinic_plus', plan);
     }
 }
 
 
-function handlePaidButtons(buttons, targetPlan, currentPlan) {
-    const [btn1, btn2] = buttons;
-    if (btn1 && btn2) {
-        btn2.style.display = 'none'; // Hide instant button
-        convertToManageButton(btn1, targetPlan, currentPlan);
-        btn1.style.width = '100%';
-    }
-}
 
 function convertToManageButton(btn, targetPlan, currentPlan) {
     // Check if simple button or needs replacement to clear listeners
@@ -259,7 +248,64 @@ function convertToManageButton(btn, targetPlan, currentPlan) {
     `;
     newBtn.onmouseover = () => newBtn.style.backgroundColor = '#4338ca';
     newBtn.onmouseout = () => newBtn.style.backgroundColor = '#4F46E5';
-    newBtn.addEventListener('click', handleManageSubscription);
+
+    if (targetLevel !== currentLevel) {
+        // Upgrade or Downgrade logic
+        const targetPriceId = PLAN_PRICE_IDS[targetPlan];
+        if (targetPriceId) {
+            newBtn.addEventListener('click', (e) => handleUpdateSubscription(e, targetPriceId));
+        } else {
+            console.error('Price ID not found for plan:', targetPlan);
+            newBtn.addEventListener('click', handleManageSubscription); // Fallback
+        }
+    } else {
+        // Manage Subscription logic (Portal)
+        newBtn.addEventListener('click', handleManageSubscription);
+    }
+}
+
+async function handleUpdateSubscription(e, newPriceId) {
+    e.preventDefault();
+    e.stopPropagation();
+    const btn = e.target;
+    if (btn.disabled) return;
+
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Cargando...';
+
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        showToast('Sesión expirada', 'error');
+        btn.disabled = false;
+        btn.textContent = originalText;
+        return;
+    }
+
+    try {
+        const response = await fetch('https://medinet360-api.onrender.com/api/paddle/update-subscription', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ newPriceId })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.url) {
+            // Redirect to checkout update URL
+            window.location.href = data.url;
+        } else {
+            throw new Error(data.message || 'Error al actualizar suscripción');
+        }
+    } catch (error) {
+        console.error('Update error:', error);
+        showToast(error.message, 'error');
+        btn.disabled = false;
+        btn.textContent = originalText;
+    }
 }
 
 async function handleManageSubscription(e) {
@@ -312,14 +358,10 @@ function attachButtonListeners() {
     // Detailed logic: this function runs initally. checkSubscriptionStatus runs async.
     // If checkSubscriptionStatus finds active sub, it will REPLACE buttons, removing these listeners.
 
-    const proTrialBtn = document.getElementById('pro-trial-btn');
     const proInstantBtn = document.getElementById('pro-instant-btn');
-    const plusTrialBtn = document.getElementById('plus-trial-btn');
     const plusInstantBtn = document.getElementById('plus-instant-btn');
 
-    if (proTrialBtn) proTrialBtn.addEventListener('click', () => openCheckout(PRICE_IDS.PRO_TRIAL));
     if (proInstantBtn) proInstantBtn.addEventListener('click', () => openCheckout(PRICE_IDS.PRO_INSTANT));
-    if (plusTrialBtn) plusTrialBtn.addEventListener('click', () => openCheckout(PRICE_IDS.PLUS_TRIAL));
     if (plusInstantBtn) plusInstantBtn.addEventListener('click', () => openCheckout(PRICE_IDS.PLUS_INSTANT));
 }
 
