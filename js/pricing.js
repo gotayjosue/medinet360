@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         paddleInstance = await initializePaddle({
             token: PADDLE_CLIENT_TOKEN,
-            environment: 'sandbox'
+            environment: 'production'
         });
         console.log('✅ Paddle initialized successfully');
     } catch (error) {
