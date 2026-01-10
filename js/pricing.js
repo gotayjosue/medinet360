@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         paddleInstance = await initializePaddle({
             token: PADDLE_CLIENT_TOKEN,
-            environment: 'sandbox'
+            environment: 'production'
         });
         console.log('✅ Paddle initialized successfully');
     } catch (error) {
@@ -225,10 +225,14 @@ function convertToManageButton(btn, targetPlan, currentPlan) {
     const targetLevel = PLAN_LEVELS[targetPlan] || 0;
     const currentLevel = PLAN_LEVELS[currentPlan] || 0;
 
+    let actionType = 'manage'; // manage, upgrade, downgrade
+
     if (targetLevel > currentLevel) {
         newBtn.textContent = 'Actualizar Suscripción';
+        actionType = 'upgrade';
     } else if (targetLevel < currentLevel) {
         newBtn.textContent = 'Downgrade Plan';
+        actionType = 'downgrade';
     } else {
         newBtn.textContent = 'Gestionar Suscripción';
     }
@@ -254,7 +258,11 @@ function convertToManageButton(btn, targetPlan, currentPlan) {
         // Upgrade or Downgrade logic
         const targetPriceId = PLAN_PRICE_IDS[targetPlan];
         if (targetPriceId) {
-            newBtn.addEventListener('click', (e) => handleUpdateSubscription(e, targetPriceId));
+            newBtn.addEventListener('click', (e) => {
+                showUpdateConfirmation(actionType, () => {
+                    handleUpdateSubscription(newBtn, targetPriceId); // Pass btn explicitly
+                });
+            });
         } else {
             console.error('Price ID not found for plan:', targetPlan);
             newBtn.addEventListener('click', handleManageSubscription); // Fallback
@@ -265,10 +273,124 @@ function convertToManageButton(btn, targetPlan, currentPlan) {
     }
 }
 
-async function handleUpdateSubscription(e, newPriceId) {
-    e.preventDefault();
-    e.stopPropagation();
-    const btn = e.target;
+function showUpdateConfirmation(actionType, onConfirm) {
+    // Remove existing modal if any
+    const existingModal = document.getElementById('updateConfirmationModal');
+    if (existingModal) existingModal.remove();
+
+    const isUpgrade = actionType === 'upgrade';
+
+    // Content Configuration
+    const config = isUpgrade ? {
+        title: 'Upgrade Subscription',
+        subtitle: 'Immediate Payment',
+        message: 'You are about to upgrade your subscription. You will be charged the prorated difference immediately.',
+        iconBg: '#EEF2FF',
+        iconColor: '#4F46E5',
+        confirmBtnBg: '#4F46E5',
+        confirmBtnHover: '#4338CA',
+        icon: `<svg style="width: 24px; height: 24px; color: #4F46E5;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+               </svg>`
+    } : {
+        title: 'Downgrade Subscription',
+        subtitle: 'Credit on Next Invoice. Free plan does not apply for credits.',
+        message: 'You are about to downgrade your subscription. The difference will be applied as credit towards your next invoice. The change will take effect immediately. For the free plan, the downgrade will take effect in the next invoice.',
+        iconBg: '#FEF3C7',
+        iconColor: '#D97706',
+        confirmBtnBg: '#D97706',
+        confirmBtnHover: '#B45309',
+        icon: `<svg style="width: 24px; height: 24px; color: #D97706;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path>
+               </svg>`
+    };
+
+    const modal = document.createElement('dialog');
+    modal.id = 'updateConfirmationModal';
+
+    // Inline CSS for the dialog element itself
+    Object.assign(modal.style, {
+        border: 'none',
+        borderRadius: '12px',
+        padding: '0',
+        maxWidth: '28rem',
+        width: '90%',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        backgroundColor: 'transparent',
+        margin: 'auto'
+    });
+
+    modal.innerHTML = `
+    <div style="background-color: white; padding: 24px; border-radius: 12px;">
+      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+        <div style="background-color: ${config.iconBg}; padding: 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+            ${config.icon}
+        </div>
+        <div>
+          <h3 style="font-size: 18px; font-weight: 600; color: #111827; margin: 0 0 4px 0;">${config.title}</h3>
+          <p style="font-size: 14px; color: #6B7280; margin: 0;">${config.subtitle}</p>
+        </div>
+      </div>
+      <p style="color: #374151; margin: 0 0 24px 0; line-height: 1.5;">${config.message}</p>
+      <div style="display: flex; gap: 12px;">
+        <button id="cancelUpdate" style="flex: 1; background-color: #E5E7EB; color: #374151; padding: 10px 16px; border-radius: 6px; border: none; cursor: pointer; font-weight: 500; transition: background-color 0.2s;">
+          Cancel
+        </button>
+        <button id="confirmUpdate" style="flex: 1; background-color: ${config.confirmBtnBg}; color: white; padding: 10px 16px; border-radius: 6px; border: none; cursor: pointer; font-weight: 500; transition: background-color 0.2s;">
+          Confirm
+        </button>
+      </div>
+    </div>
+    `;
+
+    // Add backdrop styling
+    const style = document.createElement('style');
+    style.textContent = `
+        #updateConfirmationModal::backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    `;
+    document.head.appendChild(style);
+
+    document.body.appendChild(modal);
+    modal.showModal();
+
+    const cancelBtn = modal.querySelector('#cancelUpdate');
+    const confirmBtn = modal.querySelector('#confirmUpdate');
+
+    // Hover effects
+    cancelBtn.addEventListener('mouseenter', () => {
+        cancelBtn.style.backgroundColor = '#D1D5DB';
+    });
+    cancelBtn.addEventListener('mouseleave', () => {
+        cancelBtn.style.backgroundColor = '#E5E7EB';
+    });
+
+    confirmBtn.addEventListener('mouseenter', () => {
+        confirmBtn.style.backgroundColor = config.confirmBtnHover;
+    });
+    confirmBtn.addEventListener('mouseleave', () => {
+        confirmBtn.style.backgroundColor = config.confirmBtnBg;
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        modal.close();
+        modal.remove();
+        style.remove();
+    });
+
+    confirmBtn.addEventListener('click', () => {
+        modal.close();
+        modal.remove();
+        style.remove();
+        onConfirm();
+    });
+}
+
+async function handleUpdateSubscription(btn, newPriceId) {
+    // e.preventDefault(); // No longer event driven directly
+    // e.stopPropagation();
+    // const btn = e.target;
     if (btn.disabled) return;
 
     const originalText = btn.textContent;
