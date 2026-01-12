@@ -895,6 +895,7 @@ async function updateClinicInfo() {
   const name = document.getElementById("clinicNameDisplay").value.trim();
   const address = document.getElementById("clinicAddressDisplay").value.trim();
   const phone = document.getElementById("clinicPhoneDisplay").value.trim();
+  const logoLink = document.getElementById("clinicLogoDisplay").value.trim();
 
   if (!name) {
     showToast("El nombre de la clínica es obligatorio.", "error");
@@ -917,7 +918,8 @@ async function updateClinicInfo() {
       body: JSON.stringify({
         name,
         address,
-        phone
+        phone,
+        logoLink
       })
     });
 
