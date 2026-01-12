@@ -40,59 +40,114 @@ export function expandDetails() {
 }
 
 
+// Decode JWT token (without verification - only for reading payload)
+export function decodeJWT(token) {
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    return JSON.parse(jsonPayload);
+  } catch (error) {
+    console.error('Error decoding JWT:', error);
+    return null;
+  }
+}
+
+// Check if token is expired
+export function isTokenExpired(token) {
+  if (!token) return true;
+
+  const decoded = decodeJWT(token);
+  if (!decoded || !decoded.exp) return true;
+
+  // exp is in seconds, Date.now() is in milliseconds
+  const currentTime = Date.now() / 1000;
+  return decoded.exp < currentTime;
+}
+
+// Validate token existence and expiration
+export function validateToken() {
+  const token = localStorage.getItem('authToken');
+
+  if (!token) {
+    return false;
+  }
+
+  if (isTokenExpired(token)) {
+    // Token expired, clean up and return false
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
+    return false;
+  }
+
+  return true;
+}
+
 export function checkAuth() {
-    const token = localStorage.getItem('authToken');
-    const signInButton = document.getElementById('signInButton');
-    
-    if (!signInButton) return;
-    
-    if (token) {
-        signInButton.textContent = 'Logout';
-        signInButton.addEventListener('click', handleLogout);
-    } else {
-        signInButton.textContent = 'Sign In';
-        signInButton.addEventListener('click', () => {
-            window.location.href = 'signIn.html';
-        });
+  const token = localStorage.getItem('authToken');
+  const signInButton = document.getElementById('signInButton');
+
+  if (!signInButton) return;
+
+  // Validate token exists and is not expired
+  if (token && !isTokenExpired(token)) {
+    signInButton.textContent = 'Logout';
+    signInButton.addEventListener('click', handleLogout);
+  } else {
+    // Token doesn't exist or is expired
+    if (token && isTokenExpired(token)) {
+      // Clean up expired token
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('currentUser');
     }
+    signInButton.textContent = 'Sign In';
+    signInButton.addEventListener('click', () => {
+      window.location.href = 'signIn.html';
+    });
+  }
 }
 
 export async function handleLogout() {
-    try {
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('currentUser');
-        showToast("Logout successfuly", "success", 4000)
-        window.location.href = 'index.html'; 
-    } catch (error) {
-        console.error('Error during logout:', error);
-        localStorage.clear();
-        window.location.href = '/index.html';
-    }
+  try {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
+    showToast("Logout successfuly", "success", 4000)
+    window.location.href = 'index.html';
+  } catch (error) {
+    console.error('Error during logout:', error);
+    localStorage.clear();
+    window.location.href = '/index.html';
+  }
 }
 
 export async function handleLogoutAccount() {
-    try {
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('currentUser');
-        showToast("Logout successfuly", "success", 4000)
-        window.location.href = '../index.html'; 
-    } catch (error) {
-        console.error('Error during logout:', error);
-        localStorage.clear();
-        window.location.href = '../index.html';
-    }
+  try {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
+    showToast("Logout successfuly", "success", 4000)
+    window.location.href = '../index.html';
+  } catch (error) {
+    console.error('Error during logout:', error);
+    localStorage.clear();
+    window.location.href = '../index.html';
+  }
 }
 
 // Protección de rutas del dashboard
 export function requireAuth() {
+  if (!validateToken()) {
     const token = localStorage.getItem('authToken');
-    if (!token) {
-        showToast("You must be logged in", "error")
-        setTimeout(() => {
-          window.location.href = '/signIn.html';
-        }, 900);
-        
-    }
+    const message = token ? "Your session has expired. Please sign in again." : "You must be logged in";
+    showToast(message, "error");
+    setTimeout(() => {
+      window.location.href = '/signIn.html';
+    }, 900);
+  }
 }
 
 //Alert message
@@ -183,17 +238,17 @@ export function formatDateForInput(dateStr) {
 // Función auxiliar para formatear la fecha (dd/mm/yyyy) SIN offset
 export function formatDate(dateStr) {
   if (!dateStr) return 'N/D';
-  
+
   // Si ya es string YYYY-MM-DD, parsear directamente
   if (typeof dateStr === 'string' && dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
     const [year, month, day] = dateStr.split('-');
     return `${day}/${month}/${year}`; // "17/11/1998"
   }
-  
+
   // Fallback para otros formatos (Date objects, ISO strings, etc.)
   const d = new Date(dateStr);
   if (isNaN(d.getTime())) return 'N/D';
-  
+
   const dd = String(d.getDate()).padStart(2, '0');
   const mm = String(d.getMonth() + 1).padStart(2, '0');
   const yyyy = d.getFullYear();
@@ -202,30 +257,30 @@ export function formatDate(dateStr) {
 
 //Function to calculate the age
 
-export function getAgeFromDOB (dobStr) {
+export function getAgeFromDOB(dobStr) {
   if (!dobStr) return null;
-  
+
   // Si es string YYYY-MM-DD, calcular edad sin offset
   if (typeof dobStr === 'string' && dobStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
     const [year, month, day] = dobStr.split('-').map(Number);
     const today = new Date();
     let age = today.getFullYear() - year;
     const m = today.getMonth() + 1 - month;
-    
+
     if (m < 0 || (m === 0 && today.getDate() < day)) {
       age--;
     }
     return age;
   }
-  
+
   // Fallback para otros formatos
   const birth = new Date(dobStr);
   if (isNaN(birth.getTime())) return null;
-  
+
   const today = new Date();
   let age = today.getFullYear() - birth.getFullYear();
   const m = today.getMonth() - birth.getMonth();
-  
+
   if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
     age--;
   }
@@ -250,25 +305,49 @@ export function toMinutes(hhmm) {
 // Get clinic name
 export async function getClinicName() {
   const clinicNameText = document.getElementById('clinicNameText');
-    const token = localStorage.getItem('authToken');
-    if (!token) return;
+  const token = localStorage.getItem('authToken');
+  if (!token) return;
 
-    // Fetch clinic name from profile
-    try {
-        const res = await fetch('https://medinet360-api.onrender.com/api/auth/profile', {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        const data = await res.json();
-        const clinicId = data.clinicId;
-        
-        const clinicRes = await fetch(`https://medinet360-api.onrender.com/api/clinic/${clinicId}`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        const clinicData = await clinicRes.json();
-        clinicNameText.textContent = clinicData.name;
-    } catch (error) {
-        console.error("Error fetching clinic name:", error);
-        showToast("Error fetching clinic name", "error");
-        return "Unknown Clinic";
+  // Fetch clinic name from profile
+  try {
+    const res = await fetch('https://medinet360-api.onrender.com/api/auth/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    // Check for 401 Unauthorized (token expired or invalid)
+    if (res.status === 401) {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('currentUser');
+      showToast("Your session has expired. Please sign in again.", "error");
+      setTimeout(() => {
+        window.location.href = '/signIn.html';
+      }, 900);
+      return;
     }
+
+    const data = await res.json();
+    const clinicId = data.clinicId;
+
+    const clinicRes = await fetch(`https://medinet360-api.onrender.com/api/clinic/${clinicId}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    // Check for 401 on clinic fetch too
+    if (clinicRes.status === 401) {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('currentUser');
+      showToast("Your session has expired. Please sign in again.", "error");
+      setTimeout(() => {
+        window.location.href = '/signIn.html';
+      }, 900);
+      return;
+    }
+
+    const clinicData = await clinicRes.json();
+    clinicNameText.textContent = clinicData.name;
+  } catch (error) {
+    console.error("Error fetching clinic name:", error);
+    showToast("Error fetching clinic name", "error");
+    return "Unknown Clinic";
+  }
 }
