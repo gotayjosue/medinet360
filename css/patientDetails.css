@@ -142,6 +142,7 @@
 }
 
 #confirmDeleteModal,
+#deleteFileModal,
 #patientFormModal {
     transition: display 0.3s allow-discrete,
         overlay 0.2s allow-discrete;
