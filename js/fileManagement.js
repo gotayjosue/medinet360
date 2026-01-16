@@ -366,6 +366,41 @@ function setupEventListeners() {
         prevBtn.addEventListener('click', () => navigateGallery(-1));
         nextBtn.addEventListener('click', () => navigateGallery(1));
     }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+        const viewerModal = document.getElementById('fileViewerModal');
+        if (viewerModal && viewerModal.open) {
+            if (e.key === 'ArrowRight') navigateGallery(1);
+            else if (e.key === 'ArrowLeft') navigateGallery(-1);
+            else if (e.key === 'Escape') viewerModal.close();
+        }
+    });
+
+    // Touch Swipe Navigation for Mobile
+    const viewerContent = document.getElementById('viewerContent');
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    if (viewerContent) {
+        viewerContent.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        viewerContent.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+    }
+
+    function handleSwipe() {
+        const swipedistance = touchEndX - touchStartX;
+        const threshold = 50; // pixels
+        if (Math.abs(swipedistance) > threshold) {
+            if (swipedistance < 0) navigateGallery(1); // Swipe Left -> Next
+            else navigateGallery(-1); // Swipe Right -> Prev
+        }
+    }
 }
 
 function updateDropZone(files) {
