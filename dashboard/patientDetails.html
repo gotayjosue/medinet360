@@ -367,9 +367,8 @@
                   d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
               </svg>
               <p class="mt-2 text-sm text-gray-600">Drag and drop your file here, or click to select</p>
-              <p class="text-xs text-gray-400 mt-1">Images, PDF, Video (Max 50MB)</p>
-              <input type="file" id="fileInput" class="hidden"
-                accept="image/*,application/pdf,video/*,.doc,.docx,.xls,.xlsx">
+              <p class="text-xs text-gray-400 mt-1">Images, Word, Excel (Max 50MB)</p>
+              <input type="file" id="fileInput" class="hidden" accept="image/*,.doc,.docx,.xls,.xlsx" multiple>
             </div>
 
             <div>
@@ -425,9 +424,24 @@
               </svg>
             </button>
           </div>
-          <div id="viewerContent"
-            class="flex-1 bg-gray-100 flex items-center justify-center p-4 overflow-auto relative">
-            <!-- Content injected here -->
+          <div class="flex-1 bg-gray-100 relative group/viewer overflow-hidden">
+            <div id="viewerContent" class="h-full w-full flex items-center justify-center p-4 overflow-auto">
+              <!-- Content injected here -->
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button id="prevFileBtn"
+              class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all opacity-0 group-hover/viewer:opacity-100 disabled:hidden z-10">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
+              </svg>
+            </button>
+            <button id="nextFileBtn"
+              class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all opacity-0 group-hover/viewer:opacity-100 disabled:hidden z-10">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </dialog>

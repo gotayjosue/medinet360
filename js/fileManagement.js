@@ -4,6 +4,8 @@ import { showToast, formatDate } from './utils.js';
 const API_BASE_URL = 'https://medinet360-api.onrender.com/api';
 let currentPatientId = null;
 let fileIdToDelete = null;
+let patientFiles = []; // Store current files for gallery navigation
+let currentFileIndex = -1;
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,6 +16,25 @@ document.addEventListener('DOMContentLoaded', () => {
         initFileManagement();
     }
 });
+
+const ALLOWED_MIME_TYPES = [
+    'image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml',
+    'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'text/csv'
+];
+
+function isFileTypeAllowed(file) {
+    // Check by mime type
+    if (ALLOWED_MIME_TYPES.includes(file.type)) return true;
+
+    // Fallback for some browsers/OS that might not resolve mime types for docx/xlsx correctly
+    const ext = file.name.split('.').pop().toLowerCase();
+    const allowedExts = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg', 'doc', 'docx', 'xls', 'xlsx', 'csv'];
+    if (allowedExts.includes(ext)) return true;
+
+    return false;
+}
 
 function initFileManagement() {
     loadPatientFiles();
@@ -122,7 +143,8 @@ async function loadPatientFiles() {
     gallery.innerHTML = '<div class="col-span-full text-center py-8"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 mx-auto"></div></div>';
 
     const data = await fetchFiles();
-    renderGallery(data.files || []);
+    patientFiles = data.files || [];
+    renderGallery(patientFiles);
 }
 
 function renderGallery(files) {
@@ -141,7 +163,7 @@ function renderGallery(files) {
         return;
     }
 
-    gallery.innerHTML = files.map(file => {
+    gallery.innerHTML = files.map((file, index) => {
         const isImage = file.fileType.startsWith('image/');
         const icon = getFileIcon(file.fileType);
         const date = new Date(file.createdAt || Date.now()).toLocaleDateString();
@@ -150,11 +172,11 @@ function renderGallery(files) {
             <div class="group relative bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
                 <div class="aspect-w-10 aspect-h-7 bg-gray-100 block overflow-hidden relative h-40">
                     ${isImage
-                ? `<img src="${file.thumbnailUrl || file.signedUrl}" alt="${file.fileName}" class="object-cover w-full h-full cursor-pointer" onclick="openViewer('${file.signedUrl}', '${file.fileType}', '${file.fileName}')">`
-                : `<div class="flex items-center justify-center h-full cursor-pointer" onclick="openViewer('${file.signedUrl}', '${file.fileType}', '${file.fileName}')">${icon}</div>`
+                ? `<img src="${file.thumbnailUrl || file.signedUrl}" alt="${file.fileName}" class="object-cover w-full h-full cursor-pointer" onclick="openViewerByIndex(${index})">`
+                : `<div class="flex items-center justify-center h-full cursor-pointer" onclick="openViewerByIndex(${index})">${icon}</div>`
             }
                     <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity flex items-center justify-center opacity-0 group-hover:opacity-100">
-                         <button onclick="openViewer('${file.signedUrl}', '${file.fileType}', '${file.fileName}')" class="bg-white text-gray-800 p-2 rounded-full mr-2 hover:bg-gray-100 shadow-sm" title="View">
+                         <button onclick="openViewerByIndex(${index})" class="bg-white text-gray-800 p-2 rounded-full mr-2 hover:bg-gray-100 shadow-sm" title="View">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                          </button>
                          <button onclick="confirmDeleteFile('${file._id}')" class="bg-white text-red-600 p-2 rounded-full hover:bg-gray-100 shadow-sm" title="Delete">
@@ -176,13 +198,36 @@ function renderGallery(files) {
 }
 
 function getFileIcon(mimeType) {
-    // Return SVG strings based on mime type
     if (mimeType.includes('pdf')) {
-        return `<svg class="w-12 h-12 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>`;
+        return `
+            <div class="file-preview-card bg-red-50 text-red-500">
+                <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
+                <span class="file-type-badge bg-red-100 text-red-700">PDF</span>
+            </div>`;
+    } else if (mimeType.includes('sheet') || mimeType.includes('excel') || mimeType.includes('csv')) {
+        return `
+            <div class="file-preview-card bg-green-50 text-green-500">
+                <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 100 2h4a1 1 0 100-2H8zm0-3a1 1 0 100 2h4a1 1 0 100-2H8z" clip-rule="evenodd"/></svg>
+                <span class="file-type-badge bg-green-100 text-green-700">XLSX</span>
+            </div>`;
+    } else if (mimeType.includes('word') || mimeType.includes('document')) {
+        return `
+            <div class="file-preview-card bg-blue-50 text-blue-500">
+                <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
+                <span class="file-type-badge bg-blue-100 text-blue-700">DOCX</span>
+            </div>`;
     } else if (mimeType.includes('video')) {
-        return `<svg class="w-12 h-12 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/></svg>`;
+        return `
+            <div class="file-preview-card bg-indigo-50 text-indigo-500">
+                <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/></svg>
+                <span class="file-type-badge bg-indigo-100 text-indigo-700">VIDEO</span>
+            </div>`;
     } else {
-        return `<svg class="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>`;
+        return `
+            <div class="file-preview-card bg-gray-50 text-gray-400">
+                <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>
+                <span class="file-type-badge bg-gray-100 text-gray-600">FILE</span>
+            </div>`;
     }
 }
 
@@ -235,7 +280,7 @@ function setupEventListeners() {
         dropZone.addEventListener('click', () => fileInput.click());
 
         fileInput.addEventListener('change', (e) => {
-            if (fileInput.files.length) updateDropZone(fileInput.files[0]);
+            if (fileInput.files.length) updateDropZone(fileInput.files);
         });
 
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -257,10 +302,22 @@ function setupEventListeners() {
 
         dropZone.addEventListener('drop', (e) => {
             const dt = e.dataTransfer;
-            const files = dt.files;
-            if (files.length) {
-                fileInput.files = files;
-                updateDropZone(files[0]);
+            const files = Array.from(dt.files);
+
+            const filteredFiles = files.filter(file => {
+                if (isFileTypeAllowed(file)) return true;
+                showToast(`File type not allowed: ${file.name}`, 'error');
+                return false;
+            });
+
+            if (filteredFiles.length) {
+                // Create a new FileList-like object or just use the array if we can
+                // Actually, fileInput.files expects a FileList. 
+                // We'll use a DataTransfer object to construct a new FileList
+                const dataTransfer = new DataTransfer();
+                filteredFiles.forEach(f => dataTransfer.items.add(f));
+                fileInput.files = dataTransfer.files;
+                updateDropZone(fileInput.files);
             }
         });
     }
@@ -300,12 +357,25 @@ function setupEventListeners() {
             }
         });
     }
+
+    // Gallery Navigation
+    const prevBtn = document.getElementById('prevFileBtn');
+    const nextBtn = document.getElementById('nextFileBtn');
+
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => navigateGallery(-1));
+        nextBtn.addEventListener('click', () => navigateGallery(1));
+    }
 }
 
-function updateDropZone(file) {
+function updateDropZone(files) {
     const dropZone = document.getElementById('dropZone');
     const dropText = dropZone.querySelector('p');
-    dropText.textContent = `Selected: ${file.name}`;
+    if (files.length === 1) {
+        dropText.textContent = `Selected: ${files[0].name}`;
+    } else {
+        dropText.textContent = `${files.length} files selected`;
+    }
 }
 
 async function handleUploadSubmit(e) {
@@ -321,24 +391,27 @@ async function handleUploadSubmit(e) {
     const progressPercent = document.getElementById('uploadProgressPercent');
 
     if (!fileInput.files.length) {
-        showToast('Please select a file', 'error');
+        showToast('Please select at least one file', 'error');
         return;
     }
 
-    const file = fileInput.files[0];
+    const files = Array.from(fileInput.files);
     const category = categorySelect.value;
     const description = descriptionInput.value;
 
-    // Simple validation (mock, real limit is backend)
-    // 50 MB limit for safety check on client
-    if (file.size > 50 * 1024 * 1024) {
-        showToast('File too large (Max 50MB)', 'error');
+    // Filter files again as extra security
+    const validFiles = files.filter(file => {
+        if (isFileTypeAllowed(file)) return true;
+        return false;
+    });
+
+    if (validFiles.length === 0) {
+        showToast('No valid files to upload (PDFs and Videos are not allowed)', 'error');
         return;
     }
 
     try {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Uploading...';
 
         // Show progress bar
         if (progressContainer) {
@@ -347,15 +420,35 @@ async function handleUploadSubmit(e) {
             progressPercent.textContent = '0%';
         }
 
-        await uploadFile(file, category, description, (percent) => {
-            if (progressBar && progressPercent) {
-                const rounded = Math.round(percent);
-                progressBar.style.width = `${rounded}%`;
-                progressPercent.textContent = `${rounded}%`;
-            }
-        });
+        let uploadedCount = 0;
+        const totalFiles = validFiles.length;
 
-        showToast('File uploaded successfully', 'success');
+        for (const file of validFiles) {
+            // Simple validation (mock, real limit is backend)
+            if (file.size > 50 * 1024 * 1024) {
+                showToast(`File ${file.name} too large (Max 50MB)`, 'error');
+                continue;
+            }
+
+            submitBtn.textContent = `Uploading ${uploadedCount + 1}/${totalFiles}...`;
+
+            await uploadFile(file, category, description, (percent) => {
+                if (progressBar && progressPercent) {
+                    // Update progress relative to current file and total files
+                    // Simple average progress: (files_done * 100 + current_file_percent) / total_files
+                    const overallPercent = Math.round(((uploadedCount * 100) + percent) / totalFiles);
+                    progressBar.style.width = `${overallPercent}%`;
+                    progressPercent.textContent = `${overallPercent}%`;
+                }
+            });
+
+            uploadedCount++;
+        }
+
+        if (uploadedCount > 0) {
+            showToast(`${uploadedCount} file(s) uploaded successfully`, 'success');
+        }
+
         document.getElementById('fileUploadModal').close();
         document.getElementById('uploadFileForm').reset();
         document.getElementById('dropZone').querySelector('p').textContent = 'Drag and drop your file here, or click to select';
@@ -378,22 +471,37 @@ async function handleUploadSubmit(e) {
 }
 
 // Global scope functions for onclick events in HTML
-window.openViewer = (url, type, name) => {
+window.openViewerByIndex = (index) => {
+    if (index < 0 || index >= patientFiles.length) return;
+    currentFileIndex = index;
+    const file = patientFiles[index];
+    openViewer(file.signedUrl, file.fileType, file.fileName);
+    updateNavButtons();
+}
+
+window.openViewer = (url, type, name, direction = 'none') => {
     const modal = document.getElementById('fileViewerModal');
     const content = document.getElementById('viewerContent');
     const title = document.getElementById('viewerTitle');
 
     title.textContent = name;
-    content.innerHTML = '';
+
+    // Create a new container for the content to animate
+    const newContent = document.createElement('div');
+    newContent.className = 'w-full h-full flex items-center justify-center';
+
+    // Animation class
+    if (direction === 'next') newContent.classList.add('animate-slide-in-right');
+    else if (direction === 'prev') newContent.classList.add('animate-slide-in-left');
+    else newContent.classList.add('animate-fade-in');
 
     if (type.startsWith('image/')) {
-        content.innerHTML = `<img src="${url}" class="max-h-[80vh] max-w-full mx-auto rounded shadow-lg" alt="${name}">`;
+        newContent.innerHTML = `<img src="${url}" class="max-h-[80vh] max-w-full mx-auto rounded shadow-lg" alt="${name}">`;
     } else if (type.startsWith('video/')) {
-        content.innerHTML = `<video src="${url}" controls class="max-h-[80vh] max-w-full mx-auto rounded shadow-lg"></video>`;
+        newContent.innerHTML = `<video src="${url}" controls autoPlay class="max-h-[80vh] max-w-full mx-auto rounded shadow-lg"></video>`;
     } else {
-        // Fallback for pdf, doc, xls, etc.
         const isPdf = type === 'application/pdf';
-        content.innerHTML = `
+        newContent.innerHTML = `
             <div class="text-center py-10">
                 <div class="mb-4 flex justify-center">${getFileIcon(type)}</div>
                 <p class="text-gray-600 mb-4">${isPdf ? 'PDF' : 'Document'} preview not available.</p>
@@ -405,7 +513,29 @@ window.openViewer = (url, type, name) => {
         `;
     }
 
-    modal.showModal();
+    // Clear old content
+    content.innerHTML = '';
+    content.appendChild(newContent);
+
+    if (!modal.open) modal.showModal();
+}
+
+function navigateGallery(direction) {
+    const nextIndex = currentFileIndex + direction;
+    if (nextIndex >= 0 && nextIndex < patientFiles.length) {
+        currentFileIndex = nextIndex;
+        const file = patientFiles[currentFileIndex];
+        const animDir = direction > 0 ? 'next' : 'prev';
+        openViewer(file.signedUrl, file.fileType, file.fileName, animDir);
+        updateNavButtons();
+    }
+}
+
+function updateNavButtons() {
+    const prevBtn = document.getElementById('prevFileBtn');
+    const nextBtn = document.getElementById('nextFileBtn');
+    if (prevBtn) prevBtn.disabled = currentFileIndex <= 0;
+    if (nextBtn) nextBtn.disabled = currentFileIndex >= patientFiles.length - 1;
 }
 
 window.confirmDeleteFile = (fileId) => {
