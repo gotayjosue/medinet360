@@ -12,6 +12,9 @@
     transition: all 0.3s ease;
     border-radius: 8px;
     position: relative;
+    @media screen and (min-width: 400px) {
+        margin: 0 auto;
+    }
 }
 
 .language-switcher-btn:hover {
@@ -24,6 +27,10 @@
     height: 24px;
     color: #333;
     transition: transform 0.3s ease;
+    @media screen and (min-width: 400px) {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 .language-switcher-btn:hover svg {
