@@ -33,7 +33,7 @@ class LanguageSwitcher {
      */
     createSwitcherButton() {
         // Find the FAQ link in navigation
-        const faqLink = document.querySelector('nav a[href="faq.html"]');
+        const faqLink = document.querySelector('nav a[data-nav="faq"]');
         if (!faqLink) {
             console.warn('FAQ link not found, cannot add language switcher');
             return;
