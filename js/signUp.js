@@ -1,10 +1,11 @@
 import { showToast } from "./utils"
+import i18n from "./i18n.js";
 
 const doctorContainer = document.querySelector('.doctor')
 const assistantContainer = document.querySelector('.assistant')
 const roleSelect = document.getElementById('role')
-const clinicName = document.getElementById('clinicName')
-const clinicId = document.getElementById('clinicId')
+const clinicNameInput = document.getElementById('clinicName')
+const clinicIdInput = document.getElementById('clinicId')
 const togglePassword = document.getElementById('togglePassword')
 const passwordInput = document.getElementById('password')
 const logo = document.querySelector('.logo');
@@ -22,12 +23,12 @@ roleSelect.addEventListener('change', (e) => {
 
     if (selectedRole === 'doctor') {
         doctorContainer.classList.add('visible')
-        clinicId.required = false
-        clinicName.required = true
+        clinicIdInput.required = false
+        clinicNameInput.required = true
         assistantContainer.classList.remove('visible')
     } else if (selectedRole === 'assistant') {
-        clinicName.required = false
-        clinicId.required = true
+        clinicNameInput.required = false
+        clinicIdInput.required = true
         assistantContainer.classList.add('visible')
         doctorContainer.classList.remove('visible')
     }
@@ -79,7 +80,7 @@ form.addEventListener("submit", async (e) => {
 
     // Validaciones básicas
     if (!name || !lastName || !email || !password || !role) {
-        showToast("Por favor completa todos los campos obligatorios.", "error");
+        showToast(i18n.t('auth.signUp.fillAll') || "Por favor completa todos los campos obligatorios.", "error");
         return;
     }
 
@@ -87,7 +88,7 @@ form.addEventListener("submit", async (e) => {
     const submitBtn = form.querySelector(".submitButton");
     const originalText = submitBtn.textContent
     submitBtn.disabled = true;
-    submitBtn.textContent = "Registering...";
+    submitBtn.textContent = i18n.t('auth.signUp.registering') || "Registering...";
 
     try {
         const response = await fetch(API_SIGNUP, {
@@ -114,13 +115,13 @@ form.addEventListener("submit", async (e) => {
                 const msgs = data.errors.map(e => e.msg).join('<br>');
                 showToast(msgs, 'error');   // showToast debe aceptar HTML
             } else {
-                showToast(data.error || data.message || "Failed to sign up", "error")
+                showToast(data.error || data.message || i18n.t('auth.signUp.failedDetail') || "Failed to sign up", "error")
             }
             return;
         }
 
         // Use message from backend which probably includes verification instruction
-        showToast(data.message || 'Signed up successfully! Please verify your email.', 'success', 4000);
+        showToast(data.message || i18n.t('auth.signUp.successVerify') || 'Signed up successfully! Please verify your email.', 'success', 4000);
         form.reset();
 
         setTimeout(() => {
@@ -129,7 +130,7 @@ form.addEventListener("submit", async (e) => {
 
     } catch (err) {
         console.error('❌ Error:', err);
-        showToast(err.message || 'Error signing up', 'error');
+        showToast(err.message || i18n.t('auth.signUp.errorGeneric') || 'Error signing up', 'error');
     } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;

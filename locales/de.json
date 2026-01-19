@@ -1,0 +1,335 @@
+{
+    "nav": {
+        "home": "Startseite",
+        "dashboard": "Dashboard",
+        "pricing": "Preise",
+        "faq": "FAQ",
+        "signIn": "Anmelden"
+    },
+    "home": {
+        "title": "Verwalten Sie Patientenakten mühelos.",
+        "subtitle": "Medinet360 hilft medizinischen Fachkräften, Patientendaten zu organisieren, zu verfolgen und darauf zuzugreifen — alles auf einer sicheren Plattform.",
+        "getStarted": "Loslegen",
+        "features": {
+            "patients": {
+                "title": "Hinzufügen. Aktualisieren. Löschen",
+                "description": "Halten Sie die Informationen Ihrer Patienten organisiert und immer auf dem neuesten Stand. Fügen Sie Datensätze einfach hinzu, aktualisieren oder löschen Sie sie, während Sie genaue Krankengeschichten pflegen. Optimieren Sie Ihren Arbeitsablauf und konzentrieren Sie sich auf das Wesentliche — die Bereitstellung qualitativ hochwertiger Pflege für Ihre Patienten."
+            },
+            "appointments": {
+                "title": "Planen. Verwalten.",
+                "description": "Planen, anzeigen und verwalten Sie Termine mit nur wenigen Klicks. Mit dem Kalendersystem von Medinet360 können Sie Zeitpläne koordinieren, automatisierte Erinnerungen erhalten und Buchungskonflikte vermeiden, um eine reibungslose und effiziente Patientenerfahrung zu gewährleisten."
+            },
+            "reports": {
+                "title": "Generieren. Anzeigen.",
+                "description": "Erhalten Sie klare Einblicke in die Leistung Ihrer Klinik. Erstellen Sie detaillierte Berichte über Termine, Patienten und allgemeine Aktivitäten. Treffen Sie fundierte Entscheidungen mit leicht verständlichen Analysen und visuellen Zusammenfassungen."
+            },
+            "customFields": {
+                "title": "Benutzerdefinierte Felder",
+                "description": "Passen Sie die Plattform an die spezifischen Bedürfnisse Ihrer Klinik an. Erstellen Sie benutzerdefinierte Felder, um einzigartige Patienteninformationen zu erfassen und verbessern Sie Ihr Datenmanagement mit Details, die wirklich eine bessere medizinische Versorgung unterstützen."
+            },
+            "assistants": {
+                "title": "Assistenten",
+                "description": "Stärken Sie Ihr medizinisches Team mit kollaborativem Zugang. Medinet360 ermöglicht es Assistenten, ihre eigenen Konten zu erstellen und einer Klinik beizutreten, indem sie die eindeutige ID der Klinik eingeben. Nach der Genehmigung können Assistenten bei der Verwaltung von Patientenakten, der Terminplanung und der Bearbeitung täglicher Verwaltungsaufgaben helfen — und so Ihre Klinik organisiert und Ihre Patienten gut versorgt halten."
+            },
+            "pricingCta": {
+                "title": "Preispläne",
+                "description": "Wählen Sie einen Plan, der Ihren Bedürfnissen entspricht.",
+                "button": "Pläne Ansehen"
+            }
+        }
+    },
+    "pricing": {
+        "title": "Preispläne",
+        "subtitle": "Wählen Sie den Plan, der am besten zu Ihren Bedürfnissen passt.",
+        "perMonth": "/ Monat",
+        "free": {
+            "name": "Kostenlos",
+            "price": "$0",
+            "features": {
+                "patients": "Verwalten Sie bis zu <strong>5 Patientenakten</strong>",
+                "appointments": "Vollzugriff auf das <strong>Terminplanungsmodul</strong>"
+            },
+            "button": "Plan Wählen"
+        },
+        "pro": {
+            "name": "Clinic Pro",
+            "price": "$19.99",
+            "features": {
+                "patients": "<strong>Unbegrenzte Patientenverwaltung</strong>",
+                "appointments": "Vollzugriff auf das <strong>Terminplanungsmodul</strong>",
+                "assistants": "Bis zu <strong>2 Assistenten</strong>",
+                "storage": "Bis zu <strong>500 MB Cloud-Speicher</strong> für Patientendateien",
+                "fileLimit": "Maximales Limit von <strong>50 MB pro Datei</strong>"
+            },
+            "button": "Plan Wählen"
+        },
+        "plus": {
+            "name": "Clinic Plus",
+            "price": "$24.99",
+            "features": {
+                "patients": "<strong>Unbegrenzte Patientenverwaltung</strong>",
+                "appointments": "Vollzugriff auf das <strong>Terminplanungsmodul</strong>",
+                "reports": "Erhalten Sie Einblicke mit <strong>erweiterten Analyse- und Berichtsfunktionen</strong>",
+                "assistants": "<strong>Unbegrenzte Assistenten</strong>",
+                "storage": "Bis zu <strong>5 GB Cloud-Speicher</strong> für Patientendateien",
+                "fileLimit": "Maximales Limit von <strong>50 MB pro Datei</strong>"
+            },
+            "button": "Plan Wählen"
+        }
+    },
+    "auth": {
+        "signIn": {
+            "title": "Anmelden",
+            "email": "E-Mail",
+            "password": "Passwort",
+            "forgotPassword": "Passwort vergessen?",
+            "button": "Anmelden",
+            "noAccount": "Noch kein Konto?",
+            "signUp": "Registrieren",
+            "signingIn": "Anmeldung läuft...",
+            "enterEmailPass": "Bitte E-Mail und Passwort eingeben",
+            "success": "Erfolgreich angemeldet",
+            "errorGeneric": "Fehler bei der Anmeldung",
+            "sending": "Wird gesendet...",
+            "emailSent": "E-Mail gesendet!",
+            "resendSuccess": "Verifizierungs-E-Mail gesendet!",
+            "resendFailed": "E-Mail konnte nicht erneut gesendet werden",
+            "requestError": "Fehler beim Senden der Anfrage"
+        },
+        "signUp": {
+            "title": "Registrieren",
+            "firstName": "Vorname",
+            "lastName": "Nachname",
+            "email": "E-Mail",
+            "password": "Passwort",
+            "confirmPassword": "Passwort bestätigen",
+            "role": "Rolle",
+            "selectRole": "Wählen Sie eine Rolle",
+            "doctor": "Arzt",
+            "assistant": "Assistent",
+            "clinicName": "Name der Klinik",
+            "clinicId": "ID der Klinik",
+            "button": "Registrieren",
+            "hasAccount": "Haben Sie bereits ein Konto?",
+            "signIn": "Anmelden",
+            "requirements": {
+                "length": "Das Passwort muss mindestens 8 Zeichen lang sein",
+                "special": "Das Passwort muss mindestens ein Sonderzeichen enthalten [@%$]",
+                "number": "Das Passwort muss mindestens eine Zahl enthalten",
+                "uppercase": "Das Passwort muss mindestens einen Großbuchstaben enthalten"
+            }
+        },
+        "forgotPassword": {
+            "title": "Passwort Vergessen",
+            "description": "Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
+            "email": "E-Mail",
+            "button": "Zurücksetzungslink Senden",
+            "backToSignIn": "Zurück zur Anmeldung"
+        },
+        "resetPassword": {
+            "title": "Passwort Zurücksetzen",
+            "description": "Geben Sie Ihr neues Passwort ein.",
+            "password": "Neues Passwort",
+            "confirmPassword": "Neues Passwort Bestätigen",
+            "button": "Passwort Zurücksetzen"
+        },
+        "verifyEmail": {
+            "title": "E-Mail verifizieren",
+            "description": "Wir haben einen Verifizierungslink an Ihre E-Mail gesendet. Bitte überprüfen Sie Ihren Posteingang.",
+            "button": "Verifizierungs-E-Mail erneut senden",
+            "verifying": "Ihre E-Mail wird verifiziert...",
+            "verifyingWait": "Bitte warten Sie, während wir Ihre E-Mail-Adresse verifizieren.",
+            "successTitle": "E-Mail verifiziert!",
+            "successMessage": "Vielen Dank für die Verifizierung Ihrer E-Mail. Sie können jetzt auf Ihr Konto zugreifen.",
+            "failedTitle": "Verifizierung fehlgeschlagen",
+            "failedGeneric": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal.",
+            "invalidLink": "Ungültiger Verifizierungslink.",
+            "signIn": "Anmelden",
+            "backToSignIn": "Zurück zur Anmeldung"
+        }
+    },
+    "dashboard": {
+        "sidebar": {
+            "home": "Startseite",
+            "patients": "Patienten",
+            "appointments": "Termine",
+            "reports": "Berichte",
+            "account": "Konto"
+        },
+        "home": {
+            "title": "Dashboard",
+            "search": "Suchen...",
+            "metrics": {
+                "totalPatients": "Gesamtzahl der Patienten",
+                "appointmentsToday": "Termine Heute",
+                "newPatientsMonth": "Neue Patienten (Monat)"
+            },
+            "recentAppointments": {
+                "title": "Letzte Termine",
+                "patient": "Patient",
+                "date": "Datum",
+                "status": "Status",
+                "viewAll": "Alle Anzeigen",
+                "loading": "Wird geladen..."
+            },
+            "genderChart": {
+                "title": "Patienten nach Geschlecht"
+            }
+        },
+        "patients": {
+            "title": "Patienten",
+            "addPatient": "Patient Hinzufügen",
+            "search": "Patienten suchen...",
+            "table": {
+                "name": "Name",
+                "email": "E-Mail",
+                "phone": "Telefon",
+                "actions": "Aktionen"
+            }
+        },
+        "appointments": {
+            "title": "Termine",
+            "addAppointment": "Termin Hinzufügen",
+            "search": "Termine suchen...",
+            "table": {
+                "patient": "Patient",
+                "date": "Datum",
+                "time": "Uhrzeit",
+                "status": "Status",
+                "actions": "Aktionen"
+            }
+        },
+        "reports": {
+            "title": "Berichte",
+            "generate": "Bericht Erstellen",
+            "type": "Berichtstyp",
+            "dateRange": "Datumsbereich"
+        },
+        "account": {
+            "title": "Konto",
+            "profile": "Profil",
+            "subscription": "Abonnement",
+            "settings": "Einstellungen",
+            "logout": "Abmelden"
+        }
+    },
+    "footer": {
+        "copyright": "Medinet360 von Josué Gotay. Alle Rechte vorbehalten.",
+        "terms": "Nutzungsbedingungen",
+        "privacy": "Datenschutzrichtlinie",
+        "refund": "Rückerstattungsrichtlinie",
+        "contact": "Kontaktieren Sie uns:"
+    },
+    "faq": {
+        "title": "FAQ",
+        "subtitle": "Häufig gestellte Fragen",
+        "questions": {
+            "q1": {
+                "question": "Was ist Medinet360?",
+                "answer": "Medinet360 ist eine cloudbasierte Klinikmanagement-Plattform, die entwickelt wurde, um die Patientenregistrierung, Terminplanung und Verwaltung medizinischer Unterlagen zu vereinfachen. Sie hilft medizinischem Fachpersonal und deren Assistenten, alles in einem sicheren und benutzerfreundlichen System organisiert zu halten."
+            },
+            "q2": {
+                "question": "Wer kann Medinet360 nutzen?",
+                "answer": "Medinet360 ist ideal für Ärzte, Kliniken und medizinisches Fachpersonal jeder Fachrichtung. Assistenten und Verwaltungspersonal können ebenfalls Konten erstellen, um bei der Verwaltung von Patientenakten und Terminen zu helfen."
+            },
+            "q3": {
+                "question": "Sind meine Daten auf Medinet360 sicher?",
+                "answer": "Ja. Wir verwenden fortschrittliche Verschlüsselung und sicheres Cloud-Hosting, um alle Patienten- und Klinikinformationen zu schützen. Nur autorisierte Benutzer haben Zugriff auf die Daten ihrer Klinik."
+            },
+            "q4": {
+                "question": "Können Assistenten auf dieselben Informationen zugreifen wie Ärzte?",
+                "answer": "Assistenten haben eingeschränkten Zugriff gemäß den vom Arzt festgelegten Berechtigungen. Sie können bei administrativen Aufgaben wie dem Erstellen oder Aktualisieren von Patientenakten und der Terminplanung helfen, ohne auf sensible medizinische Informationen zuzugreifen."
+            },
+            "q5": {
+                "question": "Kann ich Medinet360 an die Bedürfnisse meiner Klinik anpassen?",
+                "answer": "Ja. Mit Medinet360 können Sie die Art und Weise, wie Sie Patienteninformationen registrieren, vollständig personalisieren. Sie können benutzerdefinierte Vorlagen mit Ihren eigenen Feldern, Abschnitten und Formaten erstellen, sodass Sie genau die Daten erfassen können, die Ihre Klinik benötigt. Diese Flexibilität stellt sicher, dass jede Akte konsistent, organisiert und perfekt auf Ihren Arbeitsablauf abgestimmt ist."
+            },
+            "q6": {
+                "question": "Bietet Medinet360 Berichte und Analysen an?",
+                "answer": "Ja. Die Plattform bietet detaillierte Berichte über Termine, Patienten und die Gesamtleistung der Klinik. Diese Erkenntnisse helfen Ihnen, datengesteuerte Entscheidungen zu treffen und die betriebliche Effizienz zu verbessern."
+            }
+        }
+    },
+    "legal": {
+        "title": "Rechtliche Informationen",
+        "terms": {
+            "title": "Nutzungsbedingungen",
+            "welcome": "Willkommen bei Medinet360. Durch den Zugriff auf unsere Plattform oder deren Nutzung erklären Sie sich damit einverstanden, diese Nutzungsbedingungen einzuhalten und an sie gebunden zu sein. Medinet360 ist ein Dienst von <strong>Josué Gotay</strong>.",
+            "sections": {
+                "s1": {
+                    "title": "1. Kontoregistrierung",
+                    "content": "Um unsere Dienste nutzen zu können, müssen Sie ein Konto registrieren. Sie erklären sich damit einverstanden, während des Registrierungsprozesses genaue, aktuelle und vollständige Informationen bereitzustellen und diese Informationen zu aktualisieren, um sie genau, aktuell und vollständig zu halten."
+                },
+                "s2": {
+                    "title": "2. Verantwortlichkeiten des Benutzers",
+                    "content": "Sie sind für die Wahrung der Vertraulichkeit Ihrer Zugangsdaten und für alle Aktivitäten verantwortlich, die unter Ihrem Konto stattfinden. Sie erklären sich damit einverstanden, uns unverzüglich über jede unbefugte Nutzung Ihres Kontos zu informieren."
+                },
+                "s3": {
+                    "title": "3. Nutzung des Dienstes",
+                    "content": "Sie erklären sich damit einverstanden, die Plattform nicht für rechtswidrige Zwecke oder in einer Weise zu nutzen, die den Dienst unterbricht, beschädigt, beeinträchtigt oder weniger effizient macht."
+                },
+                "s4": {
+                    "title": "4. Geschäftsidentität",
+                    "content": "Medinet360 ist ein Projekt im Besitz und unter der Leitung von Josué Gotay. Alle Bezugnahmen auf „wir“, „uns“ oder „unser“ in diesen Bedingungen beziehen sich auf Josué Gotay."
+                }
+            }
+        },
+        "privacy": {
+            "title": "Datenschutzerklärung",
+            "intro": "Ihre Privatsphäre ist uns wichtig. Diese Datenschutzerklärung erläutert, wie Medinet360, ein Projekt von Josué Gotay, Ihre personenbezogenen Daten erhebt, nutzt und schützt.",
+            "sections": {
+                "s1": {
+                    "title": "1. Datenerhebung",
+                    "content": "Wir erheben Informationen, die Sie uns direkt zur Verfügung stellen, z. B. wenn Sie ein Konto erstellen, Ihr Profil aktualisieren oder mit uns kommunizieren. Dies kann Ihren Namen, Ihre E-Mail-Adresse und Klinikdetails umfassen."
+                },
+                "s2": {
+                    "title": "2. Datensicherheit",
+                    "content": "Wir setzen angemessene technische und organisatorische Maßnahmen ein, um Ihre personenbezogenen Daten vor unbefugter oder unrechtmäßiger Verarbeitung, versehentlichem Verlust, Zerstörung oder Beschädigung zu schützen."
+                },
+                "s3": {
+                    "title": "3. Datennutzung",
+                    "content": "Wir nutzen die von uns erhobenen Informationen, um unsere Dienste bereitzustellen, zu warten und zu verbessern, um mit Ihnen zu kommunizieren und um unsere Benutzer zu schützen."
+                }
+            }
+        },
+        "refund": {
+            "title": "Rückerstattungsrichtlinie",
+            "intro": "Wir sind bestrebt, Ihre Zufriedenheit mit Medinet360, einem Projekt von Josué Gotay, sicherzustellen.",
+            "sections": {
+                "s1": {
+                    "title": "1. Kündigung von Abonnements",
+                    "content": "Sie können Ihr Abonnement jederzeit kündigen. Die Kündigung wird zum Ende des aktuellen Abrechnungszyklus wirksam."
+                },
+                "s2": {
+                    "title": "2. Anspruch auf Rückerstattung",
+                    "content1": "<strong>14-Tage-Geld-zurück-Garantie:</strong> Wenn Sie mit unserem Service nicht zufrieden sind, können Sie innerhalb von 14 Tagen nach Ihrem Erstkauf eine vollständige Rückerstattung beantragen. Bitte kontaktieren Sie unser Support-Team, um Ihre Rückerstattung zu bearbeiten.",
+                    "content2": "Nach Ablauf der ersten 14-tägigen Frist werden Rückerstattungen in der Regel nicht für Teilabonnements gewährt. Wenn Sie jedoch glauben, dass ein Abrechnungsfehler vorliegt, kontaktieren Sie bitte unser Support-Team innerhalb von 30 Tagen nach der Belastung."
+                }
+            }
+        }
+    },
+    "languageSwitcher": {
+        "title": "Sprache Auswählen",
+        "languages": {
+            "en": "English",
+            "es": "Español",
+            "pt": "Português",
+            "fr": "Français",
+            "it": "Italiano",
+            "de": "Deutsch",
+            "ja": "日本語",
+            "zh": "中文"
+        }
+    },
+    "common": {
+        "loading": "Wird geladen...",
+        "save": "Speichern",
+        "cancel": "Abbrechen",
+        "delete": "Löschen",
+        "edit": "Bearbeiten",
+        "close": "Schließen",
+        "confirm": "Bestätigen",
+        "yes": "Ja",
+        "no": "Nein"
+    }
+}

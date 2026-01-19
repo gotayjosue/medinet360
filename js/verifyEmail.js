@@ -1,4 +1,5 @@
 import { showToast } from "./utils.js";
+import i18n from "./i18n.js";
 
 const statusIcon = document.getElementById('statusIcon');
 const statusTitle = document.getElementById('statusTitle');
@@ -21,7 +22,7 @@ const token = getTokenFromUrl();
 
 const verifyEmail = async () => {
     if (!token) {
-        showError('Invalid verification link.');
+        showError(i18n.t('auth.verifyEmail.invalidLink') || 'Invalid verification link.');
         return;
     }
 
@@ -30,26 +31,27 @@ const verifyEmail = async () => {
         const data = await response.json();
 
         if (response.ok) {
-            showSuccess(data.message || 'Email verified successfully!');
+            showSuccess(data.message || i18n.t('auth.verifyEmail.successTitle') || 'Email verified successfully!');
         } else {
             // Check if already verified based on message or backend code, 
             // but usually we can just show the error or a specific message
-            showError(data.error || 'Verification failed.');
+            showError(data.error || i18n.t('auth.verifyEmail.failedTitle') || 'Verification failed.');
         }
     } catch (error) {
         console.error('Verification error:', error);
-        showError('An error occurred. Please try again later.');
+        showError(i18n.t('auth.verifyEmail.failedGeneric') || 'An error occurred. Please try again later.');
     }
 };
 
 const showSuccess = (message) => {
     statusIcon.textContent = '🎉';
     statusIcon.classList.remove('loading');
-    statusTitle.textContent = 'Email Verified!';
-    statusMessage.textContent = 'Thank you for verifying your email. You can now access your account.';
+    statusTitle.textContent = i18n.t('auth.verifyEmail.successTitle') || 'Email Verified!';
+    statusMessage.textContent = i18n.t('auth.verifyEmail.successMessage') || 'Thank you for verifying your email. You can now access your account.';
     statusMessage.classList.add('success-text');
 
     signInBtn.style.display = 'inline-block';
+    signInBtn.textContent = i18n.t('auth.verifyEmail.signIn') || 'Sign In';
 
     // Trigger confetti
     if (window.confetti) {
@@ -65,11 +67,11 @@ const showSuccess = (message) => {
 const showError = (message) => {
     statusIcon.textContent = '❌';
     statusIcon.classList.remove('loading');
-    statusTitle.textContent = 'Verification Failed';
+    statusTitle.textContent = i18n.t('auth.verifyEmail.failedTitle') || 'Verification Failed';
     statusMessage.textContent = message;
     statusMessage.classList.add('error-text');
 
-    signInBtn.textContent = 'Back to Sign In';
+    signInBtn.textContent = i18n.t('auth.verifyEmail.backToSignIn') || 'Back to Sign In';
     signInBtn.style.display = 'inline-block';
 };
 

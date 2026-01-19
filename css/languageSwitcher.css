@@ -1,0 +1,247 @@
+/* Language Switcher Styles */
+
+/* Globe Icon Button */
+.language-switcher-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    position: relative;
+}
+
+.language-switcher-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+}
+
+.language-switcher-btn svg {
+    width: 24px;
+    height: 24px;
+    color: #333;
+    transition: transform 0.3s ease;
+}
+
+.language-switcher-btn:hover svg {
+    transform: rotate(15deg);
+}
+
+/* Modal Backdrop */
+.language-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.language-modal-backdrop.closing {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+/* Modal Container */
+.language-modal {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9) translateY(20px);
+    animation: slideUp 0.3s ease forwards;
+}
+
+@keyframes slideUp {
+    to {
+        transform: scale(1) translateY(0);
+    }
+}
+
+.language-modal-backdrop.closing .language-modal {
+    animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+    to {
+        transform: scale(0.9) translateY(20px);
+    }
+}
+
+/* Modal Header */
+.language-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.language-modal-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.language-modal-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.language-modal-close:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.language-modal-close svg {
+    width: 24px;
+    height: 24px;
+    color: #666;
+}
+
+/* Language Grid */
+.language-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+/* Language Option */
+.language-option {
+    background: #f8f9fa;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.language-option:hover {
+    background: #e9ecef;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.language-option.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+.language-option.active:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Language Flag/Icon */
+.language-flag {
+    font-size: 32px;
+    line-height: 1;
+}
+
+/* Language Name */
+.language-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.language-option.active .language-name {
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .language-modal {
+        padding: 24px;
+        width: 95%;
+    }
+
+    .language-modal-title {
+        font-size: 20px;
+    }
+
+    .language-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+    }
+
+    .language-option {
+        padding: 12px;
+    }
+
+    .language-flag {
+        font-size: 28px;
+    }
+
+    .language-name {
+        font-size: 13px;
+    }
+}
+
+/* Accessibility */
+.language-option:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+.language-switcher-btn:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Smooth scrollbar for modal */
+.language-modal::-webkit-scrollbar {
+    width: 8px;
+}
+
+.language-modal::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.language-modal::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.language-modal::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

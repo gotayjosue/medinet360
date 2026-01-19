@@ -15,12 +15,15 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
   </style>
-  <title>Inicio • Medinet360</title>
+  <title>Home • Medinet360</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
   <link rel="manifest" href="/images/site.webmanifest">
   <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/languageSwitcher.css">
+  <script src="/js/i18n.js" type="module"></script>
+  <script src="/js/languageSwitcher.js" type="module"></script>
   <script src="/js/index.js" type="module" defer></script>
 </head>
 
@@ -30,23 +33,24 @@
     <nav id="navigation">
       <div class="ulContainer">
         <ul class="nav-links">
-          <li class="currentElement"><a href="#home">Home</a></li>
-          <li><a href="/dashboard/home.html">Dashboard</a></li>
-          <li><a href="pricing.html">Pricing</a></li>
-          <li><a href="faq.html">FAQ</a></li>
+          <li class="currentElement"><a href="#home" data-i18n="nav.home">Home</a></li>
+          <li><a href="/dashboard/home.html" data-i18n="nav.dashboard">Dashboard</a></li>
+          <li><a href="pricing.html" data-i18n="nav.pricing">Pricing</a></li>
+          <li><a href="faq.html" data-i18n="nav.faq">FAQ</a></li>
         </ul>
       </div>
       <div class="signInContainer">
-        <button id="signInButton">Sign In</button>
+        <button id="signInButton" data-i18n="nav.signIn">Sign In</button>
       </div>
     </nav>
     <button id="menuButton"></button>
   </header>
   <div class="heroText">
-    <h1>Manage patient records effortlessly.</h1>
-    <p>Medinet360 helps healthcare professionals organize, track, and access patient data — all in one secure platform.
+    <h1 data-i18n="home.title">Manage patient records effortlessly.</h1>
+    <p data-i18n="home.subtitle">Medinet360 helps healthcare professionals organize, track, and access patient data —
+      all in one secure platform.
     </p>
-    <a class="startedButton" href="#"><button>Get Started</button></a>
+    <a class="startedButton" href="#"><button data-i18n="home.getStarted">Get Started</button></a>
   </div>
 
   <div class="homeHeroDiv">
@@ -60,66 +64,74 @@
   <main>
     <div class="patientsFeatures">
       <img src="/images/functions.png" alt="Add, update, and delete patient records">
-      <h2>Add. Update. Delete</h2>
-      <p>Keep your patients’ information organized and always up to date. Easily add, update, or delete records while
+      <h2 data-i18n="home.features.patients.title">Add. Update. Delete</h2>
+      <p data-i18n="home.features.patients.description">Keep your patients' information organized and always up to date.
+        Easily add, update, or delete records while
         maintaining accurate medical histories. Streamline your workflow and focus on what truly matters — providing
         quality care to your patients.</p>
-      <a class="startedButton" href="#"><button>Get Started</button></a>
+      <a class="startedButton" href="#"><button data-i18n="home.getStarted">Get Started</button></a>
     </div>
 
     <div class="appointmentsFeatures">
-      <h2>Schedule. Manage.</h2>
-      <p>Schedule, view, and manage appointments in just a few clicks. With Medinet360’s calendar system, you can
+      <h2 data-i18n="home.features.appointments.title">Schedule. Manage.</h2>
+      <p data-i18n="home.features.appointments.description">Schedule, view, and manage appointments in just a few
+        clicks. With Medinet360's calendar system, you can
         coordinate schedules, receive automated reminders, and prevent booking conflicts, ensuring a smooth and
         efficient patient experience.</p>
       <img src="/images/appointments.png" alt="Schedule and manage appointments">
-      <a class="startedButton" href="#"><button>Get Started</button></a>
+      <a class="startedButton" href="#"><button data-i18n="home.getStarted">Get Started</button></a>
     </div>
 
     <div class="reportFeatures">
       <img src="/images/reports.png" alt="Generate and view medical reports">
-      <h2>Generate. View.</h2>
-      <p>Gain clear insights into your clinic’s performance. Generate detailed reports on appointments, patients, and
+      <h2 data-i18n="home.features.reports.title">Generate. View.</h2>
+      <p data-i18n="home.features.reports.description">Gain clear insights into your clinic's performance. Generate
+        detailed reports on appointments, patients, and
         overall activity. Make informed decisions with easy-to-understand analytics and visual summaries.</p>
-      <a class="startedButton" href="#"><button>Get Started</button></a>
+      <a class="startedButton" href="#"><button data-i18n="home.getStarted">Get Started</button></a>
     </div>
 
     <div class="customFieldsFeatures">
-      <h2>Custom Fields</h2>
-      <p>Tailor the platform to fit your clinic’s specific needs. Create custom fields to record unique patient
+      <h2 data-i18n="home.features.customFields.title">Custom Fields</h2>
+      <p data-i18n="home.features.customFields.description">Tailor the platform to fit your clinic's specific needs.
+        Create custom fields to record unique patient
         information and enhance your data management with details that truly support better medical care.</p>
       <img src="/images/custom-fields.png" alt="Custom fields for patient records">
-      <a class="startedButton" href="#"><button>Get Started</button></a>
+      <a class="startedButton" href="#"><button data-i18n="home.getStarted">Get Started</button></a>
     </div>
 
     <div class="assistantFeatures">
-      <h2>Assistants</h2>
-      <p>Empower your medical team with collaborative access. Medinet360 allows assistants to create their own accounts
-        and join a clinic by entering the clinic’s unique ID. Once approved, assistants can help manage patient records,
+      <h2 data-i18n="home.features.assistants.title">Assistants</h2>
+      <p data-i18n="home.features.assistants.description">Empower your medical team with collaborative access.
+        Medinet360 allows assistants to create their own accounts
+        and join a clinic by entering the clinic's unique ID. Once approved, assistants can help manage patient records,
         schedule appointments, and handle daily administrative tasks — keeping your clinic organized and your patients
         well cared for.</p>
       <img src="/images/assistants.png" alt="Assistants features description">
-      <a class="startedButton" href="#"><button>Get Started</button></a>
+      <a class="startedButton" href="#"><button data-i18n="home.getStarted">Get Started</button></a>
     </div>
 
     <div class="pricingFeatures">
-      <h2>Pricing plans</h2>
-      <p>Choose a plan that fits your needs.</p>
-      <a class="startedButton" href="pricing.html"><button>See Plans</button></a>
+      <h2 data-i18n="home.features.pricingCta.title">Pricing plans</h2>
+      <p data-i18n="home.features.pricingCta.description">Choose a plan that fits your needs.</p>
+      <a class="startedButton" href="pricing.html"><button data-i18n="home.features.pricingCta.button">See
+          Plans</button></a>
     </div>
   </main>
 
   <footer>
     <img src="/images/logo.png" alt="Footer Logo" class="footerLogo">
     <div class="copyright">
-      <p>&copy; <span id="currentYear"></span> Medinet360 by Josué Gotay. All rights reserved.</p>
+      <p>&copy; <span id="currentYear"></span> <span data-i18n="footer.copyright">Medinet360 by Josué Gotay. All rights
+          reserved.</span></p>
       <div class="legal-links">
-        <a href="terms.html">Terms of service</a>
-        <a href="privacy-policy.html">Privacy policy</a>
-        <a href="refund-policy.html">Refund policy</a>
+        <a href="terms.html" data-i18n="footer.terms">Terms of service</a>
+        <a href="privacy-policy.html" data-i18n="footer.privacy">Privacy policy</a>
+        <a href="refund-policy.html" data-i18n="footer.refund">Refund policy</a>
       </div>
       <div class="contact">
-        <span>Contact us: </span><a href="mailto:support@medinet360.com">support@medinet360.com</a>
+        <span data-i18n="footer.contact">Contact us: </span><a
+          href="mailto:support@medinet360.com">support@medinet360.com</a>
       </div>
     </div>
     <div class="socialMedia">

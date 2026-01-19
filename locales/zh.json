@@ -1,0 +1,335 @@
+{
+    "nav": {
+        "home": "首页",
+        "dashboard": "仪表板",
+        "pricing": "价格",
+        "faq": "常见问题",
+        "signIn": "登录"
+    },
+    "home": {
+        "title": "轻松管理患者记录。",
+        "subtitle": "Medinet360帮助医疗专业人员组织、跟踪和访问患者数据 — 全部在一个安全的平台上。",
+        "getStarted": "开始使用",
+        "features": {
+            "patients": {
+                "title": "添加。更新。删除",
+                "description": "保持患者信息有序且始终保持最新。轻松添加、更新或删除记录，同时维护准确的医疗历史。简化您的工作流程，专注于真正重要的事情 — 为患者提供优质护理。"
+            },
+            "appointments": {
+                "title": "安排。管理。",
+                "description": "只需点击几下即可安排、查看和管理预约。使用Medinet360的日历系统，您可以协调时间表、接收自动提醒并防止预订冲突，确保顺畅高效的患者体验。"
+            },
+            "reports": {
+                "title": "生成。查看。",
+                "description": "清晰了解诊所的表现。生成有关预约、患者和整体活动的详细报告。通过易于理解的分析和可视化摘要做出明智的决策。"
+            },
+            "customFields": {
+                "title": "自定义字段",
+                "description": "根据诊所的特定需求定制平台。创建自定义字段以记录独特的患者信息，并通过真正支持更好医疗护理的详细信息增强您的数据管理。"
+            },
+            "assistants": {
+                "title": "助理",
+                "description": "通过协作访问增强您的医疗团队。Medinet360允许助理创建自己的账户并通过输入诊所的唯一ID加入诊所。一旦获得批准，助理可以帮助管理患者记录、安排预约和处理日常行政任务 — 保持您的诊所井然有序，患者得到良好照顾。"
+            },
+            "pricingCta": {
+                "title": "价格计划",
+                "description": "选择适合您需求的计划。",
+                "button": "查看计划"
+            }
+        }
+    },
+    "pricing": {
+        "title": "价格计划",
+        "subtitle": "选择最适合您需求的计划。",
+        "perMonth": "/ 月",
+        "free": {
+            "name": "免费",
+            "price": "$0",
+            "features": {
+                "patients": "管理最多<strong>5个患者记录</strong>",
+                "appointments": "完全访问<strong>预约安排模块</strong>"
+            },
+            "button": "选择计划"
+        },
+        "pro": {
+            "name": "Clinic Pro",
+            "price": "$19.99",
+            "features": {
+                "patients": "<strong>无限患者管理</strong>",
+                "appointments": "完全访问<strong>预约安排模块</strong>",
+                "assistants": "最多<strong>2名助理</strong>",
+                "storage": "最多<strong>500MB云存储</strong>用于患者文件",
+                "fileLimit": "最大<strong>每个文件50MB</strong>限制"
+            },
+            "button": "选择计划"
+        },
+        "plus": {
+            "name": "Clinic Plus",
+            "price": "$24.99",
+            "features": {
+                "patients": "<strong>无限患者管理</strong>",
+                "appointments": "完全访问<strong>预约安排模块</strong>",
+                "reports": "通过<strong>高级分析和报告功能</strong>获得洞察",
+                "assistants": "<strong>无限助理</strong>",
+                "storage": "最多<strong>5GB云存储</strong>用于患者文件",
+                "fileLimit": "最大<strong>每个文件50MB</strong>限制"
+            },
+            "button": "选择计划"
+        }
+    },
+    "auth": {
+        "signIn": {
+            "title": "登录",
+            "email": "电子邮件",
+            "password": "密码",
+            "forgotPassword": "忘记密码？",
+            "button": "登录",
+            "noAccount": "还没有账户？",
+            "signUp": "注册",
+            "signingIn": "正在登录...",
+            "enterEmailPass": "请输入电子邮件和密码",
+            "success": "登录成功",
+            "errorGeneric": "登录时发生错误",
+            "sending": "正在发送...",
+            "emailSent": "邮件已发送！",
+            "resendSuccess": "验证邮件已发送！",
+            "resendFailed": "重新发送邮件失败",
+            "requestError": "发送请求时发生错误"
+        },
+        "signUp": {
+            "title": "注册",
+            "firstName": "名",
+            "lastName": "姓",
+            "email": "电子邮件",
+            "password": "密码",
+            "confirmPassword": "确认密码",
+            "role": "角色",
+            "selectRole": "选择角色",
+            "doctor": "医生",
+            "assistant": "助手",
+            "clinicName": "诊所名称",
+            "clinicId": "诊所 ID",
+            "button": "注册",
+            "hasAccount": "已有账户？",
+            "signIn": "登录",
+            "requirements": {
+                "length": "密码长度必须至少为 8 个字符",
+                "special": "密码必须包含至少一个特殊字符 [@%$]",
+                "number": "密码必须包含至少一个数字",
+                "uppercase": "密码必须包含至少一个大写字母"
+            }
+        },
+        "forgotPassword": {
+            "title": "忘记密码",
+            "description": "输入您的电子邮件地址，我们将向您发送重置密码的链接。",
+            "email": "电子邮件",
+            "button": "发送重置链接",
+            "backToSignIn": "返回登录"
+        },
+        "resetPassword": {
+            "title": "重置密码",
+            "description": "输入您的新密码。",
+            "password": "新密码",
+            "confirmPassword": "确认新密码",
+            "button": "重置密码"
+        },
+        "verifyEmail": {
+            "title": "验证电子邮件",
+            "description": "我们已向您的电子邮件发送了验证链接。请检查您的收件箱。",
+            "button": "重新发送验证邮件",
+            "verifying": "正在验证您的电子邮件...",
+            "verifyingWait": "请稍候，我们正在验证您的电子邮件地址。",
+            "successTitle": "电子邮件已验证！",
+            "successMessage": "感谢您验证电子邮件。您现在可以访问您的帐户。",
+            "failedTitle": "验证失败",
+            "failedGeneric": "发生错误。请稍后再试。",
+            "invalidLink": "验证链接无效。",
+            "signIn": "登录",
+            "backToSignIn": "返回登录"
+        }
+    },
+    "dashboard": {
+        "sidebar": {
+            "home": "首页",
+            "patients": "患者",
+            "appointments": "预约",
+            "reports": "报告",
+            "account": "账户"
+        },
+        "home": {
+            "title": "仪表板",
+            "search": "搜索...",
+            "metrics": {
+                "totalPatients": "总患者数",
+                "appointmentsToday": "今日预约",
+                "newPatientsMonth": "新患者（月）"
+            },
+            "recentAppointments": {
+                "title": "最近预约",
+                "patient": "患者",
+                "date": "日期",
+                "status": "状态",
+                "viewAll": "查看全部",
+                "loading": "加载中..."
+            },
+            "genderChart": {
+                "title": "按性别分类的患者"
+            }
+        },
+        "patients": {
+            "title": "患者",
+            "addPatient": "添加患者",
+            "search": "搜索患者...",
+            "table": {
+                "name": "姓名",
+                "email": "电子邮件",
+                "phone": "电话",
+                "actions": "操作"
+            }
+        },
+        "appointments": {
+            "title": "预约",
+            "addAppointment": "添加预约",
+            "search": "搜索预约...",
+            "table": {
+                "patient": "患者",
+                "date": "日期",
+                "time": "时间",
+                "status": "状态",
+                "actions": "操作"
+            }
+        },
+        "reports": {
+            "title": "报告",
+            "generate": "生成报告",
+            "type": "报告类型",
+            "dateRange": "日期范围"
+        },
+        "account": {
+            "title": "账户",
+            "profile": "个人资料",
+            "subscription": "订阅",
+            "settings": "设置",
+            "logout": "登出"
+        }
+    },
+    "footer": {
+        "copyright": "Medinet360 by Josué Gotay. 保留所有权利。",
+        "terms": "服务条款",
+        "privacy": "隐私政策",
+        "refund": "退款政策",
+        "contact": "联系我们："
+    },
+    "faq": {
+        "title": "常见问题",
+        "subtitle": "常见问题",
+        "questions": {
+            "q1": {
+                "question": "什么是 Medinet360？",
+                "answer": "Medinet360 是一个基于云的诊所管理平台，旨在简化患者注册、预约安排和医疗记录管理。它帮助医疗专业人员及其助手在一个安全且易于使用的系统中保持一切井井有条。"
+            },
+            "q2": {
+                "question": "谁可以使用 Medinet360？",
+                "answer": "Medinet360 非常适合任何专科的医生、诊所和医疗专业人员。助手和行政人员也可以创建账户，协助管理患者记录和预约。"
+            },
+            "q3": {
+                "question": "我的数据在 Medinet360 上安全吗？",
+                "answer": "是的。我们使用先进的加密技术和安全云托管来保护所有患者和诊所信息。只有授权用户才能访问其诊所的数据。"
+            },
+            "q4": {
+                "question": "助手可以访问与医生相同的信息吗？",
+                "answer": "助手根据医生设置的权限拥有受限的访问权。他们可以协助完成 administrative 任务，如创建或更新患者记录和安排预约，而无需访问敏感的医疗信息。"
+            },
+            "q5": {
+                "question": "我可以自定义 Medinet360 以适应我诊所的需求吗？",
+                "answer": "是的。Medinet360 让您可以完全个性化患者信息的注册方式。您可以创建带有自定义字段、章节和格式的模板，从而收集诊所真正需要的确切数据。这种灵活性确保每个记录都一致、有序，并完美契合您的工作流程。"
+            },
+            "q6": {
+                "question": "Medinet360 是否提供报告和分析？",
+                "answer": "是的。该平台提供有关预约、患者和诊所整体绩效的详细报告。这些见解有助于您做出数据驱动的决策并提高运营效率。"
+            }
+        }
+    },
+    "legal": {
+        "title": "法律信息",
+        "terms": {
+            "title": "服务条款",
+            "welcome": "欢迎来到 Medinet360。通过访问或使用我们的平台，您同意遵守并受这些服务条款的约束。Medinet360 是由 <strong>Josué Gotay</strong> 提供的服务。",
+            "sections": {
+                "s1": {
+                    "title": "1. 账户注册",
+                    "content": "要使用我们的服务，您必须注册一个账户。您同意在注册过程中提供准确、最新和完整的信息，并更新此类信息以保持其准确、最新和完整。"
+                },
+                "s2": {
+                    "title": "2. 用户责任",
+                    "content": "您负责维护账户凭据的机密性，并对在您的账户下发生的所有活动负责。您同意在发现任何未经授权使用您账户的情况时立即通知我们。"
+                },
+                "s3": {
+                    "title": "3. 服务使用",
+                    "content": "您同意不将平台用于任何非法目的，也不以任何干扰、破坏、损害或降低服务效率的方式使用平台。"
+                },
+                "s4": {
+                    "title": "4. 业务主体",
+                    "content": "Medinet360 是一个由 Josué Gotay 拥有和运营的项目。这些条款中提到的“我们”或“我们的”均指 Josué Gotay。"
+                }
+            }
+        },
+        "privacy": {
+            "title": "隐私政策",
+            "intro": "您的隐私对我们非常重要。本隐私政策解释了由 Josué Gotay 发起的项目 Medinet360 如何收集、使用和保护您的个人信息。",
+            "sections": {
+                "s1": {
+                    "title": "1. 信息收集",
+                    "content": "我们收集您直接提供给我们的信息，例如当您创建账户、更新个人资料或与我们沟通时。这可能包括您的姓名、电子邮件地址和诊所详情。"
+                },
+                "s2": {
+                    "title": "2. 数据安全",
+                    "content": "我们采取适当的技术和组织措施，保护您的个人数据免受未经授权或非法的处理、意外丢失、破坏或损坏。"
+                },
+                "s3": {
+                    "title": "3. 数据使用",
+                    "content": "我们使用收集的信息来提供、维护和改进我们的服务，与您交流并保护我们的用户。"
+                }
+            }
+        },
+        "refund": {
+            "title": "退款政策",
+            "intro": "我们努力确保您对由 Josué Gotay 发起的项目 Medinet360 感到满意。",
+            "sections": {
+                "s1": {
+                    "title": "1. 订阅取消",
+                    "content": "您可以随时取消订阅。取消将在当前计费周期结束时生效。"
+                },
+                "s2": {
+                    "content1": "<strong>14天退款保证：</strong> 如果您对我们的服务不满意，可以在首次购买后的 14 天内申请全额退款。请联系我们的支持团队处理您的退款。",
+                    "content2": "在最初的 14 天期限之后，通常不予退还部分订阅期的费用。但是，如果您认为计费存在错误，请在收费后 30 天内联系我们的支持团队。",
+                    "title": "2. 退款资格"
+                }
+            }
+        }
+    },
+    "languageSwitcher": {
+        "title": "选择语言",
+        "languages": {
+            "en": "English",
+            "es": "Español",
+            "pt": "Português",
+            "fr": "Français",
+            "it": "Italiano",
+            "de": "Deutsch",
+            "ja": "日本語",
+            "zh": "中文"
+        }
+    },
+    "common": {
+        "loading": "加载中...",
+        "save": "保存",
+        "cancel": "取消",
+        "delete": "删除",
+        "edit": "编辑",
+        "close": "关闭",
+        "confirm": "确认",
+        "yes": "是",
+        "no": "否"
+    }
+}

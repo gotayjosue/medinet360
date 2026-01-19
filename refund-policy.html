@@ -16,6 +16,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="manifest" href="/images/site.webmanifest">
     <link rel="stylesheet" href="/css/terms.css">
+    <link rel="stylesheet" href="/css/languageSwitcher.css">
+    <script src="/js/i18n.js" type="module"></script>
+    <script src="/js/languageSwitcher.js" type="module"></script>
     <script src="/js/index.js" type="module" defer></script>
 </head>
 
@@ -25,36 +28,40 @@
         <nav id="navigation">
             <div class="ulContainer">
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="/dashboard/home.html">Dashboard</a></li>
-                    <li><a href="pricing.html">Pricing</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                    <li><a href="/dashboard/home.html" data-i18n="nav.dashboard">Dashboard</a></li>
+                    <li><a href="pricing.html" data-i18n="nav.pricing">Pricing</a></li>
+                    <li><a href="faq.html" data-i18n="nav.faq">FAQ</a></li>
                 </ul>
             </div>
             <div class="signInContainer">
-                <button id="signInButton">Sign In</button>
+                <button id="signInButton" data-i18n="nav.signIn">Sign In</button>
             </div>
         </nav>
         <button id="menuButton"></button>
     </header>
 
     <main>
-        <h1>Legal Information</h1>
+        <h1 data-i18n="legal.title">Legal Information</h1>
 
         <div class="terms-container">
             <section id="refund">
-                <h2>Refund Policy</h2>
-                <p>We strive to ensure your satisfaction with Medinet360, a project by Josué Gotay.</p>
+                <h2 data-i18n="legal.refund.title">Refund Policy</h2>
+                <p data-i18n="legal.refund.intro">We strive to ensure your satisfaction with Medinet360, a project by
+                    Josué Gotay.</p>
 
-                <h3>1. Subscription Cancellations</h3>
-                <p>You may cancel your subscription at any time. Cancellation will be effective at the end of the
+                <h3 data-i18n="legal.refund.sections.s1.title">1. Subscription Cancellations</h3>
+                <p data-i18n="legal.refund.sections.s1.content">You may cancel your subscription at any time.
+                    Cancellation will be effective at the end of the
                     current billing cycle.</p>
 
-                <h3>2. Refund Eligibility</h3>
-                <p><strong>14-Day Money-Back Guarantee:</strong> If you are not satisfied with our service, you may
+                <h3 data-i18n="legal.refund.sections.s2.title">2. Refund Eligibility</h3>
+                <p data-i18n-html="legal.refund.sections.s2.content1"><strong>14-Day Money-Back Guarantee:</strong> If
+                    you are not satisfied with our service, you may
                     request a full refund within 14 days of your initial purchase. Please contact our support team to
                     process your refund.</p>
-                <p>After the initial 14-day period, refunds are generally not provided for partial subscription periods.
+                <p data-i18n="legal.refund.sections.s2.content2">After the initial 14-day period, refunds are generally
+                    not provided for partial subscription periods.
                     However, if you believe there
                     has been an error in billing, please contact our support team within 30 days of the charge.</p>
             </section>
@@ -64,14 +71,15 @@
     <footer>
         <img src="/images/logo.png" alt="Footer Logo" class="footerLogo">
         <div class="copyright">
-            <p>&copy; <span id="currentYear"></span> Medinet360 by Josué Gotay. All rights reserved.</p>
+            <p>&copy; <span id="currentYear"></span> <span data-i18n="footer.copyright">Medinet360 by Josué Gotay. All
+                    rights reserved.</span></p>
             <div class="legal-links">
-                <a href="terms.html">Terms of service</a>
-                <a href="privacy-policy.html">Privacy policy</a>
-                <a href="refund-policy.html">Refund policy</a>
+                <a href="terms.html" data-i18n="footer.terms">Terms of service</a>
+                <a href="privacy-policy.html" data-i18n="footer.privacy">Privacy policy</a>
+                <a href="refund-policy.html" data-i18n="footer.refund">Refund policy</a>
             </div>
             <div class="contact">
-                <span>Contact us: </span>
+                <span data-i18n="footer.contact">Contact us: </span>
                 <a href="mailto:support@medinet360.com">support@medinet360.com</a>
             </div>
         </div>

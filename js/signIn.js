@@ -1,4 +1,5 @@
 import { showToast } from "./utils";
+import i18n from "./i18n.js";
 
 const logo = document.querySelector('.logo');
 logo.style.cursor = 'pointer';
@@ -13,8 +14,6 @@ const submitBtn = form.querySelector('.submitButton');
 const togglePassword = document.getElementById('togglePassword')
 const passwordInput = document.getElementById('password')
 
-
-
 // Cambia esto por la URL real de tu API
 const API_LOGIN = 'https://medinet360-api.onrender.com/api/auth/login';
 
@@ -22,13 +21,13 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
   submitBtn.disabled = true;
   const originalText = submitBtn.textContent;
-  submitBtn.textContent = 'Signing in...';
+  submitBtn.textContent = i18n.t('auth.signIn.signingIn') || 'Signing in...';
 
   const email = form.email?.value?.trim();
   const password = form.password?.value;
 
   if (!email || !password) {
-    showToast('Please enter email and password', 'error', 3500);
+    showToast(i18n.t('auth.signIn.enterEmailPass') || 'Please enter email and password', 'error', 3500);
     submitBtn.disabled = false;
     submitBtn.textContent = originalText;
     return;
@@ -44,7 +43,7 @@ form.addEventListener('submit', async (e) => {
     const payload = await res.json();
 
     if (!res.ok) {
-      throw new Error(payload?.error || payload?.message || 'Login failed');
+      throw new Error(payload?.error || payload?.message || i18n.t('auth.signIn.errorGeneric') || 'Login failed');
     }
 
     const { token, user } = payload;
@@ -53,7 +52,7 @@ form.addEventListener('submit', async (e) => {
     localStorage.setItem('authToken', token);
     if (user) localStorage.setItem('currentUser', JSON.stringify(user));
 
-    showToast('Signed in successfully', 'success', 900);
+    showToast(i18n.t('auth.signIn.success') || 'Signed in successfully', 'success', 900);
 
     // short delay to show toast, then redirect
     setTimeout(() => {
@@ -61,10 +60,10 @@ form.addEventListener('submit', async (e) => {
     }, 900);
 
   } catch (err) {
-    showToast(err.message || 'Error signing in', 'error', 4500);
+    showToast(err.message || i18n.t('auth.signIn.errorGeneric') || 'Error signing in', 'error', 4500);
 
     // Check if error is related to email verification
-    if (err.message.includes('verifica tu correo')) {
+    if (err.message.includes('verifica tu correo') || err.message.includes('verify') || err.message.includes('vérifier')) {
       const resendContainer = document.getElementById('resendContainer');
       if (resendContainer) {
         resendContainer.style.display = 'block';
@@ -76,7 +75,7 @@ form.addEventListener('submit', async (e) => {
 
         newBtn.addEventListener('click', async (evt) => {
           evt.preventDefault();
-          newBtn.textContent = 'Sending...';
+          newBtn.textContent = i18n.t('auth.signIn.sending') || 'Sending...';
           newBtn.style.pointerEvents = 'none';
 
           try {
@@ -88,17 +87,17 @@ form.addEventListener('submit', async (e) => {
             const dataVerify = await resVerify.json();
 
             if (resVerify.ok) {
-              showToast(dataVerify.message || 'Verification email sent!', 'success', 4000);
-              newBtn.textContent = 'Email Sent!';
+              showToast(dataVerify.message || i18n.t('auth.signIn.resendSuccess') || 'Verification email sent!', 'success', 4000);
+              newBtn.textContent = i18n.t('auth.signIn.emailSent') || 'Email Sent!';
             } else {
-              showToast(dataVerify.error || 'Failed to resend email', 'error');
-              newBtn.textContent = 'Resend Verification Email';
+              showToast(dataVerify.error || i18n.t('auth.signIn.resendFailed') || 'Failed to resend email', 'error');
+              newBtn.textContent = i18n.t('auth.verifyEmail.button') || 'Resend Verification Email';
               newBtn.style.pointerEvents = 'auto';
             }
           } catch (error) {
             console.error(error);
-            showToast('Error sending request', 'error');
-            newBtn.textContent = 'Resend Verification Email';
+            showToast(i18n.t('auth.signIn.requestError') || 'Error sending request', 'error');
+            newBtn.textContent = i18n.t('auth.verifyEmail.button') || 'Resend Verification Email';
             newBtn.style.pointerEvents = 'auto';
           }
         });

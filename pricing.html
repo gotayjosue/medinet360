@@ -21,6 +21,9 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
   <link rel="manifest" href="/images/site.webmanifest">
   <link rel="stylesheet" href="/css/pricing.css">
+  <link rel="stylesheet" href="/css/languageSwitcher.css">
+  <script src="/js/i18n.js" type="module"></script>
+  <script src="/js/languageSwitcher.js" type="module"></script>
   <script src="/js/pricing.js" type="module" defer></script>
 </head>
 
@@ -30,14 +33,14 @@
     <nav id="navigation">
       <div class="ulContainer">
         <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="/dashboard/home.html">Dashboard</a></li>
-          <li class="currentElement"><a href="pricing.html">Pricing</a></li>
-          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+          <li><a href="/dashboard/home.html" data-i18n="nav.dashboard">Dashboard</a></li>
+          <li class="currentElement"><a href="pricing.html" data-i18n="nav.pricing">Pricing</a></li>
+          <li><a href="faq.html" data-i18n="nav.faq">FAQ</a></li>
         </ul>
       </div>
       <div class="signInContainer">
-        <button id="signInButton">Sign In</button>
+        <button id="signInButton" data-i18n="nav.signIn">Sign In</button>
       </div>
     </nav>
     <button id="menuButton"></button>
@@ -45,45 +48,56 @@
 
   <main>
     <div class="pricingTitle">
-      <h1>Pricing Plans</h1>
-      <p>Choose the plan that best fits your needs.</p>
+      <h1 data-i18n="pricing.title">Pricing Plans</h1>
+      <p data-i18n="pricing.subtitle">Choose the plan that best fits your needs.</p>
     </div>
     <div class="freePlan">
-      <h2>Free</h2>
-      <p class="price">$0 <span class="perMonth">/ month</span></p>
+      <h2 data-i18n="pricing.free.name">Free</h2>
+      <p class="price"><span data-i18n="pricing.free.price">$0</span> <span class="perMonth"
+          data-i18n="pricing.perMonth">/ month</span></p>
       <ul>
-        <li>Manage up to <strong>5 patients records</strong></li>
-        <li>Full access to the <strong>Appointment Scheduling module</strong></li>
+        <li data-i18n-html="pricing.free.features.patients">Manage up to <strong>5 patients records</strong></li>
+        <li data-i18n-html="pricing.free.features.appointments">Full access to the <strong>Appointment Scheduling
+            module</strong></li>
       </ul>
-      <button>Choose Plan</button>
+      <button data-i18n="pricing.free.button">Choose Plan</button>
     </div>
     <div class="proPlan">
-      <h2>Clinic Pro</h2>
-      <p class="price">$19.99 <span class="perMonth">/ month</span></p>
+      <h2 data-i18n="pricing.pro.name">Clinic Pro</h2>
+      <p class="price"><span data-i18n="pricing.pro.price">$19.99</span> <span class="perMonth"
+          data-i18n="pricing.perMonth">/ month</span></p>
       <ul>
-        <li><strong>Unlimited patient management</strong></li>
-        <li>Full access to the <strong>Appointment Scheduling module</strong></li>
-        <li>Up to <strong>2 assistants</strong></li>
-        <li>Up to <strong>500MB cloud storage</strong> for patient files</li>
-        <li>Max <strong>50MB per file</strong> limit</li>
+        <li data-i18n-html="pricing.pro.features.patients"><strong>Unlimited patient management</strong></li>
+        <li data-i18n-html="pricing.pro.features.appointments">Full access to the <strong>Appointment Scheduling
+            module</strong></li>
+        <li data-i18n-html="pricing.pro.features.assistants">Up to <strong>2 assistants</strong></li>
+        <li data-i18n-html="pricing.pro.features.storage">Up to <strong>500MB cloud storage</strong> for patient files
+        </li>
+        <li data-i18n-html="pricing.pro.features.fileLimit">Max <strong>50MB per file</strong> limit</li>
       </ul>
       <div class="plan-buttons">
-        <button id="pro-instant-btn" class="instant-btn" style="width: 100%;">Elegir Plan</button>
+        <button id="pro-instant-btn" class="instant-btn" style="width: 100%;" data-i18n="pricing.pro.button">Choose
+          Plan</button>
       </div>
     </div>
     <div class="professionalPlan">
-      <h2>Clinic Plus</h2>
-      <p class="price">$24.99 <span class="perMonth">/ month</span></p>
+      <h2 data-i18n="pricing.plus.name">Clinic Plus</h2>
+      <p class="price"><span data-i18n="pricing.plus.price">$24.99</span> <span class="perMonth"
+          data-i18n="pricing.perMonth">/ month</span></p>
       <ul>
-        <li><strong>Unlimited patient management</strong></li>
-        <li>Full access to the <strong>Appointment Scheduling module</strong></li>
-        <li>Gain insights with <strong>Advanced Analytics and Reporting features</strong></li>
-        <li><strong>Unlimited assistants</strong></li>
-        <li>Up to <strong>5GB cloud storage</strong> for patient files</li>
-        <li>Max <strong>50MB per file</strong> limit</li>
+        <li data-i18n-html="pricing.plus.features.patients"><strong>Unlimited patient management</strong></li>
+        <li data-i18n-html="pricing.plus.features.appointments">Full access to the <strong>Appointment Scheduling
+            module</strong></li>
+        <li data-i18n-html="pricing.plus.features.reports">Gain insights with <strong>Advanced Analytics and Reporting
+            features</strong></li>
+        <li data-i18n-html="pricing.plus.features.assistants"><strong>Unlimited assistants</strong></li>
+        <li data-i18n-html="pricing.plus.features.storage">Up to <strong>5GB cloud storage</strong> for patient files
+        </li>
+        <li data-i18n-html="pricing.plus.features.fileLimit">Max <strong>50MB per file</strong> limit</li>
       </ul>
       <div class="plan-buttons">
-        <button id="plus-instant-btn" class="instant-btn" style="width: 100%;">Elegir Plan</button>
+        <button id="plus-instant-btn" class="instant-btn" style="width: 100%;" data-i18n="pricing.plus.button">Choose
+          Plan</button>
       </div>
     </div>
 
@@ -92,14 +106,15 @@
   <footer>
     <img src="/images/logo.png" alt="Footer Logo" class="footerLogo">
     <div class="copyright">
-      <p>&copy; <span id="currentYear"></span> Medinet360 by Josué Gotay. All rights reserved.</p>
+      <p>&copy; <span id="currentYear"></span> <span data-i18n="footer.copyright">Medinet360 by Josué Gotay. All rights
+          reserved.</span></p>
       <div class="legal-links">
-        <a href="terms.html">Terms of service</a>
-        <a href="privacy-policy.html">Privacy policy</a>
-        <a href="refund-policy.html">Refund policy</a>
+        <a href="terms.html" data-i18n="footer.terms">Terms of service</a>
+        <a href="privacy-policy.html" data-i18n="footer.privacy">Privacy policy</a>
+        <a href="refund-policy.html" data-i18n="footer.refund">Refund policy</a>
       </div>
       <div class="contact">
-        <span>Contact us: </span>
+        <span data-i18n="footer.contact">Contact us: </span>
         <a href="mailto:support@medinet360.com">support@medinet360.com</a>
       </div>
     </div>

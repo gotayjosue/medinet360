@@ -1,11 +1,12 @@
 import { showToast } from "./utils.js";
+import i18n from "./i18n.js";
 
 const logo = document.querySelector('.logo');
 logo.style.cursor = 'pointer';
 
 // Redirect to homepage on logo click
 logo.addEventListener('click', () => {
-    window.location.href = 'index.html';
+  window.location.href = 'index.html';
 });
 
 const form = document.querySelector('.signInForm');
@@ -17,12 +18,12 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
   submitBtn.disabled = true;
   const originalText = submitBtn.textContent;
-  submitBtn.textContent = 'Sending...';
+  submitBtn.textContent = i18n.t('auth.forgotPassword.sending') || 'Sending...';
 
   const email = form.email?.value?.trim();
 
   if (!email) {
-    showToast('Please enter your email', 'error', 3500);
+    showToast(i18n.t('auth.forgotPassword.enterEmail') || 'Please enter your email', 'error', 3500);
     submitBtn.disabled = false;
     submitBtn.textContent = originalText;
     return;
@@ -38,22 +39,22 @@ form.addEventListener('submit', async (e) => {
     const payload = await res.json();
 
     if (!res.ok) {
-      throw new Error(payload?.error || 'Error sending recovery email');
+      throw new Error(payload?.error || i18n.t('auth.forgotPassword.errorGeneric') || 'Error sending recovery email');
     }
 
-    showToast(payload.message || 'Recovery email sent successfully', 'success', 5000);
+    showToast(payload.message || i18n.t('auth.forgotPassword.success') || 'Recovery email sent successfully', 'success', 5000);
 
     // Disable button permanently or clear form to prevent spamming
     form.reset();
-    submitBtn.textContent = 'Email Sent';
-    
+    submitBtn.textContent = i18n.t('auth.forgotPassword.emailSent') || 'Email Sent';
+
     // Optional: Redirect to login after a few seconds
     setTimeout(() => {
-       window.location.href = '/signIn.html';
+      window.location.href = '/signIn.html';
     }, 5000);
 
   } catch (err) {
-    showToast(err.message || 'Error sending recovery email', 'error', 4500);
+    showToast(err.message || i18n.t('auth.forgotPassword.errorGeneric') || 'Error sending recovery email', 'error', 4500);
     submitBtn.disabled = false;
     submitBtn.textContent = originalText;
   }

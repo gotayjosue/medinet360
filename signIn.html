@@ -21,6 +21,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="manifest" href="/images/site.webmanifest">
     <link rel="stylesheet" href="/css/signIn.css">
+    <script src="/js/i18n.js" type="module"></script>
     <script src="/js/signIn.js" type="module" defer></script>
 </head>
 
@@ -30,24 +31,27 @@
     </header>
 
     <main>
-        <h1>Sign in to Your Account</h1>
+        <h1 data-i18n="auth.signIn.title">Sign in to Your Account</h1>
         <form class="signInForm" action="">
             <div class="formGroup">
-                <label for="email">Email Address</label>
+                <label for="email" data-i18n="auth.signIn.email">Email Address</label>
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="formGroup">
-                <label for="password">Password</label>
+                <label for="password" data-i18n="auth.signIn.password">Password</label>
                 <input type="password" id="password" name="password" required>
                 <img src="/images/eye-closed.png" alt="Toggle password visibility" id="togglePassword"
                     class="togglePassword">
             </div>
-            <button type="submit" class="submitButton">Sign In</button>
+            <button type="submit" class="submitButton" data-i18n="auth.signIn.button">Sign In</button>
             <p id="resendContainer" style="display: none; text-align: center; margin-top: 10px; font-size: 14px;">
-                <a href="#" id="resendBtn" style="color: #564b7a;">Resend Verification Email</a>
+                <a href="#" id="resendBtn" style="color: #564b7a;" data-i18n="auth.verifyEmail.button">Resend
+                    Verification Email</a>
             </p>
-            <p class="forgotPassword"><a href="/forgotPassword.html">Forgot Password?</a></p>
-            <p class="signUpPrompt">Don't have an account? <a href="/signUp.html">Sign Up</a></p>
+            <p class="forgotPassword"><a href="/forgotPassword.html" data-i18n="auth.signIn.forgotPassword">Forgot
+                    Password?</a></p>
+            <p class="signUpPrompt"><span data-i18n="auth.signIn.noAccount">Don't have an account?</span> <a
+                    href="/signUp.html" data-i18n="auth.signIn.signUp">Sign Up</a></p>
         </form>
     </main>
 </body>

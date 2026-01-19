@@ -16,6 +16,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="manifest" href="/images/site.webmanifest">
     <link rel="stylesheet" href="/css/terms.css">
+    <link rel="stylesheet" href="/css/languageSwitcher.css">
+    <script src="/js/i18n.js" type="module"></script>
+    <script src="/js/languageSwitcher.js" type="module"></script>
     <script src="/js/index.js" type="module" defer></script>
 </head>
 
@@ -25,39 +28,43 @@
         <nav id="navigation">
             <div class="ulContainer">
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="/dashboard/home.html">Dashboard</a></li>
-                    <li><a href="pricing.html">Pricing</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                    <li><a href="/dashboard/home.html" data-i18n="nav.dashboard">Dashboard</a></li>
+                    <li><a href="pricing.html" data-i18n="nav.pricing">Pricing</a></li>
+                    <li><a href="faq.html" data-i18n="nav.faq">FAQ</a></li>
                 </ul>
             </div>
             <div class="signInContainer">
-                <button id="signInButton">Sign In</button>
+                <button id="signInButton" data-i18n="nav.signIn">Sign In</button>
             </div>
         </nav>
         <button id="menuButton"></button>
     </header>
 
     <main>
-        <h1>Legal Information</h1>
+        <h1 data-i18n="legal.title">Legal Information</h1>
 
         <div class="terms-container">
             <section id="privacy">
-                <h2>Privacy Policy</h2>
-                <p>Your privacy is important to us. This Privacy Policy explains how Medinet360, a project by Josué
+                <h2 data-i18n="legal.privacy.title">Privacy Policy</h2>
+                <p data-i18n="legal.privacy.intro">Your privacy is important to us. This Privacy Policy explains how
+                    Medinet360, a project by Josué
                     Gotay, collects, uses, and protects your
                     personal information.</p>
 
-                <h3>1. Information Collection</h3>
-                <p>We collect information you provide directly to us, such as when you create an account, update your
+                <h3 data-i18n="legal.privacy.sections.s1.title">1. Information Collection</h3>
+                <p data-i18n="legal.privacy.sections.s1.content">We collect information you provide directly to us, such
+                    as when you create an account, update your
                     profile, or communicate with us. This may include your name, email address, and clinic details.</p>
 
-                <h3>2. Data Security</h3>
-                <p>We implement appropriate technical and organizational measures to protect your personal data against
+                <h3 data-i18n="legal.privacy.sections.s2.title">2. Data Security</h3>
+                <p data-i18n="legal.privacy.sections.s2.content">We implement appropriate technical and organizational
+                    measures to protect your personal data against
                     unauthorized or unlawful processing, accidental loss, destruction, or damage.</p>
 
-                <h3>3. Data Usage</h3>
-                <p>We use the information we collect to provide, maintain, and improve our services, to communicate with
+                <h3 data-i18n="legal.privacy.sections.s3.title">3. Data Usage</h3>
+                <p data-i18n="legal.privacy.sections.s3.content">We use the information we collect to provide, maintain,
+                    and improve our services, to communicate with
                     you, and to protect our users.</p>
             </section>
         </div>
@@ -66,14 +73,15 @@
     <footer>
         <img src="/images/logo.png" alt="Footer Logo" class="footerLogo">
         <div class="copyright">
-            <p>&copy; <span id="currentYear"></span> Medinet360 by Josué Gotay. All rights reserved.</p>
+            <p>&copy; <span id="currentYear"></span> <span data-i18n="footer.copyright">Medinet360 by Josué Gotay. All
+                    rights reserved.</span></p>
             <div class="legal-links">
-                <a href="terms.html">Terms of service</a>
-                <a href="privacy-policy.html">Privacy policy</a>
-                <a href="refund-policy.html">Refund policy</a>
+                <a href="terms.html" data-i18n="footer.terms">Terms of service</a>
+                <a href="privacy-policy.html" data-i18n="footer.privacy">Privacy policy</a>
+                <a href="refund-policy.html" data-i18n="footer.refund">Refund policy</a>
             </div>
             <div class="contact">
-                <span>Contact us: </span>
+                <span data-i18n="footer.contact">Contact us: </span>
                 <a href="mailto:support@medinet360.com">support@medinet360.com</a>
             </div>
         </div>

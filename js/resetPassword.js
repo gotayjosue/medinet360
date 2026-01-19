@@ -1,4 +1,5 @@
 import { showToast } from "./utils.js";
+import i18n from "./i18n.js";
 
 const logo = document.querySelector('.logo');
 logo.style.cursor = 'pointer';
@@ -55,7 +56,7 @@ const token = getTokenFromUrl();
 
 // Optional: Validate if token exists on load, otherwise redirect or show error
 if (!token) {
-    showToast('Invalid or missing reset token', 'error', 5000);
+    showToast(i18n.t('auth.resetPassword.invalidToken') || 'Invalid or missing reset token', 'error', 5000);
     // You might want to disable the form or redirect
 }
 
@@ -63,13 +64,13 @@ form.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
     const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Resetting...';
+    submitBtn.textContent = i18n.t('auth.resetPassword.resetting') || 'Resetting...';
 
     const password = passwordInput?.value;
     const confirmPassword = confirmPasswordInput?.value;
 
     if (!password || !confirmPassword) {
-        showToast('Please fill in all fields', 'error', 3500);
+        showToast(i18n.t('auth.resetPassword.fillAll') || 'Please fill in all fields', 'error', 3500);
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
         return;
@@ -78,21 +79,21 @@ form.addEventListener('submit', async (e) => {
     // Validate using regex (same pattern as HTML)
     const passwordPattern = /(?=.*[A-Z])(?=.*\d)(?=.*[@%$]).{8,}/;
     if (!passwordPattern.test(password)) {
-        showToast('Password does not meet requirements', 'error', 3500);
+        showToast(i18n.t('auth.resetPassword.requirementError') || 'Password does not meet requirements', 'error', 3500);
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
         return;
     }
 
     if (password !== confirmPassword) {
-        showToast('Passwords do not match', 'error', 3500);
+        showToast(i18n.t('auth.resetPassword.matchError') || 'Passwords do not match', 'error', 3500);
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
         return;
     }
 
     if (!token) {
-        showToast('Missing reset token. Please check your email link.', 'error', 4500);
+        showToast(i18n.t('auth.resetPassword.missingToken') || 'Missing reset token. Please check your email link.', 'error', 4500);
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
         return;
@@ -112,12 +113,12 @@ form.addEventListener('submit', async (e) => {
         if (!res.ok) {
             // Handle specific error for expired token if backend sends distinct message
             if (payload.error && (payload.error.includes('expire') || payload.error.includes('expired'))) {
-                throw new Error('Token expired. Please request a new link.');
+                throw new Error(i18n.t('auth.resetPassword.expiredToken') || 'Token expired. Please request a new link.');
             }
-            throw new Error(payload?.error || 'Error resetting password');
+            throw new Error(payload?.error || i18n.t('auth.resetPassword.errorGeneric') || 'Error resetting password');
         }
 
-        showToast(payload.message || 'Password reset successfully', 'success', 4000);
+        showToast(payload.message || i18n.t('auth.resetPassword.success') || 'Password reset successfully', 'success', 4000);
 
         form.reset();
 
@@ -128,7 +129,7 @@ form.addEventListener('submit', async (e) => {
 
     } catch (err) {
         console.error(err);
-        showToast(err.message || 'Error resetting password', 'error', 5000);
+        showToast(err.message || i18n.t('auth.resetPassword.errorGeneric') || 'Error resetting password', 'error', 5000);
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
     }

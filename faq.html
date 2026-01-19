@@ -21,6 +21,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="manifest" href="/images/site.webmanifest">
     <link rel="stylesheet" href="/css/faq.css">
+    <link rel="stylesheet" href="/css/languageSwitcher.css">
+    <script src="/js/i18n.js" type="module"></script>
+    <script src="/js/languageSwitcher.js" type="module"></script>
     <script src="/js/faq.js" type="module" defer></script>
 </head>
 
@@ -30,68 +33,76 @@
         <nav id="navigation">
             <div class="ulContainer">
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="/dashboard/home.html">Dashboard</a></li>
-                    <li><a href="pricing.html">Pricing</a></li>
-                    <li class="currentElement"><a href="faq.html">FAQ</a></li>
+                    <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                    <li><a href="/dashboard/home.html" data-i18n="nav.dashboard">Dashboard</a></li>
+                    <li><a href="pricing.html" data-i18n="nav.pricing">Pricing</a></li>
+                    <li class="currentElement"><a href="faq.html" data-i18n="nav.faq">FAQ</a></li>
                 </ul>
             </div>
             <div class="signInContainer">
-                <button id="signInButton">Sign In</button>
+                <button id="signInButton" data-i18n="nav.signIn">Sign In</button>
             </div>
         </nav>
         <button id="menuButton"></button>
     </header>
     <main>
         <!-- FAQ section-->
-        <h1>FAQ</h1>
-        <h3>Frequently Asked Questions</h3>
+        <h1 data-i18n="faq.title">FAQ</h1>
+        <h3 data-i18n="faq.subtitle">Frequently Asked Questions</h3>
 
         <div class="faq-list">
             <details>
-                <summary>What is Medinet360?</summary>
+                <summary data-i18n="faq.questions.q1.question">What is Medinet360?</summary>
                 <div class="content">
-                    <p>Medinet360 is a cloud-based clinic management platform designed to simplify patient registration,
+                    <p data-i18n="faq.questions.q1.answer">Medinet360 is a cloud-based clinic management platform
+                        designed to simplify patient registration,
                         appointment scheduling, and medical record management. It helps healthcare professionals and
                         their assistants keep everything organized in one secure and easy-to-use system.</p>
                 </div>
             </details>
             <details>
-                <summary>Who can use Medinet360?</summary>
+                <summary data-i18n="faq.questions.q2.question">Who can use Medinet360?</summary>
                 <div class="content">
-                    <p>Medinet360 is ideal for doctors, clinics, and healthcare professionals of any specialty.
+                    <p data-i18n="faq.questions.q2.answer">Medinet360 is ideal for doctors, clinics, and healthcare
+                        professionals of any specialty.
                         Assistants and administrative staff can also create accounts to help manage patient records and
                         appointments.</p>
                 </div>
             </details>
             <details>
-                <summary>Is my data secure on Medinet360?</summary>
+                <summary data-i18n="faq.questions.q3.question">Is my data secure on Medinet360?</summary>
                 <div class="content">
-                    <p>Yes. We use advanced encryption and secure cloud hosting to protect all patient and clinic
+                    <p data-i18n="faq.questions.q3.answer">Yes. We use advanced encryption and secure cloud hosting to
+                        protect all patient and clinic
                         information. Only authorized users have access to their clinic’s data.</p>
                 </div>
             </details>
             <details>
-                <summary>Can assistants access the same information as doctors?</summary>
+                <summary data-i18n="faq.questions.q4.question">Can assistants access the same information as doctors?
+                </summary>
                 <div class="content">
-                    <p>Assistants have limited access according to the permissions set by the doctor. They can help with
+                    <p data-i18n="faq.questions.q4.answer">Assistants have limited access according to the permissions
+                        set by the doctor. They can help with
                         administrative tasks such as creating or updating patient records and scheduling appointments,
                         without accessing sensitive medical information.</p>
                 </div>
             </details>
             <details>
-                <summary>Can I customize Medinet360 to fit my clinic’s needs?</summary>
+                <summary data-i18n="faq.questions.q5.question">Can I customize Medinet360 to fit my clinic’s needs?
+                </summary>
                 <div class="content">
-                    <p>Yes. Medinet360 lets you fully personalize the way you register patient information. You can
+                    <p data-i18n="faq.questions.q5.answer">Yes. Medinet360 lets you fully personalize the way you
+                        register patient information. You can
                         create custom templates with your own fields, sections, and formats — allowing you to collect
                         exactly the data your clinic needs. This flexibility ensures every record is consistent,
                         organized, and perfectly aligned with your workflow.</p>
                 </div>
             </details>
             <details>
-                <summary>Does Medinet360 offer reports and analytics?</summary>
+                <summary data-i18n="faq.questions.q6.question">Does Medinet360 offer reports and analytics?</summary>
                 <div class="content">
-                    <p>Yes. The platform provides detailed reports on appointments, patients, and overall clinic
+                    <p data-i18n="faq.questions.q6.answer">Yes. The platform provides detailed reports on appointments,
+                        patients, and overall clinic
                         performance. These insights help you make data-driven decisions and improve operational
                         efficiency.</p>
                 </div>
@@ -101,14 +112,15 @@
     <footer>
         <img src="/images/logo.png" alt="Footer Logo" class="footerLogo">
         <div class="copyright">
-            <p>&copy; <span id="currentYear"></span> Medinet360 by Josué Gotay. All rights reserved.</p>
+            <p>&copy; <span id="currentYear"></span> <span data-i18n="footer.copyright">Medinet360 by Josué Gotay. All
+                    rights reserved.</span></p>
             <div class="legal-links">
-                <a href="terms.html">Terms of service</a>
-                <a href="privacy-policy.html">Privacy policy</a>
-                <a href="refund-policy.html">Refund policy</a>
+                <a href="terms.html" data-i18n="footer.terms">Terms of service</a>
+                <a href="privacy-policy.html" data-i18n="footer.privacy">Privacy policy</a>
+                <a href="refund-policy.html" data-i18n="footer.refund">Refund policy</a>
             </div>
             <div class="contact">
-                <span>Contact us: </span>
+                <span data-i18n="footer.contact">Contact us: </span>
                 <a href="mailto:support@medinet360.com">support@medinet360.com</a>
             </div>
         </div>

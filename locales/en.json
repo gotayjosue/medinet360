@@ -1,0 +1,354 @@
+{
+    "nav": {
+        "home": "Home",
+        "dashboard": "Dashboard",
+        "pricing": "Pricing",
+        "faq": "FAQ",
+        "signIn": "Sign In"
+    },
+    "home": {
+        "title": "Manage patient records effortlessly.",
+        "subtitle": "Medinet360 helps healthcare professionals organize, track, and access patient data — all in one secure platform.",
+        "getStarted": "Get Started",
+        "features": {
+            "patients": {
+                "title": "Add. Update. Delete",
+                "description": "Keep your patients' information organized and always up to date. Easily add, update, or delete records while maintaining accurate medical histories. Streamline your workflow and focus on what truly matters — providing quality care to your patients."
+            },
+            "appointments": {
+                "title": "Schedule. Manage.",
+                "description": "Schedule, view, and manage appointments in just a few clicks. With Medinet360's calendar system, you can coordinate schedules, receive automated reminders, and prevent booking conflicts, ensuring a smooth and efficient patient experience."
+            },
+            "reports": {
+                "title": "Generate. View.",
+                "description": "Gain clear insights into your clinic's performance. Generate detailed reports on appointments, patients, and overall activity. Make informed decisions with easy-to-understand analytics and visual summaries."
+            },
+            "customFields": {
+                "title": "Custom Fields",
+                "description": "Tailor the platform to fit your clinic's specific needs. Create custom fields to record unique patient information and enhance your data management with details that truly support better medical care."
+            },
+            "assistants": {
+                "title": "Assistants",
+                "description": "Empower your medical team with collaborative access. Medinet360 allows assistants to create their own accounts and join a clinic by entering the clinic's unique ID. Once approved, assistants can help manage patient records, schedule appointments, and handle daily administrative tasks — keeping your clinic organized and your patients well cared for."
+            },
+            "pricingCta": {
+                "title": "Pricing plans",
+                "description": "Choose a plan that fits your needs.",
+                "button": "See Plans"
+            }
+        }
+    },
+    "pricing": {
+        "title": "Pricing Plans",
+        "subtitle": "Choose the plan that best fits your needs.",
+        "perMonth": "/ month",
+        "free": {
+            "name": "Free",
+            "price": "$0",
+            "features": {
+                "patients": "Manage up to <strong>5 patients records</strong>",
+                "appointments": "Full access to the <strong>Appointment Scheduling module</strong>"
+            },
+            "button": "Choose Plan"
+        },
+        "pro": {
+            "name": "Clinic Pro",
+            "price": "$19.99",
+            "features": {
+                "patients": "<strong>Unlimited patient management</strong>",
+                "appointments": "Full access to the <strong>Appointment Scheduling module</strong>",
+                "assistants": "Up to <strong>2 assistants</strong>",
+                "storage": "Up to <strong>500MB cloud storage</strong> for patient files",
+                "fileLimit": "Max <strong>50MB per file</strong> limit"
+            },
+            "button": "Choose Plan"
+        },
+        "plus": {
+            "name": "Clinic Plus",
+            "price": "$24.99",
+            "features": {
+                "patients": "<strong>Unlimited patient management</strong>",
+                "appointments": "Full access to the <strong>Appointment Scheduling module</strong>",
+                "reports": "Gain insights with <strong>Advanced Analytics and Reporting features</strong>",
+                "assistants": "<strong>Unlimited assistants</strong>",
+                "storage": "Up to <strong>5GB cloud storage</strong> for patient files",
+                "fileLimit": "Max <strong>50MB per file</strong> limit"
+            },
+            "button": "Choose Plan"
+        }
+    },
+    "auth": {
+        "signIn": {
+            "title": "Sign In",
+            "email": "Email",
+            "password": "Password",
+            "forgotPassword": "Forgot password?",
+            "button": "Sign In",
+            "noAccount": "Don't have an account?",
+            "signUp": "Sign Up",
+            "signingIn": "Signing in...",
+            "enterEmailPass": "Please enter email and password",
+            "success": "Signed in successfully",
+            "errorGeneric": "Error signing in",
+            "sending": "Sending...",
+            "emailSent": "Email Sent!",
+            "resendSuccess": "Verification email sent!",
+            "resendFailed": "Failed to resend email",
+            "requestError": "Error sending request"
+        },
+        "signUp": {
+            "title": "Sign Up",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "email": "Email",
+            "password": "Password",
+            "confirmPassword": "Confirm Password",
+            "role": "Role",
+            "selectRole": "Select a role",
+            "doctor": "Doctor",
+            "assistant": "Assistant",
+            "clinicName": "Clinic Name",
+            "clinicId": "Clinic ID",
+            "button": "Sign Up",
+            "hasAccount": "Already have an account?",
+            "signIn": "Sign In",
+            "requirements": {
+                "length": "Password must be at least 8 characters long",
+                "special": "Password must contain at least one special character [@%$]",
+                "number": "Password must contain at least one number",
+                "uppercase": "Password must contain at least one uppercase letter"
+            },
+            "registering": "Registering...",
+            "fillAll": "Please fill in all mandatory fields.",
+            "successVerify": "Signed up successfully! Please verify your email.",
+            "errorGeneric": "Error signing up",
+            "failedDetail": "Failed to sign up"
+        },
+        "forgotPassword": {
+            "title": "Recover your password",
+            "description": "Enter your email limit to receive a password reset link.",
+            "email": "Email Address",
+            "button": "Send Reset Link",
+            "backToSignIn": "Back to Sign In",
+            "sending": "Sending...",
+            "enterEmail": "Please enter your email",
+            "errorGeneric": "Error sending recovery email",
+            "success": "Recovery email sent successfully",
+            "emailSent": "Email Sent"
+        },
+        "resetPassword": {
+            "title": "Reset Password",
+            "description": "Enter your new password.",
+            "password": "New Password",
+            "confirmPassword": "Confirm New Password",
+            "button": "Reset Password",
+            "invalidToken": "Invalid or missing reset token",
+            "resetting": "Resetting...",
+            "fillAll": "Please fill in all fields",
+            "requirementError": "Password does not meet requirements",
+            "matchError": "Passwords do not match",
+            "missingToken": "Missing reset token. Please check your email link.",
+            "expiredToken": "Token expired. Please request a new link.",
+            "success": "Password reset successfully",
+            "errorGeneric": "Error resetting password"
+        },
+        "verifyEmail": {
+            "title": "Verify Email",
+            "description": "We've sent a verification link to your email. Please check your inbox.",
+            "button": "Resend Verification Email",
+            "verifying": "Verifying your email...",
+            "verifyingWait": "Please wait while we verify your email address.",
+            "successTitle": "Email Verified!",
+            "successMessage": "Thank you for verifying your email. You can now access your account.",
+            "failedTitle": "Verification Failed",
+            "failedGeneric": "An error occurred. Please try again later.",
+            "invalidLink": "Invalid verification link.",
+            "signIn": "Sign In",
+            "backToSignIn": "Back to Sign In"
+        }
+    },
+    "dashboard": {
+        "sidebar": {
+            "home": "Home",
+            "patients": "Patients",
+            "appointments": "Appointments",
+            "reports": "Reports",
+            "account": "Account"
+        },
+        "home": {
+            "title": "Dashboard",
+            "search": "Search...",
+            "metrics": {
+                "totalPatients": "Total Patients",
+                "appointmentsToday": "Appointments Today",
+                "newPatientsMonth": "New Patients (Month)"
+            },
+            "recentAppointments": {
+                "title": "Recent Appointments",
+                "patient": "Patient",
+                "date": "Date",
+                "status": "Status",
+                "viewAll": "View All",
+                "loading": "Loading..."
+            },
+            "genderChart": {
+                "title": "Patients by Gender"
+            }
+        },
+        "patients": {
+            "title": "Patients",
+            "addPatient": "Add Patient",
+            "search": "Search patients...",
+            "table": {
+                "name": "Name",
+                "email": "Email",
+                "phone": "Phone",
+                "actions": "Actions"
+            }
+        },
+        "appointments": {
+            "title": "Appointments",
+            "addAppointment": "Add Appointment",
+            "search": "Search appointments...",
+            "table": {
+                "patient": "Patient",
+                "date": "Date",
+                "time": "Time",
+                "status": "Status",
+                "actions": "Actions"
+            }
+        },
+        "reports": {
+            "title": "Reports",
+            "generate": "Generate Report",
+            "type": "Report Type",
+            "dateRange": "Date Range"
+        },
+        "account": {
+            "title": "Account",
+            "profile": "Profile",
+            "subscription": "Subscription",
+            "settings": "Settings",
+            "logout": "Logout"
+        }
+    },
+    "footer": {
+        "copyright": "Medinet360 by Josué Gotay. All rights reserved.",
+        "terms": "Terms of service",
+        "privacy": "Privacy policy",
+        "refund": "Refund policy",
+        "contact": "Contact us:"
+    },
+    "faq": {
+        "title": "FAQ",
+        "subtitle": "Frequently Asked Questions",
+        "questions": {
+            "q1": {
+                "question": "What is Medinet360?",
+                "answer": "Medinet360 is a cloud-based clinic management platform designed to simplify patient registration, appointment scheduling, and medical record management. It helps healthcare professionals and their assistants keep everything organized in one secure and easy-to-use system."
+            },
+            "q2": {
+                "question": "Who can use Medinet360?",
+                "answer": "Medinet360 is ideal for doctors, clinics, and healthcare professionals of any specialty. Assistants and administrative staff can also create accounts to help manage patient records and appointments."
+            },
+            "q3": {
+                "question": "Is my data secure on Medinet360?",
+                "answer": "Yes. We use advanced encryption and secure cloud hosting to protect all patient and clinic information. Only authorized users have access to their clinic’s data."
+            },
+            "q4": {
+                "question": "Can assistants access the same information as doctors?",
+                "answer": "Assistants have limited access according to the permissions set by the doctor. They can help with administrative tasks such as creating or updating patient records and scheduling appointments, without accessing sensitive medical information."
+            },
+            "q5": {
+                "question": "Can I customize Medinet360 to fit my clinic’s needs?",
+                "answer": "Yes. Medinet360 lets you fully personalize the way you register patient information. You can create custom templates with your own fields, sections, and formats — allowing you to collect exactly the data your clinic needs. This flexibility ensures every record is consistent, organized, and perfectly aligned with your workflow."
+            },
+            "q6": {
+                "question": "Does Medinet360 offer reports and analytics?",
+                "answer": "Yes. The platform provides detailed reports on appointments, patients, and overall clinic performance. These insights help you make data-driven decisions and improve operational efficiency."
+            }
+        }
+    },
+    "legal": {
+        "title": "Legal Information",
+        "terms": {
+            "title": "Terms of Service",
+            "welcome": "Welcome to Medinet360. By accessing or using our platform, you agree to comply with and be bound by these Terms of Service. Medinet360 is a service provided by <strong>Josué Gotay</strong>.",
+            "sections": {
+                "s1": {
+                    "title": "1. Account Registration",
+                    "content": "To use our services, you must register for an account. You agree to provide accurate, current, and complete information during the registration process and to update such information to keep it accurate, current, and complete."
+                },
+                "s2": {
+                    "title": "2. User Responsibilities",
+                    "content": "You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account."
+                },
+                "s3": {
+                    "title": "3. Use of Service",
+                    "content": "You agree not to use the platform for any unlawful purpose or in any way that interrupts, damages, impairs, or renders the service less efficient."
+                },
+                "s4": {
+                    "title": "4. Business Identity",
+                    "content": "Medinet360 is a project owned and operated by Josué Gotay. All references to \"we\", \"us\", or \"our\" in these terms refer to Josué Gotay."
+                }
+            }
+        },
+        "privacy": {
+            "title": "Privacy Policy",
+            "intro": "Your privacy is important to us. This Privacy Policy explains how Medinet360, a project by Josué Gotay, collects, uses, and protects your personal information.",
+            "sections": {
+                "s1": {
+                    "title": "1. Information Collection",
+                    "content": "We collect information you provide directly to us, such as when you create an account, update your profile, or communicate with us. This may include your name, email address, and clinic details."
+                },
+                "s2": {
+                    "title": "2. Data Security",
+                    "content": "We implement appropriate technical and organizational measures to protect your personal data against unauthorized or unlawful processing, accidental loss, destruction, or damage."
+                },
+                "s3": {
+                    "title": "3. Data Usage",
+                    "content": "We use the information we collect to provide, maintain, and improve our services, to communicate with you, and to protect our users."
+                }
+            }
+        },
+        "refund": {
+            "title": "Refund Policy",
+            "intro": "We strive to ensure your satisfaction with Medinet360, a project by Josué Gotay.",
+            "sections": {
+                "s1": {
+                    "title": "1. Subscription Cancellations",
+                    "content": "You may cancel your subscription at any time. Cancellation will be effective at the end of the current billing cycle."
+                },
+                "s2": {
+                    "title": "2. Refund Eligibility",
+                    "content1": "<strong>14-Day Money-Back Guarantee:</strong> If you are not satisfied with our service, you may request a full refund within 14 days of your initial purchase. Please contact our support team to process your refund.",
+                    "content2": "After the initial 14-day period, refunds are generally not provided for partial subscription periods. However, if you believe there has been an error in billing, please contact our support team within 30 days of the charge."
+                }
+            }
+        }
+    },
+    "languageSwitcher": {
+        "title": "Select Language",
+        "languages": {
+            "en": "English",
+            "es": "Español",
+            "pt": "Português",
+            "fr": "Français",
+            "it": "Italiano",
+            "de": "Deutsch",
+            "ja": "日本語",
+            "zh": "中文"
+        }
+    },
+    "common": {
+        "loading": "Loading...",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit",
+        "close": "Close",
+        "confirm": "Confirm",
+        "yes": "Yes",
+        "no": "No"
+    }
+}

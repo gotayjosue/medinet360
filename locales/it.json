@@ -1,0 +1,335 @@
+{
+    "nav": {
+        "home": "Home",
+        "dashboard": "Dashboard",
+        "pricing": "Prezzi",
+        "faq": "FAQ",
+        "signIn": "Accedi"
+    },
+    "home": {
+        "title": "Gestisci le cartelle dei pazienti senza sforzo.",
+        "subtitle": "Medinet360 aiuta i professionisti sanitari a organizzare, tracciare e accedere ai dati dei pazienti — tutto su un'unica piattaforma sicura.",
+        "getStarted": "Inizia",
+        "features": {
+            "patients": {
+                "title": "Aggiungi. Aggiorna. Elimina",
+                "description": "Mantieni le informazioni dei tuoi pazienti organizzate e sempre aggiornate. Aggiungi, aggiorna o elimina facilmente i record mantenendo storie mediche accurate. Ottimizza il tuo flusso di lavoro e concentrati su ciò che conta davvero — fornire cure di qualità ai tuoi pazienti."
+            },
+            "appointments": {
+                "title": "Programma. Gestisci.",
+                "description": "Programma, visualizza e gestisci gli appuntamenti in pochi clic. Con il sistema di calendario di Medinet360, puoi coordinare gli orari, ricevere promemoria automatizzati e prevenire conflitti di prenotazione, garantendo un'esperienza paziente fluida ed efficiente."
+            },
+            "reports": {
+                "title": "Genera. Visualizza.",
+                "description": "Ottieni informazioni chiare sulle prestazioni della tua clinica. Genera report dettagliati su appuntamenti, pazienti e attività generale. Prendi decisioni informate con analisi facili da comprendere e riepiloghi visivi."
+            },
+            "customFields": {
+                "title": "Campi Personalizzati",
+                "description": "Adatta la piattaforma alle esigenze specifiche della tua clinica. Crea campi personalizzati per registrare informazioni uniche sui pazienti e migliora la gestione dei dati con dettagli che supportano davvero una migliore assistenza medica."
+            },
+            "assistants": {
+                "title": "Assistenti",
+                "description": "Potenzia il tuo team medico con accesso collaborativo. Medinet360 consente agli assistenti di creare i propri account e unirsi a una clinica inserendo l'ID univoco della clinica. Una volta approvati, gli assistenti possono aiutare a gestire le cartelle dei pazienti, programmare appuntamenti e gestire le attività amministrative quotidiane — mantenendo la tua clinica organizzata e i tuoi pazienti ben curati."
+            },
+            "pricingCta": {
+                "title": "Piani tariffari",
+                "description": "Scegli un piano che si adatta alle tue esigenze.",
+                "button": "Vedi i Piani"
+            }
+        }
+    },
+    "pricing": {
+        "title": "Piani Tariffari",
+        "subtitle": "Scegli il piano che si adatta meglio alle tue esigenze.",
+        "perMonth": "/ mese",
+        "free": {
+            "name": "Gratuito",
+            "price": "$0",
+            "features": {
+                "patients": "Gestisci fino a <strong>5 cartelle pazienti</strong>",
+                "appointments": "Accesso completo al <strong>modulo di Programmazione Appuntamenti</strong>"
+            },
+            "button": "Scegli il Piano"
+        },
+        "pro": {
+            "name": "Clinic Pro",
+            "price": "$19.99",
+            "features": {
+                "patients": "<strong>Gestione illimitata dei pazienti</strong>",
+                "appointments": "Accesso completo al <strong>modulo di Programmazione Appuntamenti</strong>",
+                "assistants": "Fino a <strong>2 assistenti</strong>",
+                "storage": "Fino a <strong>500MB di archiviazione cloud</strong> per i file dei pazienti",
+                "fileLimit": "Limite massimo di <strong>50MB per file</strong>"
+            },
+            "button": "Scegli il Piano"
+        },
+        "plus": {
+            "name": "Clinic Plus",
+            "price": "$24.99",
+            "features": {
+                "patients": "<strong>Gestione illimitata dei pazienti</strong>",
+                "appointments": "Accesso completo al <strong>modulo di Programmazione Appuntamenti</strong>",
+                "reports": "Ottieni informazioni con <strong>funzionalità di Analisi Avanzata e Report</strong>",
+                "assistants": "<strong>Assistenti illimitati</strong>",
+                "storage": "Fino a <strong>5GB di archiviazione cloud</strong> per i file dei pazienti",
+                "fileLimit": "Limite massimo di <strong>50MB per file</strong>"
+            },
+            "button": "Scegli il Piano"
+        }
+    },
+    "auth": {
+        "signIn": {
+            "title": "Accedi",
+            "email": "Email",
+            "password": "Password",
+            "forgotPassword": "Password dimenticata?",
+            "button": "Accedi",
+            "noAccount": "Non hai un account?",
+            "signUp": "Registrati",
+            "signingIn": "Accesso in corso...",
+            "enterEmailPass": "Inserisci email e password",
+            "success": "Accesso effettuato con successo",
+            "errorGeneric": "Errore durante l'accesso",
+            "sending": "Invio in corso...",
+            "emailSent": "Email inviata!",
+            "resendSuccess": "Email di verifica inviata!",
+            "resendFailed": "Impossibile reinviare l'email",
+            "requestError": "Errore durante l'invio della richiesta"
+        },
+        "signUp": {
+            "title": "Registrati",
+            "firstName": "Nome",
+            "lastName": "Cognome",
+            "email": "Email",
+            "password": "Password",
+            "confirmPassword": "Conferma Password",
+            "role": "Ruolo",
+            "selectRole": "Seleziona un ruolo",
+            "doctor": "Medico",
+            "assistant": "Assistente",
+            "clinicName": "Nome della Clinica",
+            "clinicId": "ID della Clinica",
+            "button": "Registrati",
+            "hasAccount": "Hai già un account?",
+            "signIn": "Accedi",
+            "requirements": {
+                "length": "La password deve contenere almeno 8 caratteri",
+                "special": "La password deve contenere almeno un carattere speciale [@%$]",
+                "number": "La password deve contenere almeno un numero",
+                "uppercase": "La password deve contenere almeno una lettera maiuscola"
+            }
+        },
+        "forgotPassword": {
+            "title": "Password Dimenticata",
+            "description": "Inserisci il tuo indirizzo email e ti invieremo un link per reimpostare la password.",
+            "email": "Email",
+            "button": "Invia Link di Reimpostazione",
+            "backToSignIn": "Torna all'Accesso"
+        },
+        "resetPassword": {
+            "title": "Reimposta Password",
+            "description": "Inserisci la tua nuova password.",
+            "password": "Nuova Password",
+            "confirmPassword": "Conferma Nuova Password",
+            "button": "Reimposta Password"
+        },
+        "verifyEmail": {
+            "title": "Verifica Email",
+            "description": "Abbiamo inviato un link di verifica alla tua email. Controlla la tua casella di posta.",
+            "button": "Invia Nuovamente Email di Verifica",
+            "verifying": "Verifica della tua email in corso...",
+            "verifyingWait": "Attendi mentre verifichiamo il tuo indirizzo email.",
+            "successTitle": "Email verificata!",
+            "successMessage": "Grazie per aver verificato la tua email. Ora puoi accedere al tuo account.",
+            "failedTitle": "Verifica fallita",
+            "failedGeneric": "Si è verificato un errore. Riprova più tardi.",
+            "invalidLink": "Link di verifica non valido.",
+            "signIn": "Accedi",
+            "backToSignIn": "Torna all'Accesso"
+        }
+    },
+    "dashboard": {
+        "sidebar": {
+            "home": "Home",
+            "patients": "Pazienti",
+            "appointments": "Appuntamenti",
+            "reports": "Report",
+            "account": "Account"
+        },
+        "home": {
+            "title": "Dashboard",
+            "search": "Cerca...",
+            "metrics": {
+                "totalPatients": "Totale Pazienti",
+                "appointmentsToday": "Appuntamenti Oggi",
+                "newPatientsMonth": "Nuovi Pazienti (Mese)"
+            },
+            "recentAppointments": {
+                "title": "Appuntamenti Recenti",
+                "patient": "Paziente",
+                "date": "Data",
+                "status": "Stato",
+                "viewAll": "Vedi Tutti",
+                "loading": "Caricamento..."
+            },
+            "genderChart": {
+                "title": "Pazienti per Genere"
+            }
+        },
+        "patients": {
+            "title": "Pazienti",
+            "addPatient": "Aggiungi Paziente",
+            "search": "Cerca pazienti...",
+            "table": {
+                "name": "Nome",
+                "email": "Email",
+                "phone": "Telefono",
+                "actions": "Azioni"
+            }
+        },
+        "appointments": {
+            "title": "Appuntamenti",
+            "addAppointment": "Aggiungi Appuntamento",
+            "search": "Cerca appuntamenti...",
+            "table": {
+                "patient": "Paziente",
+                "date": "Data",
+                "time": "Ora",
+                "status": "Stato",
+                "actions": "Azioni"
+            }
+        },
+        "reports": {
+            "title": "Report",
+            "generate": "Genera Report",
+            "type": "Tipo di Report",
+            "dateRange": "Intervallo di Date"
+        },
+        "account": {
+            "title": "Account",
+            "profile": "Profilo",
+            "subscription": "Abbonamento",
+            "settings": "Impostazioni",
+            "logout": "Esci"
+        }
+    },
+    "footer": {
+        "copyright": "Medinet360 di Josué Gotay. Tutti i diritti riservati.",
+        "terms": "Termini di servizio",
+        "privacy": "Informativa sulla privacy",
+        "refund": "Politica di rimborso",
+        "contact": "Contattaci:"
+    },
+    "faq": {
+        "title": "FAQ",
+        "subtitle": "Domande Frequenti",
+        "questions": {
+            "q1": {
+                "question": "Cos'è Medinet360?",
+                "answer": "Medinet360 è una piattaforma di gestione clinica basata sul cloud progettata per semplificare la registrazione dei pazienti, la programmazione degli appuntamenti e la gestione delle cartelle cliniche. Aiuta i professionisti sanitari e i loro assistenti a mantenere tutto organizzato in un sistema sicuro e facile da usare."
+            },
+            "q2": {
+                "question": "Chi può usare Medinet360?",
+                "answer": "Medinet360 è ideale per medici, cliniche e professionisti sanitari di qualsiasi specialità. Anche gli assistenti e il personale amministrativo possono creare account per aiutare a gestire le cartelle dei pazienti e gli appuntamenti."
+            },
+            "q3": {
+                "question": "I miei dati sono al sicuro su Medinet360?",
+                "answer": "Sì. Utilizziamo una crittografia avanzata e un hosting cloud sicuro per proteggere tutte le informazioni sui pazienti e sulla clinica. Solo gli utenti autorizzati hanno accesso ai dati della propria clinica."
+            },
+            "q4": {
+                "question": "Gli assistenti possono accedere alle stesse informazioni dei medici?",
+                "answer": "Gli assistenti hanno un accesso limitato in base ai permessi impostati dal medico. Possono aiutare in compiti amministrativi come la creazione o l'aggiornamento delle cartelle dei pazienti e la programmazione degli appuntamenti, senza accedere a informazioni mediche sensibili."
+            },
+            "q5": {
+                "question": "Posso personalizzare Medinet360 per adattarlo alle esigenze della mia clinica?",
+                "answer": "Sì. Medinet360 ti consente di personalizzare completamente il modo in care registri le informazioni sui pazienti. Puoi creare modelli personalizzati con i tuoi campi, sezioni e formati, permettendoti di raccogliere esattamente i dati di cui la tua clinica ha bisogno. Questa flessibilità garantisce che ogni cartella sia coerente, organizzata e perfettamente allineata con il tuo flusso di lavoro."
+            },
+            "q6": {
+                "question": "Medinet360 offre report e analisi?",
+                "answer": "Sì. La piattaforma fornisce report dettagliati su appuntamenti, pazienti e prestazioni complessive della clinica. Questi approfondimenti ti aiutano a prendere decisioni basate sui dati e a migliorare l'efficienza operativa."
+            }
+        }
+    },
+    "legal": {
+        "title": "Informazioni Legali",
+        "terms": {
+            "title": "Termini di Servizio",
+            "welcome": "Benvenuti su Medinet360. Accedendo o utilizzando la nostra piattaforma, accettate di rispettare ed essere vincolati dai presenti Termini di Servizio. Medinet360 è un servizio fornito da <strong>Josué Gotay</strong>.",
+            "sections": {
+                "s1": {
+                    "title": "1. Registrazione dell'Account",
+                    "content": "Per utilizzare i nostri servizi, è necessario registrarsi per un account. Accettate di fornire informazioni accurate, aggiornate e complete durante il processo di registrazione e di aggiornare tali informazioni per mantenerle accurate, aggiornate e complete."
+                },
+                "s2": {
+                    "title": "2. Responsabilità dell'Utente",
+                    "content": "Siete responsabili del mantenimento della riservatezza delle credenziali del vostro account e di tutte le attività che avvengono sotto il vostro account. Accettate di notificarci immediatamente qualsiasi uso non autorizzato del vostro account."
+                },
+                "s3": {
+                    "title": "3. Uso del Servizio",
+                    "content": "Accettate di non utilizzare la piattaforma per scopi illegali o in qualsiasi modo che interrompa, danneggi, comprometta o renda il servizio meno efficiente."
+                },
+                "s4": {
+                    "title": "4. Identità Aziendale",
+                    "content": "Medinet360 è un progetto di proprietà e gestito da Josué Gotay. Tutti i riferimenti a \"noi\", \"ci\" o \"nostro\" in questi termini si riferiscono a Josué Gotay."
+                }
+            }
+        },
+        "privacy": {
+            "title": "Informativa sulla Privacy",
+            "intro": "La vostra privacy è importante per noi. Questa Informativa sulla Privacy spiega come Medinet360, un progetto di Josué Gotay, raccoglie, utilizza e protegge le vostre informazioni personali.",
+            "sections": {
+                "s1": {
+                    "title": "1. Raccolta delle Informazioni",
+                    "content": "Raccogliamo le informazioni che ci fornite direttamente, ad esempio quando create un account, aggiornate il vostro profilo o comunicate con noi. Queste possono includere il vostro nome, indirizzo e-mail e dettagli della clinica."
+                },
+                "s2": {
+                    "title": "2. Sicurezza dei Dati",
+                    "content": "Implementiamo misure tecniche e organizzative adeguate per proteggere i vostri dati personali da trattamenti non autorizzati o illeciti, perdita accidentale, distruzione o danno."
+                },
+                "s3": {
+                    "title": "3. Utilizzo dei Dati",
+                    "content": "Utilizziamo le informazioni che raccogliamo per fornire, mantenere e migliorare i nostri servizi, per comunicare con voi e per proteggere i nostri utenti."
+                }
+            }
+        },
+        "refund": {
+            "title": "Politica di Rimborso",
+            "intro": "Ci impegniamo a garantire la vostra soddisfazione con Medinet360, un progetto di Josué Gotay.",
+            "sections": {
+                "s1": {
+                    "title": "1. Cancellazione dell'Abbonamento",
+                    "content": "È possibile annullare l'abbonamento in qualsiasi momento. La cancellazione sarà efficace al termine del ciclo di fatturazione corrente."
+                },
+                "s2": {
+                    "title": "2. Idoneità al Rimborso",
+                    "content1": "<strong>Garanzia di rimborso di 14 giorni:</strong> Se non siete soddisfatti del nostro servizio, potete richiedere un rimborso completo entro 14 giorni dall'acquisto iniziale. Contattate il nostro team di supporto per elaborare il rimborso.",
+                    "content2": "Dopo il periodo iniziale di 14 giorni, i rimborsi non sono generalmente previsti per periodi di abbonamento parziali. Tuttavia, se ritenete che ci sia stato un errore nella fatturazione, contattate il nostro team di supporto entro 30 giorni dall'addebito."
+                }
+            }
+        }
+    },
+    "languageSwitcher": {
+        "title": "Seleziona Lingua",
+        "languages": {
+            "en": "English",
+            "es": "Español",
+            "pt": "Português",
+            "fr": "Français",
+            "it": "Italiano",
+            "de": "Deutsch",
+            "ja": "日本語",
+            "zh": "中文"
+        }
+    },
+    "common": {
+        "loading": "Caricamento...",
+        "save": "Salva",
+        "cancel": "Annulla",
+        "delete": "Elimina",
+        "edit": "Modifica",
+        "close": "Chiudi",
+        "confirm": "Conferma",
+        "yes": "Sì",
+        "no": "No"
+    }
+}

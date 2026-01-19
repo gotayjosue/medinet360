@@ -20,6 +20,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="manifest" href="/images/site.webmanifest">
     <link rel="stylesheet" href="/css/signIn.css">
+    <script src="/js/i18n.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="/js/verifyEmail.js" type="module" defer></script>
     <style>
@@ -63,12 +64,14 @@
     <main>
         <div id="content" style="text-align: center; padding: 40px 0;">
             <div id="statusIcon" class="loading">⏳</div>
-            <h1 id="statusTitle">Verifying your email...</h1>
-            <p id="statusMessage" style="color: #666; margin-top: 10px;">Please wait while we verify your email address.
+            <h1 id="statusTitle" data-i18n="auth.verifyEmail.verifying">Verifying your email...</h1>
+            <p id="statusMessage" style="color: #666; margin-top: 10px;" data-i18n="auth.verifyEmail.verifyingWait">
+                Please wait while we verify your email address.
             </p>
 
             <a href="/signIn.html" id="signInLink" class="submitButton"
-                style="text-decoration: none; display: none; margin-top: 30px; display: inline-block; width: auto; padding: 10px 30px;">Sign
+                style="text-decoration: none; display: none; margin-top: 30px; display: inline-block; width: auto; padding: 10px 30px;"
+                data-i18n="auth.verifyEmail.signIn">Sign
                 In</a>
         </div>
     </main>
