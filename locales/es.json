@@ -4,7 +4,8 @@
         "dashboard": "Panel",
         "pricing": "Precios",
         "faq": "Preguntas Frecuentes",
-        "signIn": "Iniciar Sesión"
+        "signIn": "Iniciar Sesión",
+        "logout": "Cerrar Sesión"
     },
     "home": {
         "title": "Gestiona registros de pacientes sin esfuerzo.",

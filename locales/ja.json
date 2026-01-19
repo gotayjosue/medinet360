@@ -2,9 +2,10 @@
     "nav": {
         "home": "ホーム",
         "dashboard": "ダッシュボード",
-        "pricing": "料金",
-        "faq": "よくある質問",
-        "signIn": "ログイン"
+        "pricing": "価格",
+        "faq": "FAQ",
+        "signIn": "サインイン",
+        "logout": "ログアウト"
     },
     "home": {
         "title": "患者記録を簡単に管理。",

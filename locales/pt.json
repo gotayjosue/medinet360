@@ -4,7 +4,8 @@
         "dashboard": "Painel",
         "pricing": "Preços",
         "faq": "Perguntas Frequentes",
-        "signIn": "Entrar"
+        "signIn": "Entrar",
+        "logout": "Sair"
     },
     "home": {
         "title": "Gerencie registros de pacientes sem esforço.",

@@ -4,7 +4,8 @@
         "dashboard": "Dashboard",
         "pricing": "Prezzi",
         "faq": "FAQ",
-        "signIn": "Accedi"
+        "signIn": "Accedi",
+        "logout": "Esci"
     },
     "home": {
         "title": "Gestisci le cartelle dei pazienti senza sforzo.",

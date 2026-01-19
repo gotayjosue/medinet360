@@ -4,7 +4,8 @@
         "dashboard": "Dashboard",
         "pricing": "Pricing",
         "faq": "FAQ",
-        "signIn": "Sign In"
+        "signIn": "Sign In",
+        "logout": "Logout"
     },
     "home": {
         "title": "Manage patient records effortlessly.",

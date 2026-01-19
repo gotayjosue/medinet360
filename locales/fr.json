@@ -4,7 +4,8 @@
         "dashboard": "Tableau de bord",
         "pricing": "Tarifs",
         "faq": "FAQ",
-        "signIn": "Se connecter"
+        "signIn": "Se connecter",
+        "logout": "Déconnexion"
     },
     "home": {
         "title": "Gérez les dossiers patients sans effort.",

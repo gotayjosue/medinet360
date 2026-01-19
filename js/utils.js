@@ -1,3 +1,6 @@
+
+import i18n from "./i18n.js";
+
 // Function to add expand/collapse animation to FAQ details elements
 export function expandDetails() {
   document.querySelectorAll('.faq-list details').forEach((detail) => {
@@ -96,8 +99,17 @@ export function checkAuth() {
 
   // Validate token exists and is not expired
   if (token && !isTokenExpired(token)) {
-    signInButton.textContent = 'Logout';
-    signInButton.addEventListener('click', handleLogout);
+    // Set i18n key for logout
+    signInButton.setAttribute('data-i18n', 'nav.logout');
+    // Attempt distinct translation if available, otherwise fallback to 'Logout'
+    signInButton.textContent = i18n.t('nav.logout') || 'Logout';
+
+    // Remove old listeners to avoid duplicates if checkAuth is called multiple times
+    // Cloning the node is the cleanest way
+    const newBtn = signInButton.cloneNode(true);
+    signInButton.parentNode.replaceChild(newBtn, signInButton);
+
+    newBtn.addEventListener('click', handleLogout);
   } else {
     // Token doesn't exist or is expired
     if (token && isTokenExpired(token)) {
@@ -105,8 +117,16 @@ export function checkAuth() {
       localStorage.removeItem('authToken');
       localStorage.removeItem('currentUser');
     }
-    signInButton.textContent = 'Sign In';
-    signInButton.addEventListener('click', () => {
+
+    // Set i18n key for Sign In
+    signInButton.setAttribute('data-i18n', 'nav.signIn');
+    signInButton.textContent = i18n.t('nav.signIn') || 'Sign In';
+
+    // Remove old listeners
+    const newBtn = signInButton.cloneNode(true);
+    signInButton.parentNode.replaceChild(newBtn, signInButton);
+
+    newBtn.addEventListener('click', () => {
       window.location.href = 'signIn.html';
     });
   }

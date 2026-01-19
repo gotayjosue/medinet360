@@ -4,7 +4,8 @@
         "dashboard": "仪表板",
         "pricing": "价格",
         "faq": "常见问题",
-        "signIn": "登录"
+        "signIn": "登录",
+        "logout": "退出"
     },
     "home": {
         "title": "轻松管理患者记录。",
