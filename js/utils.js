@@ -1,5 +1,7 @@
 
+
 import i18n from "./i18n.js";
+/* Force Update 2 */
 
 // Function to add expand/collapse animation to FAQ details elements
 export function expandDetails() {
