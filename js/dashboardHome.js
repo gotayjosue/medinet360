@@ -1,5 +1,6 @@
 
 import { checkAuth, requireAuth, formatDate, showToast, getClinicName } from './utils.js';
+import i18n from './i18n.js';
 
 // DOM Elements
 const totalPatientsMetric = document.getElementById('totalPatientsMetric');
@@ -108,7 +109,7 @@ function renderRecentAppointments(appointments) {
     }).slice(0, 5);
 
     if (sortedAppointments.length === 0) {
-        recentAppointmentsTable.innerHTML = `<tr><td colspan="3" class="text-center py-4 text-gray-500">No appointments found.</td></tr>`;
+        recentAppointmentsTable.innerHTML = `<tr><td colspan="3" class="text-center py-4 text-gray-500">${i18n.t('dashboard.home.recentAppointments.emptyTable', 'No appointments found')}</td></tr>`;
         return;
     }
 
@@ -153,7 +154,7 @@ function renderGenderChart(patients) {
     window.genderChartInstance = new Chart(genderPieChartCtx, {
         type: 'doughnut',
         data: {
-            labels: ['Male', 'Female', 'Other'],
+            labels: [i18n.t('dashboard.home.genderChart.male', 'Male'), i18n.t('dashboard.home.genderChart.female', 'Female'), i18n.t('dashboard.home.genderChart.other', 'Other')],
             datasets: [{
                 data: [maleCount, femaleCount, otherCount],
                 backgroundColor: [

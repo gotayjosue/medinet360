@@ -80,27 +80,28 @@ class I18n {
     /**
      * Get translation for a key
      * @param {string} key - Translation key (e.g., 'nav.home')
+     * @param {string} fallback - Fallback value if key is not found
      * @returns {string} Translated string
      */
-    t(key) {
-        if (!this.currentLang || !this.translations[this.currentLang]) {
-            return key;
-        }
-
-        const keys = key.split('.');
-        let value = this.translations[this.currentLang];
-
-        for (const k of keys) {
-            if (value && typeof value === 'object' && k in value) {
-                value = value[k];
-            } else {
-                console.warn(`Translation key not found: ${key}`);
-                return key;
-            }
-        }
-
-        return value;
+    t(key, fallback = null) {
+    if (!this.currentLang || !this.translations[this.currentLang]) {
+        return fallback ?? key;
     }
+
+    const keys = key.split('.');
+    let value = this.translations[this.currentLang];
+
+    for (const k of keys) {
+        if (value && typeof value === 'object' && k in value) {
+            value = value[k];
+        } else {
+            console.warn(`Translation key not found: ${key}`);
+            return fallback ?? key;
+        }
+    }
+
+    return value ?? fallback ?? key;
+}
 
     /**
      * Translate all elements on the page with data-i18n attribute

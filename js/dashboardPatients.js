@@ -1,5 +1,6 @@
 // Verifying the user sesion status
 import { checkAuth, requireAuth, formatDate, getAgeFromDOB, getClinicName } from './utils.js';
+import i18n from './i18n.js';
 
 //Importing the alert container function from utils.js
 import { showToast } from './utils.js';
@@ -300,7 +301,7 @@ function renderPatients(patients) {
           ${genderIcon}
           <div>
             <p class="font-semibold">${p.name ?? 'Name Undefined'} ${p.lastName}</p>
-            <p class="text-sm">${age} años</p>
+            <p class="text-sm">${age} ${i18n.t('dashboard.patients.cards.yearsOld', 'Years old')}</p>
           </div>
         </div>
 
@@ -311,7 +312,7 @@ function renderPatients(patients) {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2v-7H3v7a2 2 0 002 2z" />
             </svg>
-            <span><strong>Fecha de nacimiento:</strong> ${dobFormatted}</span>
+            <span><strong>${i18n.t('dashboard.patients.cards.birthday', 'Birthday')}:</strong> ${dobFormatted}</span>
           </div>
           <div class="flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600"
@@ -319,7 +320,7 @@ function renderPatients(patients) {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M3 5h2l3.6 7.59-1.35 2.45A1 1 0 008 17h8a1 1 0 00.89-.55l3-6A1 1 0 0019 9H5.21" />
             </svg>
-            <span><strong>Teléfono:</strong> ${p.phone ?? 'N/D'}</span>
+            <span><strong>${i18n.t('dashboard.patients.cards.phone', 'Phone')}:</strong> ${p.phone ?? 'N/D'}</span>
           </div>
           <div class="flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600"
@@ -327,7 +328,7 @@ function renderPatients(patients) {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M16 12H8m0 0l-4-4m4 4l-4 4" />
             </svg>
-            <span><strong>Email:</strong> ${p.email ?? 'N/D'}</span>
+            <span><strong>${i18n.t('dashboard.patients.cards.email', 'Email')}:</strong> ${p.email ?? 'N/D'}</span>
           </div>
         </div>
       </div>

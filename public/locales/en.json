@@ -190,21 +190,26 @@
                 "date": "Date",
                 "status": "Status",
                 "viewAll": "View All",
-                "loading": "Loading..."
+                "loading": "Loading...",
+                "emptyTable": "No appointments found"
             },
             "genderChart": {
-                "title": "Patients by Gender"
+                "title": "Patients by Gender",
+                "male": "Male",
+                "female": "Female",
+                "other": "Other"
             }
         },
         "patients": {
             "title": "Patients",
             "addPatient": "Add Patient",
             "search": "Search patients...",
-            "table": {
-                "name": "Name",
+            "tooltip": "Add Patient",
+            "cards": {
+                "birthday": "Birthday",
                 "email": "Email",
                 "phone": "Phone",
-                "actions": "Actions"
+                "yearsOld": "Years old"
             }
         },
         "appointments": {
@@ -231,6 +236,22 @@
             "subscription": "Subscription",
             "settings": "Settings",
             "logout": "Logout"
+        }
+    },
+    "modals": {
+        "addPatient": {
+            "title": "Add Patient",
+            "name": "Name <span class='text-red-500'>*</span>",
+            "lastName": "Last Name <span class='text-red-500'>*</span>",
+            "birthDay": "Birthday <span class='text-red-500'>*</span>",
+            "gender": "Gender <span class='text-red-500'>*</span>",
+            "email": "Email (Optional)",
+            "phone": "Phone <span class='text-red-500'>*</span>",
+            "notes": "Notes (Optional)",
+            "notesPlaceholder": "Add additional notes about the patient...",
+            "addPatientBtn": "Create Patient",
+            "cancelBtn": "Cancel",
+            "customFieldsBtn": "+ Add Custom Fields"
         }
     },
     "footer": {

@@ -180,7 +180,7 @@
             "search": "Buscar...",
             "metrics": {
                 "totalPatients": "Total de Pacientes",
-                "appointmentsToday": "Citas Hoy",
+                "appointmentsToday": "Citas de Hoy",
                 "newPatientsMonth": "Nuevos Pacientes (Mes)"
             },
             "recentAppointments": {
@@ -189,21 +189,26 @@
                 "date": "Fecha",
                 "status": "Estado",
                 "viewAll": "Ver Todas",
-                "loading": "Cargando..."
+                "loading": "Cargando...",
+                "emptyTable": "No se encontraron citas"
             },
             "genderChart": {
-                "title": "Pacientes por Género"
+                "title": "Pacientes por Género",
+                "male": "Hombres",
+                "female": "Mujeres",
+                "other": "Otros"
             }
         },
         "patients": {
             "title": "Pacientes",
             "addPatient": "Agregar Paciente",
             "search": "Buscar pacientes...",
-            "table": {
-                "name": "Nombre",
-                "email": "Correo",
+            "tooltip": "Agregar Paciente",
+            "cards": {
+                "birthday": "Fecha de nacimiento",
+                "email": "Correo electrónico",
                 "phone": "Teléfono",
-                "actions": "Acciones"
+                "yearsOld": "Años"
             }
         },
         "appointments": {
@@ -230,6 +235,22 @@
             "subscription": "Suscripción",
             "settings": "Configuración",
             "logout": "Cerrar Sesión"
+        }
+    },
+    "modals": {
+        "addPatient": {
+            "title": "Agregar Paciente",
+            "name": "Nombre <span class='text-red-500'>*</span>",
+            "lastName": "Apellido <span class='text-red-500'>*</span>",
+            "birthDay": "Fecha de Nacimiento <span class='text-red-500'>*</span>",
+            "gender": "Género <span class='text-red-500'>*</span>",
+            "email": "Correo Electrónico (Opcional)",
+            "phone": "Teléfono <span class='text-red-500'>*</span>",
+            "notes": "Notas (Opcional)",
+            "notesPlaceholder": "Agrega notas adicionales sobre el paciente...",
+            "addPatientBtn": "Crear Paciente",
+            "cancelBtn": "Cancelar",
+            "customFieldsBtn": "+ Agregar Campos Personalizados"
         }
     },
     "footer": {

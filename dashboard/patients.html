@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="../css/dashboardPatients.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="module" src="../js/dashboardPatients.js" defer></script>
+  <script type="module" src="../js/i18n.js" defer></script>
 </head>
 
 <body class="bg-gray-50 text-gray-800">
@@ -103,7 +104,7 @@
       <div class="flex justify-between items-center mb-8">
         <h1 class="text-2xl font-semibold">Dashboard</h1>
         <div class="relative">
-          <input id="searchBar" type="text" placeholder="Search..."
+          <input id="searchBar" type="text" placeholder="Search..." data-i18n-placeholder="dashboard.patients.search"
             class="border border-gray-300 rounded-lg pl-8 pr-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none w-48 md:w-80">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 absolute left-2 top-2.5 text-gray-500" fill="none"
             viewBox="0 0 24 24" stroke="currentColor">
@@ -145,7 +146,7 @@
 
         <!-- Tooltip -->
         <span
-          class="absolute right-16 bottom-1/2 translate-y-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          data-i18n="dashboard.patients.tooltip" class="absolute right-16 bottom-1/2 translate-y-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           Add Patient
         </span>
       </div>
@@ -155,7 +156,7 @@
         <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg">
 
           <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-bold text-gray-900">Crear Paciente</h2>
+            <h2 class="text-xl font-bold text-gray-900" data-i18n="modals.addPatient.title">Add Patient</h2>
             <button id="closeModalButton" class="text-gray-500 hover:text-gray-700">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -168,8 +169,7 @@
 
               <!-- Name -->
               <div class="col-span-1">
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
-                  Name <span class="text-red-500">*</span>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-i18n-html="modals.addPatient.name">Name <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="name" name="name" required
                   class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
@@ -177,8 +177,8 @@
 
               <!-- Last Name -->
               <div class="col-span-1">
-                <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">
-                  Last Name <span class="text-red-500">*</span>
+                <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1"
+                data-i18n-html="modals.addPatient.lastName">Last Name <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="lastName" name="lastName" required
                   class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
@@ -186,8 +186,7 @@
 
               <!-- Birthday -->
               <div class="col-span-1">
-                <label for="birthday" class="block text-sm font-medium text-gray-700 mb-1">
-                  Birthday <span class="text-red-500">*</span>
+                <label for="birthday" class="block text-sm font-medium text-gray-700 mb-1" data-i18n-html="modals.addPatient.birthDay">Birthday <span class="text-red-500">*</span>
                 </label>
                 <input type="date" id="birthday" name="birthday" required
                   class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
@@ -195,8 +194,8 @@
 
               <!-- Gender -->
               <div class="col-span-1">
-                <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">
-                  Gender <span class="text-red-500">*</span>
+                <label for="gender" class="block text-sm font-medium text-gray-700 mb-1"
+                data-i18n-html="modals.addPatient.gender">Gender <span class="text-red-500">*</span>
                 </label>
                 <select id="gender" name="gender" required
                   class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -208,8 +207,8 @@
 
               <!-- Email -->
               <div class="col-span-1">
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-                  Email (optional)
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1"
+                data-i18n="modals.addPatient.email">Email (optional)
                 </label>
                 <input type="email" id="email" name="email"
                   class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
@@ -217,8 +216,8 @@
 
               <!-- Phone -->
               <div class="col-span-1">
-                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
-                  Phone <span class="text-red-500">*</span>
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1"
+                data-i18n-html="modals.addPatient.phone">Phone <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="phone" name="phone" required
                   class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
@@ -226,12 +225,13 @@
 
               <!-- Notes -->
               <div class="col-span-2">
-                <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">
-                  Notes (optional)
+                <label for="notes" class="block text-sm font-medium text-gray-700 mb-1"
+                data-i18n="modals.addPatient.notes">Notes (optional)
                 </label>
                 <textarea id="notes" name="notes" rows="3"
                   class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder-gray-400"
-                  placeholder="Add additional notes about the patient..."></textarea>
+                  placeholder="Add additional notes about the patient..."
+                  data-i18n-placeholder="modals.addPatient.notesPlaceholder"></textarea>
               </div>
 
               <!-- Custom Fields Container -->
@@ -242,16 +242,19 @@
             <!-- Buttons -->
             <div class="mt-8 flex justify-between space-x-4">
               <button type="button" id="addFieldsButton"
-                class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                data-i18n="modals.addPatient.customFieldsBtn">
                 + Add Custom Fields
               </button>
               <div class="flex gap-4">
                 <button type="button" id="cancelButton"
-                  class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                  class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                  data-i18n="modals.addPatient.cancelBtn">
                   Cancel
                 </button>
                 <button type="submit" id="createPatientButton"
-                  class="px-4 py-2 bg-indigo-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  class="px-4 py-2 bg-indigo-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  data-i18n="modals.addPatient.addPatientBtn">
                   Create Patient
                 </button>
               </div>
