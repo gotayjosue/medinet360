@@ -251,7 +251,12 @@
             "notesPlaceholder": "Add additional notes about the patient...",
             "addPatientBtn": "Create Patient",
             "cancelBtn": "Cancel",
-            "customFieldsBtn": "+ Add Custom Fields"
+            "customFieldsBtn": "+ Add Custom Fields",
+            "genderSelect":{
+                "selectGender":"Select a Gender",
+                "male":"Male",
+                "female":"Female"
+            }
         }
     },
     "footer": {

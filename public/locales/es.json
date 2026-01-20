@@ -250,7 +250,12 @@
             "notesPlaceholder": "Agrega notas adicionales sobre el paciente...",
             "addPatientBtn": "Crear Paciente",
             "cancelBtn": "Cancelar",
-            "customFieldsBtn": "+ Agregar Campos Personalizados"
+            "customFieldsBtn": "+ Agregar Campos Personalizados",
+            "genderSelect":{
+                "selectGender":"Selecciona un Género",
+                "male":"Masculino",
+                "female":"Femenino"
+            }
         }
     },
     "footer": {
