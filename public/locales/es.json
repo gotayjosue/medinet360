@@ -67,7 +67,7 @@
                 "appointments": "Acceso completo al <strong>módulo de Programación de Citas</strong>",
                 "assistants": "Hasta <strong>2 asistentes</strong>",
                 "storage": "Hasta <strong>500MB de almacenamiento en la nube</strong> para archivos de pacientes",
-                "fileLimit": "Límite máximo de <strong>50MB por archivo</strong>"
+                "fileLimit": "Límite máximo de <strong>10MB por archivo</strong>"
             },
             "button": "Elegir Plan"
         },
@@ -80,7 +80,7 @@
                 "reports": "Obtén información con <strong>funciones de Análisis Avanzado e Informes</strong>",
                 "assistants": "<strong>Asistentes ilimitados</strong>",
                 "storage": "Hasta <strong>5GB de almacenamiento en la nube</strong> para archivos de pacientes",
-                "fileLimit": "Límite máximo de <strong>50MB por archivo</strong>"
+                "fileLimit": "Límite máximo de <strong>10MB por archivo</strong>"
             },
             "button": "Elegir Plan"
         }

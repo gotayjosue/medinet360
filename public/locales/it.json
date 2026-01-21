@@ -60,7 +60,7 @@
                 "appointments": "Accesso completo al <strong>modulo di Programmazione Appuntamenti</strong>",
                 "assistants": "Fino a <strong>2 assistenti</strong>",
                 "storage": "Fino a <strong>500MB di archiviazione cloud</strong> per i file dei pazienti",
-                "fileLimit": "Limite massimo di <strong>50MB per file</strong>"
+                "fileLimit": "Limite massimo di <strong>10MB per file</strong>"
             },
             "button": "Scegli il Piano"
         },
@@ -73,7 +73,7 @@
                 "reports": "Ottieni informazioni con <strong>funzionalità di Analisi Avanzata e Report</strong>",
                 "assistants": "<strong>Assistenti illimitati</strong>",
                 "storage": "Fino a <strong>5GB di archiviazione cloud</strong> per i file dei pazienti",
-                "fileLimit": "Limite massimo di <strong>50MB per file</strong>"
+                "fileLimit": "Limite massimo di <strong>10MB per file</strong>"
             },
             "button": "Scegli il Piano"
         }

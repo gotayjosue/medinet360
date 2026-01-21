@@ -6,6 +6,7 @@ import {
   from './appointmentsHelper.js';
 import { isEditMode, currentEditId, resetEditMode } from './appoinmentsState.js';
 import { NotificationService } from './notificationService.js';
+import i18n from './i18n.js';
 
 
 
@@ -224,7 +225,7 @@ appointmentForm.addEventListener('submit', async (e) => {
     window.location.reload();
   } catch (err) {
     console.error('❌ Error en submit:', err);
-    showToast(err.message || 'Error saving appointment', 'error');
+    showToast(i18n.t(err.message) || 'Error saving appointment', 'error');
   }
 });
 

@@ -67,7 +67,7 @@
                 "appointments": "Full access to the <strong>Appointment Scheduling module</strong>",
                 "assistants": "Up to <strong>2 assistants</strong>",
                 "storage": "Up to <strong>500MB cloud storage</strong> for patient files",
-                "fileLimit": "Max <strong>50MB per file</strong> limit"
+                "fileLimit": "Max <strong>10MB per file</strong> limit"
             },
             "button": "Choose Plan"
         },
@@ -80,7 +80,7 @@
                 "reports": "Gain insights with <strong>Advanced Analytics and Reporting features</strong>",
                 "assistants": "<strong>Unlimited assistants</strong>",
                 "storage": "Up to <strong>5GB cloud storage</strong> for patient files",
-                "fileLimit": "Max <strong>50MB per file</strong> limit"
+                "fileLimit": "Max <strong>10MB per file</strong> limit"
             },
             "button": "Choose Plan"
         }

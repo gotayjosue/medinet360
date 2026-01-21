@@ -1,5 +1,6 @@
 
 import { showToast, formatDate } from './utils.js';
+import i18n from './i18n.js';
 
 const API_BASE_URL = 'https://medinet360-api.onrender.com/api';
 let currentPatientId = null;
@@ -460,8 +461,8 @@ async function handleUploadSubmit(e) {
 
         for (const file of validFiles) {
             // Simple validation (mock, real limit is backend)
-            if (file.size > 50 * 1024 * 1024) {
-                showToast(`File ${file.name} too large (Max 50MB)`, 'error');
+            if (file.size > 10 * 1024 * 1024) {
+                showToast(`File ${file.name} too large (Max 10MB)`, 'error');
                 continue;
             }
 
@@ -492,7 +493,7 @@ async function handleUploadSubmit(e) {
         loadStorageStats();
 
     } catch (err) {
-        showToast(err.message || 'Upload failed', 'error');
+        showToast(i18n.t(err.message) || 'Upload failed', 'error');
     } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Upload';

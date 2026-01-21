@@ -60,7 +60,7 @@
                 "appointments": "Accès complet au <strong>module de Planification de Rendez-vous</strong>",
                 "assistants": "Jusqu'à <strong>2 assistants</strong>",
                 "storage": "Jusqu'à <strong>500 Mo de stockage cloud</strong> pour les fichiers patients",
-                "fileLimit": "Limite maximale de <strong>50 Mo par fichier</strong>"
+                "fileLimit": "Limite maximale de <strong>10 Mo par fichier</strong>"
             },
             "button": "Choisir le Plan"
         },
@@ -73,7 +73,7 @@
                 "reports": "Obtenez des informations avec les <strong>fonctionnalités d'Analyse Avancée et de Rapports</strong>",
                 "assistants": "<strong>Assistants illimités</strong>",
                 "storage": "Jusqu'à <strong>5 Go de stockage cloud</strong> pour les fichiers patients",
-                "fileLimit": "Limite maximale de <strong>50 Mo par fichier</strong>"
+                "fileLimit": "Limite maximale de <strong>10 Mo par fichier</strong>"
             },
             "button": "Choisir le Plan"
         }

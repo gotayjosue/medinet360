@@ -1,3 +1,4 @@
+import i18n from "./i18n";
 import {
   checkAuth,
   requireAuth,
@@ -7,6 +8,13 @@ import {
   getAgeFromDOB,
   getClinicName
 } from "./utils";
+//Redireccionamiento a la página de inicio a través del logo
+const logo = document.querySelector('.logo');
+
+logo.style.cursor = 'pointer'
+  logo.addEventListener('click', () => {
+    window.location.href = '../index.html'
+  });
 
 let currentPatientId = null; // Guardar el ID del paciente actual
 
@@ -310,7 +318,7 @@ updatePatientForm.addEventListener('submit', async (e) => {
       throw new Error(data.error || data.message || 'Failed to update patient');
     }
 
-    showToast('Patient updated successfully!', 'success');
+    showToast(i18n.t('dashboard.patients.messages.success.patientUpdated', 'Patient updated successfully!'), 'success');
     updateModal.close();
 
     // Recargar los datos del paciente
@@ -318,7 +326,7 @@ updatePatientForm.addEventListener('submit', async (e) => {
 
   } catch (error) {
     console.error('Error updating patient:', error);
-    showToast(error.message || 'Error updating patient', 'error');
+    showToast(i18n.t(error.message) || 'Error updating patient', 'error');
   }
 });
 
@@ -388,7 +396,7 @@ if (confirmDeleteBtn) {
         throw new Error(data.error || data.message || 'Failed to delete patient');
       }
 
-      showToast('Patient deleted successfully!', 'success');
+      showToast(i18n.t('dashboard.patients.messages.success.patientDeleted', 'Patient deleted successfully!'), 'success');
       // Redirigir a la lista de pacientes después de 1 segundo
       setTimeout(() => {
         window.location.href = 'patients.html';
@@ -396,7 +404,7 @@ if (confirmDeleteBtn) {
 
     } catch (error) {
       console.error('Error deleting patient:', error);
-      showToast(error.message || 'Error deleting patient', 'error');
+      showToast(i18n.t(error.message) || 'Error deleting patient', 'error');
     }
   });
 }

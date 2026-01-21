@@ -60,7 +60,7 @@
                 "appointments": "<strong>予約スケジュールモジュール</strong>へのフルアクセス",
                 "assistants": "最大<strong>2人のアシスタント</strong>",
                 "storage": "患者ファイル用に最大<strong>500MBのクラウドストレージ</strong>",
-                "fileLimit": "最大<strong>ファイルあたり50MB</strong>の制限"
+                "fileLimit": "最大<strong>ファイルあたり10MB</strong>の制限"
             },
             "button": "プランを選択"
         },
@@ -73,7 +73,7 @@
                 "reports": "<strong>高度な分析とレポート機能</strong>で洞察を得る",
                 "assistants": "<strong>無制限のアシスタント</strong>",
                 "storage": "患者ファイル用に最大<strong>5GBのクラウドストレージ</strong>",
-                "fileLimit": "最大<strong>ファイルあたり50MB</strong>の制限"
+                "fileLimit": "最大<strong>ファイルあたり10MB</strong>の制限"
             },
             "button": "プランを選択"
         }

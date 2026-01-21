@@ -60,7 +60,7 @@
                 "appointments": "完全访问<strong>预约安排模块</strong>",
                 "assistants": "最多<strong>2名助理</strong>",
                 "storage": "最多<strong>500MB云存储</strong>用于患者文件",
-                "fileLimit": "最大<strong>每个文件50MB</strong>限制"
+                "fileLimit": "最大<strong>每个文件10MB</strong>限制"
             },
             "button": "选择计划"
         },
@@ -73,7 +73,7 @@
                 "reports": "通过<strong>高级分析和报告功能</strong>获得洞察",
                 "assistants": "<strong>无限助理</strong>",
                 "storage": "最多<strong>5GB云存储</strong>用于患者文件",
-                "fileLimit": "最大<strong>每个文件50MB</strong>限制"
+                "fileLimit": "最大<strong>每个文件10MB</strong>限制"
             },
             "button": "选择计划"
         }

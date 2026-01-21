@@ -60,7 +60,7 @@
                 "appointments": "Vollzugriff auf das <strong>Terminplanungsmodul</strong>",
                 "assistants": "Bis zu <strong>2 Assistenten</strong>",
                 "storage": "Bis zu <strong>500 MB Cloud-Speicher</strong> für Patientendateien",
-                "fileLimit": "Maximales Limit von <strong>50 MB pro Datei</strong>"
+                "fileLimit": "Maximales Limit von <strong>10 MB pro Datei</strong>"
             },
             "button": "Plan Wählen"
         },
@@ -73,7 +73,7 @@
                 "reports": "Erhalten Sie Einblicke mit <strong>erweiterten Analyse- und Berichtsfunktionen</strong>",
                 "assistants": "<strong>Unbegrenzte Assistenten</strong>",
                 "storage": "Bis zu <strong>5 GB Cloud-Speicher</strong> für Patientendateien",
-                "fileLimit": "Maximales Limit von <strong>50 MB pro Datei</strong>"
+                "fileLimit": "Maximales Limit von <strong>10 MB pro Datei</strong>"
             },
             "button": "Plan Wählen"
         }

@@ -60,7 +60,7 @@
                 "appointments": "Acesso completo ao <strong>módulo de Agendamento de Consultas</strong>",
                 "assistants": "Até <strong>2 assistentes</strong>",
                 "storage": "Até <strong>500MB de armazenamento em nuvem</strong> para arquivos de pacientes",
-                "fileLimit": "Limite máximo de <strong>50MB por arquivo</strong>"
+                "fileLimit": "Limite máximo de <strong>10MB por arquivo</strong>"
             },
             "button": "Escolher Plano"
         },
@@ -73,7 +73,7 @@
                 "reports": "Obtenha insights com <strong>recursos de Análise Avançada e Relatórios</strong>",
                 "assistants": "<strong>Assistentes ilimitados</strong>",
                 "storage": "Até <strong>5GB de armazenamento em nuvem</strong> para arquivos de pacientes",
-                "fileLimit": "Limite máximo de <strong>50MB por arquivo</strong>"
+                "fileLimit": "Limite máximo de <strong>10MB por arquivo</strong>"
             },
             "button": "Escolher Plano"
         }
