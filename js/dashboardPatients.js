@@ -269,7 +269,7 @@ function renderPatients(patients) {
   container.innerHTML = '';      // limpia cualquier contenido previo
 
   if (!patients.length) {
-    container.innerHTML = '<p id="emptyPatient" class="text-center col-span-3">No hay pacientes registrados.</p>';
+    container.innerHTML = `<p id="emptyPatient" class="text-center col-span-3">${i18n.t('dashboard.patients.messages.noPatients', 'No patients found. Click the \"+ Add Patient\" button to create your first patient record.')}</p>`;
     return;
   }
 

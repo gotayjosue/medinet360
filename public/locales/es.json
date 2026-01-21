@@ -211,6 +211,8 @@
                 "yearsOld": "Años"
             },
             "messages": {
+                "generic": "An error occurred. Please try again later.",
+                "noPatients": "No se encontraron pacientes. Haz clic en el botón \"+ Agregar Paciente\" para crear tu primer registro de paciente.",
                 "success":{
                     "patientCreated": "Paciente creado exitosamente!",
                     "patientUpdated": "Paciente actualizado exitosamente!",

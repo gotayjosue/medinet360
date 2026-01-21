@@ -213,6 +213,7 @@
             },
             "messages": {
                 "generic": "An error occurred. Please try again later.",
+                "noPatients": "No patients found. Click the \"+ Add Patient\" button to create your first patient record.",
                 "success":{
                     "patientCreated": "Patient created successfully!",
                     "patientUpdated": "Patient updated successfully!",
