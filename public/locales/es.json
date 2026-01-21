@@ -209,6 +209,26 @@
                 "email": "Correo electrónico",
                 "phone": "Teléfono",
                 "yearsOld": "Años"
+            },
+            "messages": {
+                "success":{
+                    "patientCreated": "Paciente creado exitosamente!",
+                    "patientUpdated": "Paciente actualizado exitosamente!",
+                    "patientDeleted": "Paciente eliminado exitosamente!"
+                },
+                "errors": {
+                    "no_permission": "No tienes permiso para realizar esta acción.",
+                    "plan_limit_reached": "Límite de pacientes alcanzado para tu plan actual. Por favor, actualiza a Clinic Pro o Clinic Plus para agregar más pacientes.",
+                    "no_name": "Nombre es requerido",
+                    "no_lastName": "Apellido es requerido",
+                    "no_phone": "Teléfono es requerido",
+                    "no_gender": "Género es requerido",
+                    "invalid_gender": "Género debe ser \"masculino\" o \"femenino\"",
+                    "invalid_email": "Email is not valid",
+                    "no_birthday": "Fecha de nacimiento es requerida",
+                    "invalid_birthday": "Fecha de nacimiento debe estar en formato YYYY-MM-DD (ej., 1998-11-17)",
+                    "not_found": "Paciente no encontrado"
+                }
             }
         },
         "appointments": {

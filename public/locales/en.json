@@ -210,6 +210,27 @@
                 "email": "Email",
                 "phone": "Phone",
                 "yearsOld": "Years old"
+            },
+            "messages": {
+                "generic": "An error occurred. Please try again later.",
+                "success":{
+                    "patientCreated": "Patient created successfully!",
+                    "patientUpdated": "Patient updated successfully!",
+                    "patientDeleted": "Patient deleted successfully!"
+                },
+                "errors": {
+                    "no_permission": "You do not have permission to perform this action",
+                    "plan_limit_reached": "Patient limit reached for your current plan. Please upgrade to add more patients.",
+                    "no_name": "Name is required",
+                    "no_lastName": "Last Name is required",
+                    "no_phone": "Phone is required",
+                    "no_gender": "Gender is required",
+                    "invalid_gender": "Gender must be \"male\" or \"female\"",
+                    "invalid_email": "Email is not valid",
+                    "no_birthday": "Birthday is required",
+                    "invalid_birthday": "Birthday must be in YYYY-MM-DD format (e.g., 1998-11-17)",
+                    "not_found": "Patient not found"
+                }
             }
         },
         "appointments": {

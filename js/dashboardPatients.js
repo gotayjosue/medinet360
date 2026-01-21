@@ -192,40 +192,43 @@ patientForm.addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (!response.ok) {
-      // Check for 403 - Plan Limit Reached
-      if (response.status === 403) {
-        showToast('⚠️ Límite de plan alcanzado', 'error');
+  
+      if (data.errors && Array.isArray(data.errors)) {
+        const msgs = data.errors
+          .map(e => i18n.t(e.msg)) // e.msg = clave i18n
+          .join('<br>');
 
-        // Show upgrade dialog
-        const shouldUpgrade = confirm(
-          'Has alcanzado el límite de tu plan gratuito (5 pacientes).\n\n' +
-          '¿Quieres actualizar tu plan para tener acceso ilimitado a pacientes y más funciones?'
-        );
-
-        if (shouldUpgrade) {
-          window.location.href = '../pricing.html';
-        }
+        showToast(msgs, 'error');
         return;
       }
 
-      // Si el backend devuelve { errors: [...] }
-      if (data.errors && Array.isArray(data.errors)) {
-        const msgs = data.errors.map(e => e.msg).join('<br>');
-        showToast(msgs, 'error');   // showToast debe aceptar HTML
+      // 2️⃣ Error general enviado por backend → message | error
+      const serverKey = data.error || data.message;
+
+      if (serverKey) {
+        showToast(i18n.t(serverKey), 'error');
       } else {
-        throw new Error(data.error || data.message || 'Failed to create patient');
+        showToast(i18n.t('dashboard.patients.errors.generic'), 'error');
       }
-    } else {
-      showToast('Patient created successfully!', 'success');
+
+      return;
+    }
+
+    // 3️⃣ Éxito
+      showToast(i18n.t('dashboard.patients.messages.success.patientCreated'), 'success');
       patientForm.reset();
       patientModal.close();
-      window.location.reload();  // Recargar para ver el nuevo paciente
+      window.location.reload();
+    
+
+    } catch (err) {
+      console.error('❌ Error inesperado:', err);
+
+      // 4️⃣ Error inesperado (network, crash, etc.)
+      showToast(t('dashboard.patients.errors.generic'), 'error');
     }
-  } catch (err) {
-    console.error('❌ Error:', err);
-    showToast(err.message || 'Error creating patient', 'error');
   }
-});
+);
 
 
 /* ------------- 1️⃣  Función que carga pacientes ------------- */
