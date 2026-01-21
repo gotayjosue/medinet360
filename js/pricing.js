@@ -1,6 +1,7 @@
 // Verifying the user session status
 import { checkAuth, showToast } from './utils.js';
 import { initializePaddle } from '@paddle/paddle-js';
+import i18n from './i18n.js';
 
 // Paddle Configuration
 const PADDLE_CLIENT_TOKEN = import.meta.env.VITE_PADDLE_CLIENT_TOKEN;
@@ -149,7 +150,7 @@ function updatePricingUI(status, plan, endDate) {
                 badge.textContent = `Actual Plan - Expira en ${daysRemaining} ${daysRemaining === 1 ? 'día' : 'días'}`;
                 badge.style.backgroundColor = '#F59E0B'; // Orange
             } else {
-                badge.textContent = 'Actual Plan';
+                badge.textContent = i18n.t('pricing.selectedPlanBadge', 'Actual Plan');
                 badge.style.backgroundColor = '#4F46E5'; // Indigo
             }
 
@@ -228,13 +229,13 @@ function convertToManageButton(btn, targetPlan, currentPlan) {
     let actionType = 'manage'; // manage, upgrade, downgrade
 
     if (targetLevel > currentLevel) {
-        newBtn.textContent = 'Actualizar Suscripción';
+        newBtn.textContent = i18n.t('pricing.managingButtons.updatePlanBtn', 'Upgrade Plan');
         actionType = 'upgrade';
     } else if (targetLevel < currentLevel) {
-        newBtn.textContent = 'Downgrade Plan';
+        newBtn.textContent = i18n.t('pricing.managingButtons.downgradePlanBtn', 'Downgrade plan');
         actionType = 'downgrade';
     } else {
-        newBtn.textContent = 'Gestionar Suscripción';
+        newBtn.textContent = i18n.t('pricing.managingButtons.managePlanBtn', 'Manage Plan');
     }
 
     newBtn.className = ''; // remove existing classes

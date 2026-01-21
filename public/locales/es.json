@@ -41,6 +41,7 @@
     },
     "pricing": {
         "title": "Planes de Precios",
+        "selectedPlanBadge": "Plan Actual",
         "subtitle": "Elige el plan que mejor se adapte a tus necesidades.",
         "perMonth": "/ mes",
         "free": {
@@ -51,6 +52,12 @@
                 "appointments": "Acceso completo al <strong>módulo de Programación de Citas</strong>"
             },
             "button": "Elegir Plan"
+        },
+        "managingButtons":{
+            "chosedPlanBtn": "Plan Actual",
+            "downgradePlanBtn": "Degradar plan",
+            "updatePlanBtn": "Actualizar Plan",
+            "managePlanBtn": "Gestionar Suscripción"
         },
         "pro": {
             "name": "Clinic Pro",
