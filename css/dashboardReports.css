@@ -1,3 +1,10 @@
+body{
+    /* Prevent FOUC */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out;
+}
+
 .logo{
     width: 50px;
 }
