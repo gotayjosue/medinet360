@@ -246,11 +246,58 @@
             "addAppointment": "Add Appointment",
             "search": "Search appointments...",
             "table": {
+                "todayAppointments": "Today's Appointments",
+                "upcomingAppointments": "Upcoming Appointments",
                 "patient": "Patient",
                 "date": "Date",
                 "time": "Time",
                 "status": "Status",
-                "actions": "Actions"
+                "actions": "Actions",
+                "duration": "Duration",
+                "noAppointments": "No appointments found",
+                "upcomingMessage": "There are no upcoming appointments"
+            },
+            "buttons": {
+                "newAppointment": "New Appointment",
+                "createAppointment": "Create Appointment",
+                "editAppointment": "Edit Appointment",
+                "deleteAppointment": "Delete Appointment",
+                "confirmDelete": "Confirm Delete",
+                "cancel": "Cancel"
+            },
+            "tabs": {
+                "list": "List",
+                "calendar": "Calendar"
+            },
+            "status": {
+                "status": "Status",
+                "all": "All",
+                "scheduled": "Scheduled",
+                "pending": "Pending",
+                "completed": "Completed",
+                "canceled": "Canceled"
+            },
+            "rightSide": {
+                "selectAppointment": "Select an appointment",
+                "clickOnAnAppointment": "Click on an appointment to view details and edit it"
+            },
+            "modals": {
+                "newAppointment": "New Appointment",
+                "editAppointment": "Edit Appointment",
+                "deleteAppointment": "Delete Appointment",
+                "cancel": "Cancel",
+                "patient": "Patient <span class='text-red-500'>*</span>",
+                "date": "Date <span class='text-red-500'>*</span>",
+                "hour": "Hour <span class='text-red-500'>*</span>",
+                "status": "Status",
+                "duration": "Duration (Minutes)",
+                "selectOptions":{
+                    "option1": "30 minutes",
+                    "option2": "45 minutes",
+                    "option3": "60 minutes"
+                },
+                "notes": "Notes (Optional)",
+                "notesPlaceholder": "Add additional notes about the appointment..."
             }
         },
         "reports": {

@@ -245,11 +245,58 @@
             "addAppointment": "Agregar Cita",
             "search": "Buscar citas...",
             "table": {
+                "todayAppointments": "Citas de Hoy",
+                "upcomingAppointments": "Citas Proximas",
                 "patient": "Paciente",
                 "date": "Fecha",
                 "time": "Hora",
                 "status": "Estado",
-                "actions": "Acciones"
+                "actions": "Acciones",
+                "duration": "Duración",
+                "noAppointments": "No se encontraron citas",
+                "upcomingMessage": "No hay citas para hoy"
+            },
+            "buttons": {
+                "newAppointment": "Nueva Cita",
+                "createAppointment": "Crear Cita",
+                "editAppointment": "Editar Cita",
+                "deleteAppointment": "Eliminar Cita",
+                "confirmDelete": "Confirmar Eliminación",
+                "cancel": "Cancelar"
+            },
+            "tabs": {
+                "list": "Lista",
+                "calendar": "Calendario"
+            },
+            "status": {
+                "status": "Estado",
+                "all": "Todo",
+                "scheduled": "Agendada",
+                "pending": "Pendiente",
+                "completed": "Completada",
+                "canceled": "Cancelada"
+            },
+            "rightSide": {
+                "selectAppointment": "Selecciona una cita",
+                "clickOnAnAppointment": "Haz clic en una cita para ver los detalles y editarla"
+            },
+            "modals": {
+                "newAppointment": "Nueva Cita",
+                "editAppointment": "Editar Cita",
+                "deleteAppointment": "Eliminar Cita",
+                "cancel": "Cancelar",
+                "patient": "Paciente <span class='text-red-500'>*</span>",
+                "date": "Fecha <span class='text-red-500'>*</span>",
+                "hour": "Hora <span class='text-red-500'>*</span>",
+                "status": "Estado",
+                "duration": "Duración (Minutos)",
+                "selectOptions":{
+                    "option1": "30 minutos",
+                    "option2": "45 minutos",
+                    "option3": "60 minutos"
+                },
+                "notes": "Notas (Opcional)",
+                "notesPlaceholder": "Agrega notas adicionales sobre la cita..."
             }
         },
         "reports": {
