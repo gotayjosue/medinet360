@@ -1,6 +1,7 @@
 import { checkAuth, requireAuth, showToast, toMinutes, getClinicName } from './utils.js';
 import { isEditMode, currentEditId } from './appoinmentsState.js';
 import { NotificationService } from './notificationService.js';
+import i18n from './i18n.js';
 
 // Logo click to go to home
 
@@ -23,7 +24,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadPatients();
     initializeCalendar();
     getClinicName();
+});
 
+// Listen for language changes to re-render the calendar
+window.addEventListener('languageChanged', () => {
+    if (typeof renderCalendar === 'function') {
+        renderCalendar();
+    }
 });
 
 
@@ -110,7 +117,7 @@ appointmentForm.addEventListener('submit', async (e) => {
 
     const token = localStorage.getItem('authToken');
     if (!token) {
-        alert('Authentication required. Please sign in again.');
+        alert(i18n.t('dashboard.appointments.messages.errors.auth_required'));
         window.location.href = '../signIn.html';
         return;
     }
@@ -153,7 +160,7 @@ appointmentForm.addEventListener('submit', async (e) => {
     });
 
     if (conflictingApt) {
-        const name = `${conflictingApt.patientId?.name || 'Paciente'} ${conflictingApt.patientId?.lastName || ''}`;
+        const name = `${conflictingApt.patientId?.name || i18n.t('dashboard.appointments.details.patient_name')} ${conflictingApt.patientId?.lastName || ''}`;
 
         // Calcular hora de fin correctamente
         const aptStartMin = toMinutes(conflictingApt.hour);
@@ -161,9 +168,9 @@ appointmentForm.addEventListener('submit', async (e) => {
         const endHour = Math.floor(aptEndMin / 60).toString().padStart(2, '0');
         const endMinute = (aptEndMin % 60).toString().padStart(2, '0');
         const msg = `
-        ⚠️ La cita se traslapa con otra ya programada.<br>
-        <strong>Paciente:</strong> ${name}<br>
-        <strong>Hora:</strong> ${conflictingApt.hour} - ${endHour}:${endMinute} (${conflictingApt.duration} min)
+        ⚠️ ${i18n.t('dashboard.appointments.messages.appointmentConflict.title')}<br>
+        <strong>${i18n.t('dashboard.appointments.messages.appointmentConflict.patient')}:</strong> ${name}<br>
+        <strong>${i18n.t('dashboard.appointments.messages.appointmentConflict.time')}:</strong> ${conflictingApt.hour} - ${endHour}:${endMinute} (${conflictingApt.duration} min)
       `;
 
         showToast(msg, 'error');
@@ -184,13 +191,13 @@ appointmentForm.addEventListener('submit', async (e) => {
 
         if (!response.ok) {
             if (data.errors && Array.isArray(data.errors)) {
-                const msgs = data.errors.map(e => e.msg).join('<br>');
+                const msgs = data.errors.map(e => i18n.t(e.msg)).join('<br>');
                 showToast(msgs, 'error');
             } else {
                 throw new Error(data.error || data.message || 'Failed to create appointment');
             }
         } else {
-            showToast('Cita creada exitosamente!', 'success');
+            showToast(i18n.t('dashboard.appointments.messages.success.appointmentCreated'), 'success');
             appointmentForm.reset();
             modal.close();
             loadAppointments(); // Reload appointments
@@ -198,7 +205,7 @@ appointmentForm.addEventListener('submit', async (e) => {
         }
     } catch (err) {
         console.error('❌ Error:', err);
-        showToast(err.message || 'Error creando cita', 'error');
+        showToast(err.message || i18n.t('dashboard.appointments.messages.errors.appointment_create_error'), 'error');
     }
 });
 
@@ -207,10 +214,13 @@ let currentDate = new Date();
 let currentMonth = currentDate.getMonth();
 let currentYear = currentDate.getFullYear();
 
-const monthNames = [
-    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-];
+function getMonthName(index) {
+    const months = [
+        'january', 'february', 'march', 'april', 'may', 'june',
+        'july', 'august', 'september', 'october', 'november', 'december'
+    ];
+    return i18n.t(`dashboard.appointments.calendar.months.${months[index]}`);
+}
 
 function initializeCalendar() {
     loadAppointments();
@@ -271,7 +281,7 @@ function renderCalendar() {
     const calendarDaysElement = document.getElementById('calendarDays');
 
     // Update month/year display
-    currentMonthElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+    currentMonthElement.textContent = `${getMonthName(currentMonth)} ${currentYear}`;
 
     // Clear previous days
     calendarDaysElement.innerHTML = '';
@@ -343,7 +353,8 @@ function createDayElement(day, isOtherMonth) {
 
         const count = document.createElement('div');
         count.className = 'appointment-count';
-        count.textContent = `${dayAppointments.length} cita${dayAppointments.length > 1 ? 's' : ''}`;
+        const label = dayAppointments.length > 1 ? i18n.t('dashboard.appointments.messages.success.appointments') : i18n.t('dashboard.appointments.messages.success.appointment');
+        count.textContent = `${dayAppointments.length} ${label}`;
         dayElement.appendChild(count);
 
         // 👉 Evento que abre el modal con las citas del día
@@ -388,10 +399,10 @@ function getStatusBadge(status) {
 
 function getStatusLabel(status) {
     const labels = {
-        scheduled: 'Agendada',
-        pending: 'Pendiente',
-        completed: 'Completada',
-        canceled: 'Cancelada'
+        scheduled: i18n.t('dashboard.appointments.appointmentStatus.scheduled'),
+        pending: i18n.t('dashboard.appointments.appointmentStatus.pending'),
+        completed: i18n.t('dashboard.appointments.appointmentStatus.completed'),
+        canceled: i18n.t('dashboard.appointments.appointmentStatus.canceled')
     };
     return labels[status] || status;
 }
@@ -412,18 +423,18 @@ function openDayAppointmentsModal(appointments) {
     dayAppointmentsContent.innerHTML = ''; // limpia contenido previo
 
     if (appointments.length === 0) {
-        dayAppointmentsContent.innerHTML = '<p class="text-gray-500">No hay citas para este día.</p>';
+        dayAppointmentsContent.innerHTML = `<p class="text-gray-500">${i18n.t('dashboard.appointments.messages.success.no_appointments')}</p>`;
         dayAppointmentsModal.showModal();
         return;
     }
 
     appointments.forEach(apt => {
-        dayAppointmentsHeader.textContent = `Citas para el día ${formatDate(apt.date)}:`;
+        dayAppointmentsHeader.textContent = `${i18n.t('dashboard.appointments.messages.success.appointments_for_day')} ${formatDate(apt.date)}:`;
         // patientId ya es un objeto con los datos del paciente
         const patient = apt.patientId;
         const patientName = patient
             ? `${patient.name} ${patient.lastName}`
-            : 'Paciente desconocido';
+            : i18n.t('dashboard.appointments.details.unknown_patient');
 
         const div = document.createElement('div');
         div.className = "day-appointment-item";
@@ -436,9 +447,9 @@ function openDayAppointmentsModal(appointments) {
 
         div.innerHTML = `
             <p><strong>${patientName}</strong></p>
-            <p>Hora: ${apt.hour} - ${endHour}:${endMinute}</p>
-            <p>Duración: ${apt.duration} minutos</p>
-            <p>Estado: ${getStatusLabel(apt.status)}</p>
+            <p>${i18n.t('dashboard.appointments.details.time')}: ${apt.hour} - ${endHour}:${endMinute}</p>
+            <p>${i18n.t('dashboard.appointments.details.duration')}: ${apt.duration} ${i18n.t('dashboard.appointments.details.minutes')}</p>
+            <p>${i18n.t('dashboard.appointments.details.status')}: ${getStatusLabel(apt.status)}</p>
             <hr>
         `;
 

@@ -53,7 +53,7 @@
             },
             "button": "Elegir Plan"
         },
-        "managingButtons":{
+        "managingButtons": {
             "chosedPlanBtn": "Plan Actual",
             "downgradePlanBtn": "Degradar plan",
             "updatePlanBtn": "Actualizar Plan",
@@ -180,6 +180,7 @@
             "patients": "Pacientes",
             "appointments": "Citas",
             "reports": "Informes",
+            "inventory": "Inventario",
             "account": "Cuenta"
         },
         "home": {
@@ -220,7 +221,7 @@
             "messages": {
                 "generic": "An error occurred. Please try again later.",
                 "noPatients": "No se encontraron pacientes. Haz clic en el botón \"+ Agregar Paciente\" para crear tu primer registro de paciente.",
-                "success":{
+                "success": {
                     "patientCreated": "Paciente creado exitosamente!",
                     "patientUpdated": "Paciente actualizado exitosamente!",
                     "patientDeleted": "Paciente eliminado exitosamente!"
@@ -264,9 +265,58 @@
                 "confirmDelete": "Confirmar Eliminación",
                 "cancel": "Cancelar"
             },
+            "messages": {
+                "success": {
+                    "appointmentCreated": "Cita creada exitosamente!",
+                    "appointmentUpdated": "Cita actualizada exitosamente!",
+                    "appointmentDeleted": "Cita eliminada exitosamente!",
+                    "noTodayAppointments": "No hay citas para hoy",
+                    "noUpcomingAppointments": "No hay citas próximas",
+                    "appointments_for_day": "Citas para el día",
+                    "no_appointments": "No hay citas para este día.",
+                    "appointment": "cita",
+                    "appointments": "citas"
+                },
+                "appointmentConflict": {
+                    "title": "La cita se traslapa con otra ya programada",
+                    "patient": "Paciente",
+                    "hour": "Hora",
+                    "time": "Hora"
+                },
+                "errors": {
+                    "no_permission": "No tienes permiso para realizar esta acción",
+                    "no_patient": "El nombre del paciente es requerido",
+                    "no_date": "La fecha es requerida",
+                    "no_time": "La hora es requerida",
+                    "invalid_date": "La fecha debe estar en formato DD-MM-AAAA (ej., 17-11-1998)",
+                    "invalid_time": "La hora no es valida",
+                    "no_duration": "La duración es requerida",
+                    "invalid_duration": "La duración debe ser un número",
+                    "invalid_status": "El estado debe ser 'agendada', 'pendiente', 'completada' o 'cancelada'",
+                    "not_found": "Cita no encontrada",
+                    "auth_required": "Autenticación requerida. Por favor, inicia sesión de nuevo.",
+                    "appointment_create_error": "Error al crear la cita"
+                }
+            },
             "tabs": {
                 "list": "Lista",
                 "calendar": "Calendario"
+            },
+            "details": {
+                "title": "Detalles de la Cita",
+                "patient_name": "Nombre del paciente",
+                "date": "Fecha",
+                "time": "Hora",
+                "duration": "Duración",
+                "status": "Estado",
+                "notes": "Notas",
+                "minutes": "minutos",
+                "unknown_patient": "Paciente desconocido",
+                "hour": "Hora",
+                "buttons": {
+                    "edit": "Editar Cita",
+                    "close": "Cerrar"
+                }
             },
             "status": {
                 "status": "Estado",
@@ -276,6 +326,46 @@
                 "completed": "Completada",
                 "canceled": "Cancelada"
             },
+            "calendar": {
+                "title": "Calendario de Citas",
+                "list": "Lista",
+                "calendar": "Calendario",
+                "months": {
+                    "january": "Enero",
+                    "february": "Febrero",
+                    "march": "Marzo",
+                    "april": "Abril",
+                    "may": "Mayo",
+                    "june": "Junio",
+                    "july": "Julio",
+                    "august": "Agosto",
+                    "september": "Septiembre",
+                    "october": "Octubre",
+                    "november": "Noviembre",
+                    "december": "Diciembre"
+                },
+                "days": {
+                    "sunday": "Dom",
+                    "monday": "Lun",
+                    "tuesday": "Mar",
+                    "wednesday": "Mié",
+                    "thursday": "Jue",
+                    "friday": "Vie",
+                    "saturday": "Sáb"
+                }
+            },
+            "appointmentStatus": {
+                "scheduled": "Agendada",
+                "pending": "Pendiente",
+                "completed": "Completada",
+                "canceled": "Cancelada"
+            },
+            "actionButtons": {
+                "edit": "Editar",
+                "delete": "Eliminar",
+                "cancel": "Cancelar",
+                "details": "Detalles"
+            },
             "rightSide": {
                 "selectAppointment": "Selecciona una cita",
                 "clickOnAnAppointment": "Haz clic en una cita para ver los detalles y editarla"
@@ -284,13 +374,15 @@
                 "newAppointment": "Nueva Cita",
                 "editAppointment": "Editar Cita",
                 "deleteAppointment": "Eliminar Cita",
+                "createAppointment": "Crear Cita",
+                "updateAppointment": "Actualizar Cita",
                 "cancel": "Cancelar",
                 "patient": "Paciente <span class='text-red-500'>*</span>",
                 "date": "Fecha <span class='text-red-500'>*</span>",
                 "hour": "Hora <span class='text-red-500'>*</span>",
                 "status": "Estado",
                 "duration": "Duración (Minutos)",
-                "selectOptions":{
+                "selectOptions": {
                     "option1": "30 minutos",
                     "option2": "45 minutos",
                     "option3": "60 minutos"
@@ -311,6 +403,64 @@
             "subscription": "Suscripción",
             "settings": "Configuración",
             "logout": "Cerrar Sesión"
+        },
+        "inventory": {
+            "title": "Inventario",
+            "addItem": "Agregar Item",
+            "search": "Buscar en inventario...",
+            "table": {
+                "name": "Nombre",
+                "sku": "SKU",
+                "category": "Categoría",
+                "quantity": "Stock Actual",
+                "price": "Precio",
+                "minStock": "Min. Stock",
+                "expirationDate": "Expiración",
+                "status": "Estado",
+                "actions": "Acciones",
+                "noItems": "No se encontraron items en el inventario.",
+                "lowStock": "Stock Bajo",
+                "expired": "Expirado",
+                "nearExpiration": "Próximo a expirar"
+            },
+            "modals": {
+                "addItem": "Agregar Item al Inventario",
+                "editItem": "Editar Item",
+                "deleteItem": "Eliminar Item",
+                "confirmDelete": "¿Estás seguro de que deseas eliminar este item? Esta acción no se puede deshacer.",
+                "fields": {
+                    "name": "Nombre del Producto",
+                    "sku": "SKU / Código",
+                    "category": "Categoría",
+                    "quantity": "Cantidad Inicial",
+                    "unit": "Unidad (ej. unidades, ml, cajas)",
+                    "minStock": "Stock Mínimo (Alerta)",
+                    "price": "Precio / Costo",
+                    "expirationDate": "Fecha de Expiración",
+                    "description": "Notas / Descripción"
+                }
+            },
+            "categories": {
+                "medications": "Medicamentos",
+                "supplies": "Suministros",
+                "equipment": "Equipo",
+                "other": "Otro"
+            },
+            "messages": {
+                "errors": {
+                    "no_name": "El nombre es obligatorio",
+                    "invalid_quantity": "La cantidad debe ser un número",
+                    "invalid_minStock": "El stock mínimo debe ser un número",
+                    "invalid_price": "El precio debe ser un número",
+                    "invalid_expiration_date": "La fecha de expiración debe ser una fecha DD/MM/AAAA",
+                    "no_description": "La descripción es obligatoria"
+                },
+                "success": {
+                    "item_added": "Item agregado al inventario",
+                    "item_updated": "Item actualizado",
+                    "item_deleted": "Item eliminado"
+                }
+            }
         }
     },
     "modals": {
@@ -327,10 +477,10 @@
             "addPatientBtn": "Crear Paciente",
             "cancelBtn": "Cancelar",
             "customFieldsBtn": "+ Agregar Campos Personalizados",
-            "genderSelect":{
-                "selectGender":"Selecciona un Género",
-                "male":"Masculino",
-                "female":"Femenino"
+            "genderSelect": {
+                "selectGender": "Selecciona un Género",
+                "male": "Masculino",
+                "female": "Femenino"
             }
         }
     },

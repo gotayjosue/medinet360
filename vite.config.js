@@ -16,6 +16,7 @@ export default defineConfig({
         dashboardAppointments: resolve(__dirname, "dashboard/appointments.html"),
         dashboardAccount: resolve(__dirname, "dashboard/account.html"),
         dashboardReports: resolve(__dirname, "dashboard/reports.html"),
+        dashboardInventory: resolve(__dirname, "dashboard/inventory.html"),
         patientsDetails: resolve(__dirname, "dashboard/patientDetails.html"),
         dashboardAppointmentsCalendar: resolve(__dirname, "dashboard/appointmentsCalendar.html"),
         forgotPassword: resolve(__dirname, "forgotPassword.html"),

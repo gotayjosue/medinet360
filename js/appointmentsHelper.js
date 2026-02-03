@@ -1,5 +1,6 @@
 import { showToast, sleep } from './utils.js';
 import { setEditMode } from './appoinmentsState.js';
+import i18n from './i18n.js';
 // Archivo consolidado con TODAS las funcionalidades faltantes
 // Este archivo debe cargarse DESPUÉS de dashboardAppointments.js
 
@@ -27,8 +28,8 @@ export async function editAppointment(id) {
     // Actualizar UI del modal
     const modalTitle = document.querySelector('#appointmentFormContainer h2');
     const submitButton = document.getElementById('createAppointment');
-    if (modalTitle) modalTitle.textContent = 'Editar Cita';
-    if (submitButton) submitButton.textContent = 'Actualizar Cita';
+    if (modalTitle) modalTitle.textContent = i18n.t('dashboard.appointments.modals.editAppointment');
+    if (submitButton) submitButton.textContent = i18n.t('dashboard.appointments.modals.updateAppointment');
 
     // Rellenar formulario
     const patientSelect = document.getElementById('patientSelect');
@@ -106,7 +107,7 @@ export async function deleteAppointment(id) {
       });
 
       if (res.ok) {
-        showToast('Cita eliminada exitosamente', 'success');
+        showToast(i18n.t('dashboard.appointments.messages.appointmentDeleted'), 'success');
         confirmModal.close();
         confirmModal.remove();
         await sleep(1200);
@@ -160,10 +161,10 @@ export async function viewAppointmentDetailsModal(id) {
 
     const getStatusLabel = (status) => {
       const labels = {
-        scheduled: 'Agendada',
-        pending: 'Pendiente',
-        completed: 'Completada',
-        canceled: 'Cancelada'
+        scheduled: i18n.t('dashboard.appointments.status.scheduled'),
+        pending: i18n.t('dashboard.appointments.status.pending'),
+        completed: i18n.t('dashboard.appointments.status.completed'),
+        canceled: i18n.t('dashboard.appointments.status.canceled')
       };
       return labels[status] || status;
     };
@@ -175,7 +176,7 @@ export async function viewAppointmentDetailsModal(id) {
     detailsModal.innerHTML = `
       <div class="bg-white p-8 rounded-lg">
         <div class="flex justify-between items-center mb-6">
-          <h2 class="text-2xl font-bold text-gray-900">Detalles de la Cita</h2>
+          <h2 class="text-2xl font-bold text-gray-900">${i18n.t('dashboard.appointments.details.title')}</h2>
           <button id="closeDetailsModal" class="text-gray-500 hover:text-gray-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -186,29 +187,29 @@ export async function viewAppointmentDetailsModal(id) {
         <div class="space-y-4">
           <div class="grid grid-cols-2 gap-4">
             <div class="col-span-2 bg-blue-50 p-4 rounded-lg">
-              <p class="text-sm text-gray-600 mb-1">Paciente</p>
+              <p class="text-sm text-gray-600 mb-1">${i18n.t('dashboard.appointments.details.patient_name')}</p>
               <p class="text-xl font-semibold text-gray-900">
                 ${apt.patientId?.name || 'N/A'} ${apt.patientId?.lastName || ''}
               </p>
             </div>
 
             <div class="bg-gray-50 p-4 rounded-lg">
-              <p class="text-sm text-gray-600 mb-1">Fecha</p>
+              <p class="text-sm text-gray-600 mb-1">${i18n.t('dashboard.appointments.details.date')}</p>
               <p class="text-lg font-semibold text-gray-900">${formatDate(apt.date)}</p>
             </div>
 
             <div class="bg-gray-50 p-4 rounded-lg">
-              <p class="text-sm text-gray-600 mb-1">Hora</p>
+              <p class="text-sm text-gray-600 mb-1">${i18n.t('dashboard.appointments.details.time')}</p>
               <p class="text-lg font-semibold text-gray-900">${apt.hour}</p>
             </div>
 
             <div class="bg-gray-50 p-4 rounded-lg">
-              <p class="text-sm text-gray-600 mb-1">Duración</p>
+              <p class="text-sm text-gray-600 mb-1">${i18n.t('dashboard.appointments.details.duration')}</p>
               <p class="text-lg font-semibold text-gray-900">${apt.duration} minutos</p>
             </div>
 
             <div class="bg-gray-50 p-4 rounded-lg">
-              <p class="text-sm text-gray-600 mb-1">Estado</p>
+              <p class="text-sm text-gray-600 mb-1">${i18n.t('dashboard.appointments.details.status')}</p>
               <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getStatusBadge(apt.status)}">
                 ${getStatusLabel(apt.status)}
               </span>
@@ -216,7 +217,7 @@ export async function viewAppointmentDetailsModal(id) {
 
             ${apt.description ? `
               <div class="col-span-2 bg-gray-50 p-4 rounded-lg">
-                <p class="text-sm text-gray-600 mb-1">Notas</p>
+                <p class="text-sm text-gray-600 mb-1">${i18n.t('dashboard.appointments.details.notes')}</p>
                 <p class="text-gray-700">${apt.description}</p>
               </div>
             ` : ''}
@@ -224,10 +225,10 @@ export async function viewAppointmentDetailsModal(id) {
 
           <div class="flex gap-3 pt-4 border-t">
             <button onclick="closeAppointmentDetailsModal()" class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
-              Cerrar
+              ${i18n.t('dashboard.appointments.details.buttons.close')}
             </button>
             <button onclick="editAppointment('${apt._id}'); closeAppointmentDetailsModal();" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
-              Editar Cita
+              ${i18n.t('dashboard.appointments.details.buttons.edit')}
             </button>
           </div>
         </div>

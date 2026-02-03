@@ -36,10 +36,10 @@ async function viewAppointmentDetailsModal(id) {
 
     const getStatusLabel = (status) => {
       const labels = {
-        scheduled: 'Agendada',
-        pending: 'Pendiente',
-        completed: 'Completada',
-        canceled: 'Cancelada'
+        scheduled: i18n.t('dashboard.appointments.appointmentStatus.scheduled'),
+        pending: i18n.t('dashboard.appointments.appointmentStatus.pending'),
+        completed: i18n.t('dashboard.appointments.appointmentStatus.completed'),
+        canceled: i18n.t('dashboard.appointments.appointmentStatus.canceled')
       };
       return labels[status] || status;
     };
@@ -62,29 +62,29 @@ async function viewAppointmentDetailsModal(id) {
         <div class="space-y-4">
           <div class="grid grid-cols-2 gap-4">
             <div class="col-span-2 bg-blue-50 p-4 rounded-lg">
-              <p class="text-sm text-gray-600 mb-1">Paciente</p>
+              <p class="text-sm text-gray-600 mb-1">${i18n.t('dashboard.appointments.details.patient_name')}</p>
               <p class="text-xl font-semibold text-gray-900">
                 ${apt.patientId?.name || 'N/A'} ${apt.patientId?.lastName || ''}
               </p>
             </div>
 
             <div class="bg-gray-50 p-4 rounded-lg">
-              <p class="text-sm text-gray-600 mb-1">Fecha</p>
+              <p class="text-sm text-gray-600 mb-1">${i18n.t('dashboard.appointments.details.date')}</p>
               <p class="text-lg font-semibold text-gray-900">${formatDate(apt.date)}</p>
             </div>
 
             <div class="bg-gray-50 p-4 rounded-lg">
-              <p class="text-sm text-gray-600 mb-1">Hora</p>
+              <p class="text-sm text-gray-600 mb-1">${i18n.t('dashboard.appointments.details.hour')}</p>
               <p class="text-lg font-semibold text-gray-900">${apt.hour}</p>
             </div>
 
             <div class="bg-gray-50 p-4 rounded-lg">
-              <p class="text-sm text-gray-600 mb-1">Duración</p>
+              <p class="text-sm text-gray-600 mb-1">${i18n.t('dashboard.appointments.details.duration')}</p>
               <p class="text-lg font-semibold text-gray-900">${apt.duration} minutos</p>
             </div>
 
             <div class="bg-gray-50 p-4 rounded-lg">
-              <p class="text-sm text-gray-600 mb-1">Estado</p>
+              <p class="text-sm text-gray-600 mb-1">${i18n.t('dashboard.appointments.details.status')}</p>
               <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getStatusBadge(apt.status)}">
                 ${getStatusLabel(apt.status)}
               </span>
@@ -92,7 +92,7 @@ async function viewAppointmentDetailsModal(id) {
 
             ${apt.description ? `
               <div class="col-span-2 bg-gray-50 p-4 rounded-lg">
-                <p class="text-sm text-gray-600 mb-1">Notas</p>
+                <p class="text-sm text-gray-600 mb-1">${i18n.t('dashboard.appointments.details.notes')}</p>
                 <p class="text-gray-700">${apt.description}</p>
               </div>
             ` : ''}
@@ -100,10 +100,10 @@ async function viewAppointmentDetailsModal(id) {
 
           <div class="flex gap-3 pt-4 border-t">
             <button onclick="closeAppointmentDetailsModal()" class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
-              Cerrar
+              ${i18n.t('dashboard.appointments.details.buttons.close')}
             </button>
             <button onclick="editAppointment('${apt._id}'); closeAppointmentDetailsModal();" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
-              Editar Cita
+              ${i18n.t('dashboard.appointments.details.buttons.edit')}
             </button>
           </div>
         </div>
@@ -158,10 +158,10 @@ function showDayAppointments(dateStr, appointments) {
 
   const getStatusLabel = (status) => {
     const labels = {
-      scheduled: 'Agendada',
-      pending: 'Pendiente',
-      completed: 'Completada',
-      canceled: 'Cancelada'
+      scheduled: i18n.t('dashboard.appointments.appointmentStatus.scheduled'),
+      pending: i18n.t('dashboard.appointments.appointmentStatus.pending'),
+      completed: i18n.t('dashboard.appointments.appointmentStatus.completed'),
+      canceled: i18n.t('dashboard.appointments.appointmentStatus.canceled')
     };
     return labels[status] || status;
   };

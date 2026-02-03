@@ -110,6 +110,14 @@
           </svg>
           <span data-i18n="dashboard.sidebar.reports">Reports</span>
         </a>
+
+        <a href="inventory.html" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+          </svg>
+          <span data-i18n="dashboard.sidebar.inventory">Inventory</span>
+        </a>
       </nav>
 
       <div class="mt-auto">
@@ -144,7 +152,8 @@
       <!-- Main content -->
       <main class="flex-1 p-6 overflow-auto">
         <header class="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
-          <h1 class="text-2xl font-semibold text-gray-800 mb-4 sm:mb-0" data-i18n="dashboard.appointments.title">Citas</h1>
+          <h1 class="text-2xl font-semibold text-gray-800 mb-4 sm:mb-0" data-i18n="dashboard.appointments.title">Citas
+          </h1>
           <div class="flex items-center gap-3">
             <div class="notification-container"></div>
             <button id="newAppointmentButton"
@@ -160,19 +169,26 @@
 
         <!-- Tabs -->
         <div class="flex flex-wrap gap-2 mb-6">
-          <button class="px-4 py-2 rounded-md bg-blue-600 text-white font-medium" data-i18n="dashboard.appointments.tabs.list">Lista</button>
+          <button class="px-4 py-2 rounded-md bg-blue-600 text-white font-medium"
+            data-i18n="dashboard.appointments.tabs.list">Lista</button>
           <button onclick="window.location.href='/dashboard/appointmentsCalendar.html'"
-            class="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition" data-i18n="dashboard.appointments.tabs.calendar">Calendario</button>
+            class="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition"
+            data-i18n="dashboard.appointments.tabs.calendar">Calendario</button>
         </div>
 
         <!-- Filters -->
         <div class="flex flex-wrap gap-2 mb-6 items-center">
           <span class="text-gray-700 font-medium mr-2" data-i18n="dashboard.appointments.status.status">Estado:</span>
-          <button id="allAppointments" class="allAppointments active" data-i18n="dashboard.appointments.status.all">Todas</button>
-          <button id="scheduleAppointments" class="scheduleAppointments" data-i18n="dashboard.appointments.status.scheduled">Agendadas</button>
-          <button id="completedAppointments" class="completedAppointments" data-i18n="dashboard.appointments.status.completed">Completadas</button>
-          <button id="pendingAppointments" class="pendingAppointments" data-i18n="dashboard.appointments.status.pending">Pendientes</button>
-          <button id="canceledAppointments" class="canceledAppointments" data-i18n="dashboard.appointments.status.canceled">Canceladas</button>
+          <button id="allAppointments" class="allAppointments active"
+            data-i18n="dashboard.appointments.status.all">Todas</button>
+          <button id="scheduleAppointments" class="scheduleAppointments"
+            data-i18n="dashboard.appointments.status.scheduled">Agendadas</button>
+          <button id="completedAppointments" class="completedAppointments"
+            data-i18n="dashboard.appointments.status.completed">Completadas</button>
+          <button id="pendingAppointments" class="pendingAppointments"
+            data-i18n="dashboard.appointments.status.pending">Pendientes</button>
+          <button id="canceledAppointments" class="canceledAppointments"
+            data-i18n="dashboard.appointments.status.canceled">Canceladas</button>
         </div>
 
         <!-- Grid -->
@@ -182,28 +198,35 @@
             <!-- Citas de Hoy -->
             <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
               <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
-                <h2 class="text-lg font-semibold text-gray-900" data-i18n="dashboard.appointments.table.todayAppointments">Citas de Hoy</h2>
+                <h2 class="text-lg font-semibold text-gray-900"
+                  data-i18n="dashboard.appointments.table.todayAppointments">Citas de Hoy</h2>
               </div>
 
               <div id="todayAppointmentsContainer" class="overflow-x-auto">
                 <table class="w-full">
                   <thead>
                     <tr class="border-b border-gray-200 bg-gray-50">
-                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" data-i18n="dashboard.appointments.table.patient">
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                        data-i18n="dashboard.appointments.table.patient">
                         Paciente</th>
-                      <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider" data-i18n="dashboard.appointments.table.time">
+                      <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                        data-i18n="dashboard.appointments.table.time">
                         Hora</th>
-                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" data-i18n="dashboard.appointments.table.duration">
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                        data-i18n="dashboard.appointments.table.duration">
                         Duración</th>
-                      <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider" data-i18n="dashboard.appointments.table.status">
+                      <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                        data-i18n="dashboard.appointments.table.status">
                         Estado</th>
-                      <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider" data-i18n="dashboard.appointments.table.actions">
+                      <th class="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                        data-i18n="dashboard.appointments.table.actions">
                         Acciones</th>
                     </tr>
                   </thead>
                   <tbody id="todayAppointmentsBody" class="divide-y divide-gray-200">
                     <tr>
-                      <td colspan="5" class="px-6 py-8 text-center text-gray-500 text-sm" data-i18n="dashboard.appointments.table.noAppointments">
+                      <td colspan="5" class="px-6 py-8 text-center text-gray-500 text-sm"
+                        data-i18n="dashboard.appointments.table.noAppointments">
                         No hay citas para hoy
                       </td>
                     </tr>
@@ -215,28 +238,35 @@
             <!-- Próximas Citas -->
             <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
               <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
-                <h2 class="text-lg font-semibold text-gray-900" data-i18n="dashboard.appointments.table.upcomingAppointments">Próximas Citas</h2>
+                <h2 class="text-lg font-semibold text-gray-900"
+                  data-i18n="dashboard.appointments.table.upcomingAppointments">Próximas Citas</h2>
               </div>
 
               <div id="upcomingAppointmentsContainer" class="overflow-x-auto">
                 <table class="w-full">
                   <thead>
                     <tr class="border-b border-gray-200 bg-gray-50">
-                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" data-i18n="dashboard.appointments.table.patient">
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                        data-i18n="dashboard.appointments.table.patient">
                         Paciente</th>
-                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" data-i18n="dashboard.appointments.table.date">Fecha
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                        data-i18n="dashboard.appointments.table.date">Fecha
                       </th>
-                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" data-i18n="dashboard.appointments.table.time">Hora
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                        data-i18n="dashboard.appointments.table.time">Hora
                       </th>
-                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" data-i18n="dashboard.appointments.table.status">
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                        data-i18n="dashboard.appointments.table.status">
                         Estado</th>
-                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider" data-i18n="dashboard.appointments.table.actions">
+                      <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                        data-i18n="dashboard.appointments.table.actions">
                         Acciones</th>
                     </tr>
                   </thead>
                   <tbody id="upcomingAppointmentsBody" class="divide-y divide-gray-200">
                     <tr>
-                      <td colspan="5" class="px-6 py-8 text-center text-gray-500 text-sm" data-i18n="dashboard.appointments.table.upcomingMessage">
+                      <td colspan="5" class="px-6 py-8 text-center text-gray-500 text-sm"
+                        data-i18n="dashboard.appointments.table.upcomingMessage">
                         No hay citas próximas
                       </td>
                     </tr>
@@ -253,8 +283,10 @@
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M8 7V3m8 4V3m-9 8h10m-9 4h4m-8 6h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <h3 class="font-semibold text-gray-800" data-i18n="dashboard.appointments.rightSide.selectAppointment">Selecciona una cita</h3>
-            <p class="text-gray-500 text-sm" data-i18n="dashboard.appointments.rightSide.clickOnAnAppointment">Haz clic en cualquier cita para ver detalles y editar</p>
+            <h3 class="font-semibold text-gray-800" data-i18n="dashboard.appointments.rightSide.selectAppointment">
+              Selecciona una cita</h3>
+            <p class="text-gray-500 text-sm" data-i18n="dashboard.appointments.rightSide.clickOnAnAppointment">Haz clic
+              en cualquier cita para ver detalles y editar</p>
           </div>
         </div>
 
@@ -262,7 +294,8 @@
           <div id="appointmentFormContainer" class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-xl">
 
             <div class="flex justify-between items-center mb-6">
-              <h2 class="text-xl font-bold text-gray-900" data-i18n="dashboard.appointments.modals.newAppointment">Nueva Cita</h2>
+              <h2 class="text-xl font-bold text-gray-900" data-i18n="dashboard.appointments.modals.newAppointment">Nueva
+                Cita</h2>
               <button id="closeButton" class="text-gray-500 hover:text-gray-700">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg">
@@ -277,7 +310,8 @@
               <div class="grid grid-cols-2 gap-6">
 
                 <div class="col-span-2">
-                  <label for="patientId" class="block text-sm font-medium text-gray-700 mb-1" data-i18n-html="dashboard.appointments.modals.patient">
+                  <label for="patientId" class="block text-sm font-medium text-gray-700 mb-1"
+                    data-i18n-html="dashboard.appointments.modals.patient">
                     Paciente <span class="text-red-500">*</span>
                   </label>
                   <select id="patientSelect" name="patientId" placeholder="Selecciona un paciente...">
@@ -285,7 +319,8 @@
                 </div>
 
                 <div class="col-span-1">
-                  <label for="date" class="block text-sm font-medium text-gray-700 mb-1" data-i18n-html="dashboard.appointments.modals.date">
+                  <label for="date" class="block text-sm font-medium text-gray-700 mb-1"
+                    data-i18n-html="dashboard.appointments.modals.date">
                     Fecha <span class="text-red-500">*</span>
                   </label>
                   <div class="relative">
@@ -297,7 +332,8 @@
                 </div>
 
                 <div class="col-span-1">
-                  <label for="hour" class="block text-sm font-medium text-gray-700 mb-1" data-i18n-html="dashboard.appointments.modals.hour">
+                  <label for="hour" class="block text-sm font-medium text-gray-700 mb-1"
+                    data-i18n-html="dashboard.appointments.modals.hour">
                     Hora <span class="text-red-500">*</span>
                   </label>
                   <div class="relative">
@@ -307,19 +343,24 @@
                 </div>
 
                 <div class="col-span-2">
-                  <label for="duration" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="dashboard.appointments.modals.duration">
+                  <label for="duration" class="block text-sm font-medium text-gray-700 mb-1"
+                    data-i18n="dashboard.appointments.modals.duration">
                     Duración (minutos)
                   </label>
                   <select id="duration" name="duracion"
                     class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    <option value="30" data-i18n="dashboard.appointments.modals.selectOptions.option1">30 minutos</option>
-                    <option value="45" data-i18n="dashboard.appointments.modals.selectOptions.option2">45 minutos</option>
-                    <option value="60" data-i18n="dashboard.appointments.modals.selectOptions.option3">60 minutos</option>
+                    <option value="30" data-i18n="dashboard.appointments.modals.selectOptions.option1">30 minutos
+                    </option>
+                    <option value="45" data-i18n="dashboard.appointments.modals.selectOptions.option2">45 minutos
+                    </option>
+                    <option value="60" data-i18n="dashboard.appointments.modals.selectOptions.option3">60 minutos
+                    </option>
                   </select>
                 </div>
 
                 <div class="col-span-2">
-                  <label for="status" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="dashboard.appointments.modals.status">
+                  <label for="status" class="block text-sm font-medium text-gray-700 mb-1"
+                    data-i18n="dashboard.appointments.modals.status">
                     Status
                   </label>
                   <select id="status" name="status"
@@ -345,11 +386,13 @@
 
               <div class="mt-8 flex justify-end space-x-4">
                 <button type="button" id="cancelButton"
-                  class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" data-i18n="dashboard.appointments.buttons.cancel">
+                  class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                  data-i18n="dashboard.appointments.buttons.cancel">
                   Cancelar
                 </button>
                 <button type="submit" id="createAppointment"
-                  class="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" data-i18n="dashboard.appointments.buttons.createAppointment">
+                  class="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  data-i18n="dashboard.appointments.buttons.createAppointment">
                   Crear Cita
                 </button>
               </div>
@@ -362,7 +405,7 @@
           <div id="updateAppointmentFormContainer" class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-xl">
 
             <div class="flex justify-between items-center mb-6">
-              <h2 class="text-xl font-bold text-gray-900" >Nueva Cita</h2>
+              <h2 class="text-xl font-bold text-gray-900">Nueva Cita</h2>
               <button id="closeButton" class="text-gray-500 hover:text-gray-700">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg">

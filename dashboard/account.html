@@ -79,6 +79,14 @@
           </svg>
           <span data-i18n="dashboard.sidebar.reports">Reports</span>
         </a>
+
+        <a href="inventory.html" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+          </svg>
+          <span data-i18n="dashboard.sidebar.inventory">Inventory</span>
+        </a>
       </nav>
 
       <div class="mt-auto">
@@ -350,7 +358,8 @@
                 </div>
                 <div>
                   <label for="clinicLogoDisplay"
-                    class="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Logo Link (This logo will appear in your reports)</label>
+                    class="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Logo Link (This logo
+                    will appear in your reports)</label>
                   <input type="link" id="clinicLogoDisplay"
                     class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 text-gray-800"
                     placeholder="https://mylogopage.com/images/logo.webp">
@@ -394,17 +403,22 @@
               <h3 class="text-2xl font-bold text-gray-800 mb-6">Mi Suscripción</h3>
 
               <!-- Grace Period Alert (Hidden by default) -->
-              <div id="gracePeriodAlert" class="hidden mb-6 bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-500 rounded-xl p-5">
+              <div id="gracePeriodAlert"
+                class="hidden mb-6 bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-500 rounded-xl p-5">
                 <div class="flex items-start gap-4">
                   <div class="flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600" fill="none"
+                      viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                   </div>
                   <div class="flex-1">
                     <h4 class="text-lg font-bold text-orange-800 mb-1">Suscripción Cancelada</h4>
                     <p id="gracePeriodMessage" class="text-orange-700 text-sm leading-relaxed">
-                      Tu suscripción ha sido cancelada, pero mantienes acceso completo a las funcionalidades de tu plan hasta el <strong id="gracePeriodEndDate"></strong>. Después de esta fecha, tu plan se degradará automáticamente a Free.
+                      Tu suscripción ha sido cancelada, pero mantienes acceso completo a las funcionalidades de tu plan
+                      hasta el <strong id="gracePeriodEndDate"></strong>. Después de esta fecha, tu plan se degradará
+                      automáticamente a Free.
                     </p>
                   </div>
                 </div>

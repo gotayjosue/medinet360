@@ -172,9 +172,9 @@ appointmentForm.addEventListener('submit', async (e) => {
     if (conflictingApt) {
       const name = `${conflictingApt.patientId?.name || 'Paciente'} ${conflictingApt.patientId?.lastName || ''}`;
       const msg = `
-        ⚠️ La cita se traslapa con otra ya programada.<br>
-        <strong>Paciente:</strong> ${name}<br>
-        <strong>Hora:</strong> ${conflictingApt.hour} (${conflictingApt.duration} min)
+        ⚠️ ${i18n.t('dashboard.appointments.messages.appointmentConflict.title')}<br>
+        <strong>${i18n.t('dashboard.appointments.messages.appointmentConflict.patient')}:</strong> ${name}<br>
+        <strong>${i18n.t('dashboard.appointments.messages.appointmentConflict.hour')}:</strong> ${conflictingApt.hour} (${conflictingApt.duration} min)
       `;
 
       showToast(msg, 'error');
@@ -203,7 +203,7 @@ appointmentForm.addEventListener('submit', async (e) => {
 
     if (!response.ok) {
       if (Array.isArray(data.errors)) {
-        const msgs = data.errors.map(e => e.msg).join('<br>');
+        const msgs = data.errors.map(e => i18n.t(e.msg)).join('<br>');
         showToast(msgs, 'error');
       } else {
         throw new Error(data.error || data.message || 'Failed to save appointment');
@@ -212,7 +212,7 @@ appointmentForm.addEventListener('submit', async (e) => {
     }
 
     showToast(
-      isEditMode ? 'Appointment updated successfully!' : 'Appointment created successfully!',
+      isEditMode ? i18n.t('dashboard.appointments.messages.success.appointmentUpdated') : i18n.t('dashboard.appointments.messages.success.appointmentCreated'),
       'success'
     );
 
@@ -238,8 +238,8 @@ document.getElementById('cancelButton')?.addEventListener('click', () => {
   // Restaurar textos del modal
   const modalTitle = document.querySelector('#appointmentFormContainer h2');
   const submitButton = document.getElementById('createAppointment');
-  if (modalTitle) modalTitle.textContent = 'Nueva Cita';
-  if (submitButton) submitButton.textContent = 'Crear Cita';
+  if (modalTitle) modalTitle.textContent = i18n.t('dashboard.appointments.modals.newAppointment');
+  if (submitButton) submitButton.textContent = i18n.t('dashboard.appointments.buttons.createAppointment');
 });
 
 
@@ -377,7 +377,7 @@ function renderTodayAppointments(appointments) {
     tbody.innerHTML = `
       <tr>
         <td colspan="5" class="px-6 py-8 text-center text-gray-500 text-sm">
-          No hay citas para hoy
+          ${i18n.t('dashboard.appointments.messages.success.noTodayAppointments')}
         </td>
       </tr>
     `;
@@ -412,7 +412,7 @@ function renderTodayAppointments(appointments) {
             <svg class="w-4 h-4 mr-1 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Detalles
+            <span class="text-sm font-medium">${i18n.t('dashboard.appointments.actionButtons.details')}</span>
           </button>
 
           <!-- Editar -->
@@ -421,7 +421,7 @@ function renderTodayAppointments(appointments) {
               <path d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Editar
+            <span class="text-sm font-medium">${i18n.t('dashboard.appointments.actionButtons.edit')}</span>
           </button>
 
           <!-- Eliminar -->
@@ -429,7 +429,7 @@ function renderTodayAppointments(appointments) {
             <svg class="w-4 h-4 mr-1 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Eliminar
+            <span class="text-sm font-medium">${i18n.t('dashboard.appointments.actionButtons.delete')}</span>
           </button>
         </div>
       </td>
@@ -457,7 +457,7 @@ function renderUpcomingAppointments(appointments) {
     tbody.innerHTML = `
       <tr>
         <td colspan="5" class="px-6 py-8 text-center text-gray-500 text-sm">
-          No hay citas próximas
+          ${i18n.t('dashboard.appointments.messages.success.noUpcomingAppointments')}
         </td>
       </tr>
     `;
@@ -489,7 +489,7 @@ function renderUpcomingAppointments(appointments) {
             <svg class="w-4 h-4 mr-1 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Detalles
+            <span class="text-sm font-medium">${i18n.t('dashboard.appointments.actionButtons.details')}</span>
           </button>
 
           <!-- Editar -->
@@ -498,7 +498,7 @@ function renderUpcomingAppointments(appointments) {
               <path d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Editar
+            <span class="text-sm font-medium">${i18n.t('dashboard.appointments.actionButtons.edit')}</span>
           </button>
 
           <!-- Eliminar -->
@@ -506,7 +506,7 @@ function renderUpcomingAppointments(appointments) {
             <svg class="w-4 h-4 mr-1 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Eliminar
+            <span class="text-sm font-medium">${i18n.t('dashboard.appointments.actionButtons.delete')}</span>
           </button>
         </div>
       </td>
@@ -544,10 +544,10 @@ function getStatusBadge(status) {
 
 function getStatusLabel(status) {
   const labels = {
-    scheduled: 'Agendada',
-    pending: 'Pendiente',
-    completed: 'Completada',
-    canceled: 'Cancelada'
+    scheduled: i18n.t('dashboard.appointments.appointmentStatus.scheduled'),
+    pending: i18n.t('dashboard.appointments.appointmentStatus.pending'),
+    completed: i18n.t('dashboard.appointments.appointmentStatus.completed'),
+    canceled: i18n.t('dashboard.appointments.appointmentStatus.canceled')
   };
   return labels[status] || status;
 }

@@ -66,7 +66,8 @@
           <span data-i18n="dashboard.sidebar.patients">Patients</span>
         </a>
 
-        <a href="appointments.html" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
+        <a href="appointments.html"
+          class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
@@ -80,6 +81,14 @@
               d="M9 17v-6h2v6H9zm4 0v-4h2v4h-2zM5 21h14a2 2 0 002-2V7l-6-4H5a2 2 0 00-2 2v14a2 2 0 002 2z" />
           </svg>
           <span data-i18n="dashboard.sidebar.reports">Reports</span>
+        </a>
+
+        <a href="inventory.html" class="flex items-center gap-3 text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+          </svg>
+          <span data-i18n="dashboard.sidebar.inventory">Inventory</span>
         </a>
       </nav>
 
@@ -120,7 +129,8 @@
           <!-- Total Patients -->
           <div class="bg-white rounded-2xl shadow p-6 flex items-center justify-between">
             <div>
-              <h3 class="text-gray-500 text-sm font-medium" data-i18n="dashboard.home.metrics.totalPatients">Total Patients</h3>
+              <h3 class="text-gray-500 text-sm font-medium" data-i18n="dashboard.home.metrics.totalPatients">Total
+                Patients</h3>
               <p class="text-3xl font-bold text-gray-800" id="totalPatientsMetric">0</p>
             </div>
             <div class="p-3 bg-blue-100 rounded-full text-blue-600">
@@ -135,7 +145,8 @@
           <!-- Appointments Today -->
           <div class="bg-white rounded-2xl shadow p-6 flex items-center justify-between">
             <div>
-              <h3 class="text-gray-500 text-sm font-medium" data-i18n="dashboard.home.metrics.appointmentsToday">Appointments Today</h3>
+              <h3 class="text-gray-500 text-sm font-medium" data-i18n="dashboard.home.metrics.appointmentsToday">
+                Appointments Today</h3>
               <p class="text-3xl font-bold text-gray-800" id="appointmentsTodayMetric">0</p>
             </div>
             <div class="p-3 bg-purple-100 rounded-full text-purple-600">
@@ -150,7 +161,8 @@
           <!-- New Patients (This Month) -->
           <div class="bg-white rounded-2xl shadow p-6 flex items-center justify-between">
             <div>
-              <h3 class="text-gray-500 text-sm font-medium" data-i18n="dashboard.home.metrics.newPatientsMonth">New Patients (Month)</h3>
+              <h3 class="text-gray-500 text-sm font-medium" data-i18n="dashboard.home.metrics.newPatientsMonth">New
+                Patients (Month)</h3>
               <p class="text-3xl font-bold text-gray-800" id="newPatientsMetric">0</p>
             </div>
             <div class="p-3 bg-green-100 rounded-full text-green-600">
@@ -168,19 +180,24 @@
 
           <!-- Recent Appointments Table -->
           <div class="bg-white rounded-2xl shadow p-6">
-            <h3 class="text-lg font-semibold text-gray-800 mb-4" data-i18n="dashboard.home.recentAppointments.title">Recent Appointments</h3>
+            <h3 class="text-lg font-semibold text-gray-800 mb-4" data-i18n="dashboard.home.recentAppointments.title">
+              Recent Appointments</h3>
             <div class="overflow-x-auto">
               <table class="w-full text-left border-collapse">
                 <thead>
                   <tr>
-                    <th class="text-xs uppercase text-gray-500 font-semibold border-b pb-2" data-i18n="dashboard.home.recentAppointments.patient">Patient</th>
-                    <th class="text-xs uppercase text-gray-500 font-semibold border-b pb-2" data-i18n="dashboard.home.recentAppointments.date">Date</th>
-                    <th class="text-xs uppercase text-gray-500 font-semibold border-b pb-2" data-i18n="dashboard.home.recentAppointments.status">Status</th>
+                    <th class="text-xs uppercase text-gray-500 font-semibold border-b pb-2"
+                      data-i18n="dashboard.home.recentAppointments.patient">Patient</th>
+                    <th class="text-xs uppercase text-gray-500 font-semibold border-b pb-2"
+                      data-i18n="dashboard.home.recentAppointments.date">Date</th>
+                    <th class="text-xs uppercase text-gray-500 font-semibold border-b pb-2"
+                      data-i18n="dashboard.home.recentAppointments.status">Status</th>
                   </tr>
                 </thead>
                 <tbody id="recentAppointmentsTable" class="text-sm">
                   <tr>
-                    <td colspan="3" class="text-center py-4 text-gray-500" data-i18n="dashboard.home.recentAppointments.loading">Loading...</td>
+                    <td colspan="3" class="text-center py-4 text-gray-500"
+                      data-i18n="dashboard.home.recentAppointments.loading">Loading...</td>
                   </tr>
                 </tbody>
               </table>
@@ -196,7 +213,8 @@
 
           <!-- Gender Distribution Chart -->
           <div class="bg-white rounded-2xl shadow p-6 flex flex-col items-center justify-center">
-            <h3 class="text-lg font-semibold text-gray-800 mb-4 w-full text-left" data-i18n="dashboard.home.genderChart.title">Patients by Gender</h3>
+            <h3 class="text-lg font-semibold text-gray-800 mb-4 w-full text-left"
+              data-i18n="dashboard.home.genderChart.title">Patients by Gender</h3>
             <div class="w-full h-64 relative flex items-center justify-center">
               <canvas id="genderPieChart"></canvas>
             </div>
