@@ -425,15 +425,18 @@
             },
             "modals": {
                 "addItem": "Agregar Item al Inventario",
+                "subtitle": "Complete los detalles del producto",
                 "editItem": "Editar Item",
                 "deleteItem": "Eliminar Item",
                 "confirmDelete": "¿Estás seguro de que deseas eliminar este item? Esta acción no se puede deshacer.",
+                "notesPlaceholder": "Agrega notas adicionales sobre el producto...",
                 "fields": {
                     "name": "Nombre del Producto",
                     "sku": "SKU / Código",
                     "category": "Categoría",
                     "quantity": "Cantidad Inicial",
-                    "unit": "Unidad (ej. unidades, ml, cajas)",
+                    "unit": "Unidad",
+                    "unit-placeholder": "e.j Unidades, Cajas, etc.",
                     "minStock": "Stock Mínimo (Alerta)",
                     "price": "Precio / Costo",
                     "expirationDate": "Fecha de Expiración",
@@ -595,6 +598,7 @@
     "common": {
         "loading": "Cargando...",
         "save": "Guardar",
+        "save_product": "Guardar Producto",
         "cancel": "Cancelar",
         "delete": "Eliminar",
         "edit": "Editar",

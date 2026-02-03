@@ -426,15 +426,18 @@
             },
             "modals": {
                 "addItem": "Add Inventory Item",
+                "subtitle": "Complete product details below",
                 "editItem": "Edit Item",
                 "deleteItem": "Delete Item",
                 "confirmDelete": "Are you sure you want to delete this item? This action cannot be undone.",
+                "notesPlaceholder": "Add additional notes about the product...",
                 "fields": {
                     "name": "Product Name",
                     "sku": "SKU / Code",
                     "category": "Category",
                     "quantity": "Initial Quantity",
-                    "unit": "Unit (e.g. units, ml, boxes)",
+                    "unit": "Unit",
+                    "unit-placeholder": "e.g Units, Boxes, etc.",
                     "minStock": "Minimum Stock (Alert)",
                     "price": "Price / Cost",
                     "expirationDate": "Expiration Date",
@@ -596,6 +599,7 @@
     "common": {
         "loading": "Loading...",
         "save": "Save",
+        "save_product": "Save Product",
         "cancel": "Cancel",
         "delete": "Delete",
         "edit": "Edit",
