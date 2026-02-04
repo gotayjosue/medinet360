@@ -88,6 +88,11 @@ async function fetchInventory() {
       return;
     }
 
+    if (response.status === 403) {
+      showToast(i18n.t('dashboard.patients.messages.errors.no_permission'), 'error');
+      return;
+    }
+
     const data = await response.json();
     allItems = data;
     renderTable(allItems);
@@ -267,6 +272,11 @@ async function confirmDelete() {
       }
     });
 
+    if (response.status === 403) {
+      showToast(i18n.t('dashboard.patients.messages.errors.no_permission'), 'error');
+      return;
+    }
+
     if (response.ok) {
       showToast(i18n.t('dashboard.inventory.messages.success.item_deleted'), 'success');
       await fetchInventory();
@@ -314,6 +324,11 @@ async function handleFormSubmit(e) {
       },
       body: JSON.stringify(formData)
     });
+
+    if (response.status === 403) {
+      showToast(i18n.t('dashboard.patients.messages.errors.no_permission'), 'error');
+      return;
+    }
 
     if (response.ok) {
       showToast(isEdit ? i18n.t('dashboard.inventory.messages.success.item_updated') : i18n.t('dashboard.inventory.messages.success.item_added'), 'success');
