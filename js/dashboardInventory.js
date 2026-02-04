@@ -27,9 +27,6 @@ async function init() {
   await requireAuth();
   getClinicName();
 
-  // Sidebar logic
-  setupSidebar();
-
   // Event Listeners
   addItemBtn?.addEventListener('click', openAddModal);
   closeModalBtn?.addEventListener('click', () => itemModal.close());
@@ -48,29 +45,6 @@ async function init() {
   await fetchInventory();
 }
 
-function setupSidebar() {
-  const menuBtn = document.getElementById('menu-btn');
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('overlay');
-
-  menuBtn?.addEventListener('click', () => {
-    sidebar?.classList.toggle('-translate-x-full');
-    overlay?.classList.toggle('hidden');
-  });
-
-  overlay?.addEventListener('click', () => {
-    sidebar?.classList.add('-translate-x-full');
-    overlay?.classList.add('hidden');
-  });
-
-  const logo = document.querySelector('.logo');
-  if (logo) {
-    logo.style.cursor = 'pointer';
-    logo.addEventListener('click', () => {
-      window.location.href = '../index.html';
-    });
-  }
-}
 
 async function fetchInventory() {
   const token = localStorage.getItem('authToken');

@@ -261,7 +261,8 @@
                     <div>
                         <h2 id="modalTitle" class="text-3xl font-extrabold text-gray-900 tracking-tight"
                             data-i18n="dashboard.inventory.modals.addItem">Add Inventory Item</h2>
-                        <p class="text-gray-500 mt-2 text-sm font-medium" data-i18n="dashboard.inventory.modals.subtitle">Complete product details below</p>
+                        <p class="text-gray-500 mt-2 text-sm font-medium"
+                            data-i18n="dashboard.inventory.modals.subtitle">Complete product details below</p>
                     </div>
                     <button id="closeModalBtn"
                         class="group bg-gray-50 text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all p-2 rounded-2xl border border-transparent hover:border-red-100">
@@ -368,7 +369,8 @@
                                 <span data-i18n="dashboard.inventory.modals.fields.unit">Measurement Unit</span>
                             </label>
                             <input type="text" id="itemUnit"
-                                data-i18n-placeholder="dashboard.inventory.modals.fields.unit-placeholder" placeholder="Unit"
+                                data-i18n-placeholder="dashboard.inventory.modals.fields.unit-placeholder"
+                                placeholder="Unit"
                                 class="w-full px-5 py-4 bg-gray-50/50 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition-all text-sm font-bold text-gray-600 uppercase placeholder:text-gray-300">
                         </div>
 
@@ -487,7 +489,7 @@
     </dialog>
 
     <script>
-        // Sidebar toggle (redundant but good for isolated testing)
+        // Sidebar toggle
         const menuBtn = document.getElementById('menu-btn');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
@@ -501,6 +503,15 @@
             sidebar?.classList.add('-translate-x-full');
             overlay?.classList.add('hidden');
         });
+
+        // Logo redirection
+        const logo = document.querySelector('.logo');
+        if (logo) {
+            logo.style.cursor = 'pointer';
+            logo.addEventListener('click', () => {
+                window.location.href = '../index.html';
+            });
+        }
     </script>
 </body>
 
