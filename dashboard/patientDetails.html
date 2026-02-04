@@ -35,7 +35,8 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
-    <h1 class="font-semibold text-lg">Patient Details</h1>
+    <h1 class="font-semibold text-lg"
+    data-i18n="dashboard.patientDetails.title">Patient Details</h1>
   </header>
 
   <!-- Contenedor principal -->
@@ -111,7 +112,7 @@
     <main class="flex-1 md:ml-64 p-6">
       <div class="flex justify-between items-center mb-8">
         <h1 class="text-2xl font-semibold">Dashboard</h1>
-        <div class="relative">
+        <!-- <div class="relative">
           <input type="text" placeholder="Search..."
             class="border border-gray-300 rounded-lg pl-8 pr-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none w-48 md:w-80">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 absolute left-2 top-2.5 text-gray-500" fill="none"
@@ -119,7 +120,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
           </svg>
-        </div>
+        </div> -->
       </div>
 
 
@@ -131,23 +132,24 @@
 
         <p id="patientNotes"></p>
 
-        <p class="patientEmail"><strong>Patient Email:</strong></p>
+        <p class="patientEmail"
+        data-i18n-html="dashboard.patientDetails.emailLabel"><strong>Patient Email:</strong></p>
         <p id="patientEmail"></p>
         <hr>
 
-        <p class="patientPhone"><strong>Patient Phone:</strong></p>
+        <p class="patientPhone" data-i18n-html="dashboard.patientDetails.phoneLabel"><strong>Patient Phone:</strong></p>
         <p id="patientPhone"></p>
         <hr>
 
-        <p class="patientAge"><strong>Patient Age:</strong></p>
+        <p class="patientAge" data-i18n-html="dashboard.patientDetails.ageLabel"><strong>Patient Age:</strong></p>
         <p id="patientAge"></p>
         <hr>
 
-        <p class="patientBirthday"><strong>Patient Birthday:</strong></p>
+        <p class="patientBirthday" data-i18n-html="dashboard.patientDetails.birthdayLabel"><strong>Patient Birthday:</strong></p>
         <p id="patientBirthday"></p>
         <hr>
 
-        <p class="patientGender"><strong>Patient Gender:</strong></p>
+        <p class="patientGender" data-i18n-html="dashboard.patientDetails.genderLabel"><strong>Patient Gender:</strong></p>
         <p id="patientGender"></p>
         <hr>
         <div id="patientCustomFields"></div>
@@ -219,7 +221,8 @@
 
         <!-- Tooltip -->
         <span
-          class="absolute right-16 bottom-1/2 translate-y-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+          class="absolute right-16 bottom-1/2 translate-y-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
+          data-i18n="dashboard.patientDetails.tooltips.update">
           Update Patient
         </span>
       </div>
@@ -237,7 +240,8 @@
 
         <!-- Tooltip -->
         <span
-          class="absolute right-16 bottom-1/2 translate-y-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+          class="absolute right-16 bottom-1/2 translate-y-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
+          data-i18n="dashboard.patientDetails.tooltips.delete">
           Delete Patient
         </span>
       </div>

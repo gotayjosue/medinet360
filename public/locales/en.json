@@ -272,6 +272,18 @@
                 }
             }
         },
+        "patientDetails": {
+            "title": "Detalles del Paciente",
+            "emailLabel": "<strong>Correo Electrónico:</strong>",
+            "phoneLabel": "<strong>Teléfono:</strong>",
+            "ageLabel": "<strong>Edad:</strong>",
+            "birthdayLabel": "<strong>Fecha de Nacimiento:</strong>",
+            "genderLabel": "<strong>Género:</strong>",
+            "tooltips": {
+                "update": "Actualizar Paciente",
+                "delete": "Eliminar Paciente"
+            }
+        },
         "appointments": {
             "title": "Appointments",
             "addAppointment": "Add Appointment",
