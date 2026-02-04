@@ -239,7 +239,37 @@
                     "invalid_birthday": "Fecha de nacimiento debe estar en formato YYYY-MM-DD (ej., 1998-11-17)",
                     "not_found": "Paciente no encontrado"
                 }
+            },
+            "modals": {
+                "deletePatient": {
+                    "title": "Eliminar Paciente",
+                    "subtitle": "Esta acción no se puede deshacer",
+                    "message": "¿Estás seguro de que quieres eliminar este paciente?",
+                    "cancelBtn": "Cancelar",
+                    "deleteBtn": "Eliminar"
+                },
+                "addPatient": {
+                "title": "Agregar Paciente",
+                "updatePatientTitle": "Actualizar Paciente",
+                "name": "Nombre <span class='text-red-500'>*</span>",
+                "lastName": "Apellido <span class='text-red-500'>*</span>",
+                "birthDay": "Fecha de Nacimiento <span class='text-red-500'>*</span>",
+                "gender": "Género <span class='text-red-500'>*</span>",
+                "email": "Correo Electrónico (Opcional)",
+                "phone": "Teléfono <span class='text-red-500'>*</span>",
+                "notes": "Notas (Opcional)",
+                "notesPlaceholder": "Agrega notas adicionales sobre el paciente...",
+                "addPatientBtn": "Crear Paciente",
+                "cancelBtn": "Cancelar",
+                "customFieldsBtn": "+ Agregar Campos Personalizados",
+                "updatePatientBtn": "Actualizar Paciente",
+                "genderSelect": {
+                    "selectGender": "Selecciona un Género",
+                    "male": "Masculino",
+                    "female": "Femenino"
+                }
             }
+        }
         },
         "appointments": {
             "title": "Citas",
@@ -371,6 +401,13 @@
                 "clickOnAnAppointment": "Haz clic en una cita para ver los detalles y editarla"
             },
             "modals": {
+                "deleteAppointmentModal": {
+                    "title": "Eliminar Cita",
+                    "subtitle": "Esta acción no se puede deshacer",
+                    "message": "¿Estás seguro de que deseas eliminar esta cita?",
+                    "cancelBtn": "Cancelar",
+                    "deleteBtn": "Eliminar"
+                },
                 "newAppointment": "Nueva Cita",
                 "editAppointment": "Editar Cita",
                 "deleteAppointment": "Eliminar Cita",
@@ -451,6 +488,7 @@
             },
             "messages": {
                 "errors": {
+                    "no_permission": "No tienes permiso para gestionar el inventario",
                     "no_name": "El nombre es obligatorio",
                     "invalid_quantity": "La cantidad debe ser un número",
                     "invalid_minStock": "El stock mínimo debe ser un número",
@@ -463,27 +501,6 @@
                     "item_updated": "Item actualizado",
                     "item_deleted": "Item eliminado"
                 }
-            }
-        }
-    },
-    "modals": {
-        "addPatient": {
-            "title": "Agregar Paciente",
-            "name": "Nombre <span class='text-red-500'>*</span>",
-            "lastName": "Apellido <span class='text-red-500'>*</span>",
-            "birthDay": "Fecha de Nacimiento <span class='text-red-500'>*</span>",
-            "gender": "Género <span class='text-red-500'>*</span>",
-            "email": "Correo Electrónico (Opcional)",
-            "phone": "Teléfono <span class='text-red-500'>*</span>",
-            "notes": "Notas (Opcional)",
-            "notesPlaceholder": "Agrega notas adicionales sobre el paciente...",
-            "addPatientBtn": "Crear Paciente",
-            "cancelBtn": "Cancelar",
-            "customFieldsBtn": "+ Agregar Campos Personalizados",
-            "genderSelect": {
-                "selectGender": "Selecciona un Género",
-                "male": "Masculino",
-                "female": "Femenino"
             }
         }
     },

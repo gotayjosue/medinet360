@@ -89,7 +89,7 @@ async function fetchInventory() {
     }
 
     if (response.status === 403) {
-      showToast(i18n.t('dashboard.patients.messages.errors.no_permission'), 'error');
+      showToast(i18n.t('dashboard.inventory.messages.errors.no_permission'), 'error');
       return;
     }
 

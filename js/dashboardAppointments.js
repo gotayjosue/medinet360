@@ -170,11 +170,11 @@ appointmentForm.addEventListener('submit', async (e) => {
     });
 
     if (conflictingApt) {
-      const name = `${conflictingApt.patientId?.name || 'Paciente'} ${conflictingApt.patientId?.lastName || ''}`;
+      const name = `${conflictingApt.patientId?.name || i18n.t('dashboard.appointments.details.unknown_patient')} ${conflictingApt.patientId?.lastName || ''}`;
       const msg = `
-        ⚠️ ${i18n.t('dashboard.appointments.messages.appointmentConflict.title')}<br>
-        <strong>${i18n.t('dashboard.appointments.messages.appointmentConflict.patient')}:</strong> ${name}<br>
-        <strong>${i18n.t('dashboard.appointments.messages.appointmentConflict.hour')}:</strong> ${conflictingApt.hour} (${conflictingApt.duration} min)
+        ⚠️ ${i18n.t('dashboard.appointments.appointmentConflict.title')}<br>
+        <strong>${i18n.t('dashboard.appointments.appointmentConflict.patient')}:</strong> ${name}<br>
+        <strong>${i18n.t('dashboard.appointments.appointmentConflict.hour')}:</strong> ${conflictingApt.hour} (${conflictingApt.duration} min)
       `;
 
       showToast(msg, 'error');

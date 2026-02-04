@@ -12,9 +12,9 @@ import {
 const logo = document.querySelector('.logo');
 
 logo.style.cursor = 'pointer'
-  logo.addEventListener('click', () => {
-    window.location.href = '../index.html'
-  });
+logo.addEventListener('click', () => {
+  window.location.href = '../index.html'
+});
 
 let currentPatientId = null; // Guardar el ID del paciente actual
 
@@ -331,84 +331,87 @@ updatePatientForm.addEventListener('submit', async (e) => {
 });
 
 // Función para eliminar paciente
+deleteButton.addEventListener('click', () => {
+  // Crear modal de confirmación si no existe
+  let confirmModal = document.getElementById('confirmDeleteModal');
 
-// Crear modal de confirmación
-const confirmModal = document.createElement('dialog');
-confirmModal.className = 'rounded-lg shadow-2xl max-w-md w-full backdrop:bg-black backdrop:bg-opacity-50';
-confirmModal.id = 'confirmDeleteModal';
-confirmModal.innerHTML = `
-<div class="bg-white p-6 rounded-lg">
-  <div class="flex items-center gap-4 mb-4">
-    <div class="bg-red-100 p-3 rounded-full">
-      <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-      </svg>
+  if (!confirmModal) {
+    confirmModal = document.createElement('dialog');
+    confirmModal.className = 'rounded-lg shadow-2xl max-w-md w-full backdrop:bg-black backdrop:bg-opacity-50';
+    confirmModal.id = 'confirmDeleteModal';
+    confirmModal.innerHTML = `
+    <div class="bg-white p-6 rounded-lg">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="bg-red-100 p-3 rounded-full">
+          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900">${i18n.t('dashboard.patients.modals.deletePatient.title')}</h3>
+          <p class="text-sm text-gray-600">${i18n.t('dashboard.patients.modals.deletePatient.subtitle')}</p>
+        </div>
+      </div>
+      <p class="text-gray-700 mb-6">${i18n.t('dashboard.patients.modals.deletePatient.message')}</p>
+      <div class="flex gap-3">
+        <button id="cancelDelete" class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+          ${i18n.t('dashboard.patients.modals.deletePatient.cancelBtn')}
+        </button>
+        <button id="confirmDelete" class="flex-1 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition">
+          ${i18n.t('dashboard.patients.modals.deletePatient.deleteBtn')}
+        </button>
+      </div>
     </div>
-    <div>
-      <h3 class="text-lg font-semibold text-gray-900">Eliminar Paciente</h3>
-      <p class="text-sm text-gray-600">Esta acción no se puede deshacer</p>
-    </div>
-  </div>
-  <p class="text-gray-700 mb-6">¿Estás seguro de que deseas eliminar este paciente?</p>
-  <div class="flex gap-3">
-    <button id="cancelDelete" class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
-      Cancelar
-    </button>
-    <button id="confirmDelete" class="flex-1 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition">
-      Eliminar
-    </button>
-  </div>
-</div>
-`;
+    `;
 
-document.body.appendChild(confirmModal);
+    document.body.appendChild(confirmModal);
 
-const cancelDeleteBtn = confirmModal.querySelector('#cancelDelete');
-const confirmDeleteBtn = confirmModal.querySelector('#confirmDelete');
+    const cancelDeleteBtn = confirmModal.querySelector('#cancelDelete');
+    const confirmDeleteBtn = confirmModal.querySelector('#confirmDelete');
 
-if (cancelDeleteBtn) {
-  cancelDeleteBtn.addEventListener('click', () => {
-    confirmModal.close();
-  });
-}
-
-if (confirmDeleteBtn) {
-  confirmDeleteBtn.addEventListener('click', async () => {
-    confirmModal.close();
-
-    const token = localStorage.getItem('authToken');
-    if (!token || !currentPatientId) {
-      showToast('Authentication required', 'error');
-      return;
+    if (cancelDeleteBtn) {
+      cancelDeleteBtn.addEventListener('click', () => {
+        confirmModal.close();
+      });
     }
 
-    try {
-      const response = await fetch(`https://medinet360-api.onrender.com/api/patients/${currentPatientId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
+    if (confirmDeleteBtn) {
+      confirmDeleteBtn.addEventListener('click', async () => {
+        confirmModal.close();
+
+        const token = localStorage.getItem('authToken');
+        if (!token || !currentPatientId) {
+          showToast('Authentication required', 'error');
+          return;
+        }
+
+        try {
+          const response = await fetch(`https://medinet360-api.onrender.com/api/patients/${currentPatientId}`, {
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.error || data.message || 'Failed to delete patient');
+          }
+
+          showToast(i18n.t('dashboard.patients.messages.success.patientDeleted', 'Patient deleted successfully!'), 'success');
+          // Redirigir a la lista de pacientes después de 1 segundo
+          setTimeout(() => {
+            window.location.href = 'patients.html';
+          }, 1000);
+
+        } catch (error) {
+          console.error('Error deleting patient:', error);
+          showToast(i18n.t(error.message) || 'Error deleting patient', 'error');
         }
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || data.message || 'Failed to delete patient');
-      }
-
-      showToast(i18n.t('dashboard.patients.messages.success.patientDeleted', 'Patient deleted successfully!'), 'success');
-      // Redirigir a la lista de pacientes después de 1 segundo
-      setTimeout(() => {
-        window.location.href = 'patients.html';
-      }, 1000);
-
-    } catch (error) {
-      console.error('Error deleting patient:', error);
-      showToast(i18n.t(error.message) || 'Error deleting patient', 'error');
     }
-  });
-}
+  }
 
-deleteButton.addEventListener('click', () => {
   confirmModal.showModal();
 });

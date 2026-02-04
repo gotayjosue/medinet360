@@ -240,6 +240,36 @@
                     "invalid_birthday": "Birthday must be in YYYY-MM-DD format (e.g., 1998-11-17)",
                     "not_found": "Patient not found"
                 }
+            },
+            "modals": {
+                "deletePatient": {
+                    "title": "Delete Patient",
+                    "subtitle": "This action cannot be undone",
+                    "message": "Are you sure you want to delete this patient?",
+                    "cancelBtn": "Cancel",
+                    "deleteBtn": "Delete"
+                },
+                "addPatient": {
+                    "title": "Add Patient",
+                    "updatePatientTitle": "Update Patient",
+                    "name": "Name <span class='text-red-500'>*</span>",
+                    "lastName": "Last Name <span class='text-red-500'>*</span>",
+                    "birthDay": "Birthday <span class='text-red-500'>*</span>",
+                    "gender": "Gender <span class='text-red-500'>*</span>",
+                    "email": "Email (Optional)",
+                    "phone": "Phone <span class='text-red-500'>*</span>",
+                    "notes": "Notes (Optional)",
+                    "notesPlaceholder": "Add additional notes about the patient...",
+                    "addPatientBtn": "Create Patient",
+                    "cancelBtn": "Cancel",
+                    "customFieldsBtn": "+ Add Custom Fields",
+                    "updatePatientBtn": "Update Patient",
+                    "genderSelect": {
+                        "selectGender": "Select a Gender",
+                        "male": "Male",
+                        "female": "Female"
+                    }
+                }
             }
         },
         "appointments": {
@@ -372,6 +402,13 @@
                 "clickOnAnAppointment": "Click on an appointment to view details and edit it"
             },
             "modals": {
+                "deleteAppointmentModal": {
+                    "title": "Delete Appointment",
+                    "subtitle": "This action cannot be undone",
+                    "message": "Are you sure you want to delete this appointment?",
+                    "cancelBtn": "Cancel",
+                    "deleteBtn": "Delete"
+                },
                 "newAppointment": "New Appointment",
                 "editAppointment": "Edit Appointment",
                 "deleteAppointment": "Delete Appointment",
@@ -452,6 +489,7 @@
             },
             "messages": {
                 "errors": {
+                    "no_permission": "You don't have permission to manage inventory",
                     "no_name": "Name is required",
                     "invalid_quantity": "Quantity must be a number",
                     "invalid_minStock": "Min Stock must be a number",
@@ -464,27 +502,6 @@
                     "item_updated": "Item updated",
                     "item_deleted": "Item deleted"
                 }
-            }
-        }
-    },
-    "modals": {
-        "addPatient": {
-            "title": "Add Patient",
-            "name": "Name <span class='text-red-500'>*</span>",
-            "lastName": "Last Name <span class='text-red-500'>*</span>",
-            "birthDay": "Birthday <span class='text-red-500'>*</span>",
-            "gender": "Gender <span class='text-red-500'>*</span>",
-            "email": "Email (Optional)",
-            "phone": "Phone <span class='text-red-500'>*</span>",
-            "notes": "Notes (Optional)",
-            "notesPlaceholder": "Add additional notes about the patient...",
-            "addPatientBtn": "Create Patient",
-            "cancelBtn": "Cancel",
-            "customFieldsBtn": "+ Add Custom Fields",
-            "genderSelect": {
-                "selectGender": "Select a Gender",
-                "male": "Male",
-                "female": "Female"
             }
         }
     },

@@ -58,45 +58,53 @@ export async function editAppointment(id) {
 
 // Función para eliminar con confirmación bonita
 export async function deleteAppointment(id) {
-  // Crear modal de confirmación
-  const confirmModal = document.createElement('dialog');
-  confirmModal.className = 'rounded-lg shadow-2xl max-w-md w-full backdrop:bg-black backdrop:bg-opacity-50';
-  confirmModal.id = 'confirmDeleteModal';
-  confirmModal.innerHTML = `
-    <div class="bg-white p-6 rounded-lg">
-      <div class="flex items-center gap-4 mb-4">
-        <div class="bg-red-100 p-3 rounded-full">
-          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-          </svg>
+  // Buscar modal existente o crear uno nuevo
+  let confirmModal = document.getElementById('confirmDeleteModal');
+
+  if (!confirmModal) {
+    confirmModal = document.createElement('dialog');
+    confirmModal.className = 'rounded-lg shadow-2xl max-w-md w-full backdrop:bg-black backdrop:bg-opacity-50';
+    confirmModal.id = 'confirmDeleteModal';
+    confirmModal.innerHTML = `
+      <div class="bg-white p-6 rounded-lg">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="bg-red-100 p-3 rounded-full">
+            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">${i18n.t('dashboard.appointments.modals.deleteAppointmentModal.title')}</h3>
+            <p class="text-sm text-gray-600">${i18n.t('dashboard.appointments.modals.deleteAppointmentModal.subtitle')}</p>
+          </div>
         </div>
-        <div>
-          <h3 class="text-lg font-semibold text-gray-900">Eliminar Cita</h3>
-          <p class="text-sm text-gray-600">Esta acción no se puede deshacer</p>
+        <p class="text-gray-700 mb-6">${i18n.t('dashboard.appointments.modals.deleteAppointmentModal.message')}</p>
+        <div class="flex gap-3">
+          <button id="cancelDelete" class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+            ${i18n.t('dashboard.appointments.modals.deleteAppointmentModal.cancelBtn')}
+          </button>
+          <button id="confirmDelete" class="flex-1 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition">
+            ${i18n.t('dashboard.appointments.modals.deleteAppointmentModal.deleteBtn')}
+          </button>
         </div>
       </div>
-      <p class="text-gray-700 mb-6">¿Estás seguro de que deseas eliminar esta cita?</p>
-      <div class="flex gap-3">
-        <button id="cancelDelete" class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
-          Cancelar
-        </button>
-        <button id="confirmDelete" class="flex-1 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition">
-          Eliminar
-        </button>
-      </div>
-    </div>
-  `;
+    `;
 
-  document.body.appendChild(confirmModal);
-  confirmModal.showModal();
+    document.body.appendChild(confirmModal);
 
-  // Event listeners
-  document.getElementById('cancelDelete').addEventListener('click', () => {
-    confirmModal.close();
-    confirmModal.remove();
-  });
+    // Event listeners solo se añaden una vez si el modal se reutiliza o se limpia
+    confirmModal.querySelector('#cancelDelete').addEventListener('click', () => {
+      confirmModal.close();
+    });
+  }
 
-  document.getElementById('confirmDelete').addEventListener('click', async () => {
+  // Actualizar el evento del botón de confirmación para usar el ID actual
+  const confirmBtn = confirmModal.querySelector('#confirmDelete');
+  // Limpiar eventos anteriores (opcional, o simplemente usar una referencia variable)
+  const newConfirmBtn = confirmBtn.cloneNode(true);
+  confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+
+  newConfirmBtn.addEventListener('click', async () => {
     const token = localStorage.getItem('authToken');
     try {
       const res = await fetch(`https://medinet360-api.onrender.com/api/appointments/${id}`, {
@@ -107,11 +115,9 @@ export async function deleteAppointment(id) {
       });
 
       if (res.ok) {
-        showToast(i18n.t('dashboard.appointments.messages.appointmentDeleted'), 'success');
+        showToast(i18n.t('dashboard.appointments.messages.success.appointmentDeleted', 'Appointment deleted successfully!'), 'success');
         confirmModal.close();
-        confirmModal.remove();
         await sleep(1200);
-        // Recargar citas
         window.location.reload();
       } else {
         throw new Error('Error al eliminar');
@@ -121,6 +127,8 @@ export async function deleteAppointment(id) {
       showToast('Error al eliminar la cita', 'error');
     }
   });
+
+  confirmModal.showModal();
 }
 
 // ============================================
@@ -169,10 +177,15 @@ export async function viewAppointmentDetailsModal(id) {
       return labels[status] || status;
     };
 
-    // Crear modal de detalles
-    const detailsModal = document.createElement('dialog');
-    detailsModal.id = 'appointmentDetailsModal';
-    detailsModal.className = 'rounded-lg shadow-2xl max-w-2xl w-full backdrop:bg-black backdrop:bg-opacity-50';
+    // Crear o reutilizar modal de detalles
+    let detailsModal = document.getElementById('appointmentDetailsModal');
+    if (!detailsModal) {
+      detailsModal = document.createElement('dialog');
+      detailsModal.id = 'appointmentDetailsModal';
+      detailsModal.className = 'rounded-lg shadow-2xl max-w-2xl w-full backdrop:bg-black backdrop:bg-opacity-50';
+      document.body.appendChild(detailsModal);
+    }
+
     detailsModal.innerHTML = `
       <div class="bg-white p-8 rounded-lg">
         <div class="flex justify-between items-center mb-6">
@@ -205,7 +218,7 @@ export async function viewAppointmentDetailsModal(id) {
 
             <div class="bg-gray-50 p-4 rounded-lg">
               <p class="text-sm text-gray-600 mb-1">${i18n.t('dashboard.appointments.details.duration')}</p>
-              <p class="text-lg font-semibold text-gray-900">${apt.duration} minutos</p>
+              <p class="text-lg font-semibold text-gray-900">${apt.duration} ${i18n.t('dashboard.appointments.details.minutes', 'minutos')}</p>
             </div>
 
             <div class="bg-gray-50 p-4 rounded-lg">
@@ -224,10 +237,10 @@ export async function viewAppointmentDetailsModal(id) {
           </div>
 
           <div class="flex gap-3 pt-4 border-t">
-            <button onclick="closeAppointmentDetailsModal()" class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+            <button id="closeDetailsBtn" class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
               ${i18n.t('dashboard.appointments.details.buttons.close')}
             </button>
-            <button onclick="editAppointment('${apt._id}'); closeAppointmentDetailsModal();" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+            <button id="editDetailsBtn" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
               ${i18n.t('dashboard.appointments.details.buttons.edit')}
             </button>
           </div>
@@ -235,13 +248,18 @@ export async function viewAppointmentDetailsModal(id) {
       </div>
     `;
 
-    document.body.appendChild(detailsModal);
     detailsModal.showModal();
 
     // Event listeners
-    document.getElementById('closeDetailsModal').addEventListener('click', () => {
+    detailsModal.querySelector('#closeDetailsModal').addEventListener('click', () => {
       detailsModal.close();
-      detailsModal.remove();
+    });
+    detailsModal.querySelector('#closeDetailsBtn').addEventListener('click', () => {
+      detailsModal.close();
+    });
+    detailsModal.querySelector('#editDetailsBtn').addEventListener('click', () => {
+      detailsModal.close();
+      editAppointment(apt._id);
     });
 
   } catch (err) {
@@ -286,22 +304,27 @@ function showDayAppointments(dateStr, appointments) {
 
   const getStatusLabel = (status) => {
     const labels = {
-      scheduled: 'Agendada',
-      pending: 'Pendiente',
-      completed: 'Completada',
-      canceled: 'Cancelada'
+      scheduled: i18n.t('dashboard.appointments.status.scheduled'),
+      pending: i18n.t('dashboard.appointments.status.pending'),
+      completed: i18n.t('dashboard.appointments.status.completed'),
+      canceled: i18n.t('dashboard.appointments.status.canceled')
     };
     return labels[status] || status;
   };
 
-  // Crear modal con lista de citas
-  const dayModal = document.createElement('dialog');
-  dayModal.id = 'dayAppointmentsModal';
-  dayModal.className = 'rounded-lg shadow-2xl max-w-3xl w-full backdrop:bg-black backdrop:bg-opacity-50';
+  // Crear o reutilizar modal con lista de citas
+  let dayModal = document.getElementById('dayAppointmentsModal');
+  if (!dayModal) {
+    dayModal = document.createElement('dialog');
+    dayModal.id = 'dayAppointmentsModal';
+    dayModal.className = 'rounded-lg shadow-2xl max-w-3xl w-full backdrop:bg-black backdrop:bg-opacity-50';
+    document.body.appendChild(dayModal);
+  }
+
   dayModal.innerHTML = `
     <div class="bg-white p-8 rounded-lg max-h-[80vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-900">Citas del ${formatDate(dateStr)}</h2>
+        <h2 class="text-2xl font-bold text-gray-900">${i18n.t('dashboard.appointments.messages.success.appointments_for_day', 'Citas del')} ${formatDate(dateStr)}</h2>
         <button id="closeDayModal" class="text-gray-500 hover:text-gray-700">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -315,20 +338,20 @@ function showDayAppointments(dateStr, appointments) {
             <div class="flex justify-between items-start mb-2">
               <div>
                 <h3 class="text-lg font-semibold text-gray-900">
-                  ${apt.patientId?.name || 'Paciente'} ${apt.patientId?.lastName || ''}
+                  ${apt.patientId?.name || i18n.t('dashboard.appointments.details.unknown_patient', 'Paciente')} ${apt.patientId?.lastName || ''}
                 </h3>
-                <p class="text-sm text-gray-600">Hora: ${apt.hour}</p>
+                <p class="text-sm text-gray-600">${i18n.t('dashboard.appointments.details.time')}: ${apt.hour}</p>
               </div>
               <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getStatusBadge(apt.status)}">
                 ${getStatusLabel(apt.status)}
               </span>
             </div>
             <div class="flex gap-2 mt-3">
-              <button onclick="viewAppointmentDetailsModal('${apt._id}')" class="text-sm bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">
-                Ver Detalles
+              <button data-id="${apt._id}" class="view-btn text-sm bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">
+                ${i18n.t('dashboard.appointments.actionButtons.details', 'Ver Detalles')}
               </button>
-              <button onclick="editAppointment('${apt._id}'); closeDayAppointmentsModal();" class="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
-                Editar
+              <button data-id="${apt._id}" class="edit-btn text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
+                ${i18n.t('dashboard.appointments.actionButtons.edit', 'Editar')}
               </button>
             </div>
           </div>
@@ -336,19 +359,34 @@ function showDayAppointments(dateStr, appointments) {
       </div>
 
       <div class="mt-6 pt-4 border-t">
-        <button onclick="closeDayAppointmentsModal()" class="w-full bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
-          Cerrar
+        <button id="closeDayBtn" class="w-full bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+          ${i18n.t('dashboard.appointments.details.buttons.close', 'Cerrar')}
         </button>
       </div>
     </div>
   `;
 
-  document.body.appendChild(dayModal);
   dayModal.showModal();
 
-  document.getElementById('closeDayModal').addEventListener('click', () => {
+  // Event listeners
+  dayModal.querySelector('#closeDayModal').addEventListener('click', () => {
     dayModal.close();
-    dayModal.remove();
+  });
+  dayModal.querySelector('#closeDayBtn').addEventListener('click', () => {
+    dayModal.close();
+  });
+
+  dayModal.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      viewAppointmentDetailsModal(btn.dataset.id);
+    });
+  });
+
+  dayModal.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      dayModal.close();
+      editAppointment(btn.dataset.id);
+    });
   });
 }
 
