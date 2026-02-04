@@ -273,15 +273,15 @@
             }
         },
         "patientDetails": {
-            "title": "Detalles del Paciente",
-            "emailLabel": "<strong>Correo Electrónico:</strong>",
-            "phoneLabel": "<strong>Teléfono:</strong>",
-            "ageLabel": "<strong>Edad:</strong>",
-            "birthdayLabel": "<strong>Fecha de Nacimiento:</strong>",
-            "genderLabel": "<strong>Género:</strong>",
+            "title": "Patient Details",
+            "emailLabel": "<strong>Email:</strong>",
+            "phoneLabel": "<strong>Phone:</strong>",
+            "ageLabel": "<strong>Age:</strong>",
+            "birthdayLabel": "<strong>Birthday:</strong>",
+            "genderLabel": "<strong>Gender:</strong>",
             "tooltips": {
-                "update": "Actualizar Paciente",
-                "delete": "Eliminar Paciente"
+                "update": "Update Patient",
+                "delete": "Delete Patient"
             }
         },
         "appointments": {
