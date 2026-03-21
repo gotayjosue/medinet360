@@ -723,6 +723,13 @@ function renderApprovedAssistants(assistants) {
                 </label>
               </div>
 
+              <div class="permission-item">
+                <label>
+                  <input type="checkbox" name="permissions" value="manageInventory" class="permission-checkbox">
+                  <span>Administrar Inventario</span>
+                </label>
+              </div>
+
             </div>
 
             <div class="flex justify-end pt-2">
