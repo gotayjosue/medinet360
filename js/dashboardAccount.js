@@ -72,7 +72,27 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       const tabId = btn.getAttribute('data-tab');
       switchTab(tabId);
+      window.history.pushState(null, '', `#${tabId}`);
     });
+  });
+
+  const initialHash = window.location.hash.substring(1);
+  const validTabs = Array.from(tabButtons).map(b => b.getAttribute('data-tab'));
+  
+  if (initialHash && validTabs.includes(initialHash)) {
+    switchTab(initialHash);
+  } else {
+    // Establecer info por defecto si no hay hash o es inválido
+    switchTab('info');
+    window.history.replaceState(null, '', '#info');
+  }
+
+  // Sincronizar el contenido si el usuario usa los botones atrás/adelante del navegador
+  window.addEventListener('popstate', () => {
+    const currentHash = window.location.hash.substring(1);
+    if (currentHash && validTabs.includes(currentHash)) {
+      switchTab(currentHash);
+    }
   });
 
   // Logout Functionality
