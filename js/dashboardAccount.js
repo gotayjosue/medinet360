@@ -142,6 +142,16 @@ async function loadUserData() {
     if (clinicAddressDisplay) clinicAddressDisplay.value = clinic.address || "";
     if (clinicPhoneDisplay) clinicPhoneDisplay.value = clinic.phone || "";
 
+    if (clinic.logoLink) {
+      const preview = document.getElementById("clinicLogoPreview");
+      const placeholder = document.getElementById("noLogoPlaceholder");
+      if (preview && placeholder) {
+        preview.src = clinic.logoLink;
+        preview.classList.remove("hidden");
+        placeholder.classList.add("hidden");
+      }
+    }
+
     // Load Template Editor
     if (clinic.customFieldTemplate) {
       renderTemplateEditor(clinic.customFieldTemplate);
@@ -909,7 +919,6 @@ async function updateClinicInfo() {
   const name = document.getElementById("clinicNameDisplay").value.trim();
   const address = document.getElementById("clinicAddressDisplay").value.trim();
   const phone = document.getElementById("clinicPhoneDisplay").value.trim();
-  const logoLink = document.getElementById("clinicLogoDisplay").value.trim();
 
   if (!name) {
     showToast("El nombre de la clínica es obligatorio.", "error");
@@ -932,8 +941,7 @@ async function updateClinicInfo() {
       body: JSON.stringify({
         name,
         address,
-        phone,
-        logoLink
+        phone
       })
     });
 
@@ -1317,5 +1325,128 @@ async function handleManageSubscription() {
     btn.disabled = false;
     btn.innerHTML = originalHTML;
   }
+}
+
+// ==========================================
+// CLINIC LOGO UPLOAD & REMOVE
+// ==========================================
+const clinicLogoInput = document.getElementById('clinicLogoInput');
+const removeLogoBtn = document.getElementById('removeLogoBtn');
+
+if (clinicLogoInput) {
+    clinicLogoInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Validaciones: Máx 5MB
+        if (file.size > 5 * 1024 * 1024) {
+            showToast('El archivo no debe exceder los 5MB', 'error');
+            clinicLogoInput.value = '';
+            return;
+        }
+
+        const clinicId = saveClinicInfoBtn ? saveClinicInfoBtn.dataset.clinicId : null;
+        if (!clinicId) return;
+
+        const uploadText = document.getElementById('uploadingLogoText');
+        if (uploadText) uploadText.classList.remove('hidden');
+
+        const formData = new FormData();
+        formData.append('logo', file);
+
+        try {
+            const token = localStorage.getItem('authToken');
+            const response = await fetch(`https://medinet360-api.onrender.com/api/clinic/${clinicId}/logo`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            // Verificamos si la respuesta es JSON antes de parsear, para evitar el error "Unexpected token '<'"
+            let data = {};
+            const text = await response.text();
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                if (!response.ok) {
+                    throw new Error(`La ruta no se encontró o el servidor falló. ${response.status}`);
+                }
+            }
+
+            if (response.ok) {
+                showToast('Logo actualizado exitosamente', 'success');
+                if (data.logoLink) {
+                    const preview = document.getElementById('clinicLogoPreview');
+                    const placeholder = document.getElementById('noLogoPlaceholder');
+                    if (preview && placeholder) {
+                        preview.src = data.logoLink;
+                        preview.classList.remove('hidden');
+                        placeholder.classList.add('hidden');
+                    }
+                }
+            } else {
+                throw new Error(data.error || 'Error subiendo logo');
+            }
+        } catch (err) {
+            console.error('Error uploading logo:', err);
+            showToast(err.message, 'error');
+        } finally {
+            if (uploadText) uploadText.classList.add('hidden');
+            clinicLogoInput.value = ''; // Reset input
+        }
+    });
+}
+
+if (removeLogoBtn) {
+    removeLogoBtn.addEventListener('click', async () => {
+        const clinicId = saveClinicInfoBtn ? saveClinicInfoBtn.dataset.clinicId : null;
+        if (!clinicId) return;
+
+        if (!confirm('¿Estás seguro que deseas remover el logo de la clínica?')) return;
+
+        const removeBtnOriginalContent = removeLogoBtn.innerHTML;
+        removeLogoBtn.innerHTML = '<svg class="animate-spin h-3 w-3 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+        
+        try {
+            const token = localStorage.getItem('authToken');
+            const response = await fetch(`https://medinet360-api.onrender.com/api/clinic/${clinicId}/logo`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            let data = {};
+            const text = await response.text();
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                if (!response.ok) {
+                    throw new Error(`La ruta no se encontró o falló el servidor. ${response.status}`);
+                }
+            }
+
+            if (response.ok) {
+                showToast('Logo removido exitosamente', 'success');
+                const preview = document.getElementById('clinicLogoPreview');
+                const placeholder = document.getElementById('noLogoPlaceholder');
+                if (preview && placeholder) {
+                    preview.src = '';
+                    preview.classList.add('hidden');
+                    placeholder.classList.remove('hidden');
+                }
+            } else {
+                throw new Error(data.error || 'Error removiendo logo');
+            }
+        } catch (err) {
+            console.error('Error removing logo:', err);
+            showToast(err.message, 'error');
+        } finally {
+            removeLogoBtn.innerHTML = removeBtnOriginalContent;
+        }
+    });
 }
 
