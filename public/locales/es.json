@@ -451,7 +451,85 @@
             "profile": "Perfil",
             "subscription": "Suscripción",
             "settings": "Configuración",
-            "logout": "Cerrar Sesión"
+            "logout": "Cerrar Sesión",
+            "userProfile": "Perfil de Usuario",
+            "tabs": {
+                "info": "Información",
+                "requests": "Solicitudes",
+                "assistants": "Asistentes",
+                "clinic": "Clínica",
+                "subscription": "Suscripción"
+            },
+            "info": {
+                "nameLabel": "Nombre",
+                "lastNameLabel": "Apellido",
+                "emailLabel": "Email Address (Este es el correo que se usará para iniciar sesión)",
+                "saveBtn": "Guardar Cambios"
+            },
+            "requests": {
+                "loading": "Cargando solicitudes...",
+                "title": "Solicitudes de Asistentes",
+                "empty": "Aquí aparecerán las solicitudes pendientes de aprobación. Actualmente no tienes solicitudes nuevas."
+            },
+            "assistants": {
+                "title": "Mis Asistentes",
+                "description": "Gestiona a tu equipo de asistentes desde aquí. Agrega, edita o elimina accesos.",
+                "addBtn": "+ Agregar Asistente",
+                "permissionsTitle": "Permisos del Asistente",
+                "createPatient": "Crear Pacientes",
+                "editPatient": "Editar Pacientes",
+                "deletePatient": "Eliminar Pacientes",
+                "createAppointment": "Crear Citas",
+                "editAppointment": "Editar Citas",
+                "deleteAppointment": "Eliminar Citas",
+                "manageFiles": "Administrar Archivos",
+                "manageInventory": "Administrar Inventario",
+                "updatePermissionsBtn": "Actualizar Permisos",
+                "approveBtn": "Aprobar",
+                "rejectBtn": "Rechazar",
+                "approving": "Aprobando...",
+                "rejecting": "Rechazando...",
+                "countSingle": "Asistente",
+                "countPlural": "Asistentes"
+            },
+            "clinic": {
+                "title": "Información de la Clínica",
+                "saveBtn": "Guardar Cambios",
+                "nameLabel": "Nombre",
+                "namePlaceholder": "Nombre de la Clínica",
+                "addressLabel": "Dirección",
+                "addressPlaceholder": "Dirección",
+                "phoneLabel": "Teléfono",
+                "phonePlaceholder": "Teléfono",
+                "logoLabel": "Logo de la Clínica (Aparecerá en reportes)",
+                "uploadBtn": "Subir Logo",
+                "logoHint": "Formatos permitidos: PNG, JPG, SVG, GIF, WEBP. Máximo: 5MB.",
+                "uploading": "Subiendo logo..."
+            },
+            "template": {
+                "title": "Plantilla de Pacientes",
+                "description": "Define los campos personalizados que aparecerán al crear un nuevo paciente.",
+                "saveBtn": "Guardar Plantilla",
+                "addFieldBtn": "Agregar Nuevo Campo"
+            },
+            "subscription": {
+                "title": "Mi Suscripción",
+                "canceledTitle": "Suscripción Cancelada",
+                "canceledMessage": "Tu suscripción ha sido cancelada, pero mantienes acceso completo a las funcionalidades de tu plan hasta el <strong id='gracePeriodEndDate'></strong>. Después de esta fecha, tu plan se degradará automáticamente a Free.",
+                "currentPlanLabel": "Plan Actual",
+                "activeStatus": "Activo",
+                "featuresTitle": "Características de tu plan",
+                "featurePatients": "Hasta 5 pacientes",
+                "featureAppointments": "Gestión de citas",
+                "manageBtn": "Gestionar Suscripción",
+                "seePlansBtn": "Ver Planes"
+            },
+            "addAssistant": {
+                "title": "Agregar Asistente",
+                "description": "Copia este código y compártelo con tus asistentes para que puedan crear su cuenta.",
+                "codeLabel": "Código de Clínica",
+                "copyBtn": "Copiar Código"
+            }
         },
         "inventory": {
             "title": "Inventario",

@@ -33,7 +33,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
-    <h1 class="font-semibold text-lg">Account</h1>
+    <h1 class="font-semibold text-lg" data-i18n="dashboard.account.title">Account</h1>
   </header>
 
   <div class="flex min-h-screen">
@@ -112,7 +112,7 @@
 
         <!-- Left Menu (Inner Sidebar) -->
         <div class="w-full md:w-64 flex-shrink-0">
-          <h2 class="text-xl font-bold text-gray-800 mb-8">User Profile</h2>
+          <h2 class="text-xl font-bold text-gray-800 mb-8" data-i18n="dashboard.account.userProfile">User Profile</h2>
 
           <nav class="space-y-1">
             <!-- User Info Tab -->
@@ -124,7 +124,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
-                Información
+                <span data-i18n="dashboard.account.tabs.info">Información</span>
               </span>
               <span class="active-indicator w-1 h-5 bg-red-500 rounded-full"></span>
             </button>
@@ -138,7 +138,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                 </svg>
-                Solicitudes
+                <span data-i18n="dashboard.account.tabs.requests">Solicitudes</span>
               </span>
               <span class="active-indicator hidden w-1 h-5 bg-red-500 rounded-full"></span>
             </button>
@@ -152,7 +152,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
-                Asistentes
+                <span data-i18n="dashboard.account.tabs.assistants">Asistentes</span>
               </span>
               <span class="active-indicator hidden w-1 h-5 bg-red-500 rounded-full"></span>
             </button>
@@ -166,7 +166,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
-                Clínica
+                <span data-i18n="dashboard.account.tabs.clinic">Clínica</span>
               </span>
               <span class="active-indicator hidden w-1 h-5 bg-red-500 rounded-full"></span>
             </button>
@@ -180,7 +180,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                 </svg>
-                Suscripción
+                <span data-i18n="dashboard.account.tabs.subscription">Suscripción</span>
               </span>
               <span class="active-indicator hidden w-1 h-5 bg-red-500 rounded-full"></span>
             </button>
@@ -194,7 +194,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
-                Logout
+                <span data-i18n="dashboard.account.logout">Logout</span>
               </span>
             </button>
           </nav>
@@ -231,21 +231,21 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <!-- Name -->
                   <div class="space-y-2">
-                    <label class="text-sm font-medium text-gray-500 block">Name</label>
+                    <label class="text-sm font-medium text-gray-500 block" data-i18n="dashboard.account.info.nameLabel">Name</label>
                     <input id="name" type="text" value="..."
                       class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 font-medium text-gray-700">
                   </div>
 
                   <!-- Last Name -->
                   <div class="space-y-2">
-                    <label class="text-sm font-medium text-gray-500 block">Last Name</label>
+                    <label class="text-sm font-medium text-gray-500 block" data-i18n="dashboard.account.info.lastNameLabel">Last Name</label>
                     <input type="text" id="lastName" value="..."
                       class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 font-medium text-gray-700">
                   </div>
 
                   <!-- Email -->
                   <div class="space-y-2">
-                    <label class="text-sm font-medium text-gray-500 block">Email Address (Este es el correo que se usará
+                    <label class="text-sm font-medium text-gray-500 block" data-i18n="dashboard.account.info.emailLabel">Email Address (Este es el correo que se usará
                       para iniciar sesión)</label>
                     <input type="email" id="email" value="..."
                       class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 font-bold text-gray-800">
@@ -256,7 +256,7 @@
 
                 <div class="pt-6 flex justify-end">
                   <button type="submit"
-                    class="bg-orange-500 text-white px-8 py-3 rounded-xl font-medium shadow-lg shadow-orange-500/30 hover:bg-orange-600 hover:shadow-orange-500/50 transition transform hover:-translate-y-0.5">
+                    class="bg-orange-500 text-white px-8 py-3 rounded-xl font-medium shadow-lg shadow-orange-500/30 hover:bg-orange-600 hover:shadow-orange-500/50 transition transform hover:-translate-y-0.5" data-i18n="dashboard.account.info.saveBtn">
                     Save Changes
                   </button>
                 </div>
@@ -276,7 +276,7 @@
                     d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
               </div>
-              <p class="text-gray-500">Cargando solicitudes...</p>
+              <p class="text-gray-500" data-i18n="dashboard.account.requests.loading">Cargando solicitudes...</p>
             </div>
 
             <!-- Pending Assistants List Container -->
@@ -292,8 +292,8 @@
                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2">Solicitudes de Asistentes</h3>
-              <p class="text-gray-500 max-w-sm">
+              <h3 class="text-xl font-bold text-gray-800 mb-2" data-i18n="dashboard.account.requests.title">Solicitudes de Asistentes</h3>
+              <p class="text-gray-500 max-w-sm" data-i18n="dashboard.account.requests.empty">
                 Aquí aparecerán las solicitudes pendientes de aprobación. Actualmente no tienes solicitudes nuevas.
               </p>
             </div>
@@ -310,12 +310,12 @@
                     d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2">Mis Asistentes</h3>
-              <p class="text-gray-500 max-w-sm">
+              <h3 class="text-xl font-bold text-gray-800 mb-2" data-i18n="dashboard.account.assistants.title">Mis Asistentes</h3>
+              <p class="text-gray-500 max-w-sm" data-i18n="dashboard.account.assistants.description">
                 Gestiona a tu equipo de asistentes desde aquí. Agrega, edita o elimina accesos.
               </p>
               <button id="addAssistantBtn"
-                class="mt-6 px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                class="mt-6 px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" data-i18n="dashboard.account.assistants.addBtn">
                 + Agregar Asistente
               </button>
             </div>
@@ -327,9 +327,9 @@
             <!-- Clinic Info Card -->
             <div class="bg-white rounded-3xl p-8 shadow-sm">
               <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-3">
-                <h3 class="text-xl font-bold text-gray-800">Información de la Clínica</h3>
+                <h3 class="text-xl font-bold text-gray-800" data-i18n="dashboard.account.clinic.title">Información de la Clínica</h3>
                 <button id="saveClinicInfoBtn"
-                  class="bg-indigo-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-indigo-700 transition shadow-sm">
+                  class="bg-indigo-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-indigo-700 transition shadow-sm" data-i18n="dashboard.account.clinic.saveBtn">
                   Guardar Cambios
                 </button>
               </div>
@@ -337,27 +337,27 @@
               <div class="space-y-4 text-gray-600">
                 <div>
                   <label for="clinicNameDisplay"
-                    class="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Nombre</label>
+                    class="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-1" data-i18n="dashboard.account.clinic.nameLabel">Nombre</label>
                   <input type="text" id="clinicNameDisplay"
                     class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 font-medium text-gray-800"
-                    placeholder="Nombre de la Clínica">
+                    placeholder="Nombre de la Clínica" data-i18n-placeholder="dashboard.account.clinic.namePlaceholder">
                 </div>
                 <div>
                   <label for="clinicAddressDisplay"
-                    class="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Dirección</label>
+                    class="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-1" data-i18n="dashboard.account.clinic.addressLabel">Dirección</label>
                   <input type="text" id="clinicAddressDisplay"
                     class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 text-gray-800"
-                    placeholder="Dirección">
+                    placeholder="Dirección" data-i18n-placeholder="dashboard.account.clinic.addressPlaceholder">
                 </div>
                 <div>
                   <label for="clinicPhoneDisplay"
-                    class="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Teléfono</label>
+                    class="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-1" data-i18n="dashboard.account.clinic.phoneLabel">Teléfono</label>
                   <input type="tel" id="clinicPhoneDisplay"
                     class="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition bg-gray-50 text-gray-800"
-                    placeholder="Teléfono">
+                    placeholder="Teléfono" data-i18n-placeholder="dashboard.account.clinic.phonePlaceholder">
                 </div>
                 <div>
-                  <label class="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Logo de la Clínica (Aparecerá en reportes)</label>
+                  <label class="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-2" data-i18n="dashboard.account.clinic.logoLabel">Logo de la Clínica (Aparecerá en reportes)</label>
                   <div class="flex flex-col sm:flex-row sm:items-center gap-6 p-5 border border-gray-200 rounded-xl bg-gray-50">
                     <div id="logoPreviewContainer" class="w-24 h-24 rounded-xl bg-white border border-gray-200 shadow-sm flex items-center justify-center overflow-hidden shrink-0 relative group">
                         <img id="clinicLogoPreview" src="" alt="Clinic Logo" class="w-full h-full object-contain hidden" />
@@ -366,7 +366,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                         </div>
-                        <button id="removeLogoBtn" type="button" class="absolute top-1 right-1 bg-white border border-gray-100 rounded-full p-1 shadow-md hover:bg-red-50 hover:text-red-600 text-gray-500 transition hidden group-hover:block z-10" title="Remover Logo">
+                        <button id="removeLogoBtn" type="button" class="absolute top-1 right-1 bg-white border border-gray-100 rounded-full p-1 shadow-md hover:bg-red-50 hover:text-red-600 text-gray-500 transition hidden group-hover:block z-10" data-i18n-title="common.delete" title="Remover Logo">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
                     </div>
@@ -376,12 +376,12 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-hover:text-indigo-500 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                             </svg>
-                            Subir Logo
+                            <span data-i18n="dashboard.account.clinic.uploadBtn">Subir Logo</span>
                         </label>
-                        <p class="text-xs text-gray-500">Formatos permitidos: PNG, JPG, SVG, GIF, WEBP. Máximo: 5MB.</p>
+                        <p class="text-xs text-gray-500" data-i18n="dashboard.account.clinic.logoHint">Formatos permitidos: PNG, JPG, SVG, GIF, WEBP. Máximo: 5MB.</p>
                         <p id="uploadingLogoText" class="text-sm text-indigo-600 font-medium hidden mt-2 animate-pulse flex items-center gap-2">
                              <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                             Subiendo logo...
+                             <span data-i18n="dashboard.account.clinic.uploading">Subiendo logo...</span>
                         </p>
                     </div>
                   </div>
@@ -393,12 +393,12 @@
             <div class="bg-white rounded-3xl p-8 shadow-sm">
               <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-3">
                 <div>
-                  <h3 class="text-xl font-bold text-gray-800">Plantilla de Pacientes</h3>
-                  <p class="text-sm text-gray-500">Define los campos personalizados que aparecerán al crear un nuevo
+                  <h3 class="text-xl font-bold text-gray-800" data-i18n="dashboard.account.template.title">Plantilla de Pacientes</h3>
+                  <p class="text-sm text-gray-500" data-i18n="dashboard.account.template.description">Define los campos personalizados que aparecerán al crear un nuevo
                     paciente.</p>
                 </div>
                 <button id="saveTemplateBtn"
-                  class="bg-indigo-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-indigo-700 transition shadow-sm">
+                  class="bg-indigo-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-indigo-700 transition shadow-sm" data-i18n="dashboard.account.template.saveBtn">
                   Guardar Plantilla
                 </button>
               </div>
@@ -413,7 +413,7 @@
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
-                Agregar Nuevo Campo
+                <span data-i18n="dashboard.account.template.addFieldBtn">Agregar Nuevo Campo</span>
               </button>
             </div>
 
@@ -422,7 +422,7 @@
           <!-- SUSCRIPCIÓN TAB -->
           <div id="subscription" class="tab-content hidden animate-fade-in-up">
             <div class="bg-white rounded-3xl p-8 shadow-sm">
-              <h3 class="text-2xl font-bold text-gray-800 mb-6">Mi Suscripción</h3>
+              <h3 class="text-2xl font-bold text-gray-800 mb-6" data-i18n="dashboard.account.subscription.title">Mi Suscripción</h3>
 
               <!-- Grace Period Alert (Hidden by default) -->
               <div id="gracePeriodAlert"
@@ -436,8 +436,8 @@
                     </svg>
                   </div>
                   <div class="flex-1">
-                    <h4 class="text-lg font-bold text-orange-800 mb-1">Suscripción Cancelada</h4>
-                    <p id="gracePeriodMessage" class="text-orange-700 text-sm leading-relaxed">
+                    <h4 class="text-lg font-bold text-orange-800 mb-1" data-i18n="dashboard.account.subscription.canceledTitle">Suscripción Cancelada</h4>
+                    <p id="gracePeriodMessage" class="text-orange-700 text-sm leading-relaxed" data-i18n-html="dashboard.account.subscription.canceledMessage">
                       Tu suscripción ha sido cancelada, pero mantienes acceso completo a las funcionalidades de tu plan
                       hasta el <strong id="gracePeriodEndDate"></strong>. Después de esta fecha, tu plan se degradará
                       automáticamente a Free.
@@ -450,7 +450,7 @@
               <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 mb-6">
                 <div class="flex items-center justify-between mb-4">
                   <div>
-                    <p class="text-sm text-gray-600 mb-1">Plan Actual</p>
+                    <p class="text-sm text-gray-600 mb-1" data-i18n="dashboard.account.subscription.currentPlanLabel">Plan Actual</p>
                     <h4 id="currentPlan" class="text-3xl font-bold text-indigo-600">Free</h4>
                   </div>
                   <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md">
@@ -464,7 +464,7 @@
 
                 <div class="flex items-center gap-2">
                   <span id="subscriptionStatus"
-                    class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold uppercase">
+                    class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold uppercase" data-i18n="dashboard.account.subscription.activeStatus">
                     Activo
                   </span>
                   <span id="subscriptionEndDate" class="text-sm text-gray-600"></span>
@@ -473,20 +473,20 @@
 
               <!-- Features List -->
               <div id="planFeatures" class="mb-6">
-                <h5 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3">Características de tu plan
+                <h5 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3" data-i18n="dashboard.account.subscription.featuresTitle">Características de tu plan
                 </h5>
                 <ul class="space-y-2 text-gray-700">
                   <li class="flex items-center gap-2">
                     <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span>Hasta 5 pacientes</span>
+                    <span data-i18n="dashboard.account.subscription.featurePatients">Hasta 5 pacientes</span>
                   </li>
                   <li class="flex items-center gap-2">
                     <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span>Gestión de citas</span>
+                    <span data-i18n="dashboard.account.subscription.featureAppointments">Gestión de citas</span>
                   </li>
                 </ul>
               </div>
@@ -502,7 +502,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span>Gestionar Suscripción</span>
+                  <span data-i18n="dashboard.account.subscription.manageBtn">Gestionar Suscripción</span>
                 </button>
 
                 <a href="../pricing.html"
@@ -512,7 +512,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
-                  <span>Ver Planes</span>
+                  <span data-i18n="dashboard.account.subscription.seePlansBtn">Ver Planes</span>
                 </a>
               </div>
             </div>
@@ -530,7 +530,7 @@
                         d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                     </svg>
                   </div>
-                  <h3 class="text-xl font-bold text-gray-800">Agregar Asistente</h3>
+                  <h3 class="text-xl font-bold text-gray-800" data-i18n="dashboard.account.addAssistant.title">Agregar Asistente</h3>
                 </div>
                 <button id="closeDialogBtn" class="text-gray-400 hover:text-gray-600 transition">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -541,13 +541,13 @@
               </div>
 
               <!-- Message -->
-              <p class="text-gray-600 mb-6 leading-relaxed">
+              <p class="text-gray-600 mb-6 leading-relaxed" data-i18n="dashboard.account.addAssistant.description">
                 Copia este código y compártelo con tus asistentes para que puedan crear su cuenta.
               </p>
 
               <!-- Code Input -->
               <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Código de Clínica</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2" data-i18n="dashboard.account.addAssistant.codeLabel">Código de Clínica</label>
                 <div class="relative">
                   <input type="text" id="assistantCode" value="" readonly
                     class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl font-mono text-gray-800 text-center text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
@@ -569,7 +569,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
-                Copiar Código
+                <span data-i18n="dashboard.account.addAssistant.copyBtn">Copiar Código</span>
               </button>
             </div>
           </dialog>

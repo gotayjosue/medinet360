@@ -452,7 +452,85 @@
             "profile": "Profile",
             "subscription": "Subscription",
             "settings": "Settings",
-            "logout": "Logout"
+            "logout": "Logout",
+            "userProfile": "User Profile",
+            "tabs": {
+                "info": "Information",
+                "requests": "Requests",
+                "assistants": "Assistants",
+                "clinic": "Clinic",
+                "subscription": "Subscription"
+            },
+            "info": {
+                "nameLabel": "Name",
+                "lastNameLabel": "Last Name",
+                "emailLabel": "Email Address (This is the email used to sign in)",
+                "saveBtn": "Save Changes"
+            },
+            "requests": {
+                "loading": "Loading requests...",
+                "title": "Assistant Requests",
+                "empty": "Pending approval requests will appear here. You currently have no new requests."
+            },
+            "assistants": {
+                "title": "My Assistants",
+                "description": "Manage your assistant team from here. Add, edit, or delete access.",
+                "addBtn": "Add Assistant",
+                "permissionsTitle": "Assistant Permissions",
+                "createPatient": "Create Patients",
+                "editPatient": "Edit Patients",
+                "deletePatient": "Delete Patients",
+                "createAppointment": "Create Appointments",
+                "editAppointment": "Edit Appointments",
+                "deleteAppointment": "Delete Appointments",
+                "manageFiles": "Manage Files",
+                "manageInventory": "Manage Inventory",
+                "updatePermissionsBtn": "Update Permissions",
+                "approveBtn": "Approve",
+                "rejectBtn": "Reject",
+                "approving": "Approving...",
+                "rejecting": "Rejecting...",
+                "countSingle": "Assistant",
+                "countPlural": "Assistants"
+            },
+            "clinic": {
+                "title": "Clinic Information",
+                "saveBtn": "Save Changes",
+                "nameLabel": "Name",
+                "namePlaceholder": "Clinic Name",
+                "addressLabel": "Address",
+                "addressPlaceholder": "Address",
+                "phoneLabel": "Phone",
+                "phonePlaceholder": "Phone",
+                "logoLabel": "Clinic Logo (Will appear on reports)",
+                "uploadBtn": "Upload Logo",
+                "logoHint": "Allowed formats: PNG, JPG, SVG, GIF, WEBP. Max: 5MB.",
+                "uploading": "Uploading logo..."
+            },
+            "template": {
+                "title": "Patient Template",
+                "description": "Define custom fields that will appear when creating a new patient.",
+                "saveBtn": "Save Template",
+                "addFieldBtn": "Add New Field"
+            },
+            "subscription": {
+                "title": "My Subscription",
+                "canceledTitle": "Subscription Canceled",
+                "canceledMessage": "Your subscription has been canceled, but you maintain full access to your plan's features until <strong id='gracePeriodEndDate'></strong>. After this date, your plan will automatically downgrade to Free.",
+                "currentPlanLabel": "Current Plan",
+                "activeStatus": "Active",
+                "featuresTitle": "Your plan features",
+                "featurePatients": "Up to 5 patients",
+                "featureAppointments": "Appointment management",
+                "manageBtn": "Manage Subscription",
+                "seePlansBtn": "See Plans"
+            },
+            "addAssistant": {
+                "title": "Add Assistant",
+                "description": "Copy this code and share it with your assistants so they can create their account.",
+                "codeLabel": "Clinic Code",
+                "copyBtn": "Copy Code"
+            }
         },
         "inventory": {
             "title": "Inventory",

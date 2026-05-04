@@ -1,4 +1,5 @@
 import { checkAuth, requireAuth, handleLogoutAccount, showToast, getClinicName } from './utils.js';
+import i18n from './i18n.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   checkAuth();
@@ -148,7 +149,7 @@ async function loadUserData() {
     const clinic = await clinicRes.json();
 
     // Populate Header Clinic Name
-    document.getElementById("clinicName").textContent = `Clínica: ${clinic.name}` || "";
+    document.getElementById("clinicName").textContent = `${i18n.t('dashboard.account.tabs.clinic')}: ${clinic.name}` || "";
 
     // Load Subscription Data
     loadSubscriptionData(clinic);
@@ -254,6 +255,7 @@ async function updateUserProfile(e) {
   // Validaciones básicas
   if (!name || !lastName || !email) {
     showToast("Por favor completa todos los campos requeridos.", "error");
+    showToast(i18n.t('dashboard.account.errors.missingFields'), "error");
     return;
   }
 
@@ -265,7 +267,7 @@ async function updateUserProfile(e) {
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
       <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
     </svg>
-    Guardando...
+    ${i18n.t('common.loading')}
   `;
 
   try {
@@ -331,7 +333,7 @@ copyCodeBtn.addEventListener("click", () => {
   const codeInput = document.getElementById("assistantCode");
   codeInput.select();
   document.execCommand("copy");
-  showToast("Código copiado al portapapeles", "success");
+  showToast(i18n.t('dashboard.account.addAssistant.copySuccess', "Código copiado al portapapeles"), "success");
 });
 
 async function loadClinicId() {
@@ -442,7 +444,7 @@ function renderPendingAssistants(assistants) {
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
-            Rechazar
+            ${i18n.t('dashboard.account.assistants.rejectBtn')}
           </button>
           
           <!-- Approve Button -->
@@ -452,7 +454,7 @@ function renderPendingAssistants(assistants) {
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
-            Aprobar
+            ${i18n.t('dashboard.account.assistants.approveBtn')}
           </button>
         </div>
       </div>
@@ -476,7 +478,7 @@ async function approveAssistant(assistantId, buttonElement) {
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
       <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
     </svg>
-    Aprobando...
+    ${i18n.t('dashboard.account.assistants.approving')}
   `;
 
   try {
@@ -525,7 +527,7 @@ async function approveAssistant(assistantId, buttonElement) {
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
       </svg>
-      Aprobar
+      ${i18n.t('dashboard.account.assistants.approveBtn')}
     `;
   }
 }
@@ -545,7 +547,7 @@ async function rejectAssistant(assistantId, buttonElement) {
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
       <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
     </svg>
-    Rechazando...
+    ${i18n.t('dashboard.account.assistants.rejecting')}
   `;
 
   try {
@@ -594,7 +596,7 @@ async function rejectAssistant(assistantId, buttonElement) {
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
-      Rechazar
+      ${i18n.t('dashboard.account.assistants.rejectBtn')}
     `;
   }
 }
@@ -642,9 +644,9 @@ function renderApprovedAssistants(assistants) {
   assistantsTab.innerHTML = `
     <div class="space-y-4">
       <div class="flex items-center justify-between mb-6">
-        <h3 class="text-2xl font-bold text-gray-800">Mis Asistentes</h3>
+        <h3 class="text-2xl font-bold text-gray-800">${i18n.t('dashboard.account.assistants.title')}</h3>
         <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">
-          ${assistants.length} ${assistants.length === 1 ? 'Asistente' : 'Asistentes'}
+          ${assistants.length} ${assistants.length === 1 ? i18n.t('dashboard.account.assistants.countSingle') : i18n.t('dashboard.account.assistants.countPlural')}
         </span>
       </div>
       <div id="approvedAssistantsList" class="space-y-4"></div>
@@ -678,7 +680,7 @@ function renderApprovedAssistants(assistants) {
           <div class="flex items-center gap-4">
              <span class="hidden md:flex px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase tracking-wide items-center gap-1">
               <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-              Activo
+              ${i18n.t('dashboard.account.subscription.activeStatus')}
             </span>
             <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
               <svg id="chevron-${assistant._id}" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 chevron-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -699,7 +701,7 @@ function renderApprovedAssistants(assistants) {
 
         <!-- Permissions Content -->
         <div id="content-${assistant._id}" class="hidden">
-          <h5 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">Permisos del Asistente</h5>
+          <h5 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">${i18n.t('dashboard.account.assistants.permissionsTitle')}</h5>
           
           <form id="form-${assistant._id}" onsubmit="updateAssistantPermissions(event, '${assistant._id}')">
             <div class="permissions-grid">
@@ -707,56 +709,56 @@ function renderApprovedAssistants(assistants) {
               <div class="permission-item">
                 <label>
                   <input type="checkbox" name="permissions" value="createPatient" class="permission-checkbox">
-                  <span>Crear Pacientes</span>
+                  <span>${i18n.t('dashboard.account.assistants.createPatient')}</span>
                 </label>
               </div>
 
               <div class="permission-item">
                 <label>
                   <input type="checkbox" name="permissions" value="editPatient" class="permission-checkbox">
-                  <span>Editar Pacientes</span>
+                  <span>${i18n.t('dashboard.account.assistants.editPatient')}</span>
                 </label>
               </div>
 
               <div class="permission-item">
                 <label>
                   <input type="checkbox" name="permissions" value="deletePatient" class="permission-checkbox">
-                  <span>Eliminar Pacientes</span>
+                  <span>${i18n.t('dashboard.account.assistants.deletePatient')}</span>
                 </label>
               </div>
 
               <div class="permission-item">
                 <label>
                   <input type="checkbox" name="permissions" value="createAppointment" class="permission-checkbox">
-                  <span>Crear Citas</span>
+                  <span>${i18n.t('dashboard.account.assistants.createAppointment')}</span>
                 </label>
               </div>
 
               <div class="permission-item">
                 <label>
                   <input type="checkbox" name="permissions" value="editAppointment" class="permission-checkbox">
-                  <span>Editar Citas</span>
+                  <span>${i18n.t('dashboard.account.assistants.editAppointment')}</span>
                 </label>
               </div>
 
               <div class="permission-item">
                 <label>
                   <input type="checkbox" name="permissions" value="deleteAppointment" class="permission-checkbox">
-                  <span>Eliminar Citas</span>
+                  <span>${i18n.t('dashboard.account.assistants.deleteAppointment')}</span>
                 </label>
               </div>
 
               <div class="permission-item">
                 <label>
                   <input type="checkbox" name="permissions" value="manageFiles" class="permission-checkbox">
-                  <span>Administrar Archivos</span>
+                  <span>${i18n.t('dashboard.account.assistants.manageFiles')}</span>
                 </label>
               </div>
 
               <div class="permission-item">
                 <label>
                   <input type="checkbox" name="permissions" value="manageInventory" class="permission-checkbox">
-                  <span>Administrar Inventario</span>
+                  <span>${i18n.t('dashboard.account.assistants.manageInventory')}</span>
                 </label>
               </div>
 
@@ -767,7 +769,7 @@ function renderApprovedAssistants(assistants) {
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
-                Actualizar Permisos
+                ${i18n.t('dashboard.account.assistants.updatePermissionsBtn')}
               </button>
             </div>
           </form>
@@ -789,7 +791,7 @@ function renderApprovedAssistants(assistants) {
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
       </div>
-      Agregar Nuevo Asistente
+      ${i18n.t('dashboard.account.assistants.addBtn')}
     </button>
   `;
   assistantsTab.querySelector(".space-y-4").appendChild(buttonContainer);
