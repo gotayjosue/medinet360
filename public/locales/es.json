@@ -1,4 +1,17 @@
 {
+    "common": {
+        "loading": "Cargando...",
+        "saving": "Guardando...",
+        "delete": "Eliminar",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar",
+        "save": "Guardar",
+        "save_product": "Guardar Producto",
+        "edit": "Editar",
+        "close": "Cerrar",
+        "yes": "Sí",
+        "no": "No"
+    },
     "nav": {
         "home": "Inicio",
         "dashboard": "Panel",
@@ -464,7 +477,8 @@
                 "nameLabel": "Nombre",
                 "lastNameLabel": "Apellido",
                 "emailLabel": "Email Address (Este es el correo que se usará para iniciar sesión)",
-                "saveBtn": "Guardar Cambios"
+                "saveBtn": "Guardar Cambios",
+                "roleLabel": "Rol"
             },
             "requests": {
                 "loading": "Cargando solicitudes...",
@@ -504,13 +518,25 @@
                 "logoLabel": "Logo de la Clínica (Aparecerá en reportes)",
                 "uploadBtn": "Subir Logo",
                 "logoHint": "Formatos permitidos: PNG, JPG, SVG, GIF, WEBP. Máximo: 5MB.",
-                "uploading": "Subiendo logo..."
+                "uploading": "Subiendo logo...",
+                "removeLogoConfirm": "¿Estás seguro que deseas remover el logo de la clínica?"
             },
             "template": {
                 "title": "Plantilla de Pacientes",
                 "description": "Define los campos personalizados que aparecerán al crear un nuevo paciente.",
                 "saveBtn": "Guardar Plantilla",
-                "addFieldBtn": "Agregar Nuevo Campo"
+                "addFieldBtn": "Agregar Nuevo Campo",
+                "fieldNameLabel": "Nombre del Campo",
+                "fieldTypeLabel": "Tipo",
+                "fieldOptionsLabel": "Opciones (separadas por coma)",
+                "fieldPlaceholder": "Ej. Alergias",
+                "optionsPlaceholder": "Ej. Opción 1, Opción 2",
+                "typeText": "Texto",
+                "typeNumber": "Número",
+                "typeDate": "Fecha",
+                "typeCheckbox": "Checkbox (Sí/No)",
+                "typeSelect": "Selección (Menú)",
+                "validationError": "Por favor, asigna un nombre a todos los campos."
             },
             "subscription": {
                 "title": "Mi Suscripción",
@@ -522,13 +548,61 @@
                 "featurePatients": "Hasta 5 pacientes",
                 "featureAppointments": "Gestión de citas",
                 "manageBtn": "Gestionar Suscripción",
-                "seePlansBtn": "Ver Planes"
+                "seePlansBtn": "Ver Planes",
+                "status": {
+                    "active": "Activo",
+                    "trialing": "Prueba",
+                    "past_due": "Pago Vencido",
+                    "canceled": "Cancelado",
+                    "canceledActive": "Cancelado - Activo",
+                    "paused": "Pausado"
+                },
+                "expiresIn": "Expira en",
+                "expiresAt": "Vence:",
+                "day": "día",
+                "days": "días",
+                "paddleConfirm": "No tienes una suscripción activa de Paddle.\n\n¿Quieres ir a la página de precios para suscribirte?"
             },
             "addAssistant": {
                 "title": "Agregar Asistente",
                 "description": "Copia este código y compártelo con tus asistentes para que puedan crear su cuenta.",
                 "codeLabel": "Código de Clínica",
-                "copyBtn": "Copiar Código"
+                "copyBtn": "Copiar Código",
+                "copySuccess": "Código copiado al portapapeles"
+            },
+            "roles": {
+                "admin": "Admin",
+                "doctor": "Doctor",
+                "assistant": "Asistente"
+            },
+            "errors": {
+                "notAuthenticated": "No estás autenticado",
+                "missingFields": "Por favor completa todos los campos requeridos.",
+                "identifyUser": "Error: No se pudo identificar al usuario.",
+                "identifyClinic": "Error: No se identificó la clínica.",
+                "clinicNameRequired": "El nombre de la clínica es obligatorio.",
+                "logoSize": "El archivo no debe exceder los 5MB",
+                "logoUpload": "Error subiendo logo",
+                "logoRemove": "Error removiendo logo",
+                "permissionsLoad": "Error al cargar permisos",
+                "permissionsUpdate": "Error al actualizar permisos",
+                "templateSave": "Error al guardar la plantilla",
+                "subscriptionPortal": "Error al abrir el portal de suscripción",
+                "fetchProfile": "Error al obtener perfil de usuario",
+                "fetchClinic": "Error al obtener datos de la clínica",
+                "updateProfile": "Error al actualizar perfil",
+                "assistantApprove": "Error al aprobar asistente",
+                "assistantReject": "Error al rechazar asistente"
+            },
+            "toasts": {
+                "profileUpdated": "Perfil actualizado exitosamente",
+                "assistantApproved": "Asistente aprobado exitosamente",
+                "assistantRejected": "Solicitud rechazada",
+                "permissionsUpdated": "Permisos actualizados correctamente",
+                "clinicUpdated": "Información actualizada exitosamente",
+                "templateSaved": "Plantilla guardada exitosamente",
+                "logoUpdated": "Logo actualizado exitosamente",
+                "logoRemoved": "Logo removido exitosamente"
             }
         },
         "inventory": {
@@ -701,17 +775,5 @@
             "ja": "日本語",
             "zh": "中文"
         }
-    },
-    "common": {
-        "loading": "Cargando...",
-        "save": "Guardar",
-        "save_product": "Guardar Producto",
-        "cancel": "Cancelar",
-        "delete": "Eliminar",
-        "edit": "Editar",
-        "close": "Cerrar",
-        "confirm": "Confirmar",
-        "yes": "Sí",
-        "no": "No"
     }
 }

@@ -1,4 +1,17 @@
 {
+    "common": {
+        "loading": "Loading...",
+        "saving": "Saving...",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "save": "Save",
+        "save_product": "Save Product",
+        "edit": "Edit",
+        "close": "Close",
+        "yes": "Yes",
+        "no": "No"
+    },
     "nav": {
         "home": "Home",
         "dashboard": "Dashboard",
@@ -465,7 +478,8 @@
                 "nameLabel": "Name",
                 "lastNameLabel": "Last Name",
                 "emailLabel": "Email Address (This is the email used to sign in)",
-                "saveBtn": "Save Changes"
+                "saveBtn": "Save Changes",
+                "roleLabel": "Role"
             },
             "requests": {
                 "loading": "Loading requests...",
@@ -491,7 +505,8 @@
                 "approving": "Approving...",
                 "rejecting": "Rejecting...",
                 "countSingle": "Assistant",
-                "countPlural": "Assistants"
+                "countPlural": "Assistants",
+                "permissionsRetry": "Error loading permissions. Try again."
             },
             "clinic": {
                 "title": "Clinic Information",
@@ -505,13 +520,25 @@
                 "logoLabel": "Clinic Logo (Will appear on reports)",
                 "uploadBtn": "Upload Logo",
                 "logoHint": "Allowed formats: PNG, JPG, SVG, GIF, WEBP. Max: 5MB.",
-                "uploading": "Uploading logo..."
+                "uploading": "Uploading logo...",
+                "removeLogoConfirm": "Are you sure you want to remove the clinic logo?"
             },
             "template": {
                 "title": "Patient Template",
                 "description": "Define custom fields that will appear when creating a new patient.",
                 "saveBtn": "Save Template",
-                "addFieldBtn": "Add New Field"
+                "addFieldBtn": "Add New Field",
+                "fieldNameLabel": "Field Name",
+                "fieldTypeLabel": "Type",
+                "fieldOptionsLabel": "Options (comma separated)",
+                "fieldPlaceholder": "e.g. Allergies",
+                "optionsPlaceholder": "e.g. Option 1, Option 2",
+                "typeText": "Text",
+                "typeNumber": "Number",
+                "typeDate": "Date",
+                "typeCheckbox": "Checkbox (Yes/No)",
+                "typeSelect": "Selection (Menu)",
+                "validationError": "Please assign a name to all fields."
             },
             "subscription": {
                 "title": "My Subscription",
@@ -523,13 +550,61 @@
                 "featurePatients": "Up to 5 patients",
                 "featureAppointments": "Appointment management",
                 "manageBtn": "Manage Subscription",
-                "seePlansBtn": "See Plans"
+                "seePlansBtn": "See Plans",
+                "status": {
+                    "active": "Active",
+                    "trialing": "Trial",
+                    "past_due": "Past Due",
+                    "canceled": "Canceled",
+                    "canceledActive": "Canceled - Active",
+                    "paused": "Paused"
+                },
+                "expiresIn": "Expires in",
+                "expiresAt": "Expires:",
+                "day": "day",
+                "days": "days",
+                "paddleConfirm": "You don't have an active Paddle subscription.\n\nDo you want to go to the pricing page to subscribe?"
             },
             "addAssistant": {
                 "title": "Add Assistant",
                 "description": "Copy this code and share it with your assistants so they can create their account.",
                 "codeLabel": "Clinic Code",
-                "copyBtn": "Copy Code"
+                "copyBtn": "Copy Code",
+                "copySuccess": "Code copied to clipboard"
+            },
+            "roles": {
+                "admin": "Admin",
+                "doctor": "Doctor",
+                "assistant": "Assistant"
+            },
+            "errors": {
+                "notAuthenticated": "You are not authenticated",
+                "missingFields": "Please complete all required fields.",
+                "identifyUser": "Error: Could not identify the user.",
+                "identifyClinic": "Error: Clinic not identified.",
+                "clinicNameRequired": "Clinic name is required.",
+                "logoSize": "File size must not exceed 5MB",
+                "logoUpload": "Error uploading logo",
+                "logoRemove": "Error removing logo",
+                "permissionsLoad": "Error loading permissions",
+                "permissionsUpdate": "Error updating permissions",
+                "templateSave": "Error saving template",
+                "subscriptionPortal": "Error opening subscription portal",
+                "fetchProfile": "Error fetching user profile",
+                "fetchClinic": "Error fetching clinic data",
+                "updateProfile": "Error updating profile",
+                "assistantApprove": "Error approving assistant",
+                "assistantReject": "Error rejecting assistant"
+            },
+            "toasts": {
+                "profileUpdated": "Profile updated successfully",
+                "assistantApproved": "Assistant approved successfully",
+                "assistantRejected": "Request rejected",
+                "permissionsUpdated": "Permissions updated successfully",
+                "clinicUpdated": "Information updated successfully",
+                "templateSaved": "Template saved successfully",
+                "logoUpdated": "Logo updated successfully",
+                "logoRemoved": "Logo removed successfully"
             }
         },
         "inventory": {
@@ -702,17 +777,5 @@
             "ja": "日本語",
             "zh": "中文"
         }
-    },
-    "common": {
-        "loading": "Loading...",
-        "save": "Save",
-        "save_product": "Save Product",
-        "cancel": "Cancel",
-        "delete": "Delete",
-        "edit": "Edit",
-        "close": "Close",
-        "confirm": "Confirm",
-        "yes": "Yes",
-        "no": "No"
     }
 }

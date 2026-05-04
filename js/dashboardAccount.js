@@ -204,7 +204,8 @@ async function loadUserData() {
     document.getElementById("lastName").value = user.lastName || "";
     document.getElementById("fullName").textContent = user.name + " " + user.lastName || "";
     document.getElementById("email").value = user.email || "";
-    document.getElementById("role").textContent = `Role: ${user.role.charAt(0).toUpperCase() + user.role.slice(1)}` || "";
+    const roleKey = `dashboard.account.roles.${user.role}`;
+    document.getElementById("role").textContent = `${i18n.t('dashboard.account.info.roleLabel')}: ${i18n.t(roleKey, user.role.charAt(0).toUpperCase() + user.role.slice(1))}`;
     // GENERAR INICIALES
     const firstInitial = user.name ? user.name.charAt(0).toUpperCase() : "";
     const lastInitial = user.lastName ? user.lastName.charAt(0).toUpperCase() : "";
@@ -243,7 +244,7 @@ async function updateUserProfile(e) {
   const submitBtn = form.querySelector('button[type="submit"]');
 
   if (!userId) {
-    showToast("Error: No se pudo identificar al usuario.", "error");
+    showToast(i18n.t('dashboard.account.errors.identifyUser'), "error");
     return;
   }
 
@@ -254,7 +255,6 @@ async function updateUserProfile(e) {
 
   // Validaciones básicas
   if (!name || !lastName || !email) {
-    showToast("Por favor completa todos los campos requeridos.", "error");
     showToast(i18n.t('dashboard.account.errors.missingFields'), "error");
     return;
   }
@@ -288,7 +288,7 @@ async function updateUserProfile(e) {
     const data = await res.json();
 
     if (!res.ok) {
-      throw new Error(data.error || "Error al actualizar perfil");
+      throw new Error(data.error || i18n.t('dashboard.account.errors.updateProfile'));
     }
 
     // Actualizar UI con nuevos datos si es necesario (ej. nombre en header si existe)
@@ -304,7 +304,7 @@ async function updateUserProfile(e) {
       avatar.textContent = initials;
     }
 
-    showToast("Perfil actualizado exitosamente", "success");
+    showToast(i18n.t('dashboard.account.toasts.profileUpdated'), "success");
 
   } catch (error) {
     console.error("Error updating profile:", error);
@@ -467,7 +467,7 @@ function renderPendingAssistants(assistants) {
 async function approveAssistant(assistantId, buttonElement) {
   const token = localStorage.getItem("authToken");
   if (!token) {
-    showToast("No estás autenticado", "error");
+    showToast(i18n.t('dashboard.account.errors.notAuthenticated'), "error");
     return;
   }
 
@@ -493,7 +493,7 @@ async function approveAssistant(assistantId, buttonElement) {
 
     if (!res.ok) {
       const errorData = await res.json();
-      throw new Error(errorData.error || errorData.message || "Error al aprobar asistente");
+      throw new Error(errorData.error || errorData.message || i18n.t('dashboard.account.errors.assistantApprove'));
     }
 
     // Success - remove card from DOM with animation
@@ -515,11 +515,11 @@ async function approveAssistant(assistantId, buttonElement) {
       }, 300);
     }
 
-    showToast("Asistente aprobado exitosamente", "success");
+    showToast(i18n.t('dashboard.account.toasts.assistantApproved'), "success");
 
   } catch (err) {
     console.error("Error approving assistant:", err);
-    showToast(err.message || "Error al aprobar asistente", "error");
+    showToast(err.message || i18n.t('dashboard.account.errors.assistantApprove'), "error");
 
     // Re-enable button on error
     buttonElement.disabled = false;
@@ -536,7 +536,7 @@ async function approveAssistant(assistantId, buttonElement) {
 async function rejectAssistant(assistantId, buttonElement) {
   const token = localStorage.getItem("authToken");
   if (!token) {
-    showToast("No estás autenticado", "error");
+    showToast(i18n.t('dashboard.account.errors.notAuthenticated'), "error");
     return;
   }
 
@@ -562,7 +562,7 @@ async function rejectAssistant(assistantId, buttonElement) {
 
     if (!res.ok) {
       const errorData = await res.json();
-      throw new Error(errorData.message || "Error al rechazar asistente");
+      throw new Error(errorData.message || i18n.t('dashboard.account.errors.assistantReject'));
     }
 
     // Success - remove card from DOM with animation
@@ -584,11 +584,11 @@ async function rejectAssistant(assistantId, buttonElement) {
       }, 300);
     }
 
-    showToast("Solicitud rechazada", "success");
+    showToast(i18n.t('dashboard.account.toasts.assistantRejected'), "success");
 
   } catch (err) {
     console.error("Error rejecting assistant:", err);
-    showToast(err.message || "Error al rechazar asistente", "error");
+    showToast(err.message || i18n.t('dashboard.account.errors.assistantReject'), "error");
 
     // Re-enable button on error
     buttonElement.disabled = false;
@@ -847,7 +847,7 @@ async function fetchAssistantPermissions(assistantId) {
       headers: { "Authorization": `Bearer ${token}` }
     });
 
-    if (!res.ok) throw new Error("Error cargando permisos");
+    if (!res.ok) throw new Error(i18n.t('dashboard.account.errors.permissionsLoad'));
 
     const data = await res.json();
     const permissions = data.permissions || {};
@@ -867,8 +867,8 @@ async function fetchAssistantPermissions(assistantId) {
 
   } catch (err) {
     console.error(err);
-    loading.innerHTML = `<p class="text-red-500 text-sm">Error al cargar permisos. Intenta de nuevo.</p>`;
-    showToast("Error al cargar permisos", "error");
+    loading.innerHTML = `<p class="text-red-500 text-sm">${i18n.t('dashboard.account.assistants.permissionsRetry')}</p>`;
+    showToast(i18n.t('dashboard.account.errors.permissionsLoad'), "error");
   }
 }
 
@@ -888,7 +888,7 @@ async function updateAssistantPermissions(e, assistantId) {
   // Loading state
   const originalBtnContent = btn.innerHTML;
   btn.disabled = true;
-  btn.innerHTML = `<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Guardando...`;
+  btn.innerHTML = `<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> ${i18n.t('common.saving')}`;
 
   const token = localStorage.getItem("authToken");
 
@@ -904,14 +904,14 @@ async function updateAssistantPermissions(e, assistantId) {
       })
     });
 
-    if (!res.ok) throw new Error("Error actualizando permisos");
+    if (!res.ok) throw new Error(i18n.t('dashboard.account.errors.permissionsUpdate'));
 
     const data = await res.json();
-    showToast("Permisos actualizados correctamente", "success");
+    showToast(i18n.t('dashboard.account.toasts.permissionsUpdated'), "success");
 
   } catch (err) {
     console.error(err);
-    showToast("Error al actualizar permisos", "error");
+    showToast(i18n.t('dashboard.account.errors.permissionsUpdate'), "error");
   } finally {
     btn.disabled = false;
     btn.innerHTML = originalBtnContent;
@@ -934,7 +934,7 @@ async function updateClinicInfo() {
   const clinicId = saveClinicInfoBtn.dataset.clinicId;
 
   if (!clinicId) {
-    showToast("Error: No se identificó la clínica.", "error");
+    showToast(i18n.t('dashboard.account.errors.identifyClinic'), "error");
     return;
   }
 
@@ -943,14 +943,14 @@ async function updateClinicInfo() {
   const phone = document.getElementById("clinicPhoneDisplay").value.trim();
 
   if (!name) {
-    showToast("El nombre de la clínica es obligatorio.", "error");
+    showToast(i18n.t('dashboard.account.errors.clinicNameRequired'), "error");
     return;
   }
 
   // Loading UI
   const originalText = saveClinicInfoBtn.innerHTML;
   saveClinicInfoBtn.disabled = true;
-  saveClinicInfoBtn.innerHTML = "Guardando...";
+  saveClinicInfoBtn.innerHTML = i18n.t('common.saving');
 
   try {
     const token = localStorage.getItem("authToken");
@@ -977,18 +977,18 @@ async function updateClinicInfo() {
       } else if (data.message || data.error) {
         throw new Error(data.message || data.error);
       } else {
-        throw new Error("Error al actualizar la información de la clínica");
+        throw new Error(i18n.t('dashboard.account.errors.clinicUpdate'));
       }
     }
 
-    showToast("Información actualizada exitosamente", "success");
+    showToast(i18n.t('dashboard.account.toasts.clinicUpdated'), "success");
 
     // Update Header Name as well
-    document.getElementById("clinicName").textContent = `Clínica: ${name}`;
+    document.getElementById("clinicName").textContent = `${i18n.t('dashboard.account.tabs.clinic')}: ${name}`;
 
   } catch (err) {
     console.error(err);
-    showToast(err.message || "Error al actualizar la información", "error");
+    showToast(err.message || i18n.t('dashboard.account.errors.clinicUpdate'), "error");
   } finally {
     saveClinicInfoBtn.disabled = false;
     saveClinicInfoBtn.innerHTML = originalText;
@@ -1036,27 +1036,27 @@ function addTemplateFieldRow(fieldData = {}) {
 
   row.innerHTML = `
     <div class="flex-1 w-full">
-      <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Nombre del Campo</label>
+      <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">${i18n.t('dashboard.account.template.fieldNameLabel')}</label>
       <input type="text" class="field-label w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200 outline-none transition" 
-        placeholder="Ej. Alergias" value="${labelValue}">
+        placeholder="${i18n.t('dashboard.account.template.fieldPlaceholder')}" value="${labelValue}">
     </div>
 
     <div class="w-full md:w-48">
-      <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Tipo</label>
+      <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">${i18n.t('dashboard.account.template.fieldTypeLabel')}</label>
       <select class="field-type w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200 outline-none transition"
         onchange="toggleOptionsInput(this)">
-        <option value="text" ${typeValue === 'text' ? 'selected' : ''}>Texto</option>
-        <option value="number" ${typeValue === 'number' ? 'selected' : ''}>Número</option>
-        <option value="date" ${typeValue === 'date' ? 'selected' : ''}>Fecha</option>
-        <option value="checkbox" ${typeValue === 'checkbox' ? 'selected' : ''}>Checkbox (Sí/No)</option>
-        <option value="select" ${typeValue === 'select' ? 'selected' : ''}>Selección (Menú)</option>
+        <option value="text" ${typeValue === 'text' ? 'selected' : ''}>${i18n.t('dashboard.account.template.typeText')}</option>
+        <option value="number" ${typeValue === 'number' ? 'selected' : ''}>${i18n.t('dashboard.account.template.typeNumber')}</option>
+        <option value="date" ${typeValue === 'date' ? 'selected' : ''}>${i18n.t('dashboard.account.template.typeDate')}</option>
+        <option value="checkbox" ${typeValue === 'checkbox' ? 'selected' : ''}>${i18n.t('dashboard.account.template.typeCheckbox')}</option>
+        <option value="select" ${typeValue === 'select' ? 'selected' : ''}>${i18n.t('dashboard.account.template.typeSelect')}</option>
       </select>
     </div>
 
     <div class="flex-1 w-full field-options-container ${typeValue !== 'select' ? 'hidden' : ''}">
-      <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Opciones (separadas por coma)</label>
+      <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">${i18n.t('dashboard.account.template.fieldOptionsLabel')}</label>
       <input type="text" class="field-options w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200 outline-none transition" 
-        placeholder="Ej. Opción 1, Opción 2" value="${optionsValue}">
+        placeholder="${i18n.t('dashboard.account.template.optionsPlaceholder')}" value="${optionsValue}">
     </div>
 
     <button onclick="removeTemplateRow(this)" class="mt-4 md:mt-0 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition">
@@ -1088,7 +1088,7 @@ window.toggleOptionsInput = function (select) {
 async function saveClinicTemplate() {
   const clinicId = saveTemplateBtn.dataset.clinicId;
   if (!clinicId) {
-    showToast("Error: No se identificó la clínica.", "error");
+    showToast(i18n.t('dashboard.account.errors.identifyClinic'), "error");
     return;
   }
 
@@ -1118,14 +1118,14 @@ async function saveClinicTemplate() {
   });
 
   if (!isValid) {
-    showToast("Por favor, asigna un nombre a todos los campos.", "error");
+    showToast(i18n.t('dashboard.account.template.validationError'), "error");
     return;
   }
 
   // UI Loading
   const originalText = saveTemplateBtn.innerHTML;
   saveTemplateBtn.disabled = true;
-  saveTemplateBtn.innerHTML = "Guardando...";
+  saveTemplateBtn.innerHTML = i18n.t('common.saving');
 
   try {
     const token = localStorage.getItem("authToken");
@@ -1138,13 +1138,13 @@ async function saveClinicTemplate() {
       body: JSON.stringify({ customFieldTemplate: template })
     });
 
-    if (!res.ok) throw new Error("Error al guardar la plantilla");
+    if (!res.ok) throw new Error(i18n.t('dashboard.account.errors.templateSave'));
 
-    showToast("Plantilla guardada exitosamente", "success");
+    showToast(i18n.t('dashboard.account.toasts.templateSaved'), "success");
 
   } catch (err) {
     console.error(err);
-    showToast("Error al guardar la plantilla", "error");
+    showToast(i18n.t('dashboard.account.errors.templateSave'), "error");
   } finally {
     saveTemplateBtn.disabled = false;
     saveTemplateBtn.innerHTML = originalText;
@@ -1186,7 +1186,7 @@ function loadSubscriptionData(clinic) {
   // Show/Hide Grace Period Alert
   if (isInGracePeriod && gracePeriodAlertEl && gracePeriodEndDateEl) {
     gracePeriodAlertEl.classList.remove('hidden');
-    gracePeriodEndDateEl.textContent = endDate.toLocaleDateString('es-ES', {
+    gracePeriodEndDateEl.textContent = endDate.toLocaleDateString(i18n.getCurrentLanguage() === 'es' ? 'es-ES' : 'en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -1197,14 +1197,14 @@ function loadSubscriptionData(clinic) {
 
   // Update status badge
   const statusConfig = {
-    'active': { text: 'Activo', class: 'bg-green-100 text-green-700' },
-    'trialing': { text: 'Prueba', class: 'bg-blue-100 text-blue-700' },
-    'past_due': { text: 'Pago Vencido', class: 'bg-red-100 text-red-700' },
+    'active': { text: i18n.t('dashboard.account.subscription.status.active'), class: 'bg-green-100 text-green-700' },
+    'trialing': { text: i18n.t('dashboard.account.subscription.status.trialing'), class: 'bg-blue-100 text-blue-700' },
+    'past_due': { text: i18n.t('dashboard.account.subscription.status.past_due'), class: 'bg-red-100 text-red-700' },
     'canceled': {
-      text: isInGracePeriod ? 'Cancelado - Activo' : 'Cancelado',
+      text: isInGracePeriod ? i18n.t('dashboard.account.subscription.status.canceledActive') : i18n.t('dashboard.account.subscription.status.canceled'),
       class: isInGracePeriod ? 'bg-orange-100 text-orange-700' : 'bg-gray-100 text-gray-700'
     },
-    'paused': { text: 'Pausado', class: 'bg-yellow-100 text-yellow-700' }
+    'paused': { text: i18n.t('dashboard.account.subscription.status.paused'), class: 'bg-yellow-100 text-yellow-700' }
   };
 
   const statusInfo = statusConfig[status] || statusConfig['active'];
@@ -1213,13 +1213,15 @@ function loadSubscriptionData(clinic) {
 
   // Update end date if exists
   if (endDate) {
+    const locale = i18n.getCurrentLanguage() === 'es' ? 'es-ES' : 'en-US';
     if (isInGracePeriod) {
       // Calculate days remaining
       const daysRemaining = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));
-      subscriptionEndDateEl.textContent = `Expira en ${daysRemaining} ${daysRemaining === 1 ? 'día' : 'días'} (${endDate.toLocaleDateString('es-ES')})`;
+      const unit = daysRemaining === 1 ? i18n.t('dashboard.account.subscription.day') : i18n.t('dashboard.account.subscription.days');
+      subscriptionEndDateEl.textContent = `${i18n.t('dashboard.account.subscription.expiresIn')} ${daysRemaining} ${unit} (${endDate.toLocaleDateString(locale)})`;
       subscriptionEndDateEl.className = 'text-sm font-semibold text-orange-600';
     } else {
-      subscriptionEndDateEl.textContent = `Vence: ${endDate.toLocaleDateString('es-ES')}`;
+      subscriptionEndDateEl.textContent = `${i18n.t('dashboard.account.subscription.expiresAt')} ${endDate.toLocaleDateString(locale)}`;
       subscriptionEndDateEl.className = 'text-sm text-gray-600';
     }
   } else {
@@ -1229,26 +1231,26 @@ function loadSubscriptionData(clinic) {
   // Update features based on plan
   const features = {
     'free': [
-      'Hasta 5 pacientes',
-      'Gestión de citas'
+      i18n.t('dashboard.account.subscription.featurePatients'),
+      i18n.t('dashboard.account.subscription.featureAppointments')
     ],
     'clinic_pro': [
-      'Pacientes ilimitados',
-      'Gestión de citas',
-      'Hasta 2 asistentes'
+      i18n.t('pricing.pro.features.patients'),
+      i18n.t('pricing.pro.features.appointments'),
+      i18n.t('pricing.pro.features.assistants')
     ],
     'clinic_plus': [
-      'Pacientes ilimitados',
-      'Gestión de citas',
-      'Asistentes ilimitados',
-      'Analíticas avanzadas'
+      i18n.t('pricing.plus.features.patients'),
+      i18n.t('pricing.plus.features.appointments'),
+      i18n.t('pricing.plus.features.assistants'),
+      i18n.t('pricing.plus.features.reports')
     ]
   };
 
   const planFeatures = features[plan] || features['free'];
 
   planFeaturesEl.innerHTML = `
-    <h5 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3">Características de tu plan</h5>
+    <h5 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3">${i18n.t('dashboard.account.subscription.featuresTitle')}</h5>
     <ul class="space-y-2 text-gray-700">
       ${planFeatures.map(feature => `
         <li class="flex items-center gap-2">
@@ -1274,12 +1276,12 @@ async function handleManageSubscription() {
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
       </svg>
-      <span>Cargando...</span>
+      <span>${i18n.t('common.loading')}</span>
     `;
 
     const token = localStorage.getItem('authToken');
     if (!token) {
-      throw new Error('No estás autenticado');
+      throw new Error(i18n.t('dashboard.account.errors.notAuthenticated'));
     }
 
     // Get user profile
@@ -1288,7 +1290,7 @@ async function handleManageSubscription() {
     });
 
     if (!profileRes.ok) {
-      throw new Error('Error al obtener perfil de usuario');
+      throw new Error(i18n.t('dashboard.account.errors.fetchProfile'));
     }
 
     const user = await profileRes.json();
@@ -1299,7 +1301,7 @@ async function handleManageSubscription() {
     });
 
     if (!clinicRes.ok) {
-      throw new Error('Error al obtener datos de la clínica');
+      throw new Error(i18n.t('dashboard.account.errors.fetchClinic'));
     }
 
     const clinic = await clinicRes.json();
@@ -1310,10 +1312,7 @@ async function handleManageSubscription() {
       btn.disabled = false;
       btn.innerHTML = originalHTML;
 
-      const shouldGoToPricing = confirm(
-        'No tienes una suscripción activa de Paddle.\n\n' +
-        '¿Quieres ir a la página de precios para suscribirte?'
-      );
+      const shouldGoToPricing = confirm(i18n.t('dashboard.account.subscription.paddleConfirm'));
 
       if (shouldGoToPricing) {
         window.location.href = '../pricing.html';
@@ -1329,7 +1328,7 @@ async function handleManageSubscription() {
     });
 
     if (!response.ok) {
-      throw new Error('Error al crear sesión del portal');
+      throw new Error(i18n.t('dashboard.account.errors.subscriptionPortal'));
     }
 
     const data = await response.json();
@@ -1343,7 +1342,7 @@ async function handleManageSubscription() {
 
   } catch (error) {
     console.error('Error managing subscription:', error);
-    showToast('Error al abrir el portal de suscripción', 'error');
+    showToast(i18n.t('dashboard.account.errors.subscriptionPortal'), 'error');
     btn.disabled = false;
     btn.innerHTML = originalHTML;
   }
@@ -1362,7 +1361,7 @@ if (clinicLogoInput) {
 
         // Validaciones: Máx 5MB
         if (file.size > 5 * 1024 * 1024) {
-            showToast('El archivo no debe exceder los 5MB', 'error');
+            showToast(i18n.t('dashboard.account.errors.logoSize'), 'error');
             clinicLogoInput.value = '';
             return;
         }
@@ -1398,7 +1397,7 @@ if (clinicLogoInput) {
             }
 
             if (response.ok) {
-                showToast('Logo actualizado exitosamente', 'success');
+                showToast(i18n.t('dashboard.account.toasts.logoUpdated'), 'success');
                 if (data.logoLink) {
                     const preview = document.getElementById('clinicLogoPreview');
                     const placeholder = document.getElementById('noLogoPlaceholder');
@@ -1409,7 +1408,7 @@ if (clinicLogoInput) {
                     }
                 }
             } else {
-                throw new Error(data.error || 'Error subiendo logo');
+                throw new Error(data.error || i18n.t('dashboard.account.errors.logoUpload'));
             }
         } catch (err) {
             console.error('Error uploading logo:', err);
@@ -1426,7 +1425,7 @@ if (removeLogoBtn) {
         const clinicId = saveClinicInfoBtn ? saveClinicInfoBtn.dataset.clinicId : null;
         if (!clinicId) return;
 
-        if (!confirm('¿Estás seguro que deseas remover el logo de la clínica?')) return;
+        if (!confirm(i18n.t('dashboard.account.clinic.removeLogoConfirm'))) return;
 
         const removeBtnOriginalContent = removeLogoBtn.innerHTML;
         removeLogoBtn.innerHTML = '<svg class="animate-spin h-3 w-3 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
@@ -1452,7 +1451,7 @@ if (removeLogoBtn) {
             }
 
             if (response.ok) {
-                showToast('Logo removido exitosamente', 'success');
+                showToast(i18n.t('dashboard.account.toasts.logoRemoved'), 'success');
                 const preview = document.getElementById('clinicLogoPreview');
                 const placeholder = document.getElementById('noLogoPlaceholder');
                 if (preview && placeholder) {
@@ -1461,7 +1460,7 @@ if (removeLogoBtn) {
                     placeholder.classList.remove('hidden');
                 }
             } else {
-                throw new Error(data.error || 'Error removiendo logo');
+                throw new Error(data.error || i18n.t('dashboard.account.errors.logoRemove'));
             }
         } catch (err) {
             console.error('Error removing logo:', err);
